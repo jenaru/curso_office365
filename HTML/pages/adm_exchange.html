@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Administración Detallada de Exchange Online</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+        <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Estilos externos -->
+    <link rel="stylesheet" href="../css/pages-base.css">
+    <link rel="stylesheet" href="../css/themes/exchange.css">
+  </head>
+  <body>
+    <div class="document-container px-4 py-8 md:py-12">
+      <header class="text-center pb-8 border-b border-border-color mb-10">
+        <h1
+          class="text-4xl md:text-5xl font-extrabold leading-tight tracking-wider text-primary-color">
+          El Centro de Administración de Exchange (CAE)
+        </h1>
+        <p class="mt-2 text-lg text-gray-400">
+          La gestión profunda del correo electrónico en Microsoft 365
+        </p>
+      </header>
+
+      <!-- Diagrama de Visión General -->
+      <section
+        class="mb-10 content-card p-6 rounded-xl border-l-4"
+        style="border-color: var(--primary-color);">
+        <h2 class="text-3xl mb-4" style="color: var(--primary-color);">
+          Visión General de la Administración
+        </h2>
+        <div
+          class="flex flex-col md:flex-row justify-between items-stretch gap-4 text-center">
+          <div
+            class="flex-1 p-4 rounded-lg bg-gray-800 border-b-4"
+            style="border-color: var(--highlight-destinatarios);">
+            <p class="text-lg font-bold text-highlight-destinatarios">
+              1. Destinatarios
+            </p>
+            <p class="text-xs text-gray-400">
+              Identidades que envían/reciben correo (Buzones, Grupos).
+            </p>
+          </div>
+          <div
+            class="flex-1 p-4 rounded-lg bg-gray-800 border-b-4"
+            style="border-color: var(--highlight-flujo);">
+            <p class="text-lg font-bold text-highlight-flujo">
+              2. Flujo de Correo
+            </p>
+            <p class="text-xs text-gray-400">
+              Rutas, reglas de transporte y seguimiento de mensajes.
+            </p>
+          </div>
+          <div
+            class="flex-1 p-4 rounded-lg bg-gray-800 border-b-4"
+            style="border-color: var(--highlight-seguridad);">
+            <p class="text-lg font-bold text-highlight-seguridad">
+              3. Seguridad y Retención
+            </p>
+            <p class="text-xs text-gray-400">
+              Antispam, Cuarentena, Litigio y Archivo.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sección 1: Destinatarios (Recipients) -->
+      <section
+        class="mb-10 content-card p-6 rounded-xl border-l-4"
+        style="border-color: var(--highlight-destinatarios);">
+        <h2
+          class="text-3xl mb-4"
+          style="color: var(--highlight-destinatarios);">
+          1. Destinatarios (Recipients)
+        </h2>
+        <p class="text-gray-300 mb-4">
+          El CAE ofrece la gestión más detallada de todos los elementos capaces
+          de enviar o recibir correo.
+        </p>
+
+        <div class="overflow-x-auto">
+          <table class="resource-table">
+            <thead>
+              <tr>
+                <th>Tipo</th>
+                <th>Características Clave</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="font-bold">Buzones de Usuario</td>
+                <td>
+                  Requiere <strong>licencia</strong>. Tamaño predeterminado de
+                  50 GB.
+                </td>
+              </tr>
+              <tr>
+                <td class="font-bold">Buzones Compartidos</td>
+                <td>
+                  <strong>No consume licencia</strong>. Permite
+                  <strong>conversión</strong> de un buzón de usuario al dejar la
+                  empresa.
+                </td>
+              </tr>
+              <tr>
+                <td class="font-bold">Listas de Distribución</td>
+                <td>
+                  Grupo más sencillo, <strong>sin buzón</strong>. El correo se
+                  multiplica. Puede requerir <strong>moderación</strong>.
+                </td>
+              </tr>
+              <tr>
+                <td class="font-bold">Buzones de Recursos</td>
+                <td>
+                  <strong>No consume licencia</strong>. Para salas y
+                  equipamiento, con atributos como <strong>Capacidad</strong>.
+                </td>
+              </tr>
+              <tr>
+                <td class="font-bold">Contactos</td>
+                <td>
+                  Entradas externas en la <code class="code-block">GAL</code>.
+                  Se añaden manualmente o masivamente.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="text-xl font-semibold mt-6 text-primary-color">
+          Permisos y Propiedades de Buzón
+        </h3>
+        <ul class="list-disc list-inside ml-4 space-y-2 text-gray-300">
+          <li>
+            <strong>Alias de Correo:</strong> Se gestionan alias SMTP, X500,
+            etc. La dirección de respuesta (<code class="code-block"
+              >Primaria</code
+            >) está en negrita.
+          </li>
+          <li>
+            <strong>Tríada de Permisos (Aplicación Lenta):</strong>
+            <span class="code-block">Full Access</span> (Abrir y Administrar),
+            <span class="code-block">Send As</span> (Enviar como buzón),
+            <span class="code-block">Send on Behalf of</span> (Enviar en nombre
+            de delegado).
+          </li>
+          <li>
+            <strong>Cuotas:</strong> Permite configurar límites de tamaño para
+            el buzón y el tamaño máximo de mensajes.
+          </li>
+        </ul>
+      </section>
+
+      <!-- Sección 2: Flujo de Correo (Mail Flow) -->
+      <section
+        class="mb-10 content-card p-6 rounded-xl border-l-4"
+        style="border-color: var(--highlight-flujo);">
+        <h2 class="text-3xl mb-4" style="color: var(--highlight-flujo);">
+          2. Flujo de Correo (Mail Flow)
+        </h2>
+        <p class="text-gray-300 mb-4">
+          Define la ruta, las transformaciones y el diagnóstico del correo.
+        </p>
+
+        <h3 class="text-xl font-semibold mt-6 text-primary-color">
+          Reglas de Transporte (Rules)
+        </h3>
+        <p class="text-gray-400">
+          Transforman el correo en tránsito (entrante, saliente o interno).
+        </p>
+        <div
+          class="flex flex-col md:flex-row gap-4 p-4 rounded-lg bg-gray-900/50 mt-2 border border-border-color">
+          <div class="flex-1">
+            <p class="font-bold text-highlight-flujo">Lógica:</p>
+            <ul class="list-disc list-inside ml-4 text-sm text-gray-400">
+              <li>
+                <strong>Condiciones:</strong> Remitente interno/externo, Grupo,
+                Patrones de texto.
+              </li>
+              <li>
+                <strong>Acciones:</strong> Redirigir, Bloquear, Adjuntar
+                <code class="code-block">Disclaimer</code>.
+              </li>
+            </ul>
+          </div>
+          <div class="flex-1">
+            <p class="font-bold text-highlight-flujo">Control:</p>
+            <ul class="list-disc list-inside ml-4 text-sm text-gray-400">
+              <li>
+                <strong>Orden de Reglas:</strong> Crucial, se aplican de arriba
+                abajo.
+              </li>
+              <li>
+                <strong>Prueba:</strong> Usar modo
+                <code class="code-block">Policy Tip</code> para previsualizar el
+                efecto sin forzar la acción.
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <h3 class="text-xl font-semibold mt-6 text-primary-color">
+          Seguimiento y Dominios
+        </h3>
+        <ul class="list-disc list-inside ml-4 space-y-2 text-gray-300">
+          <li>
+            <strong
+              >Seguimiento de Mensajes (<code class="code-block"
+                >Message Trace</code
+              >):</strong
+            >
+            Herramienta de diagnóstico. Limitado a <strong>90 días</strong> en
+            la interfaz web (búsquedas más antiguas requieren archivo CSV).
+          </li>
+          <li>
+            <strong
+              >Conectores (<code class="code-block">Connectors</code>):</strong
+            >
+            Define cómo se recibe correo de sistemas internos (Inbound por IP) o
+            cómo se enruta el correo saliente (Outbound a un appliance de
+            seguridad perimetral).
+          </li>
+          <li>
+            <strong>Dominios Aceptados:</strong> Define la responsabilidad del
+            dominio:
+            <span class="font-bold text-highlight-flujo">Autoritativo</span> (si
+            no existe destinatario se rechaza) vs.
+            <span class="font-bold text-highlight-flujo"
+              >Retransmisión Interna</span
+            >
+            (busca en MX externo si no lo encuentra internamente).
+          </li>
+        </ul>
+      </section>
+
+      <!-- Sección 3: Seguridad y Retención -->
+      <section
+        class="mb-10 content-card p-6 rounded-xl border-l-4"
+        style="border-color: var(--highlight-seguridad);">
+        <h2 class="text-3xl mb-4" style="color: var(--highlight-seguridad);">
+          3. Seguridad y Retención (Compliance)
+        </h2>
+        <p class="text-gray-300 mb-4">
+          Las políticas modernas se gestionan en el Centro de Seguridad y
+          Cumplimiento.
+        </p>
+
+        <h3 class="text-xl font-semibold mt-6 text-primary-color">
+          Protección de Correo
+        </h3>
+        <ul class="list-disc list-inside ml-4 space-y-2 text-gray-300">
+          <li>
+            <strong>Políticas Antispam/Antimalware:</strong> Permiten bloquear
+            <span class="code-block">Adjuntos por Extensión</span> (.ISO, .LNK)
+            y configurar filtros de correo no deseado.
+          </li>
+          <li>
+            <strong>Cuarentena:</strong> Las
+            <span class="font-bold text-highlight-seguridad"
+              >Políticas de Cuarentena</span
+            >
+            controlan si los usuarios pueden <strong>liberar</strong> correos
+            por sí mismos o solo <strong>solicitar</strong> la liberación al
+            administrador.
+          </li>
+          <li>
+            <strong>Anti-Suplantación (DNS):</strong> Uso de
+            <span class="code-block">SPF, DKIM y DMARC</span>.
+            <span class="font-bold text-highlight-seguridad">DMARC</span> define
+            cómo el servidor receptor debe tratar el correo que falla las
+            comprobaciones.
+          </li>
+        </ul>
+
+        <h3 class="text-xl font-semibold mt-6 text-primary-color">
+          Retención y Archivo
+        </h3>
+        <div
+          class="flex flex-col md:flex-row gap-4 p-4 rounded-lg bg-gray-900/50 mt-2 border border-border-color">
+          <div class="flex-1 border-r border-border-color md:pr-4">
+            <p class="font-bold text-highlight-seguridad">
+              Suspensión por Litigio (<code class="code-block"
+                >Litigation Hold</code
+              >)
+            </p>
+            <p class="text-sm text-gray-400 mt-1">
+              Requiere licencia avanzada. Garantiza que
+              <span class="font-bold"
+                >todo el contenido del buzón, incluyendo los eliminados</span
+              >, se mantenga permanentemente con fines legales.
+            </p>
+          </div>
+          <div class="flex-1 md:pl-4">
+            <p class="font-bold text-highlight-seguridad">
+              Buzón de Archivado (<code class="code-block">Archive Mailbox</code
+              >)
+            </p>
+            <p class="text-sm text-gray-400 mt-1">
+              Proporciona un buzón adicional de <strong>100 GB</strong> para
+              almacenamiento histórico, y crucialmente,
+              <strong>no utiliza el archivo de caché local (OST)</strong>.
+            </p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Script para botón de regreso centralizado -->
+    <script src="../js/back-button.js"></script>
+  </body>
+</html>
+

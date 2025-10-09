@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Roles y Granularidad de Permisos en M365</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Script para botón de volver -->
+    <script src="../js/back-button.js"></script>
+        <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Estilos externos -->
+    <link rel="stylesheet" href="../css/pages-base.css">
+    <link rel="stylesheet" href="../css/themes/seguridad.css">
+  </head>
+  <body>
+    <div class="document-container px-4 py-8 md:py-12">
+      <header class="text-center pb-8 border-b border-border-color mb-10">
+        <h1
+          class="text-4xl md:text-5xl font-extrabold leading-tight tracking-wider text-primary-color">
+          Roles de Administración y Granularidad de Permisos
+        </h1>
+        <p class="mt-2 text-lg text-gray-400">
+          Separación de Deberes y Control de Acceso Basado en Roles (RBAC)
+        </p>
+      </header>
+
+      <!-- Sección 1: El Concepto de Granularidad -->
+      <section class="mb-10 content-card p-6 rounded-xl">
+        <h2 class="text-3xl mb-4">1. El Concepto de Granularidad</h2>
+        <div class="space-y-4 text-gray-300">
+          <p>
+            Los roles de administración sirven para
+            <strong>separar las tareas de administración</strong>. En lugar de
+            que todos los administradores tengan el mismo acceso a todas las
+            configuraciones (<span class="role-highlight bg-highlight-red"
+              >administradores globales</span
+            >), los roles permiten aplicar permisos de forma más granular para
+            tareas específicas.
+          </p>
+
+          <div class="diagram-box">
+            <h3 class="text-xl font-semibold mb-3 text-primary-color">
+              Tipos de Acceso
+            </h3>
+            <div class="flex flex-col md:flex-row justify-between gap-4">
+              <!-- Administrador Global -->
+              <div
+                class="flex-1 p-4 rounded-lg bg-[#333] border-l-4 border-highlight-red">
+                <p class="font-bold text-highlight-red">Administrador Global</p>
+                <p class="text-sm text-gray-400 mt-1">
+                  Tienen <strong>todos</strong> los permisos sobre la
+                  plataforma. Aunque puedan no tener ciertos permisos de forma
+                  predeterminada (como abrir casos legales), tienen la
+                  <strong>capacidad de autootorgárselos</strong>.
+                </p>
+              </div>
+              <!-- Roles Especializados -->
+              <div
+                class="flex-1 p-4 rounded-lg bg-[#333] border-l-4 border-highlight-green">
+                <p class="font-bold text-highlight-green">
+                  Roles Especializados
+                </p>
+                <p class="text-sm text-gray-400 mt-1">
+                  Permiten asignar
+                  <strong>funcionalidades específicas</strong> (ej.
+                  <span class="role-highlight text-xs py-0.5 px-1 bg-yellow-600"
+                    >Administrador de Facturación</span
+                  >). Fomentan la seguridad por
+                  <strong>separación de funciones</strong>.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sección 2: Roles en el Contexto del Correo Electrónico (Exchange Online) -->
+      <section class="mb-10 content-card p-6 rounded-xl">
+        <h2 class="text-3xl mb-4">
+          2. Roles en el Contexto del Correo Electrónico
+        </h2>
+        <div class="space-y-4 text-gray-300">
+          <p>
+            El sistema de correo Exchange (la base de Exchange Online) fue el
+            primer producto que utilizó un sistema de control de acceso muy
+            granular llamado <strong>RPAC</strong> (Role-Based Access Control).
+          </p>
+
+          <div class="diagram-box">
+            <h3 class="text-xl font-semibold mb-3 text-primary-color">
+              Granularidad Extrema (RPAC)
+            </h3>
+            <p class="text-gray-400 mb-3">
+              En Exchange, se puede definir un rol de administración diciéndole:
+            </p>
+            <ol class="list-decimal list-inside ml-4 space-y-2 text-gray-300">
+              <li>
+                <strong>Qué comandos de Power Shell</strong> van a poder
+                utilizar.
+              </li>
+              <li><strong>Con qué parámetros</strong> específicos.</li>
+              <li>
+                <strong>Para qué conjunto de usuarios</strong> (un subconjunto
+                del directorio).
+              </li>
+            </ol>
+            <p class="mt-4 text-sm font-bold italic text-gray-500">
+              Ejemplo: Un rol podría limitar al administrador a cambiar solo
+              direcciones de correo electrónico para los usuarios del
+              departamento de marketing.
+            </p>
+          </div>
+
+          <p>
+            <span class="font-bold text-lg text-primary-color"
+              >Roles Legales/Compliance:</span
+            >
+            Existe una división crítica entre el
+            <strong>rol de administración</strong> y el
+            <strong>rol legal</strong>. Los profesionales legales necesitan
+            acceso al centro de cumplimiento (Compliance) para tareas como
+            realizar un <strong>descubrimiento legal</strong> (<code
+              style="background-color: #2b2b2b; padding: 2px 4px; border-radius: 4px; color: #f6d03b;"
+              >eDiscovery</code
+            >), sin tener acceso al panel de seguridad general.
+          </p>
+        </div>
+      </section>
+
+      <!-- Sección 3: Directivas de Paquetes de Roles (Teams) -->
+      <section class="mb-10 content-card p-6 rounded-xl">
+        <h2 class="text-3xl mb-4">
+          3. Directivas de Paquetes de Roles (Teams)
+        </h2>
+        <div class="space-y-4 text-gray-300">
+          <p>
+            En entornos complejos como Teams, asignar configuraciones uno por
+            uno puede ser tedioso. Para solucionar esto, existen los:
+          </p>
+
+          <div class="diagram-box">
+            <h3 class="text-xl font-semibold mb-3 text-primary-color">
+              Paquetes de Directivas (Policy Packs)
+            </h3>
+            <p class="text-gray-400 mb-3">
+              Un <strong>paquete de directiva</strong> es una configuración
+              estandarizada que agrupa múltiples directivas para un perfil
+              específico. Permite asignar todas las configuraciones necesarias
+              de golpe.
+            </p>
+            <div class="flex flex-wrap gap-2 text-sm mt-4">
+              <span class="pill-tag bg-blue-700 px-3 py-1 rounded-full"
+                >Directiva de Chat</span
+              >
+              <span class="pill-tag bg-blue-700 px-3 py-1 rounded-full"
+                >Directiva de Llamadas</span
+              >
+              <span class="pill-tag bg-blue-700 px-3 py-1 rounded-full"
+                >Directiva de Reuniones</span
+              >
+              <span class="pill-tag bg-blue-700 px-3 py-1 rounded-full"
+                >Directiva de Aplicaciones</span
+              >
+              <span class="pill-tag bg-gray-500 px-3 py-1 rounded-full"
+                >...y más</span
+              >
+            </div>
+            <p class="mt-4 text-sm font-bold italic text-gray-500">
+              Ejemplo: Un paquete para el rol "Profesor" que activa todas las
+              directivas de comunicación y desactiva ciertas aplicaciones
+              externas.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Resumen -->
+      <section
+        class="mt-10 p-6 rounded-xl border-l-4 border-primary-color bg-secondary-bg">
+        <h3 class="text-2xl font-semibold mb-3">En Resumen</h3>
+        <p class="text-gray-300">
+          El sistema de roles en Microsoft 365 está diseñado para ofrecer una
+          <strong>separación de funciones</strong> (separar al administrador del
+          abogado, por ejemplo) y una <strong>granularidad máxima</strong>,
+          especialmente en Exchange y Teams, donde se pueden crear
+          configuraciones muy específicas para subconjuntos de usuarios.
+        </p>
+      </section>
+    </div>
+  </body>
+</html>
+
+
+
+

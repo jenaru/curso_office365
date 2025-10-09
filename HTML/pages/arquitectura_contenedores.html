@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Arquitectura de Contenedores en Microsoft 365</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+        <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Estilos externos -->
+    <link rel="stylesheet" href="../css/pages-base.css">
+    <link rel="stylesheet" href="../css/themes/sharepoint.css">
+  </head>
+  <body>
+    <div class="document-container px-4 py-8 md:py-12">
+      <header class="text-center pb-8 border-b border-border-color mb-10">
+        <h1
+          class="text-4xl md:text-5xl font-extrabold leading-tight tracking-wider text-primary-color">
+          Arquitectura de Contenedores en Microsoft 365
+        </h1>
+        <p class="mt-2 text-lg text-gray-400">
+          Una Guía para el Diseño Efectivo: De la Jerarquía a la Independencia
+        </p>
+      </header>
+
+      <!-- Sección 1: Filosofía del Contenedor Moderno -->
+      <section
+        class="mb-10 content-card p-6 rounded-xl border-l-4"
+        style="border-color: var(--primary-color);">
+        <h2 class="text-3xl mb-4 text-primary-color">
+          1. La Filosofía del Contenedor Moderno
+        </h2>
+        <p class="text-gray-300 mb-6">
+          Históricamente, el SharePoint Clásico se basaba en una arquitectura
+          jerárquica de sitios y subsitios, donde los permisos se heredaban de
+          arriba abajo, similar a los permisos NTFS de un servidor de archivos.
+        </p>
+
+        <div
+          class="callout p-4 rounded-lg bg-gray-800/50 border-l-4 border-primary-color text-gray-300">
+          <p class="font-bold text-lg mb-2">
+            Modelo Moderno: Islas Independientes
+          </p>
+          <p class="text-sm">
+            En el <strong>modelo moderno</strong> de SharePoint Online, cada
+            sitio se convierte en una <strong>"isla independiente"</strong> que
+            puede gestionar su propio idioma, cuota de espacio, y política de
+            compartición externa.
+          </p>
+        </div>
+
+        <h3 class="text-xl font-semibold mt-6 text-primary-color">
+          Sitios Centrales (Hub Sites)
+        </h3>
+        <p class="text-gray-300 text-sm">
+          Aunque internamente no hay jerarquía, se puede crear una estructura
+          visual (navegación y aspecto) utilizando menús y Sites Centrales. Esto
+          permite que sitios relacionados compartan un menú común y esquema de
+          colores, aunque sigan siendo entidades independientes.
+        </p>
+      </section>
+
+      <!-- Sección 2: Tipos de Contenedores -->
+      <section
+        class="mb-10 content-card p-6 rounded-xl border-l-4"
+        style="border-color: var(--highlight-team);">
+        <h2 class="text-3xl mb-4 text-primary-color">
+          2. Tipos de Contenedores y su Relación
+        </h2>
+        <p class="text-gray-300 mb-6">
+          Los contenedores en Microsoft 365 son interdependientes, y una capa se
+          construye sobre otra.
+        </p>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Contenedor Principal</th>
+                <th>Propósito Primario</th>
+                <th>Base Subyacente</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <strong style="color: var(--highlight-team);"
+                    >Microsoft Teams</strong
+                  >
+                </td>
+                <td>
+                  Colaboración y comunicación diaria (chats, llamadas, apps).
+                </td>
+                <td>
+                  Es una capa sobre un Grupo de M365, que a su vez es un Sitio
+                  de Grupo de SharePoint Online.
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <strong style="color: var(--highlight-group);"
+                    >Grupos de Microsoft 365</strong
+                  >
+                </td>
+                <td>
+                  Eje de colaboración, proporciona calendario, buzón compartido
+                  y repositorio de ficheros.
+                </td>
+                <td>Sitio de Grupo de SharePoint Online.</td>
+              </tr>
+              <tr>
+                <td>
+                  <strong style="color: var(--highlight-site);"
+                    >Sitios de Grupo (Team Sites)</strong
+                  >
+                </td>
+                <td>
+                  Colaboración interna, orientado a que todos los miembros
+                  modifiquen y editen.
+                </td>
+                <td>Colección de Sitios (el concepto de sitio moderno).</td>
+              </tr>
+              <tr>
+                <td>
+                  <strong style="color: var(--highlight-communication);"
+                    >Sitios de Comunicación</strong
+                  >
+                </td>
+                <td>
+                  Comunicación "uno para muchos" (intranets, noticias,
+                  manuales).
+                </td>
+                <td>No llevan un Grupo de M365 asociado.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div
+          class="callout p-4 rounded-lg bg-blue-900/50 border-l-4 border-highlight-group text-gray-300 mt-4">
+          <p class="font-bold text-highlight-group">Objeto Fundamental</p>
+          <p class="text-sm">
+            El <strong>Grupo de Office 365</strong> automáticamente crea un
+            buzón compartido, un calendario, un OneNote y un repositorio de
+            archivos que es, en realidad, un sitio de SharePoint Online. Teams
+            añade una capa de comunicación a este Grupo.
+          </p>
+        </div>
+      </section>
+
+      <!-- Sección 3: Estrategia de Diseño y Permisos -->
+      <section
+        class="mb-10 content-card p-6 rounded-xl border-l-4"
+        style="border-color: var(--highlight-site);">
+        <h2 class="text-3xl mb-4 text-primary-color">
+          3. Estrategia de Diseño y Permisos
+        </h2>
+        <p class="text-gray-300 mb-6">
+          El paso más importante al diseñar la estructura de contenedores es
+          redefinir los permisos y hablar con los dueños de la información.
+        </p>
+
+        <h3 class="text-xl font-semibold mt-6 text-highlight-site">
+          A. Permisos Basados en el Contenedor
+        </h3>
+        <div
+          class="callout p-4 rounded-lg bg-purple-900/50 border-l-4 border-highlight-site text-gray-300">
+          <p class="font-bold text-lg mb-2">Filosofía Simple: Dentro o Fuera</p>
+          <p class="text-sm">
+            Las organizaciones deben abandonar los permisos muy granulares. En
+            el modelo moderno:
+            <strong>o estás dentro del contenedor, o estás fuera</strong>. Si
+            eres miembro de un Grupo de M365/Team, se espera que tengas control
+            total sobre el contenido.
+          </p>
+        </div>
+
+        <h3 class="text-xl font-semibold mt-6 text-highlight-team">
+          B. Uso de Contenedores según la Finalidad
+        </h3>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+          <div
+            class="container-box"
+            style="border-color: var(--highlight-team);">
+            <h4 class="font-bold text-highlight-team mb-2">
+              Contenedores de Colaboración
+            </h4>
+            <p class="text-xs text-gray-400">
+              Se usan para el trabajo diario, proyectos o departamentos. Todos
+              los miembros editan y modifican. Los
+              <strong>Canales Privados</strong> crean sitios SharePoint
+              separados para información confidencial.
+            </p>
+          </div>
+
+          <div
+            class="container-box"
+            style="border-color: var(--highlight-communication);">
+            <h4 class="font-bold text-highlight-communication mb-2">
+              Contenedores de Comunicación
+            </h4>
+            <p class="text-xs text-gray-400">
+              Información "uno a muchos" como intranets, noticias o manuales.
+              Utilizan <strong>identificación de audiencias</strong> para
+              segmentar contenido sin crear múltiples sitios.
+            </p>
+          </div>
+        </div>
+
+        <h3 class="text-xl font-semibold mt-6 text-primary-color">
+          C. Canales de Teams vs. Carpetas
+        </h3>
+        <p class="text-gray-300 text-sm">
+          Dentro de un Team, los canales se reflejan como carpetas en
+          SharePoint. No se usan para compartimentar permisos, sino para
+          organizar temas, documentos y aplicaciones extra relacionadas con ese
+          tema.
+        </p>
+      </section>
+
+      <!-- Sección 4: Gobernanza -->
+      <section
+        class="mb-10 content-card p-6 rounded-xl border-l-4"
+        style="border-color: var(--highlight-communication);">
+        <h2 class="text-3xl mb-4 text-primary-color">
+          4. Gobernanza y Creación de Contenedores
+        </h2>
+        <p class="text-gray-300 mb-6">
+          Para evitar la proliferación descontrolada de Teams y Sitios con
+          nombres inadecuados, las organizaciones establecen políticas de
+          gobernanza.
+        </p>
+
+        <div class="space-y-4">
+          <div
+            class="p-4 rounded-lg bg-gray-800/50 border-t-4"
+            style="border-color: var(--highlight-communication);">
+            <h4 class="font-bold text-highlight-communication text-sm">
+              1. Restricción de Creación
+            </h4>
+            <p class="text-xs text-gray-400 mt-1">
+              Limitar quién puede crear un Team o sitio para que los usuarios
+              normales no puedan hacerlo a voluntad.
+            </p>
+          </div>
+
+          <div
+            class="p-4 rounded-lg bg-gray-800/50 border-t-4"
+            style="border-color: var(--highlight-group);">
+            <h4 class="font-bold text-highlight-group text-sm">
+              2. Flujo de Aprobación
+            </h4>
+            <p class="text-xs text-gray-400 mt-1">
+              Formulario de solicitud que pregunta: propietario, departamento,
+              finalidad del Team y si requerirá acceso externo.
+            </p>
+          </div>
+
+          <div
+            class="p-4 rounded-lg bg-gray-800/50 border-t-4"
+            style="border-color: var(--highlight-site);">
+            <h4 class="font-bold text-highlight-site text-sm">
+              3. Gestión de Propiedad
+            </h4>
+            <p class="text-xs text-gray-400 mt-1">
+              El solicitante se asigna como
+              <strong>Propietario del Team</strong>, haciéndose responsable de
+              la membresía y gestión interna.
+            </p>
+          </div>
+
+          <div
+            class="p-4 rounded-lg bg-gray-800/50 border-t-4"
+            style="border-color: var(--highlight-team);">
+            <h4 class="font-bold text-highlight-team text-sm">
+              4. Nomenclatura y Políticas
+            </h4>
+            <p class="text-xs text-gray-400 mt-1">
+              <strong>Directivas de Nombres</strong> (requieren licencia P1)
+              para asegurar nomenclatura específica y evitar nombres confusos.
+            </p>
+          </div>
+        </div>
+
+        <div
+          class="callout p-4 rounded-lg bg-green-900/50 border-l-4 border-primary-color text-gray-300 mt-6">
+          <p class="font-bold text-lg mb-2">Estrategia Moderna</p>
+          <p class="text-sm">
+            Crear un sitio o Team por cada necesidad de aislamiento de permisos
+            o colaboración específica, aprovechando la flexibilidad de la
+            arquitectura plana y las herramientas de gestión para controlar el
+            acceso y la gobernanza.
+          </p>
+        </div>
+      </section>
+    </div>
+
+    <!-- Cargar el script de navegación -->
+    <script src="../js/back-button.js"></script>
+  </body>
+</html>
+

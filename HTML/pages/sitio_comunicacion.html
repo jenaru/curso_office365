@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sitios de Comunicación en SharePoint Online</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+        <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Estilos externos -->
+    <link rel="stylesheet" href="../css/pages-base.css">
+    <link rel="stylesheet" href="../css/themes/sharepoint.css">
+  </head>
+  <body>
+    <div class="document-container px-4 py-8 md:py-12">
+      <header class="text-center pb-8 border-b border-border-color mb-10">
+        <h1
+          class="text-4xl md:text-5xl font-extrabold leading-tight tracking-wider text-primary-color">
+          Sitios de Comunicación en SharePoint Online
+        </h1>
+        <p class="mt-2 text-lg text-gray-400">
+          El Núcleo de la Intranet Moderna: Difusión de Información One-to-Many
+        </p>
+      </header>
+
+      <!-- Sección 1: Propósito Central -->
+      <section
+        class="mb-10 content-card p-6 rounded-xl border-l-4"
+        style="border-color: var(--primary-color);">
+        <h2 class="text-3xl mb-4 text-primary-color">
+          1. Propósito Central y Orientación
+        </h2>
+        <p class="text-gray-300 mb-6">
+          El rol principal de un Sitio de Comunicación es la difusión de
+          información, marcando una clara distinción con los sitios de
+          colaboración.
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div
+            class="info-box"
+            style="border-color: var(--highlight-communication);">
+            <h4 class="font-bold text-highlight-communication mb-2">
+              Comunicación One-to-Many
+            </h4>
+            <p class="text-xs text-gray-400">
+              Difusión masiva donde un grupo pequeño edita y el resto de la
+              organización visualiza o consume.
+            </p>
+          </div>
+
+          <div class="info-box" style="border-color: var(--highlight-owners);">
+            <h4 class="font-bold text-highlight-owners mb-2">
+              Base para Intranets
+            </h4>
+            <p class="text-xs text-gray-400">
+              Ideal para crear <strong>intranet corporativa</strong>: noticias,
+              manuales, catálogos e información general.
+            </p>
+          </div>
+
+          <div class="info-box" style="border-color: var(--highlight-hub);">
+            <h4 class="font-bold text-highlight-hub mb-2">
+              Utilidad Garantizada
+            </h4>
+            <p class="text-xs text-gray-400">
+              Debe proporcionar contenido relevante: noticias de cohesión o
+              enlaces a procesos internos (vacaciones).
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sección 2: Arquitectura y Diferencias -->
+      <section
+        class="mb-10 content-card p-6 rounded-xl border-l-4"
+        style="border-color: var(--highlight-communication);">
+        <h2 class="text-3xl mb-4 text-primary-color">
+          2. Arquitectura y Diferencias Clave
+        </h2>
+        <p class="text-gray-300 mb-6">
+          En el modelo moderno de SharePoint, la arquitectura es plana,
+          eliminando la jerarquía rígida del SharePoint clásico.
+        </p>
+
+        <div
+          class="flex flex-col items-center p-4 rounded-xl mt-4 border border-dashed border-border-color bg-gray-900/50">
+          <p class="text-sm font-bold text-highlight-communication mb-4">
+            DIFERENCIA FUNDAMENTAL CON SITIOS DE COLABORACIÓN
+          </p>
+
+          <div class="flex flex-col md:flex-row gap-6 w-full">
+            <div
+              class="diagram-step flex-1"
+              style="border-color: var(--highlight-communication);">
+              <p class="font-bold text-highlight-communication">
+                SITIO DE COMUNICACIÓN
+              </p>
+              <p class="text-xs text-gray-400 mt-2">
+                <strong>NO</strong> lleva asociado un Grupo de Microsoft 365
+              </p>
+            </div>
+
+            <div class="diagram-connector hidden md:flex">vs</div>
+
+            <div
+              class="diagram-step flex-1"
+              style="border-color: var(--highlight-members);">
+              <p class="font-bold text-highlight-members">
+                SITIO DE COLABORACIÓN
+              </p>
+              <p class="text-xs text-gray-400 mt-2">
+                Siempre asociado a un Grupo M365 (base de Teams)
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="callout p-4 rounded-lg bg-cyan-900/50 border-l-4 border-primary-color text-gray-300 mt-4 w-full">
+            <p class="font-bold text-primary-color">
+              Beneficio: Independencia Total
+            </p>
+            <p class="text-sm">
+              Esta independencia permite que cada sitio sea una
+              <strong>"isla independiente"</strong> que puede gestionar su
+              propio idioma, cuota de espacio y políticas de compartición
+              externa.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sección 3: Modelo de Permisos -->
+      <section
+        class="mb-10 content-card p-6 rounded-xl border-l-4"
+        style="border-color: var(--highlight-owners);">
+        <h2 class="text-3xl mb-4 text-primary-color">
+          3. Modelo de Permisos Simplificado
+        </h2>
+        <p class="text-gray-300 mb-6">
+          El modelo de permisos refleja su orientación al consumo de
+          información, siendo más simple que el modelo granular clásico.
+        </p>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Rol</th>
+                <th>Capacidad</th>
+                <th>Propósito</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <strong style="color: var(--highlight-owners);"
+                    >Propietarios (Owners)</strong
+                  >
+                </td>
+                <td>Control total.</td>
+                <td>Responsables de la administración completa del sitio.</td>
+              </tr>
+              <tr>
+                <td>
+                  <strong style="color: var(--highlight-members);"
+                    >Miembros (Members)</strong
+                  >
+                </td>
+                <td>
+                  Capacidad de modificar y editar el contenido (control
+                  limitado).
+                </td>
+                <td>El equipo de comunicación o editores del departamento.</td>
+              </tr>
+              <tr>
+                <td>
+                  <strong style="color: var(--highlight-visitors);"
+                    >Visitantes (Visitors)</strong
+                  >
+                </td>
+                <td>Solo visualización (solo lectura).</td>
+                <td>
+                  La audiencia de la intranet (el resto de la organización).
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div
+          class="callout p-4 rounded-lg bg-purple-900/50 border-l-4 border-highlight-visitors text-gray-300">
+          <p class="font-bold text-highlight-visitors">Uso Previsto</p>
+          <p class="text-sm">
+            En un Sitio de Comunicación, es totalmente aceptable que los
+            <strong>visitantes tengan permisos de solo lectura</strong> para
+            acceder a archivos y contenido, sin modificar la estructura o los
+            datos del repositorio.
+          </p>
+        </div>
+      </section>
+
+      <!-- Sección 4: Características para Intranets -->
+      <section
+        class="mb-10 content-card p-6 rounded-xl border-l-4"
+        style="border-color: var(--highlight-hub);">
+        <h2 class="text-3xl mb-4 text-primary-color">
+          4. Características para Intranets y Personalización
+        </h2>
+
+        <h3 class="text-xl font-semibold mt-6 text-highlight-hub">
+          A. Estructura Visual y Navegación
+        </h3>
+        <p class="text-gray-300 mb-4">
+          Aunque la arquitectura subyacente es plana, la organización utiliza
+          herramientas visuales para crear una estructura jerárquica.
+        </p>
+
+        <div class="space-y-4">
+          <div
+            class="p-4 rounded-lg bg-gray-800/50 border-t-4"
+            style="border-color: var(--highlight-hub);">
+            <h4 class="font-bold text-highlight-hub text-sm mb-2">
+              Sitio Central (Hub Site)
+            </h4>
+            <p class="text-xs text-gray-400">
+              Se designa un sitio como "Centro" y los sitios relacionados se
+              <strong>asocian</strong> a él. Heredan un
+              <strong>menú común de navegación transversal</strong> y
+              <strong>esquema de colores</strong> compartido.
+            </p>
+          </div>
+
+          <div
+            class="p-4 rounded-lg bg-gray-800/50 border-t-4"
+            style="border-color: var(--primary-color);">
+            <h4 class="font-bold text-primary-color text-sm mb-2">
+              Landing Page
+            </h4>
+            <p class="text-xs text-gray-400">
+              Sitio principal (<span class="code-block">Home Site</span>) que
+              sea el punto de entrada a la intranet.
+            </p>
+          </div>
+
+          <div
+            class="p-4 rounded-lg bg-gray-800/50 border-t-4"
+            style="border-color: var(--highlight-communication);">
+            <h4 class="font-bold text-highlight-communication text-sm mb-2">
+              Diseño Moderno
+            </h4>
+            <p class="text-xs text-gray-400">
+              Los sitios son <strong>responsivos</strong>, adaptándose
+              correctamente a móviles y tabletas.
+            </p>
+          </div>
+        </div>
+
+        <h3 class="text-xl font-semibold mt-6 text-highlight-owners">
+          B. Componentes y Contenido
+        </h3>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+          <div class="info-box" style="border-color: var(--highlight-owners);">
+            <h4 class="font-bold text-highlight-owners mb-2">
+              Plantillas y Web Parts
+            </h4>
+            <p class="text-xs text-gray-400">
+              Edición modular usando bloques predefinidos. Microsoft proporciona
+              ejemplos en el <strong>Lookbook</strong>.
+            </p>
+          </div>
+
+          <div class="info-box" style="border-color: var(--highlight-members);">
+            <h4 class="font-bold text-highlight-members mb-2">
+              Audience Targeting
+            </h4>
+            <p class="text-xs text-gray-400">
+              Contenido personalizado según el grupo de Azure AD del usuario.
+              Evita múltiples sitios paralelos.
+            </p>
+          </div>
+
+          <div
+            class="info-box"
+            style="border-color: var(--highlight-visitors);">
+            <h4 class="font-bold text-highlight-visitors mb-2">
+              Segmentación Inteligente
+            </h4>
+            <p class="text-xs text-gray-400">
+              Mostrar opciones de menú solo a grupos específicos (ej. solo a
+              directivos).
+            </p>
+          </div>
+        </div>
+
+        <h3 class="text-xl font-semibold mt-6 text-primary-color">
+          C. Integración con Teams
+        </h3>
+        <div
+          class="callout p-4 rounded-lg bg-cyan-900/50 border-l-4 border-primary-color text-gray-300 mt-4">
+          <p class="font-bold text-primary-color">Consumo Moderno</p>
+          <p class="text-sm">
+            La forma más moderna de consumir la intranet es directamente desde
+            <strong>Microsoft Teams</strong>. El menú de navegación y contenido
+            puede activarse dentro de Teams a través de la funcionalidad de
+            <span class="code-block">Home Site</span> (requiere activación por
+            PowerShell).
+          </p>
+          <p class="text-sm mt-3">
+            Esto asegura que la intranet se convierta en una herramienta central
+            accesible desde el entorno de colaboración diario.
+          </p>
+        </div>
+      </section>
+    </div>
+
+    <!-- Cargar el script de navegación -->
+    <script src="../js/back-button.js"></script>
+  </body>
+</html>
+

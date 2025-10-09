@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Matriz de Identidades en Microsoft 365</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Script para botón de volver -->
+    <script src="../js/back-button.js"></script>
+        <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Estilos externos -->
+    <link rel="stylesheet" href="../css/pages-base.css">
+    <link rel="stylesheet" href="../css/themes/identidad.css">
+  </head>
+  <body>
+    <div class="document-container px-4 py-8 md:py-12">
+      <header class="text-center pb-8 border-b border-border-color mb-10">
+        <h1
+          class="text-4xl md:text-5xl font-extrabold leading-tight tracking-wider text-primary-color">
+          Matriz de Identidades en Microsoft 365
+        </h1>
+        <p class="mt-2 text-lg text-gray-400">
+          Comprendiendo las Tres Funciones Clave: Activo, Invitado y Contacto
+        </p>
+      </header>
+
+      <!-- Matriz Comparativa (Tabla) -->
+      <section class="mb-12 overflow-x-auto rounded-xl shadow-2xl">
+        <table class="comparison-table min-w-full divide-y divide-border-color">
+          <thead>
+            <tr>
+              <th class="text-left">Característica</th>
+              <th class="text-center">Usuario Activo (con Licencia)</th>
+              <th class="text-center">Usuario Invitado (Guest)</th>
+              <th class="text-center">Contacto (Contact)</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-border-color text-sm md:text-base">
+            <!-- Fila 1: Capacidad de Inicio de Sesión -->
+            <tr>
+              <td class="font-bold text-primary-color">
+                Capacidad de Inicio de Sesión (Sign In)
+              </td>
+              <td class="text-center">
+                <span
+                  class="status-indicator"
+                  style="background-color: var(--success-color);"></span>
+                <strong>SÍ</strong> (Acceso completo)
+              </td>
+              <td class="text-center">
+                <span
+                  class="status-indicator"
+                  style="background-color: var(--warning-color);"></span>
+                <strong>SÍ</strong> (Solo a recursos compartidos)
+              </td>
+              <td class="text-center">
+                <span
+                  class="status-indicator"
+                  style="background-color: var(--danger-color);"></span>
+                <strong>NO</strong> (Objeto pasivo)
+              </td>
+            </tr>
+            <!-- Fila 2: Buzón de Correo -->
+            <tr>
+              <td class="font-bold text-primary-color">Buzón de Correo</td>
+              <td>Gestionado <strong>DENTRO</strong> de Exchange Online.</td>
+              <td>
+                Gestionado <strong>EXTERNAMENTE</strong> (Gmail, Hotmail, etc.).
+              </td>
+              <td>
+                Correo gestionado <strong>FUERA</strong> de la organización.
+              </td>
+            </tr>
+            <!-- Fila 3: Acceso a Recursos -->
+            <tr>
+              <td class="font-bold text-primary-color">Acceso a Recursos</td>
+              <td>
+                Funcionalidades completas según la licencia (SharePoint, Teams,
+                OneDrive).
+              </td>
+              <td>
+                Solo accede a los recursos que se le hayan
+                <strong>compartido explícitamente</strong>.
+              </td>
+              <td>
+                <strong>NO tiene</strong> acceso a archivos, Teams ni
+                funcionalidades.
+              </td>
+            </tr>
+            <!-- Fila 4: Propósito Principal -->
+            <tr>
+              <td class="font-bold text-primary-color">Propósito Principal</td>
+              <td>Utilizar los servicios completos de Office 365.</td>
+              <td>
+                <strong>Colaboración externa</strong> sobre documentos o Teams
+                específicos.
+              </td>
+              <td>
+                Aparecer en la
+                <strong>Lista Global de Direcciones (GAL)</strong> para recibir
+                correos.
+              </td>
+            </tr>
+            <!-- Fila 5: Permisos Típicos en Teams -->
+            <tr>
+              <td class="font-bold text-primary-color">
+                Permisos Típicos en Teams
+              </td>
+              <td>Lectura y escritura, según el rol.</td>
+              <td>
+                Generalmente <strong>amplios</strong> (lectura y escritura,
+                llamadas privadas).
+              </td>
+              <td>N/A (No aplica, no puede entrar en Teams).</td>
+            </tr>
+            <!-- Fila 6: Creación -->
+            <tr>
+              <td class="font-bold text-primary-color">
+                Mecanismo de Creación
+              </td>
+              <td>
+                Creado y gestionado por el administrador en Azure AD / M365.
+              </td>
+              <td>
+                Objeto creado <strong>automáticamente</strong> cuando un usuario
+                interno comparte un recurso.
+              </td>
+              <td>
+                Creado manualmente o importado a nivel global (PowerShell).
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Sección: Diagramas Explicativos -->
+      <section class="mb-10 space-y-10">
+        <h2 class="text-3xl mb-4">La Diferencia Clave en el Directorio</h2>
+
+        <!-- Diagrama 1: Uso y Rol -->
+        <div
+          class="p-6 rounded-xl border-2 border-primary-color bg-secondary-bg shadow-lg">
+          <h3 class="text-2xl font-semibold mb-4 text-primary-color">
+            Diagrama 1: Capacidad de Uso del Tenant
+          </h3>
+          <div
+            class="flex flex-col md:flex-row justify-around items-stretch gap-6 text-center">
+            <!-- Usuario Activo -->
+            <div
+              class="p-4 rounded-lg bg-gray-600 flex-1 border-l-4 border-success-color hover:bg-gray-700 transition">
+              <span class="text-4xl mb-2">🧑‍💼</span>
+              <p class="font-bold text-success-color">
+                ACTIVO: Propietario del Tenant
+              </p>
+              <p class="text-xs mt-2 text-gray-300">
+                Accede a Exchange, SharePoint, Teams, y todas las apps. Licencia
+                obligatoria.
+              </p>
+            </div>
+
+            <!-- Usuario Invitado -->
+            <div
+              class="p-4 rounded-lg bg-gray-600 flex-1 border-l-4 border-warning-color hover:bg-gray-700 transition">
+              <span class="text-4xl mb-2">🤝</span>
+              <p class="font-bold text-warning-color">
+                INVITADO: Colaborador Compartido
+              </p>
+              <p class="text-xs mt-2 text-gray-300">
+                Puede iniciar sesión, pero el acceso es
+                <strong>filtrado</strong> solo a lo compartido.
+              </p>
+            </div>
+
+            <!-- Contacto -->
+            <div
+              class="p-4 rounded-lg bg-gray-600 flex-1 border-l-4 border-danger-color hover:bg-gray-700 transition">
+              <span class="text-4xl mb-2">✉️</span>
+              <p class="font-bold text-danger-color">
+                CONTACTO: Destinatario Pasivo
+              </p>
+              <p class="text-xs mt-2 text-gray-300">
+                Solo visibilidad en la GAL. Cero capacidad de inicio de sesión o
+                acceso a recursos.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Diagrama 2: La Necesidad de Licencia -->
+        <div
+          class="p-6 rounded-xl border-2 border-primary-color bg-secondary-bg shadow-lg">
+          <h3 class="text-2xl font-semibold mb-4 text-primary-color">
+            Diagrama 2: Requerimiento de Licencia vs. Origen del Buzón
+          </h3>
+          <div
+            class="flex flex-col md:flex-row justify-around items-center gap-6 text-center">
+            <div class="flex-1">
+              <p class="font-bold text-lg mb-2 text-success-color">
+                Usuario Activo
+              </p>
+              <p class="text-sm text-gray-400">
+                Buzón Interno + <strong>Licencia Requerida</strong>
+              </p>
+            </div>
+
+            <div class="text-4xl text-gray-400 hidden md:block">|</div>
+            <div class="text-4xl text-gray-400 block md:hidden">---</div>
+
+            <div class="flex-1">
+              <p class="font-bold text-lg mb-2 text-warning-color">
+                Usuario Invitado / Contacto
+              </p>
+              <p class="text-sm text-gray-400">
+                Buzón Externo + <strong>NO Requiere Licencia</strong>
+              </p>
+            </div>
+          </div>
+          <p class="text-xs mt-4 text-center text-gray-500">
+            La diferencia crítica: El Invitado usa su identidad externa para
+            acceder, el Activo usa su identidad y licencia interna para operar.
+          </p>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>
+
+
+
+

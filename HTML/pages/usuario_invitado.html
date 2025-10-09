@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gestión de Usuarios Invitados en M365</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Script para botón de volver -->
+    <script src="../js/back-button.js"></script>
+        <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Estilos externos -->
+    <link rel="stylesheet" href="../css/pages-base.css">
+    <link rel="stylesheet" href="../css/themes/identidad.css">
+  </head>
+  <body>
+    <div class="document-container px-4 py-8 md:py-12">
+      <header class="text-center pb-8 border-b border-border-color mb-10">
+        <h1
+          class="text-4xl md:text-5xl font-extrabold leading-tight tracking-wider text-primary-color">
+          Gestión de Identidad Externa: Usuarios Invitados (Guest Users)
+        </h1>
+        <p class="mt-2 text-lg text-gray-400">
+          Controlando la Colaboración con Personas de Fuera de la Organización
+        </p>
+      </header>
+
+      <!-- Sección: ¿Qué es un Usuario Invitado? -->
+      <section class="mb-10 content-card p-6 rounded-xl">
+        <h2 class="text-3xl mb-4">¿Qué es un Usuario Invitado?</h2>
+        <div class="space-y-4 text-gray-300">
+          <p>
+            Un <strong>usuario invitado</strong> es un tipo de objeto de
+            identidad dentro de Microsoft 365, distinto de los usuarios activos
+            y los contactos. Está diseñado para personas externas a tu
+            organización (como colaboradores, personal externo o de otras
+            empresas) con las que necesitas compartir recursos específicos.
+          </p>
+          <p>
+            A diferencia de un usuario activo, un invitado
+            <strong
+              >solo puede acceder a aquellos recursos que se le hayan compartido
+              explícitamente</strong
+            >. No puede iniciar sesión en el entorno de Office 365 de forma
+            general ni tendrá acceso a un buzón de correo propio o a otras
+            funcionalidades a menos que se le comparta algo directamente.
+          </p>
+        </div>
+      </section>
+
+      <!-- Sección: Proceso de Creación -->
+      <section class="mb-10">
+        <h2 class="text-3xl mb-4">Proceso de Creación de Usuarios Invitados</h2>
+        <p class="text-gray-300 mb-6">
+          La creación de usuarios invitados es mayormente un proceso automático
+          que ocurre en segundo plano cuando un usuario interno comparte un
+          recurso.
+        </p>
+
+        <div class="diagram">
+          <h3 class="text-xl font-semibold mb-5 text-primary-color">
+            Mecanismos de Creación
+          </h3>
+          <div
+            class="flex flex-col lg:flex-row justify-around items-stretch gap-6">
+            <!-- Método 1: Automático -->
+            <div class="diagram-step flex-1 hover:bg-[#3d3d3d]">
+              <span class="text-4xl mb-3">🔗</span>
+              <p class="font-bold text-primary-color">
+                1. Creación Automática (Más Común)
+              </p>
+              <p class="text-center mt-2 text-gray-400">
+                Sucede cuando un usuario interno
+                <strong>comparte un recurso</strong>
+                (documento, Team, sitio de SharePoint) con un email externo.
+              </p>
+              <p
+                class="mt-3 text-xs text-center border-t border-gray-600 pt-2 text-highlight-text">
+                El sistema crea el "objeto de invitado" automáticamente.
+              </p>
+            </div>
+
+            <!-- Separador -->
+            <div class="hidden lg:flex flex-col justify-center items-center">
+              <span class="diagram-arrow">O</span>
+              <span class="diagram-arrow">O</span>
+            </div>
+
+            <!-- Método 2: Manual -->
+            <div class="diagram-step flex-1 hover:bg-[#3d3d3d]">
+              <span class="text-4xl mb-3">🛠️</span>
+              <p class="font-bold text-primary-color">
+                2. Creación Manual (Administrativa)
+              </p>
+              <p class="text-center mt-2 text-gray-400">
+                Se realiza desde el portal de <strong>Azure AD</strong> para
+                invitar directamente y preasignar a grupos o aplicar
+                restricciones de acceso.
+              </p>
+              <p
+                class="mt-3 text-xs text-center border-t border-gray-600 pt-2 text-highlight-text">
+                Permite una configuración más granular inicial.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <p class="text-gray-300 mt-6">
+          Los usuarios invitados se distinguen en la lista de usuarios activos
+          porque su nombre de usuario suele incluir el sufijo
+          <code class="bg-gray-800 p-1 rounded">_guest</code> y su dirección de
+          correo electrónico original externa (por ejemplo, de Hotmail o Gmail).
+        </p>
+      </section>
+
+      <!-- Sección: Acceso y Permisos -->
+      <section class="mb-10 content-card p-6 rounded-xl">
+        <h2 class="text-3xl mb-4">
+          Acceso y Permisos de los Usuarios Invitados
+        </h2>
+        <div class="space-y-4 text-gray-300">
+          <h3 class="text-xl font-semibold text-primary-color">
+            Acceso General
+          </h3>
+          <p>
+            Su acceso está limitado únicamente a lo que se ha compartido con
+            ellos. Si se deja de compartir un recurso con un invitado, este
+            <strong
+              >no pierde su cuenta de invitado, pero sí pierde el acceso</strong
+            >
+            a dicho recurso.
+          </p>
+
+          <h3 class="text-xl font-semibold text-primary-color pt-4">
+            Acceso en Microsoft Teams
+          </h3>
+          <p>
+            Por defecto, un invitado en un Team tiene permisos bastante amplios,
+            similares a los de un miembro normal. Las
+            <strong>directivas de la organización</strong> permiten configurar
+            lo que pueden hacer, como:
+          </p>
+          <ul class="list-disc list-inside ml-6 text-gray-400 space-y-1">
+            <li>Realizar llamadas privadas uno a uno.</li>
+            <li>Participar en reuniones con vídeo.</li>
+            <li>Compartir su pantalla o editar sus mensajes.</li>
+          </ul>
+
+          <p class="mt-2 text-highlight-text">
+            Recientemente, Microsoft ha implementado la posibilidad de compartir
+            <strong>un único canal</strong> de un Team (Shared Channels o Teams
+            Connect), mejorando la seguridad y reduciendo la necesidad de
+            compartir el equipo completo.
+          </p>
+        </div>
+      </section>
+
+      <!-- Sección: Gestión y Administración -->
+      <section class="mb-10">
+        <h2 class="text-3xl mb-4">Gestión y Administración</h2>
+        <div class="content-card p-6 rounded-xl space-y-4">
+          <h3 class="text-xl font-semibold text-primary-color">
+            ⚠️ Advertencia sobre la Eliminación Manual
+          </h3>
+          <p
+            class="text-red-400 font-bold bg-gray-900 p-3 rounded-lg border-l-4 border-red-600">
+            Es muy importante
+            <strong>no eliminar manualmente los usuarios invitados</strong>
+            desde la lista de usuarios activos. Si se borra un invitado, se
+            rompe la compartición de todos los elementos con esa persona y
+            restaurar esos accesos es un proceso muy complicado.
+          </p>
+
+          <h3 class="text-xl font-semibold text-primary-color pt-4">
+            Políticas de Compartición
+          </h3>
+
+          <p class="text-gray-300">
+            Desde el centro de administración de <strong>SharePoint</strong>, se
+            pueden establecer directivas a nivel de sitio para definir con quién
+            se puede compartir (p. ej., permitiendo compartir solo con
+            "invitados nuevos y existentes").
+          </p>
+        </div>
+      </section>
+
+      <!-- Sección: Diferencia Invitado vs Contacto -->
+      <section class="mb-10">
+        <h2 class="text-3xl mb-4">Diferencia Clave: Invitado vs. Contacto</h2>
+        <div class="diagram">
+          <h3 class="text-xl font-semibold mb-5 text-primary-color">
+            Propósito Funcional de la Identidad Externa
+          </h3>
+          <div
+            class="flex flex-col md:flex-row justify-around items-stretch gap-6 text-center">
+            <!-- Invitado -->
+            <div
+              class="diagram-step flex-1 bg-blue-900/50 hover:bg-blue-900/70">
+              <span class="text-4xl mb-3">🚪</span>
+              <p class="font-bold text-primary-color">Usuario Invitado</p>
+              <p class="text-center mt-2 text-gray-300">
+                Propósito:
+                <strong>Acceso a recursos compartidos</strong> (Inicia sesión).
+              </p>
+              <ul
+                class="list-disc list-inside text-xs mt-3 text-left w-full pl-4 text-gray-400">
+                <li>Puede iniciar sesión.</li>
+                <li>Accede a Teams, SharePoint, Documentos.</li>
+                <li>Tiene cuenta en Azure AD.</li>
+              </ul>
+            </div>
+
+            <!-- Contacto -->
+            <div
+              class="diagram-step flex-1 bg-green-900/50 hover:bg-green-900/70">
+              <span class="text-4xl mb-3">📞</span>
+              <p class="font-bold text-primary-color">Contacto</p>
+              <p class="text-center mt-2 text-gray-300">
+                Propósito: <strong>Visibilidad en la GAL</strong> (No puede
+                iniciar sesión).
+              </p>
+              <ul
+                class="list-disc list-inside text-xs mt-3 text-left w-full pl-4 text-gray-400">
+                <li>NO puede iniciar sesión.</li>
+                <li>Solo aparece en la Libreta de Direcciones.</li>
+                <li>Puede ser añadido a Listas de Distribución.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>
+

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dominios Aceptados y Remotos en Exchange Online</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+        <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Estilos externos -->
+    <link rel="stylesheet" href="../css/pages-base.css">
+    <link rel="stylesheet" href="../css/themes/exchange.css">
+  </head>
+  <body>
+    <div class="document-container px-4 py-8 md:py-12">
+      <header class="text-center pb-8 border-b border-border-color mb-10">
+        <h1
+          class="text-4xl md:text-5xl font-extrabold leading-tight tracking-wider text-primary-color">
+          Dominios Aceptados y Remotos
+        </h1>
+        <p class="mt-2 text-lg text-gray-400">
+          Controlando la Responsabilidad y el Flujo con Entornos Externos
+        </p>
+      </header>
+
+      <!-- Sección 1: Dominios Aceptados -->
+      <section
+        class="mb-10 content-card p-6 rounded-xl border-l-4"
+        style="border-color: var(--highlight-auth);">
+        <h2 class="text-3xl mb-4" style="color: var(--highlight-auth);">
+          1. Dominios Aceptados (<code class="code-block">Accepted Domains</code
+          >)
+        </h2>
+        <p class="text-gray-300 mb-6">
+          Definen qué dominios son
+          <strong>responsabilidad potencial</strong> del entorno de Exchange
+          Online. Deben ser <strong>verificados</strong> primero en el panel
+          general de Office 365 (ej. con un registro TXT).
+        </p>
+
+        <div class="space-y-6">
+          <!-- Tipo Autoritativo -->
+          <div
+            class="p-4 rounded-xl border-l-4 border-highlight-auth bg-gray-800/50">
+            <h3 class="text-xl font-semibold mb-2 text-highlight-auth">
+              Autoritativo (<code class="code-block">Authoritative</code>)
+            </h3>
+            <p class="text-sm text-gray-400">
+              Esta es la <strong>opción por defecto</strong>. Exchange Online es
+              el <strong>único responsable</strong>.
+            </p>
+            <p class="text-sm text-gray-300 font-bold mt-2">
+              Comportamiento: Si el destinatario no existe internamente, el
+              correo <strong>SE RECHAZA</strong> (No existe este buzón).
+            </p>
+          </div>
+
+          <!-- Tipo Retransmisión Interna -->
+          <div
+            class="p-4 rounded-xl border-l-4 border-highlight-relay bg-gray-800/50">
+            <h3 class="text-xl font-semibold mb-2 text-highlight-relay">
+              Retransmisión Interna (<code class="code-block">Relay</code>)
+            </h3>
+            <p class="text-sm text-gray-400">
+              Utilizado en escenarios de <strong>coexistencia</strong> o
+              <strong>migración</strong> (ej. algunos buzones en local, otros en
+              la nube).
+            </p>
+            <p class="text-sm text-gray-300 font-bold mt-2">
+              Comportamiento: Si el destinatario no se encuentra, el mensaje
+              <strong>NO SE RECHAZA</strong>, sino que se envía al registro
+              <strong>MX</strong> del dominio (buscando al destinatario en otro
+              sistema de correo).
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Diagrama de Flujo del Dominio Aceptado -->
+      <section
+        class="mb-10 content-card p-6 rounded-xl border-l-4 border-primary-color">
+        <h2 class="text-3xl mb-4 text-primary-color">
+          Diagrama de Flujo: Decisión de Entrega
+        </h2>
+        <div
+          class="flex flex-col items-center justify-center p-4 rounded-xl mt-4 border border-dashed border-border-color bg-gray-900/50">
+          <div
+            class="diagram-step w-full"
+            style="border-color: var(--primary-color);">
+            CORREO ENTRANTE (<code class="code-block">usuario@dominio.com</code
+            >)
+          </div>
+          <div class="diagram-connector">⬇️</div>
+
+          <div
+            class="diagram-step w-full text-center"
+            style="border-color: var(--highlight-step);">
+            ¿Existe el buzón de <code class="code-block">usuario</code> en
+            Exchange Online?
+          </div>
+          <div class="flex justify-around w-full">
+            <span class="diagram-connector">Sí: ➡️</span>
+            <span class="diagram-connector">No: ➡️</span>
+          </div>
+
+          <div class="flex w-full justify-between gap-4 mt-2">
+            <!-- Rama de Éxito -->
+            <div class="flex flex-col items-center flex-1">
+              <div
+                class="p-2 bg-highlight-auth rounded-md text-gray-900 font-bold">
+                ENTREGA LOCAL
+              </div>
+            </div>
+
+            <!-- Rama de Falla -->
+            <div
+              class="flex flex-col items-center flex-1 border-l border-border-color pl-4">
+              <div class="text-sm text-gray-400 font-bold mb-2">
+                Dominio configurado como...
+              </div>
+
+              <div class="w-full flex justify-between gap-2">
+                <div
+                  class="flex-1 p-2 rounded-lg bg-red-900/50 border-b-4 border-highlight-auth">
+                  <span class="font-bold text-highlight-auth">AUTORITATIVO</span
+                  >: <span class="text-red-300">RECHAZO</span>
+                </div>
+                <div
+                  class="flex-1 p-2 rounded-lg bg-yellow-900/50 border-b-4 border-highlight-relay">
+                  <span class="font-bold text-highlight-relay"
+                    >RETRANSMISIÓN</span
+                  >: Envía a <code class="code-block">MX externo</code> (Relay)
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sección 2: Dominios Remotos -->
+      <section
+        class="mb-10 content-card p-6 rounded-xl border-l-4"
+        style="border-color: var(--highlight-remote);">
+        <h2 class="text-3xl mb-4" style="color: var(--highlight-remote);">
+          2. Dominios Remotos (<code class="code-block">Remote Domains</code>)
+        </h2>
+        <p class="text-gray-300 mb-4">
+          Los Dominios Remotos <strong>no aceptan</strong> correo; definen la
+          configuración que Exchange aplicará al
+          <strong>correo saliente</strong> (y en ocasiones entrante) que
+          interactúa con esos sistemas externos.
+        </p>
+
+        <h3 class="text-xl font-semibold mt-6 text-primary-color">
+          Propósito y Funcionalidades
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-3">
+          <div
+            class="p-3 rounded-lg bg-gray-800/50 border-t-4 border-highlight-remote">
+            <p class="font-bold text-sm text-highlight-remote">
+              Uso Compartido Federado (Calendario)
+            </p>
+            <p class="text-xs text-gray-400 mt-1">
+              Permite a los usuarios de nuestra organización ver la información
+              de <strong>disponibilidad de calendario</strong> de usuarios en el
+              dominio remoto. Crucial para la colaboración con socios.
+            </p>
+          </div>
+          <div
+            class="p-3 rounded-lg bg-gray-800/50 border-t-4 border-highlight-remote">
+            <p class="font-bold text-sm text-highlight-remote">
+              Formato y Restricciones de Correo
+            </p>
+            <p class="text-xs text-gray-400 mt-1">
+              Históricamente, se usaba para forzar el formato del mensaje (ej.
+              Texto Enriquecido o Sin Formato) para ese dominio específico. Hoy
+              en día, las configuraciones predeterminadas suelen ser
+              funcionales.
+            </p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Cargar el script de navegación -->
+    <script src="../js/back-button.js"></script>
+  </body>
+</html>
+

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SharePoint Moderno en Microsoft 365</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+        <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Estilos externos -->
+    <link rel="stylesheet" href="../css/pages-base.css">
+    <link rel="stylesheet" href="../css/themes/sharepoint.css">
+  </head>
+  <body>
+    <div class="document-container px-4 py-8 md:py-12">
+      <header class="text-center pb-8 border-b border-border-color mb-10">
+        <h1
+          class="text-4xl md:text-5xl font-extrabold leading-tight tracking-wider text-primary-color">
+          SharePoint en Microsoft 365: De Clásico a Moderno
+        </h1>
+        <p class="mt-2 text-lg text-gray-400">
+          El Repositorio Fundamental para Archivos y Colaboración
+        </p>
+      </header>
+
+      <!-- Sección I: Rol Central y Relación con el Stack M365 -->
+      <section
+        class="mb-12 content-card p-6 rounded-xl border-l-4"
+        style="border-color: var(--highlight-violet);">
+        <h2 class="text-3xl mb-4 text-primary-color">
+          I. El Rol Central de SharePoint
+        </h2>
+        <p class="text-gray-300 mb-6">
+          SharePoint Online es una de las
+          <strong>tres cargas de trabajo principales</strong> de Microsoft 365
+          (junto con Exchange Online y Teams). Su propósito es ser el
+          <strong>repositorio</strong> troncal para la documentación y archivos
+          de la organización, resolviendo las limitaciones de las carpetas
+          compartidas tradicionales.
+        </p>
+
+        <h3 class="text-xl font-semibold mt-6 text-highlight-violet">
+          Relación con OneDrive y Teams
+        </h3>
+        <div
+          class="flex flex-col items-center p-4 rounded-xl mt-4 border border-dashed border-border-color bg-gray-900/50">
+          <p class="text-sm font-bold text-highlight-violet mb-2">
+            LA ESTRUCTURA SUBYACENTE DE ARCHIVOS
+          </p>
+
+          <div
+            class="diagram-item w-full bg-blue-500/50"
+            style="border-color: #60a5fa;">
+            Teams: Capa de Interfaz y Colaboración (Chat, Canales)
+          </div>
+          <div class="diagram-connector">⬇️</div>
+
+          <div
+            class="diagram-item w-full bg-violet-500/50"
+            style="border-color: var(--highlight-violet);">
+            SHAREPOINT: Repositorio (Almacenamiento de Archivos de Teams)
+          </div>
+          <div class="diagram-connector">
+            ↙️ <span class="diagram-connector"> | </span> ↘️
+          </div>
+
+          <div class="flex justify-around w-full gap-4">
+            <div
+              class="diagram-item flex-1 bg-green-500/50"
+              style="border-color: #34d399;">
+              OneDrive: Interfaz personal que Accede al Almacenamiento SP
+            </div>
+            <div
+              class="diagram-item flex-1 bg-violet-500/50"
+              style="border-color: var(--highlight-violet);">
+              Sitios SharePoint: Documentación Corporativa y Listas
+            </div>
+          </div>
+          <p class="text-xs text-gray-400 mt-3">
+            <span class="font-bold text-red-400">Dato Clave:</span> La
+            información de Teams
+            <span class="font-bold">no se sincroniza</span> con SharePoint;
+            <span class="font-bold">es la misma información</span>.
+          </p>
+        </div>
+      </section>
+
+      <!-- Sección II: Naturaleza Fundamental -->
+      <section
+        class="mb-12 content-card p-6 rounded-xl border-l-4"
+        style="border-color: var(--primary-color);">
+        <h2 class="text-3xl mb-4 text-primary-color">
+          II. La Naturaleza Fundamental: Todo son Listas
+        </h2>
+        <div
+          class="callout p-4 rounded-lg bg-gray-800/50 border-l-4 border-primary-color text-gray-300">
+          <p class="font-bold text-lg mb-2">SharePoint = Base de Datos SQL</p>
+          <p class="text-sm">
+            El concepto fundamental es que SharePoint es un conjunto de
+            <strong>tablas de una base de datos SQL</strong>. Incluso los
+            archivos que usted sube son tratados como
+            <strong>elementos dentro de una lista</strong>.
+          </p>
+        </div>
+      </section>
+
+      <!-- Sección III: Evolución Arquitectónica -->
+      <section
+        class="mb-12 content-card p-6 rounded-xl border-l-4"
+        style="border-color: var(--highlight-violet);">
+        <h2 class="text-3xl mb-4 text-primary-color">
+          III. Evolución: Arquitectura Clásica vs. Moderna
+        </h2>
+        <p class="text-gray-300 mb-6">
+          El modelo moderno es el enfoque recomendado por Microsoft para evitar
+          la rigidez y la complejidad de los permisos heredados del modelo
+          clásico.
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Modelo Clásico -->
+          <div class="p-4 rounded-xl border-l-4 border-red-500 bg-gray-800/50">
+            <h3 class="text-xl font-semibold mb-2 text-red-400">
+              Modelo Clásico (Jerárquico)
+            </h3>
+            <ul
+              class="list-disc list-inside ml-4 text-sm text-gray-400 space-y-1">
+              <li>
+                <span class="font-bold">Estructura:</span> Jerarquía estricta de
+                sitios y subsitios (similar a carpetas).
+              </li>
+              <li>
+                <span class="font-bold">Permisos:</span> Herencia compleja, muy
+                detallados y granulares (editor, revisor).
+              </li>
+              <li>
+                <span class="font-bold">Rigidez:</span> Diseño y estructura
+                difíciles de modificar una vez implementados.
+              </li>
+            </ul>
+          </div>
+          <!-- Modelo Moderno -->
+          <div
+            class="p-4 rounded-xl border-l-4 border-highlight-violet bg-gray-800/50">
+            <h3 class="text-xl font-semibold mb-2 text-highlight-violet">
+              Modelo Moderno (Plano y Flexible)
+            </h3>
+            <ul
+              class="list-disc list-inside ml-4 text-sm text-gray-400 space-y-1">
+              <li>
+                <span class="font-bold">Estructura:</span> Sitios independientes
+                (<span class="font-bold">islas</span>) sin jerarquía estricta.
+              </li>
+              <li>
+                <span class="font-bold">Navegación:</span> La jerarquía visual
+                se logra
+                <span class="font-bold">editando los menús</span> (vínculos
+                flexibles).
+              </li>
+              <li>
+                <span class="font-bold">Permisos:</span> Simplificados (<span
+                  class="font-bold"
+                  >dentro o fuera</span
+                >) para evitar errores.
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <h3 class="text-xl font-semibold mt-6 text-primary-color">
+          Tipos de Sitio Modernos Recomendados
+        </h3>
+        <div class="flex flex-col md:flex-row gap-4 mt-3">
+          <div
+            class="flex-1 p-3 rounded-lg bg-indigo-900/50 border-t-4 border-indigo-400">
+            <p class="font-bold text-indigo-300 text-sm">
+              Sitio de Colaboración
+            </p>
+            <p class="text-xs text-gray-400">
+              Todos editan y modifican contenido. Se crea automáticamente al
+              formar un <span class="code-block">Grupo de Office 365</span> o un
+              <span class="code-block">Team</span>.
+            </p>
+          </div>
+          <div
+            class="flex-1 p-3 rounded-lg bg-pink-900/50 border-t-4 border-pink-400">
+            <p class="font-bold text-pink-300 text-sm">Sitio de Comunicación</p>
+            <p class="text-xs text-gray-400">
+              Orientado a la difusión (<span class="font-bold">one-to-many</span
+              >). Un grupo pequeño edita, el resto visualiza (Ideal para
+              Intranets).
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sección IV: Doctrina y Administración -->
+      <section
+        class="mb-12 content-card p-6 rounded-xl border-l-4"
+        style="border-color: var(--primary-color);">
+        <h2 class="text-3xl mb-4 text-primary-color">
+          IV. Doctrina Moderna y Administración
+        </h2>
+
+        <h3 class="text-xl font-semibold mt-6 text-highlight-violet">
+          La Doctrina: Colaboración vía Teams
+        </h3>
+        <div
+          class="callout p-4 rounded-lg bg-gray-800/50 border-l-4 border-highlight-violet text-gray-300">
+          <p class="font-bold text-lg mb-2">Filosofía de los Contenedores</p>
+          <p class="text-sm">
+            Se debe trabajar con <strong>contenedores</strong> (Sitios o Teams)
+            como la unidad de aislamiento de permisos. Si un grupo necesita
+            acceso, se les da acceso completo al contenedor. Se evita la
+            configuración detallada de permisos de carpetas (NTFS).
+          </p>
+          <p class="text-sm mt-3">
+            La forma más recomendada para que los usuarios interactúen con los
+            archivos es a través de la interfaz sencilla y unificada de
+            <strong>Teams</strong>.
+          </p>
+        </div>
+
+        <h3 class="text-xl font-semibold mt-6 text-primary-color">
+          Administración General (Panel de SharePoint)
+        </h3>
+        <ul
+          class="list-disc list-inside ml-4 space-y-2 text-gray-300 mt-3 text-sm">
+          <li>
+            <span class="font-bold text-primary-color">Sitios Activos:</span>
+            Gestión de todos los sitios creados y monitorización del uso de
+            almacenamiento (ej. límite por defecto:
+            <span class="code-block">1 TB + 1 GB por usuario</span>).
+          </li>
+          <li>
+            <span class="font-bold text-primary-color"
+              >Directivas (Policies):</span
+            >
+            Establecimiento de reglas globales de compartición externa (limitar
+            dominios, desactivar compartición anónima).
+          </li>
+          <li>
+            <span class="font-bold text-primary-color">Personalización:</span>
+            Las propiedades administrativas (cuota, pertenencia a
+            <span class="code-block">Hub Site</span>) se manejan aquí; las
+            ediciones de diseño se hacen en la propia interfaz del sitio.
+          </li>
+        </ul>
+      </section>
+    </div>
+
+    <!-- Cargar el script de navegación -->
+    <script src="../js/back-button.js"></script>
+  </body>
+</html>
+

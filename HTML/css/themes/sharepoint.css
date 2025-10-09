@@ -1,0 +1,60 @@
+/* ===== TEMA SHAREPOINT ===== */
+:root {
+  --primary-color: var(--color-sharepoint);
+  --theme-primary: #0ea5e9;
+  --theme-secondary: #0284c7;
+  --theme-accent: #0369a1;
+}
+
+/* Títulos con color del tema */
+h1,
+h2,
+h3 {
+  color: var(--theme-primary);
+}
+
+/* Elementos de lista del tema SharePoint */
+.feature-list li::before,
+.service-list li::before {
+  color: var(--theme-primary);
+}
+
+/* Headers de tabla del tema */
+.admin-table th {
+  background-color: var(--theme-primary);
+}
+
+/* Bordes de sección del tema */
+.content-card.sharepoint-section {
+  border-left: 4px solid var(--theme-primary);
+}
+
+/* Variaciones de color para diferentes tipos de contenido SharePoint */
+.sharepoint-modern {
+  border-color: var(--theme-primary);
+}
+
+.sharepoint-collaboration {
+  border-color: #10b981;
+}
+
+.sharepoint-communication {
+  border-color: #3b82f6;
+}
+
+.sharepoint-admin {
+  border-color: var(--theme-primary);
+}
+
+.sharepoint-hub {
+  border-color: #8b5cf6;
+}
+
+/* Elementos específicos de SharePoint */
+.sharepoint-highlight {
+  background: linear-gradient(135deg, rgba(14, 165, 233, 0.1), rgba(14, 165, 233, 0.05));
+  border: 2px solid var(--theme-primary);
+  border-radius: 12px;
+  padding: 1rem;
+  margin: 1rem 0;
+}

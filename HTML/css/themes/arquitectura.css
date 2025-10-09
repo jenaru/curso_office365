@@ -1,0 +1,34 @@
+/* ===== TEMA ARQUITECTURA ===== */
+:root {
+  --primary-color: var(--color-arquitectura);
+  --theme-primary: #6366f1;
+  --theme-secondary: #4f46e5;
+  --theme-accent: #4338ca;
+}
+
+/* Títulos con color del tema */
+h1,
+h2,
+h3 {
+  color: var(--theme-primary);
+}
+
+/* Elementos de lista del tema */
+.feature-list li::before,
+.service-list li::before {
+  color: var(--theme-primary);
+}
+
+/* Headers de tabla del tema */
+.admin-table th {
+  background-color: var(--theme-primary);
+}
+
+/* Elementos específicos de arquitectura */
+.architecture-highlight {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(99, 102, 241, 0.05));
+  border: 2px solid var(--theme-primary);
+  border-radius: 12px;
+  padding: 1rem;
+  margin: 1rem 0;
+}

@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tipos de Grupos en Microsoft 365</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Script para botón de volver -->
+    <script src="../js/back-button.js"></script>
+        <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Estilos externos -->
+    <link rel="stylesheet" href="../css/pages-base.css">
+    <link rel="stylesheet" href="../css/themes/identidad.css">
+  </head>
+  <body>
+    <div class="document-container px-4 py-8 md:py-12">
+      <header class="text-center pb-8 border-b border-border-color mb-10">
+        <h1
+          class="text-4xl md:text-5xl font-extrabold leading-tight tracking-wider text-primary-color">
+          Tipos de Grupos y Destinatarios en Microsoft 365
+        </h1>
+        <p class="mt-2 text-lg text-gray-400">
+          La diferencia crítica entre Listas de Correo y Grupos de Colaboración
+        </p>
+      </header>
+
+      <!-- Matriz Comparativa (Tabla) -->
+      <section class="mb-12 overflow-x-auto rounded-xl shadow-2xl">
+        <h2 class="text-3xl mb-4 text-primary-color px-4 md:px-0">
+          Matriz Funcional
+        </h2>
+        <table class="comparison-table min-w-full divide-y divide-border-color">
+          <thead>
+            <tr>
+              <th class="text-left">Característica</th>
+              <th class="text-center" style="color: var(--dl-color);">
+                Lista de Distribución (DL)
+              </th>
+              <th class="text-center" style="color: var(--sg-color);">
+                Grupo de Seguridad (SG)
+              </th>
+              <th class="text-center" style="color: var(--m365-color);">
+                Grupo Microsoft 365 (Moderno)
+              </th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-border-color text-sm md:text-base">
+            <!-- Fila 1: Propósito Principal -->
+            <tr>
+              <td class="font-bold text-primary-color">Propósito Principal</td>
+              <td>
+                <span class="pill-tag bg-yellow-700">Envío de Correo</span>
+                (Distribución masiva).
+              </td>
+              <td>
+                <span class="pill-tag bg-red-700">Asignación de Permisos</span>
+                (Acceso a recursos).
+              </td>
+              <td>
+                <span class="pill-tag bg-green-700">Colaboración Total</span>
+                (Buzón, Teams, SharePoint).
+              </td>
+            </tr>
+            <!-- Fila 2: ¿Tiene Buzón Propio? -->
+            <tr>
+              <td class="font-bold text-primary-color">¿Tiene Buzón Propio?</td>
+              <td class="text-center">
+                ❌ <strong>NO</strong> (Es un <em>recipient</em> sin
+                almacenamiento).
+              </td>
+              <td class="text-center">
+                ❌ <strong>NO</strong> (Por defecto. Excepto si es
+                "Mail-Enabled").
+              </td>
+              <td class="text-center">
+                ✅ <strong>SÍ</strong> (Tiene un Buzón Compartido).
+              </td>
+            </tr>
+            <!-- Fila 3: Componentes Asociados -->
+            <tr>
+              <td class="font-bold text-primary-color">
+                Componentes Asociados
+              </td>
+              <td>Solo el alias de correo.</td>
+              <td>Solo permisos de acceso (AD/Azure AD).</td>
+              <td>
+                <strong>Teams</strong>, Sitio SharePoint, Calendario, Bloc de
+                Notas.
+              </td>
+            </tr>
+            <!-- Fila 4: Función en Permisos -->
+            <tr>
+              <td class="font-bold text-primary-color">Función en Permisos</td>
+              <td>N/A (No otorga permisos).</td>
+              <td>
+                <strong>Principalmente usado para permisos</strong> (Acceso a
+                carpetas, etc.).
+              </td>
+              <td>Otorga acceso al sitio y repositorio asociado.</td>
+            </tr>
+            <!-- Fila 5: Funcionamiento del Correo -->
+            <tr>
+              <td class="font-bold text-primary-color">
+                Funcionamiento del Correo
+              </td>
+              <td><em>Fanning Out</em>: Copia y entrega individualmente.</td>
+              <td>No tiene correo (por defecto).</td>
+              <td>
+                El correo se almacena en su
+                <strong>buzón grupal</strong> propio.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Sección: Explicación Detallada con Diagramas -->
+      <section class="mb-10">
+        <h2 class="text-3xl mb-6 text-primary-color">
+          Conceptos Clave y Diagrama de Arquitectura
+        </h2>
+
+        <div class="diagram-container">
+          <!-- Tarjeta 1: Lista de Distribución -->
+          <div class="diagram-item">
+            <div class="icon" style="color: var(--dl-color);">📧</div>
+            <h3
+              class="text-xl font-semibold mb-2"
+              style="color: var(--dl-color);">
+              1. Lista de Distribución (DL)
+            </h3>
+            <p class="text-gray-400 text-sm">
+              Es un objeto de <strong>Exchange</strong> cuyo único fin es la
+              <strong>distribución masiva de correo</strong>. Cuando recibe un
+              email, lo <strong>multiplica (<em>fanning out</em>)</strong> y lo
+              deposita en las bandejas de entrada de todos sus miembros. No
+              almacena correos.
+            </p>
+            <p class="mt-2 text-xs font-bold text-gray-500">
+              Función: Destinatario Básico (Recipient).
+            </p>
+          </div>
+
+          <!-- Tarjeta 2: Grupo de Seguridad -->
+          <div class="diagram-item">
+            <div class="icon" style="color: var(--sg-color);">🔒</div>
+            <h3
+              class="text-xl font-semibold mb-2"
+              style="color: var(--sg-color);">
+              2. Grupo de Seguridad (SG)
+            </h3>
+            <p class="text-gray-400 text-sm">
+              Su función principal es la
+              <strong>administración de acceso y permisos</strong>. Se usa para
+              definir grupos de usuarios que tienen el mismo nivel de acceso a
+              ciertos recursos (ej. carpetas compartidas o aplicaciones).
+            </p>
+            <p class="mt-2 text-xs font-bold text-gray-500">
+              Función: Otorgar Acceso (Permisos).
+            </p>
+          </div>
+
+          <!-- Tarjeta 3: Mail-Enabled Security Group -->
+          <div class="diagram-item">
+            <div class="icon" style="color: #f7b731;">🛡️✉️</div>
+            <h3 class="text-xl font-semibold mb-2" style="color: #f7b731;">
+              3. Grupo de Seguridad Habilitado para Correo
+            </h3>
+            <p class="text-gray-400 text-sm">
+              Combina las funcionalidades:
+              <strong>otorga permisos</strong> (como un SG)
+              <strong>Y</strong> tiene una
+              <strong>dirección de correo</strong> (como un DL). Es una solución
+              híbrida, usada cuando se necesita seguridad y comunicación.
+            </p>
+            <p class="mt-2 text-xs font-bold text-gray-500">
+              Función: Seguridad + Correo.
+            </p>
+          </div>
+
+          <!-- Tarjeta 4: Grupo Microsoft 365 (Moderno) -->
+          <div class="diagram-item">
+            <div class="icon" style="color: var(--m365-color);">🌐</div>
+            <h3
+              class="text-xl font-semibold mb-2"
+              style="color: var(--m365-color);">
+              4. Grupo de Microsoft 365 (Unified Group)
+            </h3>
+            <p class="text-gray-400 text-sm">
+              La pieza central de la <strong>colaboración moderna</strong>. Crea
+              un <strong>buzón centralizado</strong> y provisiona
+              automáticamente todos los componentes de la suite (SharePoint
+              Site, Teams, Planner, etc.).
+            </p>
+            <p class="mt-2 text-xs font-bold text-gray-500">
+              Función: Plataforma de Colaboración Unificada.
+            </p>
+          </div>
+        </div>
+
+        <div
+          class="mt-10 p-6 rounded-xl content-card border-l-4 border-primary-color">
+          <h3 class="text-2xl font-semibold mb-3">
+            La Arquitectura de Teams (El Grupo Moderno)
+          </h3>
+          <p class="text-gray-300">
+            Es vital entender que un <strong>Equipo de Teams</strong> no es una
+            entidad independiente; es una
+            <strong>capa de visualización e interacción</strong> que se
+            superpone a un <strong>Grupo de Microsoft 365</strong>. Este grupo
+            moderno es el que alberga el buzón, el calendario y el sitio de
+            SharePoint (donde se guardan los archivos). Por lo tanto, al crear
+            un Team, siempre se está creando un Grupo M365 subyacente.
+          </p>
+        </div>
+      </section>
+      <!-- SECCIÓN AÑADIDA: BUZÓN COMPARTIDO -->
+      <section class="mb-10 pt-10 border-t border-border-color">
+        <h2 class="text-3xl mb-6" style="color: var(--sb-color);">
+          Buzón Compartido (Shared Mailbox)
+        </h2>
+
+        <div class="content-card p-6 rounded-xl space-y-4">
+          <h3
+            class="text-xl font-semibold mb-3"
+            style="color: var(--sb-color);">
+            1. ¿Qué es y Diferencia Clave con la DL?
+          </h3>
+          <p class="text-gray-300">
+            Un buzón compartido es un tipo de destinatario especial de Exchange
+            utilizado para direcciones genéricas (<code class="code-block"
+              >soporte@</code
+            >, <code class="code-block">pedidos@</code>) o como solución de
+            archivo para usuarios salientes.
+          </p>
+          <p class="text-gray-300">
+            La <strong>diferencia clave</strong> con la Lista de Distribución
+            (DL) es que el Buzón Compartido
+            <strong>SÍ tiene un buzón separado y propio</strong> para almacenar
+            correos. Los miembros tienen que
+            <strong>acceder activamente</strong> a él, ya que el correo no llega
+            a su bandeja individual.
+          </p>
+          <div
+            class="text-lg font-bold text-green-400 bg-gray-900 p-3 rounded-lg border-l-4 border-green-600">
+            💰 ¡VENTAJA CLAVE! No consume licencia de usuario.
+          </div>
+
+          <!-- Uso Común Diagrama -->
+          <div class="p-4 rounded-lg bg-[#2b2b2b] border border-gray-600">
+            <p class="font-bold text-primary-color">
+              Uso Típico: Liberación de Licencias
+            </p>
+            <p class="text-sm text-gray-400 mt-1">
+              Si un usuario se va, convertir su buzón individual a buzón
+              compartido <strong>mantiene todo su historial</strong> sin la
+              necesidad de seguir consumiendo una licencia.
+            </p>
+          </div>
+        </div>
+
+        <div class="content-card p-6 rounded-xl space-y-4 mt-8">
+          <h3
+            class="text-xl font-semibold mb-3"
+            style="color: var(--sb-color);">
+            2. Administración: Permisos Necesarios
+          </h3>
+          <p class="text-gray-400">
+            Para que un miembro pueda interactuar con el buzón, el administrador
+            debe otorgar permisos:
+          </p>
+
+          <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-border-color">
+              <thead>
+                <tr>
+                  <th
+                    class="text-left py-2 px-4 bg-gray-700 text-sm font-semibold"
+                    style="color: var(--sb-color);">
+                    Permiso
+                  </th>
+                  <th
+                    class="text-left py-2 px-4 bg-gray-700 text-sm font-semibold"
+                    style="color: var(--sb-color);">
+                    Propósito
+                  </th>
+                  <th
+                    class="text-left py-2 px-4 bg-gray-700 text-sm font-semibold"
+                    style="color: var(--sb-color);">
+                    Impacto en el Usuario
+                  </th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-border-color">
+                <tr class="bg-gray-800">
+                  <td class="py-2 px-4 text-warning-400 font-bold">
+                    Acceso Completo (Full Access)
+                  </td>
+                  <td class="py-2 px-4 text-gray-300">
+                    Permite leer y administrar el buzón, incluyendo la capacidad
+                    de abrirlo.
+                  </td>
+                  <td class="py-2 px-4 text-gray-400">
+                    El buzón aparece <strong>automáticamente</strong> en el
+                    cliente de correo (Automapping).
+                  </td>
+                </tr>
+                <tr class="bg-gray-800">
+                  <td class="py-2 px-4 text-success-400 font-bold">
+                    Enviar Como (Send As)
+                  </td>
+                  <td class="py-2 px-4 text-gray-300">
+                    Permite enviar correos electrónicos en nombre del buzón
+                    compartido.
+                  </td>
+                  <td class="py-2 px-4 text-gray-400">
+                    En el campo "De" solo aparece
+                    <code class="code-block">soporte@</code> (Suplantación
+                    directa).
+                  </td>
+                </tr>
+                <tr class="bg-gray-800">
+                  <td class="py-2 px-4 text-gray-400 font-bold">
+                    Enviar en Nombre de (Send on Behalf of)
+                  </td>
+                  <td class="py-2 px-4 text-gray-300">
+                    Permite enviar correos indicando que lo envió el miembro en
+                    nombre del buzón.
+                  </td>
+                  <td class="py-2 px-4 text-gray-400">
+                    En el campo "De" aparece:
+                    <code class="code-block">Alex en nombre de soporte@</code>
+                    (Suplantación indirecta).
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="content-card p-6 rounded-xl space-y-4 mt-8">
+          <h3
+            class="text-xl font-semibold mb-3"
+            style="color: var(--sb-color);">
+            3. Configuraciones Especiales
+          </h3>
+          <ul class="list-disc list-inside ml-4 text-gray-300 space-y-2">
+            <li>
+              <strong>Respuestas Automáticas:</strong> Se le pueden activar,
+              pero funcionan igual que las de un buzón normal, con un límite de
+              <strong>una respuesta al día</strong> al mismo remitente.
+            </li>
+            <li>
+              <strong>Almacenamiento de Copias Enviadas:</strong> El
+              administrador puede configurar si la copia del correo enviado se
+              guarda <strong>solo</strong> en el Buzón Compartido, o si también
+              se guarda una copia en la carpeta de Elementos Enviados del
+              miembro individual.
+            </li>
+          </ul>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>
+

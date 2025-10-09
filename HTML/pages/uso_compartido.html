@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Uso Compartido de Calendario en Exchange Online</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+        <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Estilos externos -->
+    <link rel="stylesheet" href="../css/pages-base.css">
+    <link rel="stylesheet" href="../css/themes/exchange.css">
+  </head>
+  <body>
+    <div class="document-container px-4 py-8 md:py-12">
+      <header class="text-center pb-8 border-b border-border-color mb-10">
+        <h1
+          class="text-4xl md:text-5xl font-extrabold leading-tight tracking-wider text-primary-color">
+          Uso Compartido de Calendario en Exchange
+        </h1>
+        <p class="mt-2 text-lg text-gray-400">
+          Compartición Federada vs. Compartición Individual de Disponibilidad
+        </p>
+      </header>
+
+      <!-- Ubicación y Alcance -->
+      <section
+        class="mb-10 content-card p-6 rounded-xl border-l-4 border-primary-color">
+        <h2 class="text-3xl mb-4 text-primary-color">Ubicación y Alcance</h2>
+        <p class="text-gray-300">
+          La configuración de <strong>Uso Compartido</strong> se encuentra en la
+          sección <span class="font-bold">Organización</span> del Centro de
+          Administración de Exchange Online (CAE).
+        </p>
+        <p
+          class="mt-3 text-lg font-semibold text-highlight-individual bg-gray-900 p-2 rounded-md">
+          <span class="font-bold">¡Importante!</span> En este contexto, "Uso
+          Compartido" se refiere
+          <span class="text-red-400"
+            >exclusivamente a la funcionalidad del
+            <strong>calendario</strong></span
+          >, no al correo electrónico.
+        </p>
+      </section>
+
+      <!-- Sección 1: Uso Compartido Federado (Organización) -->
+      <section
+        class="mb-10 content-card p-6 rounded-xl border-l-4"
+        style="border-color: var(--highlight-federated);">
+        <h2 class="text-3xl mb-4" style="color: var(--highlight-federated);">
+          1. Uso Compartido Federado (Colectivo)
+        </h2>
+        <p class="text-gray-300 mb-6">
+          El Uso Compartido Federado define las políticas de intercambio de
+          información de calendario a <strong>nivel de organización</strong>.
+        </p>
+
+        <h3 class="text-xl font-semibold mt-6 text-primary-color">
+          Propósito y Escenarios
+        </h3>
+        <ul class="list-disc list-inside ml-4 space-y-3 text-gray-300 mt-3">
+          <li>
+            <p>
+              <span class="font-bold text-highlight-federated"
+                >Coordinación Externa:</span
+              >
+              Permite a los usuarios de su organización ver la
+              <strong>disponibilidad de calendario</strong> de usuarios en
+              organizaciones externas. Útil para socios o grupos de empresas.
+            </p>
+          </li>
+          <li>
+            <p>
+              <span class="font-bold text-highlight-federated"
+                >Ambientes Híbridos:</span
+              >
+              Es esencial para la interoperabilidad en entornos donde parte de
+              Exchange está <strong>On-Premise</strong> y parte en
+              <strong>Exchange Online</strong>.
+            </p>
+          </li>
+        </ul>
+      </section>
+
+      <!-- Diagrama de Flujo: Tipos de Compartición -->
+      <section
+        class="mb-10 content-card p-6 rounded-xl border-l-4 border-primary-color">
+        <h2 class="text-3xl mb-4 text-primary-color">
+          Diagrama: Control de Compartición de Calendario
+        </h2>
+        <div
+          class="flex flex-col md:flex-row justify-around gap-6 p-4 rounded-xl mt-4 border border-dashed border-border-color bg-gray-900/50">
+          <!-- Columna Federado -->
+          <div class="flex flex-col items-center flex-1">
+            <div
+              class="diagram-step w-full"
+              style="border-color: var(--highlight-federated);">
+              <p class="font-bold text-highlight-federated">
+                USO COMPARTIDO FEDERADO
+              </p>
+            </div>
+            <div class="diagram-connector">⬇️</div>
+            <div
+              class="diagram-box w-full bg-gray-800 p-3 rounded-lg text-left">
+              <p class="text-sm font-bold text-white">Nivel:</p>
+              <p class="text-xs text-gray-400">
+                Colectivo (Toda la Organización)
+              </p>
+              <p class="text-sm font-bold text-white mt-2">Control:</p>
+              <p class="text-xs text-gray-400">
+                Administrador de Exchange (CAE)
+              </p>
+              <p class="text-sm font-bold text-white mt-2">Dato por Defecto:</p>
+              <p class="text-xs text-gray-400">
+                Solo Disponibilidad (Ocupado/Libre)
+              </p>
+            </div>
+          </div>
+
+          <!-- Separador -->
+          <div class="diagram-connector hidden md:flex">↔️</div>
+
+          <!-- Columna Individual -->
+          <div class="flex flex-col items-center flex-1">
+            <div
+              class="diagram-step w-full"
+              style="border-color: var(--highlight-individual);">
+              <p class="font-bold text-highlight-individual">
+                USO COMPARTIDO INDIVIDUAL
+              </p>
+            </div>
+            <div class="diagram-connector">⬇️</div>
+            <div
+              class="diagram-box w-full bg-gray-800 p-3 rounded-lg text-left">
+              <p class="text-sm font-bold text-white">Nivel:</p>
+              <p class="text-xs text-gray-400">Individual (Cada Usuario)</p>
+              <p class="text-sm font-bold text-white mt-2">Control:</p>
+              <p class="text-xs text-gray-400">Usuario Final (Outlook/OWA)</p>
+              <p class="text-sm font-bold text-white mt-2">Dato por Defecto:</p>
+              <p class="text-xs text-gray-400">
+                Solo Disponibilidad (Modificable por el usuario)
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sección 2: Distinción de la Compartición Individual -->
+      <section
+        class="mb-10 content-card p-6 rounded-xl border-l-4"
+        style="border-color: var(--highlight-individual);">
+        <h2 class="text-3xl mb-4" style="color: var(--highlight-individual);">
+          2. Distinción: Compartición Individual
+        </h2>
+        <p class="text-gray-300 mb-4">
+          Es crucial distinguir el control centralizado de la federación del
+          control que tiene cada usuario sobre su propio calendario.
+        </p>
+
+        <div
+          class="callout p-4 rounded-lg bg-green-900/50 border-l-4 border-highlight-individual text-gray-300">
+          <p class="font-bold text-lg mb-2">Compartición por Defecto:</p>
+          <p class="text-sm">
+            Por defecto, todos los usuarios tienen habilitada la posibilidad de
+            compartir su calendario con gente
+            <strong>externa e interna</strong>. <br />Lo que se comparte por
+            defecto es únicamente el
+            <strong>estado de ocupado o no ocupado</strong>, aunque el usuario
+            puede aumentar los detalles compartidos desde Outlook o OWA.
+          </p>
+        </div>
+      </section>
+
+      <!-- Sección 3: Configuración Avanzada -->
+      <section
+        class="mb-10 content-card p-6 rounded-xl border-l-4 border-primary-color">
+        <h2 class="text-3xl mb-4 text-primary-color">
+          3. Configuración de la Federación
+        </h2>
+        <ul class="list-disc list-inside ml-4 space-y-3 text-gray-300 mt-3">
+          <li>
+            <p>
+              <span class="font-bold text-primary-color">Habilitación:</span>
+              Para establecer la federación, se añaden otras organizaciones
+              específicas con las que se desea intercambiar información.
+            </p>
+          </li>
+          <li>
+            <p>
+              <span class="font-bold text-primary-color">Implementación:</span>
+              Aunque existe una configuración de política por defecto, las
+              implementaciones complejas (especialmente en entornos híbridos)
+              pueden requerir ajustes más técnicos, incluso a través de
+              <code class="code-block">PowerShell</code>.
+            </p>
+          </li>
+        </ul>
+      </section>
+    </div>
+
+    <!-- Cargar el script de navegación -->
+    <script src="../js/back-button.js"></script>
+  </body>
+</html>
+

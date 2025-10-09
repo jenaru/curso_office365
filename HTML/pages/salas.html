@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Buzones de Recursos (Salas y Equipamiento)</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Script para botón de volver -->
+    <script src="../js/back-button.js"></script>
+        <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Estilos externos -->
+    <link rel="stylesheet" href="../css/pages-base.css">
+    <link rel="stylesheet" href="../css/themes/exchange.css">
+  </head>
+  <body>
+    <div class="document-container px-4 py-8 md:py-12">
+      <header class="text-center pb-8 border-b border-border-color mb-10">
+        <h1
+          class="text-4xl md:text-5xl font-extrabold leading-tight tracking-wider text-primary-color">
+          Gestión de Recursos en Exchange Online
+        </h1>
+        <p class="mt-2 text-lg text-gray-400">
+          Buzones de Sala y Equipamiento: Calendarios Inteligentes para la
+          Reserva de Recursos
+        </p>
+      </header>
+
+      <!-- Principio Fundamental -->
+      <section
+        class="mb-10 content-card p-6 rounded-xl border-l-4 border-primary-color">
+        <h2 class="text-3xl mb-4">El Concepto Fundamental</h2>
+        <p class="text-gray-300">
+          Tanto un <strong>buzón de sala</strong> como un
+          <strong>buzón de equipamiento</strong> son
+          <strong>destinatarios especiales de Exchange</strong>. Su función
+          principal no es recibir correos para personas, sino que tienen
+          asociado un <strong>calendario</strong> que permite a los usuarios
+          <strong>verificar la disponibilidad</strong> del recurso y reservarlo.
+        </p>
+        <div
+          class="text-lg font-bold text-highlight-green bg-gray-900 p-3 rounded-lg mt-4 border-l-4 border-room-color">
+          🌟 Importante: Al igual que el buzón compartido, estos buzones
+          <strong>NO ocupan licencia de usuario</strong>.
+        </div>
+      </section>
+
+      <!-- Tipos de Buzones de Recurso -->
+      <section class="mb-10">
+        <h2 class="text-3xl mb-6">Diferencia entre Sala y Equipamiento</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Buzón de Sala -->
+          <div class="resource-card" style="border-color: var(--room-color);">
+            <div class="icon-large" style="color: var(--room-color);">🏢</div>
+            <h3
+              class="text-2xl font-semibold mb-3"
+              style="color: var(--room-color);">
+              1. Buzón de Sala (Room Mailbox)
+            </h3>
+            <p class="text-gray-400 mb-4">
+              <strong>Propósito:</strong> Representa una
+              <strong>ubicación física fija</strong> (una sala de reuniones, un
+              aula, un laboratorio).
+            </p>
+            <ul class="list-disc list-inside ml-4 text-gray-300 space-y-2">
+              <li>
+                <strong>Uso:</strong> Se añade como un asistente más a la
+                convocatoria de la reunión.
+              </li>
+              <li>
+                <strong>Respuesta:</strong> Acepta o rechaza la reunión
+                automáticamente basándose en su disponibilidad.
+              </li>
+            </ul>
+          </div>
+
+          <!-- Buzón de Equipamiento -->
+          <div
+            class="resource-card"
+            style="border-color: var(--equipment-color);">
+            <div class="icon-large" style="color: var(--equipment-color);">
+              💻
+            </div>
+            <h3
+              class="text-2xl font-semibold mb-3"
+              style="color: var(--equipment-color);">
+              2. Buzón de Equipamiento (Equipment Mailbox)
+            </h3>
+            <p class="text-gray-400 mb-4">
+              <strong>Propósito:</strong> Se utiliza para reservar
+              <strong>recursos físicos móviles o equipos</strong> (proyector,
+              portátil auxiliar, furgoneta, excavadora).
+            </p>
+            <ul class="list-disc list-inside ml-4 text-gray-300 space-y-2">
+              <li>
+                <strong>Uso:</strong> El usuario reserva el recurso para un
+                periodo de tiempo.
+              </li>
+              <li>
+                <strong>Objetivo:</strong> Verificar y asegurar que el equipo no
+                esté doblemente reservado.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Administración y Atributos Especiales -->
+      <section class="mb-10 content-card p-6 rounded-xl">
+        <h2 class="text-3xl mb-4">3. Atributos y Opciones de Reserva</h2>
+        <div class="space-y-6 text-gray-300">
+          <p>
+            Las configuraciones avanzadas, que definen cómo responden estos
+            buzones, se suelen gestionar mediante
+            <code class="code-block">PowerShell</code>, aunque las básicas están
+            en la interfaz web.
+          </p>
+
+          <div class="diagram-flow">
+            <p class="font-bold text-primary-color mb-2">
+              Atributo Especial de la Sala: CAPACIDAD
+            </p>
+            <p class="text-center">
+              La sala tiene un atributo
+              <code class="code-block">Capacity</code> (ej. 13 personas). Si la
+              reunión convocada tiene 20 asistentes, la sala
+              <strong>no aparecerá en la lista de salas disponibles</strong> en
+              el asistente de programación, actuando como un
+              <strong>filtro inteligente</strong>.
+            </p>
+          </div>
+
+          <div class="diagram-flow">
+            <p class="font-bold text-primary-color mb-2">
+              Delegados y Control de Reserva
+            </p>
+            <p class="text-center">
+              Se pueden asignar <strong>Delegados</strong> responsables de
+              <strong>autorizar</strong> las reservas. Si no se asignan
+              delegados, la sala suele tener configurada la
+              <strong>aceptación automática</strong> de solicitudes.
+            </p>
+          </div>
+
+          <div class="diagram-flow">
+            <p class="font-bold text-primary-color mb-2">
+              Opciones de Reserva Fina
+            </p>
+            <p class="text-center text-sm">
+              La administración avanzada permite restringir:
+              <br /><span class="code-block"
+                >Permitir Reuniones Periódicas</span
+              >
+              |
+              <span class="code-block"
+                >Duración Máxima de Reserva (ej. 120 min)</span
+              >
+              | <span class="code-block">Restricciones de Tiempo</span>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Flujo de Reserva -->
+      <section class="mb-10">
+        <h2 class="text-3xl mb-6 text-primary-color">
+          Flujo de Reserva de Recurso
+        </h2>
+        <div class="diagram-box flex flex-col items-center">
+          <div class="p-3 bg-indigo-600 rounded-lg text-white font-bold">
+            1. Usuario convoca Reunión
+          </div>
+          <div class="text-4xl my-2 text-primary-color">⬇️</div>
+          <div class="p-3 bg-gray-700 rounded-lg text-white font-bold">
+            2. Agrega el Buzón (Sala/Equipamiento) como asistente
+          </div>
+          <div class="text-4xl my-2 text-primary-color">⬇️</div>
+          <div class="p-3 bg-gray-700 rounded-lg text-white font-bold">
+            3. Exchange revisa el Calendario del Recurso
+          </div>
+          <div class="text-4xl my-2 text-primary-color">⬇️</div>
+          <div class="flex flex-col md:flex-row gap-4 w-full justify-center">
+            <div
+              class="flex-1 p-4 bg-room-color rounded-lg text-gray-900 font-bold text-center">
+              SI ESTÁ LIBRE: Acepta automáticamente
+            </div>
+            <div
+              class="flex-1 p-4 bg-highlight-red rounded-lg text-white font-bold text-center">
+              SI ESTÁ OCUPADO: Rechaza automáticamente
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>
+
+
+
+

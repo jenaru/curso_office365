@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sitios de Colaboración en SharePoint Online</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Estilos externos -->
+    <link rel="stylesheet" href="../css/pages-base.css" />
+    <link rel="stylesheet" href="../css/themes/sharepoint.css" />
+    <style>
+      /* Estilos específicos de colaboración */
+      :root {
+          --primary-color: #10b981; /* Verde esmeralda para colaboración */
+      }
+
+      h1, h2, h3 {
+          color: var(--primary-color);
+      }
+
+      .feature-list li::before,
+      .service-list li::before {
+          color: var(--primary-color);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="document-container px-4 py-8 md:py-12">
+      <header class="text-center pb-8 border-b border-border-color mb-10">
+        <h1
+          class="text-4xl md:text-5xl font-extrabold leading-tight tracking-wider text-primary-color">
+          Sitios de Colaboración en SharePoint Online
+        </h1>
+        <p class="mt-2 text-lg text-gray-400">
+          La Piedra Angular de la Colaboración: Trabajo en Equipo y
+          Participación Activa
+        </p>
+      </header>
+
+      <!-- Sección 1: Definición y Propósito -->
+      <section
+        class="mb-10 content-card p-6 rounded-xl border-l-4"
+        style="border-color: var(--primary-color);">
+        <h2 class="text-3xl mb-4 text-primary-color">
+          1. Definición y Propósito del Sitio de Colaboración
+        </h2>
+        <p class="text-gray-300 mb-6">
+          Un Sitio de Colaboración es una plantilla de sitio de SharePoint
+          Online diseñada específicamente para el trabajo en equipo, proyectos o
+          departamentos, donde la expectativa principal es la
+          <strong
+            >participación activa y la edición de contenido por parte de todos
+            los miembros</strong
+          >.
+        </p>
+
+        <div
+          class="flex flex-col items-center p-4 rounded-xl mt-4 border border-dashed border-border-color bg-gray-900/50">
+          <p class="text-sm font-bold text-primary-color mb-4">
+            DIFERENCIA FUNDAMENTAL CON SITIOS DE COMUNICACIÓN
+          </p>
+
+          <div class="flex flex-col md:flex-row gap-6 w-full">
+            <div
+              class="architecture-layer flex-1"
+              style="border-color: var(--primary-color);">
+              <p class="font-bold text-primary-color">SITIO DE COLABORACIÓN</p>
+              <p class="text-xs text-gray-400 mt-2">
+                <strong>Todos los usuarios trabajan al mismo nivel</strong
+                ><br />
+                Participación activa y edición de contenido
+              </p>
+            </div>
+
+            <div class="diagram-connector hidden md:flex">vs</div>
+
+            <div
+              class="architecture-layer flex-1"
+              style="border-color: var(--highlight-teams);">
+              <p class="font-bold text-highlight-teams">
+                SITIO DE COMUNICACIÓN
+              </p>
+              <p class="text-xs text-gray-400 mt-2">
+                <strong>Uno para muchos</strong><br />
+                Mayoría de usuarios son visitantes (solo lectura)
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sección 2: Arquitectura del Ecosistema -->
+      <section
+        class="mb-10 content-card p-6 rounded-xl border-l-4"
+        style="border-color: var(--highlight-teams);">
+        <h2 class="text-3xl mb-4 text-primary-color">
+          2. Arquitectura: La Base del Ecosistema Moderno
+        </h2>
+
+        <h3 class="text-xl font-semibold mt-6 text-highlight-sharepoint">
+          A. La Colección de Sitios Convertida en "Isla"
+        </h3>
+        <p class="text-gray-300 mb-4">
+          En el modelo moderno, cada Sitio de Colaboración se comporta como un
+          <strong>ente independiente</strong>, eliminando la arquitectura
+          jerárquica del modelo clásico.
+        </p>
+
+        <div
+          class="callout p-4 rounded-lg bg-purple-900/50 border-l-4 border-highlight-sharepoint text-gray-300">
+          <p class="font-bold text-highlight-sharepoint">Independencia Total</p>
+          <p class="text-sm">
+            Cada sitio gestiona de manera autónoma su cuota de espacio, idioma y
+            políticas de compartición externa, sin depender de la herencia de
+            permisos de un sitio superior.
+          </p>
+        </div>
+
+        <h3 class="text-xl font-semibold mt-6 text-highlight-group">
+          B. El Sitio de Colaboración es un Grupo de Microsoft 365
+        </h3>
+        <p class="text-gray-300 mb-4">
+          El objeto fundamental es el <strong>Grupo de Office 365</strong>. Al
+          crear un Sitio de Colaboración, automáticamente se le asocia un Grupo
+          de M365 que proporciona servicios unificados:
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <ul class="service-list">
+            <li>
+              <strong>Repositorio de Ficheros (SharePoint):</strong> El sitio
+              donde residen los documentos.
+            </li>
+            <li>
+              <strong>Buzón Compartido (Exchange):</strong> Buzón de correo
+              centralizado para el equipo.
+            </li>
+          </ul>
+          <ul class="service-list">
+            <li>
+              <strong>Calendario Compartido (Exchange):</strong> Calendario
+              accesible para todos los miembros.
+            </li>
+            <li>
+              <strong>OneNote Compartido:</strong> Bloc de notas para el equipo.
+            </li>
+          </ul>
+        </div>
+
+        <h3 class="text-xl font-semibold mt-6 text-highlight-teams">
+          C. Teams como la Capa Superior
+        </h3>
+
+        <div
+          class="flex flex-col items-center p-4 rounded-xl mt-4 border border-dashed border-border-color bg-gray-900/50">
+          <p class="text-sm font-bold text-highlight-teams mb-4">
+            ARQUITECTURA DE CAPAS
+          </p>
+
+          <div class="w-full space-y-2">
+            <div
+              class="architecture-layer w-full"
+              style="border-color: var(--highlight-teams);">
+              <p class="font-bold text-highlight-teams">Microsoft Teams</p>
+              <p class="text-xs text-gray-400">
+                Chat, videollamadas, Planner, Listas, Wikis, pizarras
+              </p>
+            </div>
+
+            <div class="diagram-connector">⬇️ Construido sobre</div>
+
+            <div
+              class="architecture-layer w-full"
+              style="border-color: var(--highlight-group);">
+              <p class="font-bold text-highlight-group">
+                Grupo de Microsoft 365
+              </p>
+              <p class="text-xs text-gray-400">
+                Sistema de gestión de identidad y membresía
+              </p>
+            </div>
+
+            <div class="diagram-connector">⬇️ Incluye</div>
+
+            <div
+              class="architecture-layer w-full"
+              style="border-color: var(--highlight-sharepoint);">
+              <p class="font-bold text-highlight-sharepoint">
+                Sitio de SharePoint
+              </p>
+              <p class="text-xs text-gray-400">
+                Repositorio de archivos y listas
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="callout p-4 rounded-lg bg-blue-900/50 border-l-4 border-highlight-teams text-gray-300 mt-4 w-full">
+            <p class="font-bold text-highlight-teams">Concepto Clave</p>
+            <p class="text-sm">
+              La información del Team <strong>no está sincronizada</strong> con
+              SharePoint; es la <em>misma información</em> vista a través de una
+              interfaz diferente. Los canales de Teams se reflejan como carpetas
+              en SharePoint.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sección 3: Modelo de Permisos -->
+      <section
+        class="mb-10 content-card p-6 rounded-xl border-l-4"
+        style="border-color: var(--primary-color);">
+        <h2 class="text-3xl mb-4 text-primary-color">
+          3. Modelo de Permisos y Compartimentación
+        </h2>
+        <p class="text-gray-300 mb-6">
+          La característica más definitoria del Sitio de Colaboración moderno es
+          su filosofía de permisos simplificada.
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="info-box" style="border-color: var(--primary-color);">
+            <h4 class="font-bold text-primary-color mb-2">"Dentro o Fuera"</h4>
+            <p class="text-xs text-gray-400">
+              Elimina permisos granulares. Si eres miembro del Grupo M365/Team,
+              tienes <strong>control completo</strong> sobre el contenido.
+            </p>
+          </div>
+
+          <div class="info-box" style="border-color: var(--highlight-warning);">
+            <h4 class="font-bold text-highlight-warning mb-2">
+              Evitar Granularidad
+            </h4>
+            <p class="text-xs text-gray-400">
+              Aplicar permisos detallados manualmente en SharePoint subyacente
+              <strong>no es la forma correcta</strong> según Microsoft.
+            </p>
+          </div>
+
+          <div class="info-box" style="border-color: var(--highlight-teams);">
+            <h4 class="font-bold text-highlight-teams mb-2">
+              Aislamiento Correcto
+            </h4>
+            <p class="text-xs text-gray-400">
+              Para información confidencial: crear un
+              <strong>nuevo Team o contenedor separado</strong>, no modificar
+              permisos internos.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sección 4: Gestión de Archivos -->
+      <section
+        class="mb-10 content-card p-6 rounded-xl border-l-4"
+        style="border-color: var(--highlight-sharepoint);">
+        <h2 class="text-3xl mb-4 text-primary-color">
+          4. Gestión de Archivos y Buenas Prácticas
+        </h2>
+        <p class="text-gray-300 mb-6">
+          Aunque se utiliza principalmente para ficheros, los documentos en
+          SharePoint se almacenan internamente como <strong>listas</strong>.
+        </p>
+
+        <h3 class="text-xl font-semibold mt-6 text-highlight-sharepoint">
+          Recomendaciones de Acceso
+        </h3>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+          <div
+            class="p-4 rounded-lg bg-green-900/50 border-t-4"
+            style="border-color: var(--primary-color);">
+            <h4 class="font-bold text-primary-color text-sm mb-2">
+              ✅ Práctica Recomendada
+            </h4>
+            <p class="text-xs text-gray-400">
+              <strong>Trabajo en la Nube:</strong> Acceder directamente desde la
+              interfaz de Teams o SharePoint. Colaboración en tiempo real sin
+              problemas.
+            </p>
+          </div>
+
+          <div
+            class="p-4 rounded-lg bg-red-900/50 border-t-4"
+            style="border-color: var(--highlight-warning);">
+            <h4 class="font-bold text-highlight-warning text-sm mb-2">
+              ❌ Práctica Desaconsejada
+            </h4>
+            <p class="text-xs text-gray-400">
+              <strong>Sincronización Local:</strong> Aunque existe el botón
+              "Sincronizar", los expertos lo desaconsejan. Aumenta errores y
+              elementos duplicados.
+            </p>
+          </div>
+        </div>
+
+        <div
+          class="callout p-4 rounded-lg bg-red-900/50 border-l-4 border-highlight-warning text-gray-300 mt-6">
+          <p class="font-bold text-highlight-warning text-lg mb-2">
+            ⚠️ Advertencia: Sincronización Masiva
+          </p>
+          <p class="text-sm">
+            La sincronización masiva puede interrumpir la colaboración en tiempo
+            real, especialmente cuando hay muchos usuarios involucrados. Puede
+            causar problemas de versiones y conflictos de archivos.
+          </p>
+        </div>
+      </section>
+
+      <!-- Sección 5: Gobernanza -->
+      <section
+        class="mb-10 content-card p-6 rounded-xl border-l-4"
+        style="border-color: var(--highlight-group);">
+        <h2 class="text-3xl mb-4 text-primary-color">
+          5. Gobernanza del Sitio de Colaboración
+        </h2>
+        <p class="text-gray-300 mb-6">
+          La creación descontrolada de Sitios de Colaboración (Teams) puede
+          llevar a problemas de nomenclatura y gestión.
+        </p>
+
+        <div class="space-y-4">
+          <div
+            class="p-4 rounded-lg bg-gray-800/50 border-t-4"
+            style="border-color: var(--highlight-warning);">
+            <h4 class="font-bold text-highlight-warning text-sm mb-2">
+              1. Limitación de Creación
+            </h4>
+            <p class="text-xs text-gray-400">
+              Se recomienda limitar quién puede crear Teams o Sitios de Grupo
+              para evitar proliferación descontrolada.
+            </p>
+          </div>
+
+          <div
+            class="p-4 rounded-lg bg-gray-800/50 border-t-4"
+            style="border-color: var(--highlight-group);">
+            <h4 class="font-bold text-highlight-group text-sm mb-2">
+              2. Delegación de Propiedad
+            </h4>
+            <p class="text-xs text-gray-400">
+              El administrador crea el contenedor, pero asigna la
+              responsabilidad de gestión interna y membresía al
+              <strong>Propietario del Team</strong>.
+            </p>
+          </div>
+
+          <div
+            class="p-4 rounded-lg bg-gray-800/50 border-t-4"
+            style="border-color: var(--highlight-teams);">
+            <h4 class="font-bold text-highlight-teams text-sm mb-2">
+              3. Nomenclatura
+            </h4>
+            <p class="text-xs text-gray-400">
+              Se pueden aplicar <strong>Directivas de Nombres</strong> para
+              nomenclatura específica (requieren licencias Azure AD P1).
+            </p>
+          </div>
+        </div>
+
+        <div
+          class="callout p-4 rounded-lg bg-yellow-900/50 border-l-4 border-highlight-group text-gray-300 mt-6">
+          <p class="font-bold text-highlight-group">Ejemplo de Gobernanza</p>
+          <p class="text-sm">
+            Evitar nombres como "Manoli, Pepi, Antonio y yo" implementando
+            procesos de solicitud que incluyan: propósito del Team, departamento
+            responsable, propietario designado y política de acceso externo.
+          </p>
+        </div>
+      </section>
+    </div>
+
+    <!-- Cargar el script de navegación -->
+    <script src="../js/back-button.js"></script>
+  </body>
+</html>

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gestión de Usuarios Activos en M365</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+        <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Estilos externos -->
+    <link rel="stylesheet" href="../css/pages-base.css">
+    <link rel="stylesheet" href="../css/themes/identidad.css">
+  </head>
+  <body>
+    <div class="document-container px-4 py-8 md:py-12">
+      <header class="text-center pb-8 border-b border-border-color mb-10">
+        <h1
+          class="text-4xl md:text-5xl font-extrabold leading-tight tracking-wider text-primary-color">
+          Gestión de Usuarios Activos (Azure AD)
+        </h1>
+        <p class="mt-2 text-lg text-gray-400">
+          Identidad, Licenciamiento y Seguridad en la Consola de Administración
+        </p>
+      </header>
+
+      <!-- Sección 1: Identidad y Licenciamiento -->
+      <section class="mb-10 content-card p-6 rounded-xl">
+        <h2 class="text-3xl mb-4" style="color: var(--highlight-orange);">
+          1. El Eje Licencia-Funcionalidad
+        </h2>
+        <div class="space-y-4 text-gray-300">
+          <p>
+            La lista de <strong>Usuarios Activos</strong> es la representación
+            directa de los objetos de usuario en <strong>Azure AD</strong> y
+            actúa como la lista maestra de identidades que pueden acceder a la
+            plataforma.
+          </p>
+
+          <div class="feature-grid">
+            <div class="feature-item border-orange-500">
+              <p
+                class="font-bold text-lg mb-1"
+                style="color: var(--highlight-orange);">
+                Asignación de Licencias
+              </p>
+              <p class="text-sm text-gray-400">
+                Un usuario solo genera <strong>costo</strong> y activa
+                funcionalidades (Exchange, Teams, SharePoint) cuando se le
+                asigna una licencia.
+              </p>
+            </div>
+            <div class="feature-item border-orange-500">
+              <p
+                class="font-bold text-lg mb-1"
+                style="color: var(--highlight-orange);">
+                Gestión de Sublicencias
+              </p>
+              <p class="text-sm text-gray-400">
+                Se pueden activar/desactivar servicios específicos dentro de un
+                paquete de licencias para, por ejemplo, introducir herramientas
+                progresivamente.
+              </p>
+            </div>
+            <div class="feature-item border-orange-500">
+              <p
+                class="font-bold text-lg mb-1"
+                style="color: var(--highlight-orange);">
+                Configuración del UPN
+              </p>
+              <p class="text-sm text-gray-400">
+                Se modifica el
+                <strong>Nombre Principal de Usuario (UPN)</strong>, que es el
+                nombre de inicio de sesión. Permite seleccionar el dominio
+                correcto si la organización tiene varios.
+              </p>
+            </div>
+          </div>
+
+          <h3 class="text-xl font-semibold mt-6 text-primary-color">
+            Alias de Correo Electrónico (SMTP)
+          </h3>
+          <p class="text-gray-400">
+            Se configuran alias de correo (direcciones SMTP). Tradicionalmente,
+            solo se envía desde la dirección principal, pero se anticipa un
+            cambio para enviar desde cualquiera de los alias.
+          </p>
+          <div
+            class="callout bg-indigo-900/50 p-3 rounded-lg border-l-4 border-indigo-500 text-gray-400">
+            ⚠️ Nota: La interfaz web no permite obtener un listado completo de
+            todos los alias fácilmente; para tareas masivas o de auditoría, se
+            necesita <strong>PowerShell</strong>.
+          </div>
+        </div>
+      </section>
+
+      <!-- Sección 2: Acciones de Correo y Conversión de Buzones -->
+      <section class="mb-10 content-card p-6 rounded-xl">
+        <h2 class="text-3xl mb-4 text-primary-color">
+          2. Permisos y Delegación de Buzones
+        </h2>
+        <div class="space-y-4 text-gray-300">
+          <h3
+            class="text-xl font-semibold mt-6"
+            style="color: var(--highlight-orange);">
+            Tríada de Permisos (Delegación)
+          </h3>
+          <div class="feature-grid grid-cols-1 md:grid-cols-3">
+            <div class="feature-item border-blue-500">
+              <p class="font-bold text-lg mb-1">
+                Acceso Completo (Full Access)
+              </p>
+              <p class="text-sm text-gray-400">
+                Permite abrir el buzón, leer y administrar correos.
+              </p>
+            </div>
+            <div class="feature-item border-blue-500">
+              <p class="font-bold text-lg mb-1">Enviar Como (Send As)</p>
+              <p class="text-sm text-gray-400">
+                Envía correos con la identidad del buzón (útil para asistentes).
+              </p>
+            </div>
+            <div class="feature-item border-blue-500">
+              <p class="font-bold text-lg mb-1">
+                Enviar en Nombre de (Send on Behalf of)
+              </p>
+              <p class="text-sm text-gray-400">
+                Envía correos, pero muestra que fue enviado por un delegado.
+              </p>
+            </div>
+          </div>
+
+          <h3 class="text-xl font-semibold mt-6 text-primary-color">
+            Otras Configuraciones Clave
+          </h3>
+          <ul class="list-disc list-inside ml-4 space-y-2 text-gray-300">
+            <li>
+              <strong>Reenvío de Correo:</strong> Configuración automática a
+              otra dirección. Es considerada una
+              <strong>acción peligrosa</strong> y común en ataques de
+              compromiso, por lo que debe ser monitoreada.
+            </li>
+            <li>
+              <strong>Respuestas Automáticas:</strong> Configuración rápida de
+              mensajes de "Fuera de la oficina" con distinción entre usuarios
+              internos y externos.
+            </li>
+            <li>
+              <strong>Ocultar de la GAL:</strong> Permite ocultar al usuario de
+              la <strong>Lista Global de Direcciones (GAL)</strong>.
+            </li>
+          </ul>
+
+          <h3 class="text-xl font-semibold mt-6 text-primary-color">
+            Diagrama: Conversión de Buzones
+          </h3>
+          <div
+            class="flex flex-col items-center justify-center p-5 rounded-lg bg-gray-900/50 border border-border-color">
+            <div class="diagram-step border-l-4 border-highlight-orange">
+              Buzón de Usuario (Con Licencia)
+            </div>
+            <div class="text-2xl my-2 text-primary-color">🔄</div>
+            <div class="diagram-step border-l-4 border-highlight-green">
+              Buzón Compartido (Shared Mailbox)
+            </div>
+            <div class="text-sm text-gray-400 mt-2">
+              Permite que varios usuarios lo administren y
+              <strong>deja de consumir una licencia</strong>.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sección 3: Seguridad y Gestión Avanzada -->
+      <section class="mb-10 content-card p-6 rounded-xl">
+        <h2 class="text-3xl mb-4" style="color: var(--highlight-green);">
+          3. Seguridad y Gestión Masiva
+        </h2>
+        <div class="space-y-4 text-gray-300">
+          <div class="feature-grid grid-cols-1 md:grid-cols-2">
+            <div class="feature-item border-green-500">
+              <p
+                class="font-bold text-lg mb-1"
+                style="color: var(--highlight-green);">
+                Suspensión por Litigio (Litigation Hold)
+              </p>
+              <p class="text-sm text-gray-400">
+                Requiere licencia avanzada. Garantiza que todos los datos
+                (incluyendo eliminaciones) queden
+                <strong>retenidos legalmente</strong> y nunca se borren
+                permanentemente.
+              </p>
+            </div>
+            <div class="feature-item border-green-500">
+              <p
+                class="font-bold text-lg mb-1"
+                style="color: var(--highlight-green);">
+                Cerrar Sesiones Forzado
+              </p>
+              <p class="text-sm text-gray-400">
+                Medida de seguridad crítica en caso de brecha: fuerza el
+                <strong>cierre de todas las sesiones abiertas</strong> por el
+                usuario para bloquear el acceso inmediatamente.
+              </p>
+            </div>
+          </div>
+
+          <h3 class="text-xl font-semibold mt-6 text-primary-color">
+            Gestión Masiva con PowerShell
+          </h3>
+          <p class="text-gray-400">
+            Para tareas masivas (creación, modificación, asignación de
+            licencias), se utiliza <code class="code-block">PowerShell</code>,
+            importando datos desde archivos CSV para procesar a múltiples
+            usuarios a la vez con bucles (<code class="code-block"
+              >for each</code
+            >).
+          </p>
+        </div>
+      </section>
+    </div>
+
+    <!-- Script para botón de regreso centralizado -->
+    <script src="../js/back-button.js"></script>
+  </body>
+</html>
+

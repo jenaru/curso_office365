@@ -1,0 +1,63 @@
+/* ===== TEMA EXCHANGE/CORREO ===== */
+:root {
+  --primary-color: var(--color-correo);
+  --theme-primary: #8b5cf6;
+  --theme-secondary: #7c3aed;
+  --theme-accent: #6d28d9;
+}
+
+/* Títulos con color del tema */
+h1,
+h2,
+h3 {
+  color: var(--theme-primary);
+}
+
+/* Elementos de lista del tema */
+.feature-list li::before,
+.service-list li::before {
+  color: var(--theme-primary);
+}
+
+/* Headers de tabla del tema */
+.admin-table th {
+  background-color: var(--theme-primary);
+}
+
+/* Elementos específicos de Exchange/Correo */
+.exchange-section {
+  border-radius: 12px;
+  padding: 1rem;
+  margin: 0.75rem 0;
+  border-left: 4px solid;
+  background-color: #242424;
+}
+
+.exchange-highlight {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(139, 92, 246, 0.05));
+  border: 2px solid var(--theme-primary);
+  border-radius: 12px;
+  padding: 1rem;
+  margin: 1rem 0;
+}
+
+/* Variaciones para diferentes tipos de Exchange */
+.exchange-recipients {
+  border-color: var(--theme-primary);
+}
+
+.exchange-flow {
+  border-color: #06b6d4;
+}
+
+.exchange-transport {
+  border-color: #10b981;
+}
+
+.exchange-domains {
+  border-color: #f59e0b;
+}
+
+.exchange-connectors {
+  border-color: #ef4444;
+}

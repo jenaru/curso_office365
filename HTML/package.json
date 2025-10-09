@@ -1,0 +1,76 @@
+{
+  "name": "curso-microsoft-365",
+  "version": "1.0.0",
+  "description": "Plataforma educativa interactiva para aprendizaje de Microsoft 365",
+  "main": "index.html",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint src --ext .js,.html --report-unused-disable-directives --max-warnings 0",
+    "lint:fix": "eslint src --ext .js,.html --fix",
+    "format": "prettier --write src/**/*.{js,css,html,md}",
+    "test": "vitest",
+    "analyze": "npm run build && npm run analyze:bundle",
+    "analyze:bundle": "vite-bundle-analyzer dist/stats.html",
+    "serve": "serve dist",
+    "validate": "npm run lint && npm run format && npm run test",
+    "deploy": "npm run build && npm run deploy:netlify",
+    "deploy:netlify": "netlify deploy --prod --dir dist"
+  },
+  "keywords": [
+    "microsoft-365",
+    "office-365",
+    "educacion",
+    "aprendizaje",
+    "sharepoint",
+    "exchange",
+    "azure-ad",
+    "administracion"
+  ],
+  "author": {
+    "name": "Curso 365 Team",
+    "email": "contacto@curso365.com",
+    "url": "https://curso365.com"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/curso365/microsoft-365-training.git"
+  },
+  "bugs": {
+    "url": "https://github.com/curso365/microsoft-365-training/issues"
+  },
+  "homepage": "https://curso365.com",
+  "devDependencies": {
+    "@vitejs/plugin-legacy": "^4.1.1",
+    "eslint": "^8.53.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-html": "^7.1.0",
+    "prettier": "^3.0.3",
+    "stylelint": "^15.11.0",
+    "stylelint-config-prettier": "^9.0.5",
+    "stylelint-config-standard": "^34.0.0",
+    "vite": "^4.5.0",
+    "vite-bundle-analyzer": "^0.7.0",
+    "vite-plugin-html": "^3.2.0",
+    "vite-plugin-pwa": "^0.16.7",
+    "vitest": "^0.34.6",
+    "workbox-build": "^7.0.0"
+  },
+  "dependencies": {
+    "chart.js": "^4.4.0",
+    "prismjs": "^1.29.0",
+    "swiper": "^10.3.1"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead",
+    "not IE 11"
+  ],
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=7.0.0"
+  }
+}

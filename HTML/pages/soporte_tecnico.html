@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Soporte Técnico en Microsoft 365</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Script para botón de volver -->
+    <script src="../js/back-button.js"></script>
+        <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Estilos externos -->
+    <link rel="stylesheet" href="../css/pages-base.css">
+    <link rel="stylesheet" href="../css/themes/administracion.css">
+  </head>
+  <body>
+    <div class="document-container px-4 py-8 md:py-12">
+      <header class="text-center pb-8 border-b border-border-color mb-10">
+        <h1
+          class="text-4xl md:text-5xl font-extrabold leading-tight tracking-wider text-primary-color">
+          Gestión de Soporte Técnico en Microsoft 365
+        </h1>
+        <p class="mt-2 text-lg text-gray-400">
+          Flujo de Creación de Incidencias y Roles de Acceso
+        </p>
+      </header>
+
+      <!-- Sección 1: Ubicación y Propósito -->
+      <section
+        class="mb-10 content-card p-6 rounded-xl border-l-4 border-step-color">
+        <h2 class="text-3xl mb-4">1. Ubicación y Función Principal</h2>
+        <div class="space-y-4 text-gray-300">
+          <p>
+            El acceso al soporte técnico se realiza desde el
+            <strong>centro de administración vía web</strong> en una sección
+            claramente etiquetada como
+            <span
+              class="role-highlight bg-primary-color py-0.5 px-2 rounded text-black font-bold"
+              >Soporte Técnico</span
+            >.
+          </p>
+          <p>Su propósito principal es doble:</p>
+          <ol class="list-decimal list-inside ml-4 space-y-2 text-gray-300">
+            <li>
+              Dar de alta nuevas <strong>solicitudes de servicio</strong> o
+              <strong>incidencias</strong> a Microsoft.
+            </li>
+            <li>
+              Verificar el <strong>estado y la evolución</strong> de las
+              solicitudes ya abiertas.
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- Sección 2: Flujo de Apertura de una Incidencia -->
+      <section class="mb-10">
+        <h2 class="text-3xl mb-6 text-primary-color">
+          2. Flujo de Apertura de una Incidencia (Paso a Paso)
+        </h2>
+
+        <div class="flex flex-col space-y-4">
+          <div class="step-box">
+            <span style="color: var(--step-color);">PASO 1:</span>
+            Identificación del Problema y Descripción (ej. "Falta el calendario
+            de equipo")
+          </div>
+          <div class="text-3xl text-center text-gray-500">↓</div>
+          <div class="step-box">
+            <span style="color: var(--step-color);">PASO 2:</span>
+            <strong>Autoayuda</strong>
+            - El sistema ofrece soluciones sugeridas.
+          </div>
+          <div class="text-3xl text-center text-gray-500">↓</div>
+          <div class="step-box">
+            <span style="color: var(--step-color);">PASO 3:</span> Si no se
+            resuelve, se procede a abrir la incidencia (Selección de Método de
+            Contacto y Zona Horaria).
+          </div>
+          <div class="text-3xl text-center text-gray-500">↓</div>
+          <div class="step-box">
+            <span style="color: var(--step-color);">PASO 4:</span> Asignación de
+            Nivel de Soporte (Nivel 2, Nivel 3, etc.).
+          </div>
+        </div>
+
+        <div
+          class="callout bg-indigo-900/50 border-l-4 border-indigo-500 text-gray-300">
+          <p class="font-bold">Mejora en Contacto:</p>
+          <p>
+            Actualmente, el administrador puede especificar el momento exacto en
+            que desea recibir la llamada de soporte, mejorando la experiencia
+            frente a los métodos de contacto históricos.
+          </p>
+        </div>
+      </section>
+
+      <!-- Sección 3: Control de Acceso y Centro de Mensajes -->
+      <section class="mb-10">
+        <h2 class="text-3xl mb-6 text-primary-color">
+          3. Roles, Permisos y Estado del Servicio
+        </h2>
+
+        <div class="diagram-container">
+          <!-- Rol de Soporte -->
+          <div
+            class="content-card p-5 rounded-xl flex-1 border-l-4 border-info-color">
+            <h3
+              class="text-2xl font-semibold mb-3"
+              style="color: var(--info-color);">
+              Control de Acceso (Roles)
+            </h3>
+            <div class="text-4xl mb-2">🔒</div>
+            <p class="text-gray-400">
+              La apertura de incidencias es un <strong>rol</strong> que se debe
+              otorgar. No todos los usuarios o administradores tienen permitido
+              dar de alta solicitudes de servicio, promoviendo la
+              <strong>separación de funciones</strong>.
+            </p>
+          </div>
+
+          <!-- Centro de Mensajes -->
+          <div
+            class="content-card p-5 rounded-xl flex-1 border-l-4 border-primary-color">
+            <h3
+              class="text-2xl font-semibold mb-3"
+              style="color: var(--primary-color);">
+              Centro de Mensajes
+            </h3>
+            <div class="text-4xl mb-2">📢</div>
+            <p class="text-gray-400">
+              Está directamente relacionado con el soporte. Informa sobre
+              <strong>cambios futuros</strong> y, más importante, sobre el
+              <strong>estado del servicio</strong> actual (degradación o
+              problemas activos).
+            </p>
+          </div>
+        </div>
+
+        <div
+          class="callout bg-red-900/50 border-l-4 border-red-500 text-gray-300 mt-6">
+          <p class="font-bold">Incidencias Vivas y Acción Administrativa:</p>
+          <p>
+            Si el administrador consulta el estado del servicio y ve una
+            <strong>incidencia viva</strong> que le está afectando, puede marcar
+            la opción <strong>"Estoy afectado por esto"</strong> para dar
+            retroalimentación a Microsoft y ayudar a que la resolución se
+            priorice.
+          </p>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>
+

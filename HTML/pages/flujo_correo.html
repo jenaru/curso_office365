@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Flujo de Correo en Exchange Online</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+        <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Estilos externos -->
+    <link rel="stylesheet" href="../css/pages-base.css">
+    <link rel="stylesheet" href="../css/themes/exchange.css">
+  </head>
+  <body>
+    <div class="document-container px-4 py-8 md:py-12">
+      <header class="text-center pb-8 border-b border-border-color mb-10">
+        <h1
+          class="text-4xl md:text-5xl font-extrabold leading-tight tracking-wider text-primary-color">
+          Flujo de Correo en Exchange Online
+        </h1>
+        <p class="mt-2 text-lg text-gray-400">
+          Rutas, Reglas y Diagnóstico en el Centro de Administración de Exchange
+          (CAE)
+        </p>
+      </header>
+
+      <!-- Sección 1: Seguimiento de Mensajes -->
+      <section
+        class="mb-10 content-card p-6 rounded-xl border-l-4"
+        style="border-color: var(--highlight-trace);">
+        <h2 class="text-3xl mb-4" style="color: var(--highlight-trace);">
+          1. Seguimiento de Mensajes (<code class="code-block"
+            >Message Trace</code
+          >)
+        </h2>
+        <p class="text-gray-300 mb-4">
+          Es la herramienta de diagnóstico <strong>principal</strong> para saber
+          qué le ocurrió a un correo (ej. llegó, se puso en cuarentena, se
+          redirigió, se bloqueó).
+        </p>
+
+        <div class="diagram-flow">
+          <p class="font-bold text-highlight-trace">Límites de Visibilidad</p>
+          <div class="flex flex-col md:flex-row gap-4 w-full text-center mt-3">
+            <div
+              class="flex-1 p-3 rounded-lg bg-gray-700/50 border-b-4 border-highlight-trace">
+              <span class="font-bold">Búsqueda Rápida:</span> Datos de hasta
+              <strong>90 días</strong>.
+            </div>
+            <div
+              class="flex-1 p-3 rounded-lg bg-gray-700/50 border-b-4 border-highlight-trace">
+              <span class="font-bold">Búsqueda Extendida:</span> Solo disponible
+              como archivo <strong>CSV</strong> (puede tardar más de 1 hora).
+            </div>
+          </div>
+          <p class="text-sm text-gray-400 mt-3">
+            El reporte muestra el camino solo <strong>dentro</strong> de M365.
+            Una vez entregado a un sistema de terceros, se pierde la
+            visibilidad.
+          </p>
+        </div>
+      </section>
+
+      <!-- Sección 2: Reglas de Transporte -->
+      <section
+        class="mb-10 content-card p-6 rounded-xl border-l-4"
+        style="border-color: var(--highlight-rules);">
+        <h2 class="text-3xl mb-4" style="color: var(--highlight-rules);">
+          2. Reglas de Transporte<code class="code-block">(Rules)</code>
+        </h2>
+        <p class="text-gray-300 mb-4">
+          Mecanismos que <strong>transforman o actúan</strong> sobre el correo
+          mientras está en tránsito (entrante, saliente o interno).
+        </p>
+
+        <h3 class="text-xl font-semibold mt-6 text-primary-color">
+          Diagrama: Flujo de Aplicación de Reglas
+        </h3>
+        <div class="diagram-flow border-highlight-rules border-dashed">
+          <div class="diagram-step bg-primary-color text-whitew-full">
+            CORREO EN TRÁNSITO
+          </div>
+          <div class="text-2xl text-gray-500">⬇️</div>
+          <div class="diagram-step bg-gray-700/50 w-full">
+            Regla 1 (Ej. Adjuntar Disclaimer general)
+          </div>
+          <div class="text-2xl text-gray-500">⬇️</div>
+          <div class="diagram-step bg-gray-700/50 w-full">
+            Regla 2 (Ej. Bloquear adjuntos .CMD)
+          </div>
+          <div class="text-2xl text-gray-500">⬇️</div>
+          <div class="diagram-step bg-gray-700/50 w-full font-bold">
+            Regla 3 (Excepción o Condición Final)
+          </div>
+          <div class="text-2xl text-gray-500">⬇️</div>
+          <div class="diagram-step bg-highlight-rules text-white w-full">
+            FINAL DE PROCESAMIENTO
+          </div>
+
+          <p class="text-sm text-gray-400 mt-4">
+            <strong>CRUCIAL:</strong> Las reglas se aplican por orden (de arriba
+            abajo). Es posible configurar la opción de
+            <strong>detener el procesamiento</strong> de reglas subsiguientes.
+          </p>
+        </div>
+
+        <h3 class="text-xl font-semibold mt-6 text-primary-color">
+          Modos de Prueba
+        </h3>
+        <div
+          class="callout p-3 rounded-lg mt-3 bg-yellow-900/50 border-l-4 border-yellow-500 text-gray-300">
+          <p class="font-bold">Modo de Prueba / Policy Tip:</p>
+          <p class="text-sm">
+            Permite ver qué correos se habrían visto afectados o muestra un
+            mensaje al usuario (<strong>Policy Tip</strong>) antes de enviar,
+            evitando errores antes de la implementación forzada.
+          </p>
+        </div>
+      </section>
+
+      <!-- Sección 3: Dominios Aceptados y Conectores -->
+      <section
+        class="mb-10 content-card p-6 rounded-xl border-l-4"
+        style="border-color: var(--highlight-trace);">
+        <h2 class="text-3xl mb-4 text-primary-color">
+          3. Enrutamiento y Conectividad
+        </h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Dominios Aceptados -->
+          <div
+            class="p-4 rounded-xl border-l-4 border-highlight-trace bg-gray-800/50">
+            <h3
+              class="text-xl font-semibold mb-2"
+              style="color: var(--highlight-trace);">
+              Dominios Aceptados
+            </h3>
+            <ul
+              class="list-disc list-inside ml-4 space-y-2 text-gray-300 text-sm">
+              <li>
+                <strong>Autoritativo (Default):</strong> Si el destinatario no
+                existe en Exchange Online, el correo es
+                <strong>rechazado</strong> (Exchange es el responsable final).
+              </li>
+              <li>
+                <strong>Retransmisión Interna (Non-Authoritative):</strong> Si
+                el destinatario no existe, Exchange
+                <strong>retransmite</strong> el correo al registro
+                <code class="code-block">MX</code> del dominio, buscando al
+                destinatario en otro sistema (usado en migraciones).
+              </li>
+            </ul>
+          </div>
+
+          <!-- Conectores -->
+          <div
+            class="p-4 rounded-xl border-l-4 border-highlight-trace bg-gray-800/50">
+            <h3
+              class="text-xl font-semibold mb-2"
+              style="color: var(--highlight-trace);">
+              Conectores (<code class="code-block">Connectors</code>)
+            </h3>
+            <ul
+              class="list-disc list-inside ml-4 space-y-2 text-gray-300 text-sm">
+              <li>
+                <strong>Recepción (Inbound):</strong> Acepta correo de sistemas
+                internos (impresoras, servidores) configurando la
+                <strong>IP de origen</strong> para evitar filtros.
+              </li>
+              <li>
+                <strong>Envío (Outbound):</strong> Dirige el correo saliente a
+                través de una ruta específica, como un
+                <code class="code-block">appliance</code> de seguridad
+                perimetral externo.
+              </li>
+              <li>
+                <strong>Relay:</strong> Permite a sistemas internos enviar
+                correos a terceros sin necesidad de un buzón con licencia,
+                usando una dirección de un dominio aceptado.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sección 4: Configuración General -->
+      <section
+        class="mb-10 content-card p-6 rounded-xl border-l-4"
+        style="border-color: var(--highlight-rules);">
+        <h2 class="text-3xl mb-4" style="color: var(--highlight-rules);">
+          4. Configuración General de Flujo
+        </h2>
+        <ul class="list-disc list-inside ml-4 space-y-2 text-gray-300">
+          <li>
+            <strong>Tamaño Máximo de Mensajes:</strong> Se debe configurar un
+            límite inferior al máximo de la plataforma (ej. 32 MB) para
+            <strong>higiene</strong> y prevenir el mal uso.
+          </li>
+          <li>
+            <strong>SMTP Autenticado:</strong> El protocolo
+            <code class="code-block">SMTP AUTH</code> (utilizado por sistemas
+            antiguos) se suele desactivar globalmente en tenants nuevos por ser
+            un método de autenticación vulnerable.
+          </li>
+          <li>
+            <strong>Envío desde Alias:</strong> Hay una opción para permitir
+            enviar correo desde cualquiera de los alias de la cuenta, en lugar
+            de solo desde la dirección principal.
+          </li>
+        </ul>
+      </section>
+    </div>
+
+    <!-- Script para botón de regreso centralizado -->
+    <script src="../js/back-button.js"></script>
+  </body>
+</html>
+

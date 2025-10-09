@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Documento Informativo: Análisis del Curso de Administración de Office 365
+    </title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Script para botón de volver -->
+    <script src="../js/back-button.js"></script>
+        <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Estilos externos -->
+    <link rel="stylesheet" href="../css/pages-base.css">
+    <link rel="stylesheet" href="../css/themes/arquitectura.css">
+  </head>
+  <body class="antialiased">
+    <main class="container mx-auto px-4 py-8 md:py-12"><div
+        class="bg-white shadow-xl rounded-lg p-6 md:p-10 lg:p-12 max-w-7xl mx-auto">
+        <header class="text-center pb-8 border-b-2 border-primary-color mb-8">
+          <h1
+            class="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-800 leading-tight">
+            Documento Informativo: Análisis del Curso de Administración de
+            Office 365
+          </h1>
+        </header>
+
+        <!-- Resumen Ejecutivo -->
+        <section
+          class="bg-blue-50 text-gray-800 p-6 rounded-lg border-l-4 border-blue-600 mb-8 shadow-md">
+          <h2 class="text-2xl font-semibold mb-3 text-blue-800">
+            Resumen Ejecutivo
+          </h2>
+          <p class="text-lg">
+            Este documento sintetiza los temas, argumentos y datos clave
+            presentados durante un curso de formación sobre la administración de
+            <strong>Microsoft Office 365</strong>. El análisis subraya la
+            naturaleza dinámica y en constante evolución de la plataforma,
+            enfatizando la necesidad de una adaptación y aprendizaje continuos
+            por parte de los administradores. El licenciamiento emerge como un
+            pilar fundamental, determinando el acceso a funcionalidades
+            críticas, especialmente en el ámbito de la seguridad. Se destaca la
+            licencia <strong>Business Premium</strong> como la de mejor relación
+            coste-beneficio debido a la inclusión de herramientas avanzadas como
+            Defender for Business, Intune y Azure AD P1, que habilitan
+            capacidades de seguridad robustas como el Acceso Condicional y la
+            gestión de dispositivos.
+          </p>
+          <p class="mt-4 text-lg">
+            La formación distingue claramente entre los métodos de
+            administración: la interfaz web, adecuada para tareas cotidianas, y
+            <strong>PowerShell</strong>, indispensable para la gestión avanzada,
+            masiva y para configurar opciones no disponibles en la GUI. Se
+            detalla la arquitectura de identidades, con
+            <strong>Azure Active Directory (Azure AD)</strong> como el servicio
+            central que cohesiona todas las aplicaciones. En cuanto a la
+            colaboración, se expone la transformación de SharePoint desde un
+            modelo jerárquico a una arquitectura plana de sitios independientes
+            y se establece la interconexión fundamental entre Teams, Sitios de
+            SharePoint y Grupos de Microsoft 365 como la unidad colaborativa
+            moderna. Finalmente, se exploran en profundidad los centros de
+            administración de Exchange, SharePoint, Teams, Seguridad y
+            Cumplimiento (Purview), proporcionando un marco integral para la
+            gestión, seguridad y gobernanza de la plataforma.
+          </p>
+        </section>
+
+        <!-- Contenido principal del documento -->
+        <div class="space-y-12 text-gray-700">
+          <!-- Sección 1 -->
+          <div>
+            <h2 class="text-2xl font-bold text-primary-color mb-4">
+              1. Fundamentos y Naturaleza de la Plataforma Office 365
+            </h2>
+            <p>
+              La plataforma Office 365 se presenta como un ecosistema en
+              permanente evolución, utilizado por más de 200 millones de
+              personas. Esta dinámica obliga a los administradores a adoptar un
+              rol proactivo, no solo de mantenimiento, sino de adaptación y
+              evolución continua.
+            </p>
+
+            <h3 class="text-xl font-semibold text-primary-color mt-6 mb-3">
+              1.1. Recursos Oficiales de Administración
+            </h3>
+            <p>
+              Para una gestión informada, es crucial consultar las fuentes
+              oficiales de Microsoft, que actúan como la "letra pequeña" y la
+              referencia definitiva del servicio.
+            </p>
+            <div class="overflow-x-auto mt-4">
+              <table
+                class="w-full text-left border-collapse rounded-lg overflow-hidden">
+                <thead class="bg-gray-200">
+                  <tr>
+                    <th class="py-3 px-4 font-semibold text-gray-700">
+                      Recurso
+                    </th>
+                    <th class="py-3 px-4 font-semibold text-gray-700">
+                      Propósito y Relevancia
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="bg-white border-b border-gray-200">
+                    <td class="py-3 px-4">Descripciones del Servicio</td>
+                    <td class="py-3 px-4">
+                      Detalla los límites, capacidades y características exactas
+                      de cada plan y servicio (p. ej., tamaño de buzón, límites
+                      de envío, funcionalidades por licencia). Es la referencia
+                      oficial para resolver dudas sobre la inclusión de una
+                      característica.
+                    </td>
+                  </tr>
+                  <tr class="bg-white border-b border-gray-200">
+                    <td class="py-3 px-4">Microsoft 365 Roadmap</td>
+                    <td class="py-3 px-4">
+                      Anuncia las funcionalidades futuras, las que están en
+                      desarrollo y las que se están desplegando. Permite
+                      anticipar cambios y planificar la adopción de nuevas
+                      herramientas. Actualmente, muestra 526 funcionalidades en
+                      desarrollo y 110 en despliegue.
+                    </td>
+                  </tr>
+                  <tr class="bg-white border-b border-gray-200">
+                    <td class="py-3 px-4">
+                      M365 Maps (<a
+                        href="https://m365maps.com"
+                        target="_blank"
+                        class="text-blue-600 hover:text-blue-800 hover:underline"
+                        >m365maps.com</a
+                      >)
+                    </td>
+                    <td class="py-3 px-4">
+                      Herramienta externa recomendada que proporciona una matriz
+                      visual e interactiva de las características incluidas en
+                      cada tipo de licencia, facilitando la comparación y toma
+                      de decisiones.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3 class="text-xl font-semibold text-primary-color mt-6 mb-3">
+              1.2. Gestión de Cambios y Versiones del Tenant
+            </h3>
+            <p>
+              La implementación de cambios en Office 365 no es simultánea para
+              todos los clientes (tenants). Los administradores pueden
+              configurar las preferencias de publicación para controlar la
+              velocidad con la que reciben las actualizaciones.
+            </p>
+            <ul class="list-disc list-inside space-y-2 mt-3">
+              <li>
+                <strong>Tenant:</strong> Se refiere al entorno o inquilino
+                específico de una organización en Office 365.
+              </li>
+              <li>
+                <strong>Centro de Mensajes (Message Center):</strong> Es el
+                canal oficial dentro del panel de administración donde Microsoft
+                notifica los cambios que llegarán específicamente a un tenant,
+                con fechas y detalles. Se destaca que se producen cambios casi a
+                diario.
+              </li>
+              <li>
+                <strong>Preferencias de Publicación:</strong>
+                <ul class="list-circle ml-6 mt-1 space-y-1">
+                  <li>
+                    <strong>Versión Estándar (Standard Release):</strong> Los
+                    cambios llegan más tarde, una vez que han sido probados y
+                    estabilizados.
+                  </li>
+                  <li>
+                    <strong>Versión Dirigida (Targeted Release):</strong> Recibe
+                    las actualizaciones con mayor rapidez. Se puede configurar
+                    para toda la organización o solo para usuarios específicos
+                    (p. ej., administradores), permitiéndoles evaluar los
+                    cambios antes de su despliegue general.
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Sección 2 -->
+          <div>
+            <h2 class="text-2xl font-bold text-primary-color mb-4">
+              2. Licenciamiento: El Habilitador de Funcionalidades
+            </h2>
+            <p>
+              El licenciamiento es el factor más crítico para determinar las
+              capacidades disponibles. Existe una gran disparidad entre planes,
+              especialmente en seguridad.
+            </p>
+
+            <h3 class="text-xl font-semibold text-primary-color mt-6 mb-3">
+              2.1. Recomendación: Licencia Business Premium
+            </h3>
+            <p>
+              Se identifica la licencia
+              <strong>Microsoft 365 Business Premium</strong> como la más
+              valiosa actualmente, superando a la Business Standard. Esta
+              recomendación se basa en la reciente inclusión de funcionalidades
+              de alto valor que, si se contrataran por separado, superarían el
+              coste adicional de la licencia.
+            </p>
+            <ul class="list-disc list-inside space-y-2 mt-3">
+              <li>
+                <strong>Defender for Business:</strong> Es una solución de
+                antivirus con capacidades EDR (Endpoint Detection and Response),
+                que permite la caza de amenazas (threat hunting) y la
+                correlación de eventos de seguridad entre equipos.
+              </li>
+              <li>
+                <strong>Intune:</strong> Sistema de gestión de plataformas
+                (MDM/MAM) para controlar dispositivos (inventario, distribución
+                de software/actualizaciones, políticas de seguridad, Autopilot).
+              </li>
+              <li>
+                <strong>Azure AD P1:</strong> Habilita funcionalidades de
+                seguridad cruciales.
+                <ul class="list-circle ml-6 mt-1 space-y-1">
+                  <li>
+                    <strong>Acceso Condicional:</strong> Permite crear reglas de
+                    acceso granulares basadas en el contexto del usuario
+                    (ubicación, dispositivo, nivel de riesgo) para, por ejemplo,
+                    exigir MFA solo fuera de la red corporativa o bloquear
+                    inicios de sesión desde ubicaciones sospechosas.
+                  </li>
+                  <li>
+                    <strong>Protección de Identidad y Grupos Dinámicos:</strong>
+                    Herramientas avanzadas para gestionar riesgos y automatizar
+                    la membresía de grupos.
+                  </li>
+                </ul>
+              </li>
+            </ul>
+
+            <h3 class="text-xl font-semibold text-primary-color mt-6 mb-3">
+              2.2. Gestión y Mezcla de Licencias
+            </h3>
+            <p>
+              Es posible y común mezclar distintos tipos de licencias dentro de
+              un mismo tenant para optimizar costes.
+            </p>
+            <ul class="list-disc list-inside space-y-2 mt-3">
+              <li>
+                <strong>Usuarios con diferentes necesidades:</strong> Se pueden
+                asignar licencias básicas (p. ej., Frontline/Kiosco para
+                personal temporal o con acceso limitado) y licencias más
+                potentes para otros usuarios.
+              </li>
+              <li>
+                <strong>Asignación de Funcionalidades:</strong> Dentro de una
+                misma licencia, es posible activar o desactivar aplicaciones
+                específicas para cada usuario, permitiendo un despliegue
+                progresivo de herramientas y evitando abrumar a los usuarios con
+                opciones que aún no han recibido formación.
+              </li>
+              <li>
+                <strong>Gestión de Licencias:</strong> Se puede realizar
+                manualmente por usuario, o de forma automatizada mediante grupos
+                de licencias en Azure AD, donde la pertenencia a un grupo asigna
+                automáticamente un paquete de licencias predefinido.
+              </li>
+            </ul>
+          </div>
+
+          <!-- Sección 3 -->
+          <div>
+            <h2 class="text-2xl font-bold text-primary-color mb-4">
+              3. Administración de Identidades y Acceso
+            </h2>
+            <p>
+              La identidad es el "pegamento" que unifica todos los servicios de
+              Office 365. La gestión de usuarios y grupos se realiza
+              principalmente a través del panel de administración, pero su
+              repositorio fundamental es Azure Active Directory (Azure AD).
+            </p>
+
+            <h3 class="text-xl font-semibold text-primary-color mt-6 mb-3">
+              3.1. Tipos de Objetos de Identidad
+            </h3>
+            <div class="overflow-x-auto mt-4">
+              <table
+                class="w-full text-left border-collapse rounded-lg overflow-hidden">
+                <thead class="bg-gray-200">
+                  <tr>
+                    <th class="py-3 px-4 font-semibold text-gray-700">Tipo</th>
+                    <th class="py-3 px-4 font-semibold text-gray-700">
+                      Descripción y Función
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="bg-white border-b border-gray-200">
+                    <td class="py-3 px-4">Usuarios Activos</td>
+                    <td class="py-3 px-4">
+                      Cuentas que pueden iniciar sesión en Office 365. No
+                      consumen coste hasta que se les asigna una licencia. Su
+                      identidad reside en Azure AD.
+                    </td>
+                  </tr>
+                  <tr class="bg-white border-b border-gray-200">
+                    <td class="py-3 px-4">Usuarios Invitados</td>
+                    <td class="py-3 px-4">
+                      Se crean automáticamente cuando se comparte contenido con
+                      usuarios externos. Permiten el acceso a recursos
+                      específicos compartidos. No se deben eliminar manualmente,
+                      ya que se rompería el acceso a dichos recursos.
+                    </td>
+                  </tr>
+                  <tr class="bg-white border-b border-gray-200">
+                    <td class="py-3 px-4">Contactos</td>
+                    <td class="py-3 px-4">
+                      Son objetos que no pueden iniciar sesión. Su única función
+                      es aparecer en la Lista Global de Direcciones (GAL) para
+                      que todos los usuarios de la organización puedan enviarles
+                      correos fácilmente o incluirlos en listas de distribución.
+                    </td>
+                  </tr>
+                  <tr class="bg-white border-b border-gray-200">
+                    <td class="py-3 px-4">Buzones Compartidos</td>
+                    <td class="py-3 px-4">
+                      No consumen licencia y actúan como un buzón de correo
+                      colaborativo al que múltiples usuarios pueden acceder.
+                      Ideal para direcciones genéricas como soporte@empresa.com.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3 class="text-xl font-semibold text-primary-color mt-6 mb-3">
+              3.2. Grupos
+            </h3>
+            <div class="overflow-x-auto mt-4">
+              <table
+                class="w-full text-left border-collapse rounded-lg overflow-hidden">
+                <thead class="bg-gray-200">
+                  <tr>
+                    <th class="py-3 px-4 font-semibold text-gray-700">
+                      Tipo de Grupo
+                    </th>
+                    <th class="py-3 px-4 font-semibold text-gray-700">
+                      Descripción y Propósito
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="bg-white border-b border-gray-200">
+                    <td class="py-3 px-4">Listas de Distribución</td>
+                    <td class="py-3 px-4">
+                      El tipo más simple. Es una dirección de correo que expande
+                      el mensaje a todos sus miembros. No tiene repositorio
+                      propio.
+                    </td>
+                  </tr>
+                  <tr class="bg-white border-b border-gray-200">
+                    <td class="py-3 px-4">Grupos de Seguridad</td>
+                    <td class="py-3 px-4">
+                      Utilizados para asignar permisos a recursos. Su uso en el
+                      modelo moderno de SharePoint es limitado.
+                    </td>
+                  </tr>
+                  <tr class="bg-white border-b border-gray-200">
+                    <td class="py-3 px-4">Grupos de Microsoft 365</td>
+                    <td class="py-3 px-4">
+                      Es un objeto central para la colaboración. Al crearse,
+                      provisiona un conjunto de recursos compartidos: un buzón y
+                      calendario de grupo (Exchange), un sitio de colaboración
+                      (SharePoint) y un bloc de notas. Es la base sobre la que
+                      se construyen los equipos de Microsoft Teams.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3 class="text-xl font-semibold text-primary-color mt-6 mb-3">
+              3.3. Autenticación Multifactor (MFA)
+            </h3>
+            <p>
+              Microsoft ha anunciado la obligatoriedad de los Security Defaults,
+              que incluyen la activación de MFA para todos los usuarios a partir
+              de septiembre/octubre. Para usuarios sin teléfono de empresa, se
+              proponen alternativas al SMS o la app de autenticación:
+            </p>
+            <ul class="list-disc list-inside space-y-2 mt-3">
+              <li>
+                <strong>Windows Hello:</strong> El uso de biometría (huella,
+                reconocimiento facial) en un equipo compatible cuenta como un
+                segundo factor.
+              </li>
+              <li>
+                <strong>Llaves de Seguridad FIDO2</strong> (p. ej., Yubico):
+                Dispositivos físicos USB/NFC que actúan como "algo que tienes".
+              </li>
+            </ul>
+          </div>
+
+          <!-- Sección 4 -->
+          <div>
+            <h2 class="text-2xl font-bold text-primary-color mb-4">
+              4. Métodos de Administración
+            </h2>
+            <p>
+              La plataforma se puede gestionar a través de dos interfaces
+              principales con propósitos distintos.
+            </p>
+
+            <h3 class="text-xl font-semibold text-primary-color mt-6 mb-3">
+              4.1. Panel de Administración Web
+            </h3>
+            <p>
+              Función: Adecuado para tareas del día a día y configuraciones
+              básicas.
+            </p>
+            <h3 class="text-xl font-semibold text-primary-color mt-6 mb-3">
+              4.2. PowerShell
+            </h3>
+            <p>
+              Función: Esencial para la administración avanzada, automatización,
+              tareas masivas y para acceder a configuraciones que no están
+              disponibles en la interfaz web. Su conocimiento no es opcional
+              para un administrador completo.
+            </p>
+            <p><strong>Módulos Necesarios:</strong></p>
+            <ul class="list-disc list-inside space-y-2 mt-3">
+              <li>
+                <strong>Identidad:</strong> <code>MSOnline</code> (antiguo) y
+                <code>AzureAD</code> (nuevo).
+              </li>
+              <li>
+                <strong>Exchange:</strong>
+                <code>ExchangeOnlineManagement</code> (V2).
+              </li>
+              <li>
+                <strong>SharePoint:</strong>
+                <code>Microsoft.Online.SharePoint.PowerShell</code> y
+                <code>PnP.PowerShell</code>.
+              </li>
+              <li><strong>Teams:</strong> <code>MicrosoftTeams</code>.</li>
+            </ul>
+
+            <h3 class="text-xl font-semibold text-primary-color mt-6 mb-3">
+              4.3. Power Automate vs. PowerShell
+            </h3>
+            <p>
+              <strong>Power Automate</strong> está diseñado para la
+              automatización de procesos de usuario final, no para la
+              administración de la plataforma. No puede ejecutar scripts de
+              PowerShell directamente. Para una automatización de nivel
+              administrativo similar, se debe recurrir a Azure Logic Apps, que
+              puede interactuar con las APIs de la plataforma y ejecutar
+              scripts.
+            </p>
+          </div>
+
+          <!-- Sección 5 -->
+          <div>
+            <h2 class="text-2xl font-bold text-primary-color mb-4">
+              5. Administración del Correo Electrónico (Exchange Online)
+            </h2>
+            <p>
+              La gestión del correo se centraliza en el Centro de Administración
+              de Exchange, que está migrando de una versión "clásica" a una
+              moderna.
+            </p>
+
+            <h3 class="text-xl font-semibold text-primary-color mt-6 mb-3">
+              5.1. Registros DNS Críticos
+            </h3>
+            <div class="overflow-x-auto mt-4">
+              <table
+                class="w-full text-left border-collapse rounded-lg overflow-hidden">
+                <thead class="bg-gray-200">
+                  <tr>
+                    <th class="py-3 px-4 font-semibold text-gray-700">
+                      Registro
+                    </th>
+                    <th class="py-3 px-4 font-semibold text-gray-700">
+                      Propósito
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="bg-white border-b border-gray-200">
+                    <td class="py-3 px-4">MX</td>
+                    <td class="py-3 px-4">
+                      Dirige el correo entrante a los servidores de Office 365.
+                    </td>
+                  </tr>
+                  <tr class="bg-white border-b border-gray-200">
+                    <td class="py-3 px-4">SPF</td>
+                    <td class="py-3 px-4">
+                      Declara qué servidores están autorizados para enviar
+                      correo en nombre de un dominio, ayudando a combatir el
+                      spam y el spoofing.
+                    </td>
+                  </tr>
+                  <tr class="bg-white border-b border-gray-200">
+                    <td class="py-3 px-4">DKIM</td>
+                    <td class="py-3 px-4">
+                      Añade una firma digital a los correos salientes para
+                      verificar su autenticidad e integridad. Es un complemento
+                      a SPF.
+                    </td>
+                  </tr>
+                  <tr class="bg-white border-b border-gray-200">
+                    <td class="py-3 px-4">DMARC</td>
+                    <td class="py-3 px-4">
+                      Indica a los servidores receptores qué hacer si un correo
+                      falla las comprobaciones de SPF o DKIM.
+                    </td>
+                  </tr>
+                  <tr class="bg-white border-b border-gray-200">
+                    <td class="py-3 px-4">Autodiscover</td>
+                    <td class="py-3 px-4">
+                      Permite a los clientes de Outlook configurar
+                      automáticamente la cuenta y localizar el buzón del
+                      usuario.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3 class="text-xl font-semibold text-primary-color mt-6 mb-3">
+              5.2. Herramientas de Diagnóstico
+            </h3>
+            <ul class="list-disc list-inside space-y-2 mt-3">
+              <li>
+                <strong>Microsoft Remote Connectivity Analyzer:</strong>
+                Herramienta web (<a
+                  href="https://testconnectivity.microsoft.com"
+                  target="_blank"
+                  class="text-blue-600 hover:text-blue-800 hover:underline"
+                  >testconnectivity.microsoft.com</a
+                >) para realizar pruebas de conectividad desde fuera de la red.
+              </li>
+              <li>
+                <strong>Analizador de Mensajes:</strong> Permite pegar las
+                cabeceras de un correo para analizar su ruta y propiedades.
+              </li>
+              <li>
+                <strong>Herramienta de diagnóstico de Outlook:</strong>
+                Accesible haciendo <code>Ctrl + Clic derecho</code> en el icono
+                de Outlook en la bandeja del sistema.
+              </li>
+            </ul>
+
+            <h3 class="text-xl font-semibold text-primary-color mt-6 mb-3">
+              5.3. Flujo de Correo y Reglas de Transporte
+            </h3>
+            <p>
+              <strong>Seguimiento de Mensajes:</strong> La herramienta principal
+              para investigar qué ha ocurrido con un correo específico.
+            </p>
+            <p>
+              <strong>Reglas de Transporte:</strong> Permiten aplicar acciones
+              automáticas a los correos en tránsito (entrantes, salientes o
+              internos) basadas en condiciones.
+            </p>
+
+            <h3 class="text-xl font-semibold text-primary-color mt-6 mb-3">
+              5.4. Políticas de Seguridad del Correo
+            </h3>
+            <p>
+              Configurables en el Centro de Seguridad y Cumplimiento, son
+              cruciales para la protección.
+            </p>
+            <ul class="list-disc list-inside space-y-2 mt-3">
+              <li>
+                <strong>Anti-Phishing:</strong> Protege contra la suplantación
+                de identidad (spoofing).
+              </li>
+              <li>
+                <strong>Anti-Spam:</strong> Define umbrales y acciones para el
+                correo no deseado.
+              </li>
+              <li><strong>Anti-Malware:</strong> Bloquea el malware.</li>
+            </ul>
+          </div>
+
+          <!-- Sección 6 -->
+          <div>
+            <h2 class="text-2xl font-bold text-primary-color mb-4">
+              6. Administración de SharePoint Online
+            </h2>
+            <p>
+              SharePoint ha experimentado una transformación fundamental,
+              abandonando su antiguo modelo jerárquico por una arquitectura
+              moderna y plana.
+            </p>
+            <h3 class="text-xl font-semibold text-primary-color mt-6 mb-3">
+              6.1. El Cambio de Arquitectura: De Jerarquía a Modelo Plano
+            </h3>
+            <p>
+              <strong>Modelo Clásico (Antiguo):</strong> Se basaba en una
+              "Colección de Sitios" que contenía un sitio principal y una
+              jerarquía de subsitios. Esta estructura implicaba herencia de
+              permisos y navegación.
+            </p>
+            <p>
+              <strong>Modelo Moderno (Actual):</strong> Elimina el concepto de
+              subsitios jerárquicos. Cada sitio de SharePoint moderno es una
+              colección de sitios independiente. No hay herencia de permisos
+              entre ellos. La estructura se crea de forma "artificial" mediante
+              la navegación y los <strong>Sitios Centrales (Hub Sites)</strong>.
+            </p>
+            <h3 class="text-xl font-semibold text-primary-color mt-6 mb-3">
+              6.2. Tipos de Sitios Modernos
+            </h3>
+            <div class="overflow-x-auto mt-4">
+              <table
+                class="w-full text-left border-collapse rounded-lg overflow-hidden">
+                <thead class="bg-gray-200">
+                  <tr>
+                    <th class="py-3 px-4 font-semibold text-gray-700">
+                      Tipo de Sitio
+                    </th>
+                    <th class="py-3 px-4 font-semibold text-gray-700">
+                      Propósito Principal
+                    </th>
+                    <th class="py-3 px-4 font-semibold text-gray-700">
+                      Creado por defecto con...
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="bg-white border-b border-gray-200">
+                    <td class="py-3 px-4">Sitio de Colaboración</td>
+                    <td class="py-3 px-4">
+                      Espacio para que un equipo trabaje activamente con
+                      documentos y contenido (modelo "many-to-many").
+                    </td>
+                    <td class="py-3 px-4">
+                      Grupos de Microsoft 365 y Equipos de Teams.
+                    </td>
+                  </tr>
+                  <tr class="bg-white border-b border-gray-200">
+                    <td class="py-3 px-4">Sitio de Comunicación</td>
+                    <td class="py-3 px-4">
+                      Diseñado para difundir información a una audiencia amplia,
+                      con pocos creadores de contenido (modelo "one-to-many").
+                      Ideal para intranets y portales de noticias.
+                    </td>
+                    <td class="py-3 px-4">
+                      No se asocia a un Grupo de Microsoft 365.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <h3 class="text-xl font-semibold text-primary-color mt-6 mb-3">
+              6.3. Sincronización con OneDrive: Una Advertencia
+            </h3>
+            <p>
+              Se desaconseja firmemente el uso de la función "Sincronizar" para
+              bibliotecas de documentos de SharePoint (colaborativas). La
+              alternativa recomendada es trabajar directamente desde la interfaz
+              de Teams o SharePoint Online.
+            </p>
+          </div>
+
+          <!-- Sección 7 -->
+          <div>
+            <h2 class="text-2xl font-bold text-primary-color mb-4">
+              7. Administración de Microsoft Teams
+            </h2>
+            <p>
+              Teams es la interfaz principal para la colaboración, pero
+              funcionalmente es una capa de visualización y servicios construida
+              sobre la infraestructura de Grupos de Microsoft 365 y SharePoint.
+            </p>
+            <ul class="list-disc list-inside space-y-2 mt-3">
+              <li>
+                <strong>Creación de un Equipo:</strong> Al crear un equipo en
+                Teams, automáticamente se provisiona un Grupo de Microsoft 365 y
+                un Sitio de Colaboración de SharePoint.
+              </li>
+              <li>
+                <strong>Canales y Carpetas:</strong> Cada canal creado en un
+                equipo corresponde a una carpeta dentro de la biblioteca de
+                documentos del sitio de SharePoint asociado.
+              </li>
+              <li>
+                <strong>Canales Privados:</strong> Al crear un canal privado, se
+                crea un sitio de SharePoint completamente nuevo e independiente.
+              </li>
+            </ul>
+          </div>
+
+          <!-- Sección 8 -->
+          <div>
+            <h2 class="text-2xl font-bold text-primary-color mb-4">
+              8. Seguridad y Cumplimiento (Purview)
+            </h2>
+            <p>
+              La gestión de la seguridad y el cumplimiento normativo se divide
+              en dos centros de administración principales, reflejando la
+              separación de roles entre administradores de TI y personal
+              legal/de auditoría. La suite de cumplimiento ha sido renombrada
+              como <strong>Microsoft Purview</strong>.
+            </p>
+            <h3 class="text-xl font-semibold text-primary-color mt-6 mb-3">
+              8.1. Centro de Seguridad
+            </h3>
+            <ul class="list-disc list-inside space-y-2 mt-3">
+              <li>
+                <strong>Puntuación de Seguridad (Security Score):</strong>
+                Evalúa la postura de seguridad y ofrece recomendaciones.
+              </li>
+              <li>
+                <strong>Análisis de Amenazas:</strong> Proporciona inteligencia
+                sobre campañas de ataque.
+              </li>
+              <li>
+                <strong>Gestión de Dispositivos (con Intune):</strong> Permite
+                ver el inventario de dispositivos y aplicar políticas.
+              </li>
+              <li>
+                <strong>Auditoría:</strong> Es fundamental activar el registro
+                de auditoría, que captura todas las acciones de usuarios y
+                administradores.
+              </li>
+            </ul>
+            <h3 class="text-xl font-semibold text-primary-color mt-6 mb-3">
+              8.2. Centro de Cumplimiento (Purview)
+            </h3>
+            <ul class="list-disc list-inside space-y-2 mt-3">
+              <li>
+                <strong>Clasificación de Datos:</strong> Permite definir
+                etiquetas de confidencialidad y retención.
+              </li>
+              <li>
+                <strong>eDiscovery:</strong> Herramienta para realizar búsquedas
+                e investigaciones legales sobre el contenido.
+              </li>
+              <li>
+                <strong>Information Protection:</strong> Conjunto de
+                herramientas para proteger la información sensible.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
+
+
+
+

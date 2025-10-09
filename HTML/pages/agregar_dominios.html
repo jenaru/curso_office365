@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Adición y Configuración de Dominios en M365</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Script para botón de volver -->
+    <script src="../js/back-button.js"></script>
+        <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Estilos externos -->
+    <link rel="stylesheet" href="../css/pages-base.css">
+    <link rel="stylesheet" href="../css/themes/administracion.css">
+  </head>
+  <body>
+    <div class="document-container px-4 py-8 md:py-12">
+      <header class="text-center pb-8 border-b border-border-color mb-10">
+        <h1
+          class="text-4xl md:text-5xl font-extrabold leading-tight tracking-wider text-primary-color">
+          Adición y Gestión de Dominios Personalizados en Microsoft 365
+        </h1>
+        <p class="mt-2 text-lg text-gray-400">
+          Desde la Verificación de Propiedad hasta la Configuración Crítica del
+          Correo
+        </p>
+      </header>
+
+      <!-- Sección: Propósito -->
+      <section class="mb-10 content-card p-6 rounded-xl">
+        <h2 class="text-3xl mb-4">Propósito de Agregar un Dominio</h2>
+        <div class="space-y-4 text-gray-300">
+          <p>
+            Al iniciar, un *tenant* usa un dominio temporal (<code
+              class="code-block"
+              >cpsl.onmicrosoft.com</code
+            >). Agregar tu dominio propio (ej.
+            <code class="code-block">cpsl.com</code>) es esencial para la
+            profesionalización y facilidad de uso, permitiendo:
+          </p>
+          <ul class="list-disc list-inside ml-6 text-gray-300 space-y-1">
+            <li>
+              Asignar a los usuarios un
+              <strong>nombre de inicio de sesión (UPN)</strong> que coincida con
+              su dirección de correo corporativa.
+            </li>
+            <li>
+              Tener <strong>múltiples dominios</strong> (ej.
+              <code class="code-block">cpsl.com</code> y
+              <code class="code-block">cpsl.cat</code>) dentro de la misma
+              organización.
+            </li>
+            <li>
+              Permitir que un usuario reciba correos enviados a
+              <strong>alias</strong> en cualquiera de los dominios registrados.
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Sección: Proceso Detallado -->
+      <section class="mb-10">
+        <h2 class="text-3xl mb-4">
+          Proceso Detallado para Agregar y Configurar un Dominio
+        </h2>
+        <p class="text-gray-300 mb-6">
+          El proceso se divide en dos fases críticas: demostrar la propiedad y
+          configurar los registros de servicio.
+        </p>
+
+        <!-- FASE 1: Verificación de la Propiedad -->
+        <div class="content-card p-6 rounded-xl mb-8">
+          <h3
+            class="text-2xl font-semibold mb-3 border-b border-border-color pb-2">
+            Fase 1: Verificación de la Propiedad del Dominio
+          </h3>
+          <p class="text-gray-400">
+            Debes demostrarle a Microsoft que controlas el dominio, usualmente a
+            través de la sección <strong>Configuración &gt; Dominios</strong>.
+          </p>
+          <p class="text-gray-400">
+            Debes demostrarle a Microsoft que controlas el dominio, usualmente a
+            través de la sección <strong>Configuración &gt; Dominios</strong>.
+          </p>
+
+          <div class="diagram">
+            <h4 class="text-xl font-semibold mb-4 text-primary-color">
+              Métodos de Verificación (Añadir un Dominio)
+            </h4>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+              <div class="diagram-step bg-blue-900/50 hover:bg-blue-900/70">
+                <span class="text-3xl mb-2">🏷️</span>
+                <p class="font-bold">Registro TXT (Recomendado)</p>
+                <p class="text-xs mt-1 text-gray-400">
+                  Se agrega un valor temporal (ej.
+                  <code class="code-block">MS=ms6539...</code>) al DNS público.
+                  Se puede eliminar tras la verificación.
+                </p>
+              </div>
+
+              <div class="diagram-step bg-red-900/50 hover:bg-red-900/70">
+                <span class="text-3xl mb-2">📧</span>
+                <p class="font-bold">Registro MX (Riesgoso)</p>
+                <p class="text-xs mt-1 text-gray-400">
+                  Crear un MX con prioridad muy baja. Es menos común ya que toca
+                  la configuración de correo.
+                </p>
+              </div>
+
+              <div class="diagram-step bg-green-900/50 hover:bg-green-900/70">
+                <span class="text-3xl mb-2">📄</span>
+                <p class="font-bold">Archivo en Sitio Web</p>
+                <p class="text-xs mt-1 text-gray-400">
+                  Subir un archivo de texto específico a una URL determinada en
+                  el servidor web del dominio.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FASE 2: Configuración de Servicios -->
+        <div class="content-card p-6 rounded-xl">
+          <h3
+            class="text-2xl font-semibold mb-3 border-b border-border-color pb-2">
+            Fase 2: Configuración de los Servicios (Registros DNS Críticos)
+          </h3>
+          <p class="text-gray-400 mb-4">
+            Una vez verificado, estos registros son obligatorios para que el
+            correo electrónico y la configuración automática funcionen.
+          </p>
+
+          <div class="space-y-6">
+            <!-- Registro MX -->
+            <div class="p-4 rounded-lg bg-[#2b2b2b]">
+              <h4 class="text-xl font-semibold text-primary-color">
+                Registro MX (Mail Exchanger)
+              </h4>
+              <p class="text-gray-300 mt-1">
+                <strong>Propósito:</strong> Es el registro más importante.
+                <strong
+                  >Dirige todo el correo electrónico entrante hacia los
+                  servidores de Office 365</strong
+                >.
+              </p>
+              <p class="text-sm mt-2 text-gray-400">
+                Si este registro no apunta a Office 365, los correos destinados
+                a los usuarios de la organización se irán a otra parte.
+              </p>
+            </div>
+
+            <!-- Registro SPF -->
+            <div class="p-4 rounded-lg bg-[#2b2b2b]">
+              <h4 class="text-xl font-semibold text-primary-color">
+                Registro SPF (Sender Protection Framework)
+              </h4>
+              <p class="text-gray-300 mt-1">
+                <strong>Propósito:</strong> Previene el <em>spoofing</em> y
+                reduce el spam. Es un registro TXT que
+                <strong
+                  >declara qué servidores están autorizados para enviar
+                  correos</strong
+                >
+                en nombre de tu dominio.
+              </p>
+              <p class="text-sm mt-2 text-gray-400">
+                Debes incluir
+                <code class="code-block">spf.protection.outlook.com</code> para
+                autorizar a Microsoft. Modificadores clave:
+                <code class="code-block">-all</code> (hard fail) o
+                <code class="code-block">~all</code> (soft fail).
+              </p>
+            </div>
+
+            <!-- Registro CNAME Autodiscover -->
+            <div class="p-4 rounded-lg bg-[#2b2b2b]">
+              <h4 class="text-xl font-semibold text-primary-color">
+                Registro CNAME para Autodiscover
+              </h4>
+              <p class="text-gray-300 mt-1">
+                <strong>Propósito:</strong> Permite que las aplicaciones de
+                Outlook (<abbr title="Versión 2010 o superior">desde 2010</abbr
+                >)
+                <strong
+                  >encuentren y configuren automáticamente el buzón</strong
+                >
+                del usuario sin intervención manual.
+              </p>
+              <p class="text-sm mt-2 text-gray-400">
+                El alias
+                <code class="code-block">autodiscover.tudominio.com</code>
+                apunta a los servidores de Microsoft. Es necesario en el DNS
+                público y a veces en el DNS interno si hay conflicto de nombres.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>
+
+
+
+

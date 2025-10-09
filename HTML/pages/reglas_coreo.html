@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reglas de Transporte de Exchange Online</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+        <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Estilos externos -->
+    <link rel="stylesheet" href="../css/pages-base.css">
+    <link rel="stylesheet" href="../css/themes/exchange.css">
+  </head>
+  <body>
+    <div class="document-container px-4 py-8 md:py-12">
+      <header class="text-center pb-8 border-b border-border-color mb-10">
+        <h1
+          class="text-4xl md:text-5xl font-extrabold leading-tight tracking-wider text-primary-color">
+          Reglas de Transporte en Exchange Online
+        </h1>
+        <p class="mt-2 text-lg text-gray-400">
+          Automatización y Aplicación de Políticas al Flujo de Correo
+        </p>
+      </header>
+
+      <!-- Sección 1: Propósito y Alcance -->
+      <section
+        class="mb-10 content-card p-6 rounded-xl border-l-4 border-primary-color">
+        <h2 class="text-3xl mb-4 text-primary-color">
+          1. Propósito y Funcionalidad
+        </h2>
+        <p class="text-gray-300 mb-4">
+          Las Reglas de Transporte son la herramienta clave del CAE para
+          <strong>automatizar acciones</strong> y aplicar políticas de
+          cumplimiento sobre los mensajes.
+        </p>
+
+        <div class="flex flex-col md:flex-row gap-6">
+          <div
+            class="flex-1 p-4 rounded-lg bg-gray-800/50 border-t-4 border-highlight-step">
+            <p class="font-bold text-lg mb-2 text-highlight-step">
+              Alcance Histórico
+            </p>
+            <p class="text-sm text-gray-400">
+              Originalmente, solo para correo
+              <strong>entrante/saliente</strong>. Desde Exchange 2007/2010,
+              también son aplicables al <strong>correo interno</strong>
+              de la organización.
+            </p>
+          </div>
+          <div
+            class="flex-1 p-4 rounded-lg bg-gray-800/50 border-t-4 border-highlight-step">
+            <p class="font-bold text-lg mb-2 text-highlight-step">Usos Clave</p>
+            <ul class="list-disc list-inside ml-4 text-sm text-gray-400">
+              <li>
+                <strong>Transformación:</strong> Agregar
+                <code class="code-block">disclaimers</code> o notificaciones.
+              </li>
+              <li>
+                <strong>Seguridad:</strong> Crear
+                <strong>barreras internas</strong> (ej. impedir comunicación
+                entre ciertos grupos).
+              </li>
+              <li>
+                <strong>Moderación:</strong> Forzar que el mensaje requiera
+                aprobación.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sección 2: Configuración Detallada -->
+      <section
+        class="mb-10 content-card p-6 rounded-xl border-l-4 border-highlight-step">
+        <h2 class="text-3xl mb-4 text-primary-color">
+          2. Estructura: Condiciones, Acciones y Excepciones
+        </h2>
+
+        <div class="space-y-6">
+          <!-- Condiciones (IF) -->
+          <div
+            class="p-4 rounded-xl border-l-4 border-highlight-step bg-gray-900/50">
+            <h3 class="text-xl font-semibold mb-2 text-highlight-step">
+              Condiciones (IF)
+            </h3>
+            <p class="text-sm text-gray-400">
+              Determinan qué debe cumplirse para activar la regla. Incluyen
+              remitente, grupo, patrones de texto y tamaño de adjuntos.
+            </p>
+            <p class="mt-2 text-sm text-gray-400 font-semibold">
+              📍 <strong>Diferenciación SMTP:</strong> Las reglas pueden
+              referenciar la dirección del remitente en el
+              <strong>Encabezado</strong> o en el <strong>Sobre</strong>
+              (SMTP).
+            </p>
+          </div>
+
+          <!-- Acciones (THEN) -->
+          <div
+            class="p-4 rounded-xl border-l-4 border-highlight-step bg-gray-900/50">
+            <h3 class="text-xl font-semibold mb-2 text-highlight-step">
+              Acciones (THEN)
+            </h3>
+            <p class="text-sm text-gray-400">
+              Lo que ocurrirá si las condiciones se cumplen. Puede ser
+              <span class="font-bold"
+                >redirigir, bloquear, notificar, o adjuntar un texto</span
+              >
+              (posiblemente en formato HTML).
+            </p>
+          </div>
+
+          <!-- Excepciones -->
+          <div
+            class="p-4 rounded-xl border-l-4 border-highlight-step bg-gray-900/50">
+            <h3 class="text-xl font-semibold mb-2 text-highlight-step">
+              Excepciones
+            </h3>
+            <p class="text-sm text-gray-400">
+              Añaden granularidad, permitiendo que la regla
+              <strong>NO</strong> se aplique a ciertos mensajes, incluso si
+              cumplen las condiciones generales.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sección 3: Orden de Aplicación y Riesgos -->
+      <section
+        class="mb-10 content-card p-6 rounded-xl border-l-4 border-highlight-warning">
+        <h2 class="text-3xl mb-4 text-primary-color">
+          3. Orden y Riesgos de Aplicación
+        </h2>
+
+        <h3 class="text-xl font-semibold mt-6 text-primary-color">
+          Diagrama: Procesamiento Secuencial
+        </h3>
+        <div
+          class="flex flex-col items-center justify-center p-4 rounded-xl mt-4 border border-dashed border-border-color bg-gray-900/50">
+          <div
+            class="diagram-step w-full"
+            style="border-color: var(--highlight-step);">
+            1. Regla Disclaimer General
+          </div>
+          <div class="diagram-connector">⬇️</div>
+          <div
+            class="diagram-step w-full"
+            style="border-color: var(--highlight-step);">
+            2. Regla Bloqueo Adjuntos Peligrosos
+          </div>
+          <div class="diagram-connector">⬇️</div>
+          <div
+            class="diagram-step w-full font-bold"
+            style="border-color: var(--highlight-warning); background-color: #451a03;">
+            3. Regla Excepción Directorio (CON
+            <code class="code-block">Detener Procesamiento</code>)
+          </div>
+          <div class="diagram-connector">🛑</div>
+          <div
+            class="diagram-step w-full text-gray-400 italic"
+            style="border-color: var(--border-color);">
+            4. Regla Notificación de Ausencia (NO EJECUTADA si la Regla 3 la
+            detiene)
+          </div>
+          <div class="diagram-connector text-2xl text-gray-900"></div>
+
+          <p class="text-sm text-highlight-warning mt-4">
+            <strong>Procesamiento Clave:</strong> Las reglas se aplican en orden
+            (de arriba abajo). Es fundamental usar la opción
+            <strong>"Detener el procesamiento de más reglas"</strong> para
+            evitar conflictos.
+          </p>
+        </div>
+
+        <div
+          class="callout p-4 rounded-lg mt-6 bg-red-900/50 border-l-4 border-highlight-warning text-gray-300">
+          <p class="font-bold">🚨 Riesgo Crítico: Retraso</p>
+          <p class="text-sm">
+            La activación o desactivación de las reglas
+            <strong>no es inmediata</strong>. Los cambios tardan en propagarse,
+            lo que significa que un error de configuración puede causar
+            problemas durante un período de tiempo considerable.
+          </p>
+        </div>
+      </section>
+
+      <!-- Sección 4: Pruebas, Auditoría y Control -->
+      <section
+        class="mb-10 content-card p-6 rounded-xl border-l-4 border-primary-color">
+        <h2 class="text-3xl mb-4 text-primary-color">4. Pruebas y Auditoría</h2>
+        <p class="text-gray-300 mb-4">
+          Los modos de prueba son esenciales para mitigar riesgos antes de la
+          implementación activa.
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+          <div
+            class="p-4 rounded-lg bg-gray-800 border-b-4 border-highlight-step">
+            <p class="font-bold text-highlight-step">Exigir (Modo Activo)</p>
+            <p class="text-xs text-gray-400">La regla funciona y se aplica.</p>
+          </div>
+          <div
+            class="p-4 rounded-lg bg-gray-800 border-b-4 border-highlight-warning">
+            <p class="font-bold text-highlight-warning">
+              Probar sin Sugerencia
+            </p>
+            <p class="text-xs text-gray-400">
+              La regla no actúa, pero se genera un <strong>informe</strong> de
+              auditoría sobre qué correos se habrían visto afectados.
+            </p>
+          </div>
+          <div
+            class="p-4 rounded-lg bg-gray-800 border-b-4 border-highlight-warning">
+            <p class="font-bold text-highlight-warning">Policy Tip</p>
+            <p class="text-xs text-gray-400">
+              El usuario recibe un
+              <strong>mensaje de advertencia</strong> visible antes de enviar el
+              correo que incumple la regla.
+            </p>
+          </div>
+        </div>
+
+        <h3 class="text-xl font-semibold mt-6 text-primary-color">
+          Opciones de Control Adicional
+        </h3>
+        <ul
+          class="list-disc list-inside ml-4 space-y-2 text-gray-300 text-sm mt-3">
+          <li>
+            <strong>Auditoría de Gravedad:</strong> Se puede asignar un nivel
+            (Alto, Medio, Bajo) para informes posteriores de seguridad.
+          </li>
+          <li>
+            <strong>Activación Programada:</strong> Las reglas pueden tener
+            fechas de inicio y fin automáticas (útil para campañas o periodos
+            específicos).
+          </li>
+          <li>
+            <strong>Comentarios:</strong> Es vital agregar documentación clara
+            (ej. quién la ordenó y por qué) dentro de la configuración de la
+            regla.
+          </li>
+        </ul>
+      </section>
+    </div>
+
+    <!-- Script para botón de regreso centralizado -->
+    <script src="../js/back-button.js"></script>
+  </body>
+</html>
+

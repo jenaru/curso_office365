@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Centro de Administración de SharePoint</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+        <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Estilos externos -->
+    <link rel="stylesheet" href="../css/pages-base.css">
+    <link rel="stylesheet" href="../css/themes/sharepoint.css">
+  </head>
+  <body>
+    <div class="document-container px-4 py-8 md:py-12">
+      <header class="text-center pb-8 border-b border-border-color mb-10">
+        <h1
+          class="text-4xl md:text-5xl font-extrabold leading-tight tracking-wider text-primary-color">
+          Centro de Administración de SharePoint
+        </h1>
+        <p class="mt-2 text-lg text-gray-400">
+          Guía Completa: Gobernanza y Administración del SharePoint Moderno
+        </p>
+      </header>
+
+      <!-- Sección 1: Filosofía del SharePoint Moderno -->
+      <section
+        class="mb-10 content-card p-6 rounded-xl border-l-4"
+        style="border-color: var(--highlight-modern);">
+        <h2 class="text-3xl mb-4 text-primary-color">
+          1. La Filosofía del SharePoint Moderno y el Centro de Administración
+        </h2>
+        <p class="text-gray-300 mb-6">
+          El Centro de Administración moderno está diseñado para gestionar
+          sitios que son <strong>"islas independientes"</strong>, rompiendo con
+          la arquitectura jerárquica del SharePoint clásico.
+        </p>
+
+        <div class="architecture-comparison">
+          <div
+            class="comparison-side"
+            style="border-color: var(--highlight-modern);">
+            <h4 class="font-bold text-highlight-modern mb-2">
+              🌐 MODELO MODERNO
+            </h4>
+            <p class="text-xs text-gray-400">
+              <strong>Arquitectura Plana</strong><br />
+              Sitios como islas independientes<br />
+              Sin herencia jerárquica
+            </p>
+          </div>
+
+          <div class="comparison-vs">vs</div>
+
+          <div
+            class="comparison-side"
+            style="border-color: var(--highlight-legacy);">
+            <h4 class="font-bold text-highlight-legacy mb-2">
+              🏗️ MODELO CLÁSICO
+            </h4>
+            <p class="text-xs text-gray-400">
+              <strong>Arquitectura Jerárquica</strong><br />
+              Sitios y subsitios<br />
+              Herencia de permisos compleja
+            </p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div
+            class="admin-section"
+            style="border-color: var(--highlight-modern);">
+            <h4 class="font-bold text-highlight-modern text-sm mb-2">
+              ✅ Modelo Plano (Recomendado)
+            </h4>
+            <p class="text-xs text-gray-400">
+              Eliminación de herencia de permisos jerárquica. La administración
+              se centra en supervisar colecciones de sitios individuales.
+            </p>
+          </div>
+
+          <div
+            class="admin-section"
+            style="border-color: var(--highlight-warning);">
+            <h4 class="font-bold text-highlight-warning text-sm mb-2">
+              ⚠️ Abandono del Clásico
+            </h4>
+            <p class="text-xs text-gray-400">
+              El centro moderno ha eliminado casi todas las opciones clásicas.
+              Los remanentes son interfaces "horribles" que Microsoft
+              desaconseja usar.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sección 2: Sitios Activos -->
+      <section
+        class="mb-10 content-card p-6 rounded-xl border-l-4"
+        style="border-color: var(--highlight-admin);">
+        <h2 class="text-3xl mb-4 text-primary-color">
+          2. Secciones Clave y Gestión de Sitios Activos
+        </h2>
+        <p class="text-gray-300 mb-6">
+          <strong>Sitios Activos</strong> es la sección principal que ofrece una
+          visión global de todos los contenedores de contenido: Sitios de
+          Comunicación y Sitios de Grupo (base de Teams).
+        </p>
+
+        <h3 class="text-xl font-semibold mt-6 text-highlight-admin">
+          A. Visión General y Propiedades
+        </h3>
+
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Propiedad</th>
+              <th>Descripción</th>
+              <th>Capacidad de Gestión</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>URL y Nombre</strong></td>
+              <td>Identificación del sitio</td>
+              <td>✅ Cambio de URL sin problemas</td>
+            </tr>
+            <tr>
+              <td><strong>Asociación Teams/Grupos</strong></td>
+              <td>Conexión con Team o Grupo M365</td>
+              <td>👀 Visualización de dependencias</td>
+            </tr>
+            <tr>
+              <td><strong>Uso de Almacenamiento</strong></td>
+              <td>Espacio ocupado y cuota</td>
+              <td>⚙️ Gestión de límites</td>
+            </tr>
+            <tr>
+              <td><strong>Sitio Central (Hub)</strong></td>
+              <td>Asociación a Hub Sites</td>
+              <td>🎨 Herencia visual y navegación</td>
+            </tr>
+            <tr>
+              <td><strong>Administrador Principal</strong></td>
+              <td>Propietario y fecha de creación</td>
+              <td>👤 Gestión de propietarios</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3 class="text-xl font-semibold mt-6 text-highlight-admin">
+          B. Gestión Individual de Sitios
+        </h3>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+          <div
+            class="admin-section"
+            style="border-color: var(--highlight-admin);">
+            <h4 class="font-bold text-highlight-admin text-sm mb-2">
+              📝 Edición
+            </h4>
+            <p class="text-xs text-gray-400">
+              Cambiar nombre y URL del sitio con facilidad.
+            </p>
+          </div>
+
+          <div
+            class="admin-section"
+            style="border-color: var(--highlight-governance);">
+            <h4 class="font-bold text-highlight-governance text-sm mb-2">
+              🔒 Permisos
+            </h4>
+            <p class="text-xs text-gray-400">
+              Ver propietarios del sitio o Grupo M365 subyacente.
+            </p>
+          </div>
+
+          <div
+            class="admin-section"
+            style="border-color: var(--highlight-security);">
+            <h4 class="font-bold text-highlight-security text-sm mb-2">
+              📋 Directivas
+            </h4>
+            <p class="text-xs text-gray-400">
+              Configurar reglas específicas como compartición externa.
+            </p>
+          </div>
+        </div>
+
+        <h3 class="text-xl font-semibold mt-6 text-highlight-warning">
+          C. Sitios Eliminados
+        </h3>
+        <div
+          class="admin-section"
+          style="border-color: var(--highlight-warning);">
+          <p class="text-sm text-gray-300">
+            Recuperación de sitios borrados disponible durante
+            <strong>93 días</strong> antes de purga permanente.
+          </p>
+        </div>
+      </section>
+
+      <!-- Sección 3: Políticas Globales -->
+      <section
+        class="mb-10 content-card p-6 rounded-xl border-l-4"
+        style="border-color: var(--highlight-security);">
+        <h2 class="text-3xl mb-4 text-primary-color">
+          3. Políticas Globales y Controles de Gobernanza
+        </h2>
+        <p class="text-gray-300 mb-6">
+          Las secciones de <strong>Directivas</strong> y
+          <strong>Configuración</strong> establecen las reglas maestras de
+          gobernanza para toda la organización.
+        </p>
+
+        <h3 class="text-xl font-semibold mt-6 text-highlight-security">
+          A. Directivas de Uso Compartido (Compartición Externa)
+        </h3>
+
+        <div class="critical-config">
+          <h4 class="font-bold text-highlight-security text-lg mb-3">
+            ⚠️ Configuración Más Importante: Compartición Externa
+          </h4>
+          <p class="text-sm text-gray-300 mb-4">
+            Establece el nivel máximo de compartición externa para SharePoint y
+            OneDrive.
+            <strong>Es altamente recomendable configurarla por defecto.</strong>
+          </p>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <ul class="feature-list">
+              <li>
+                <strong>Límite de Compartición:</strong> "Invitados existentes o
+                nuevos" (evita acceso sin autenticación)
+              </li>
+              <li>
+                <strong>Vínculos Anónimos:</strong> Desaconsejados totalmente
+                por riesgo de seguridad
+              </li>
+            </ul>
+            <ul class="feature-list">
+              <li>
+                <strong>Permisos por Defecto:</strong> Solo lectura (los
+                usuarios son "muy torpes")
+              </li>
+              <li>
+                <strong>Caducidad de Enlaces:</strong> 30-60 días automático
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <h3 class="text-xl font-semibold mt-6 text-highlight-governance">
+          B. Control de Acceso y Gestión de Dispositivos
+        </h3>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div
+            class="admin-section"
+            style="border-color: var(--highlight-governance);">
+            <h4 class="font-bold text-highlight-governance text-sm mb-2">
+              🌐 Restricción de Acceso
+            </h4>
+            <p class="text-xs text-gray-400">
+              Permitir solo acceso web, bloqueando descargas de archivos para
+              mayor seguridad.
+            </p>
+          </div>
+
+          <div
+            class="admin-section"
+            style="border-color: var(--highlight-admin);">
+            <h4 class="font-bold text-highlight-admin text-sm mb-2">
+              📱 Dispositivos No Administrados
+            </h4>
+            <p class="text-xs text-gray-400">
+              Denegar acceso a dispositivos no unidos al dominio. Control eficaz
+              via Intune.
+            </p>
+          </div>
+        </div>
+
+        <h3 class="text-xl font-semibold mt-6 text-highlight-admin">
+          C. Configuración Global
+        </h3>
+
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Configuración</th>
+              <th>Propósito</th>
+              <th>Impacto en Gobernanza</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Creación de Sitios</strong></td>
+              <td>Limitar a grupos específicos</td>
+              <td>🔑 Evita proliferación descontrolada</td>
+            </tr>
+            <tr>
+              <td><strong>Sitio Principal (Home Site)</strong></td>
+              <td>Landing page de intranet</td>
+              <td>🏠 Punto de entrada unificado</td>
+            </tr>
+            <tr>
+              <td><strong>Zona Horaria</strong></td>
+              <td>Configuración predeterminada</td>
+              <td>⏰ Vital corregir (suele estar mal)</td>
+            </tr>
+            <tr>
+              <td><strong>Límites OneDrive</strong></td>
+              <td>Cuota por usuario (1TB default)</td>
+              <td>💾 Evita saturación + mejor higiene</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Sección 4: Herramientas de Migración -->
+      <section
+        class="mb-10 content-card p-6 rounded-xl border-l-4"
+        style="border-color: var(--highlight-legacy);">
+        <h2 class="text-3xl mb-4 text-primary-color">
+          4. Herramientas de Migración y Aspectos Legacy
+        </h2>
+
+        <h3 class="text-xl font-semibold mt-6 text-highlight-legacy">
+          Herramienta de Migración (SMT)
+        </h3>
+
+        <div
+          class="admin-section"
+          style="border-color: var(--highlight-legacy);">
+          <h4 class="font-bold text-highlight-legacy text-sm mb-2">
+            📦 SharePoint Migration Tool (SMT)
+          </h4>
+          <p class="text-sm text-gray-300 mb-3">
+            Herramienta <strong>gratuita</strong> que facilita la copia de datos
+            desde repositorios locales a SharePoint o OneDrive.
+          </p>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <ul class="feature-list">
+              <li>
+                <strong>Migración Incremental:</strong> Varias pasadas para
+                completar la subida
+              </li>
+              <li>
+                <strong>Escaneo Previo:</strong> Detecta problemas de
+                nomenclatura
+              </li>
+            </ul>
+            <ul class="feature-list">
+              <li>
+                <strong>Validación:</strong> Comprueba longitud de nombres
+              </li>
+              <li>
+                <strong>Sin Costo:</strong> Incluida en todas las licencias
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <h3 class="text-xl font-semibold mt-6 text-highlight-warning">
+          Características Obsoletas
+        </h3>
+
+        <div class="critical-config">
+          <h4 class="font-bold text-highlight-warning text-lg mb-3">
+            🗑️ Funcionalidades Reemplazadas o Discontinuadas
+          </h4>
+          <p class="text-sm text-gray-300 mb-4">
+            Gran parte de las opciones fuera de gestión de sitios y políticas
+            son configuraciones antiguas ya no utilizadas.
+          </p>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div
+              class="admin-section"
+              style="border-color: var(--highlight-warning);">
+              <h4 class="font-bold text-highlight-warning text-sm mb-2">
+                📝 Formularios
+              </h4>
+              <p class="text-xs text-gray-400">
+                Reemplazados por <strong>Power Apps</strong>
+              </p>
+            </div>
+
+            <div
+              class="admin-section"
+              style="border-color: var(--highlight-warning);">
+              <h4 class="font-bold text-highlight-warning text-sm mb-2">
+                🔗 Conectividad BCS
+              </h4>
+              <p class="text-xs text-gray-400">
+                Bases de datos locales - obsoleto
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Resumen Final -->
+      <section
+        class="content-card p-6 rounded-xl border-l-4"
+        style="border-color: var(--primary-color);">
+        <h2 class="text-3xl mb-4 text-primary-color">Resumen Ejecutivo</h2>
+        <div class="admin-section" style="border-color: var(--primary-color);">
+          <p class="text-sm text-gray-300">
+            El Centro de Administración de SharePoint es la
+            <strong>herramienta esencial</strong> para mantener el control y la
+            seguridad sobre los contenedores de la organización, asegurando que:
+          </p>
+          <ul class="feature-list mt-3">
+            <li>
+              La arquitectura se mantenga <strong>plana y moderna</strong>
+            </li>
+            <li>
+              El uso compartido se adhiera a las
+              <strong>políticas de gobernanza</strong>
+            </li>
+            <li>
+              Los sitios funcionen como <strong>islas independientes</strong>
+            </li>
+            <li>
+              La seguridad de la información esté <strong>garantizada</strong>
+            </li>
+          </ul>
+        </div>
+      </section>
+    </div>
+
+    <!-- Cargar el script de navegación -->
+    <script src="../js/back-button.js"></script>
+  </body>
+</html>
+

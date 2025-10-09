@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Conectores de Correo en Exchange Online</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+        <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Estilos externos -->
+    <link rel="stylesheet" href="../css/pages-base.css">
+    <link rel="stylesheet" href="../css/themes/exchange.css">
+  </head>
+  <body>
+    <div class="document-container px-4 py-8 md:py-12">
+      <header class="text-center pb-8 border-b border-border-color mb-10">
+        <h1
+          class="text-4xl md:text-5xl font-extrabold leading-tight tracking-wider text-primary-color">
+          Conectores (<span class="text-highlight-inbound">Inbound</span> &
+          <span class="text-highlight-outbound">Outbound</span>)
+        </h1>
+        <p class="mt-2 text-lg text-gray-400">
+          Rutas Específicas para Tráfico Interno y Perimetral
+        </p>
+      </header>
+
+      <!-- Propósito General -->
+      <section
+        class="mb-10 content-card p-6 rounded-xl border-l-4 border-primary-color">
+        <h2 class="text-3xl mb-4 text-primary-color">Propósito Central</h2>
+        <p class="text-gray-300">
+          Los Conectores definen rutas específicas y reglas de confianza para
+          que Exchange Online pueda comunicarse de forma controlada con
+          servidores, dispositivos o sistemas de seguridad
+          <strong>fuera del flujo de correo estándar</strong>.
+        </p>
+      </section>
+
+      <!-- Sección 1: Conectores de Recepción -->
+      <section
+        class="mb-10 content-card p-6 rounded-xl border-l-4"
+        style="border-color: var(--highlight-inbound);">
+        <h2 class="text-3xl mb-4" style="color: var(--highlight-inbound);">
+          1. Conectores de Recepción (<code class="code-block">Inbound</code>)
+        </h2>
+        <p class="text-gray-300 mb-6">
+          Definen cómo Exchange Online debe aceptar el tráfico proveniente de
+          sistemas internos, como
+          <strong>servidores de aplicaciones o impresoras multifunción</strong>,
+          para que no sean tratados como spam.
+        </p>
+
+        <h3 class="text-xl font-semibold mt-6 text-primary-color">
+          Configuración y Ventajas Clave
+        </h3>
+        <div class="space-y-4 mt-3">
+          <div
+            class="p-3 rounded-lg bg-gray-800/50 border-t-4 border-highlight-inbound">
+            <p class="font-bold text-sm text-highlight-inbound">
+              Confianza Basada en IP
+            </p>
+            <p class="text-xs text-gray-400 mt-1">
+              Se configura especificando la
+              <strong>dirección IP de origen</strong> de la red local. Esto crea
+              una confianza implícita que
+              <strong>no requiere autenticación</strong> (ideal para impresoras
+              y dispositivos "cacharros").
+            </p>
+          </div>
+          <div
+            class="p-3 rounded-lg bg-gray-800/50 border-t-4 border-highlight-relay">
+            <p class="font-bold text-sm text-highlight-relay">
+              Relay de Correo (Opción 3)
+            </p>
+            <p class="text-xs text-gray-400 mt-1">
+              Permite que el sistema envíe correos
+              <strong
+                >aunque la dirección de origen no tenga un buzón
+                asignado</strong
+              >
+              (<code class="code-block">notificaciones@dominio.com</code>),
+              siempre que el dominio esté aceptado. Esto es
+              <strong>la mejor opción</strong> para aplicaciones internas.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Diagrama de Conector de Recepción (Relay) -->
+      <section
+        class="mb-10 content-card p-6 rounded-xl border-l-4 border-primary-color">
+        <h2 class="text-3xl mb-4 text-primary-color">
+          Diagrama: La Puerta Interna (Inbound Connector)
+        </h2>
+        <div
+          class="flex flex-col items-center justify-center p-4 rounded-xl mt-4 border border-dashed border-border-color bg-gray-900/50">
+          <div
+            class="diagram-box w-full bg-red-900/50"
+            style="border-color: var(--highlight-relay);">
+            <p class="font-bold text-highlight-relay">
+              Sistema Interno (Impresora/App)
+            </p>
+            <p class="text-xs text-gray-400">
+              Envía como <code class="code-block">sinbuzon@dominio.com</code>
+            </p>
+          </div>
+
+          <div class="diagram-connector">➡️</div>
+
+          <div
+            class="diagram-box w-full"
+            style="border-color: var(--highlight-inbound);">
+            <p class="font-bold text-highlight-inbound">
+              Conector de Recepción (IP de Origen Confiable)
+            </p>
+            <p class="text-xs text-gray-400">
+              Tratado como una <strong>conexión interna</strong> (menos
+              restricciones Antispam).
+            </p>
+          </div>
+
+          <div class="diagram-connector">➡️</div>
+
+          <div
+            class="diagram-box w-full"
+            style="border-color: var(--primary-color);">
+            <p class="font-bold text-primary-color">
+              Exchange Online (Office 365)
+            </p>
+            <p class="text-xs text-gray-400">
+              Permite <strong>Relay</strong> a cualquier destino.
+            </p>
+          </div>
+        </div>
+        <p class="text-sm text-gray-400 mt-4 text-center">
+          Este conector utiliza el <strong>puerto 25 estándar</strong> y se
+          salta las autenticaciones, gracias a la confianza en la IP de origen.
+        </p>
+      </section>
+
+      <!-- Sección 2: Conectores de Envío -->
+      <section
+        class="mb-10 content-card p-6 rounded-xl border-l-4"
+        style="border-color: var(--highlight-outbound);">
+        <h2 class="text-3xl mb-4" style="color: var(--highlight-outbound);">
+          2. Conectores de Envío (<code class="code-block">Outbound</code>)
+        </h2>
+        <p class="text-gray-300 mb-6">
+          Definen una ruta específica y no estándar para que el correo salga de
+          Exchange Online hacia el exterior.
+        </p>
+
+        <h3 class="text-xl font-semibold mt-6 text-primary-color">
+          Uso Principal: Alteración del Flujo Saliente
+        </h3>
+        <ul class="list-disc list-inside ml-4 space-y-3 text-gray-300 mt-3">
+          <li>
+            <p>
+              <span class="font-bold text-highlight-outbound"
+                >Dispositivos de Seguridad Perimetral:</span
+              >
+              Se utilizan para forzar que el correo saliente pase por un
+              dispositivo de seguridad externo (ej. <strong>Barracuda</strong>)
+              antes de ser entregado a Internet.
+            </p>
+          </li>
+          <li>
+            <p>
+              <span class="font-bold text-highlight-outbound"
+                >Rutas Específicas:</span
+              >
+              Permiten dirigir el tráfico a una <strong>IP específica</strong> o
+              a un servidor de correo particular de un socio, alterando la ruta
+              pública normal.
+            </p>
+          </li>
+        </ul>
+      </section>
+
+      <!-- Sección 3: Diferencia Crítica con Reglas de Transporte -->
+      <section
+        class="mb-10 content-card p-6 rounded-xl border-l-4"
+        style="border-color: var(--highlight-relay);">
+        <h2 class="text-3xl mb-4" style="color: var(--highlight-relay);">
+          3. Conector vs. Regla de Transporte
+        </h2>
+        <div
+          class="callout p-4 rounded-lg bg-red-900/50 border-l-4 border-highlight-relay text-gray-300">
+          <p class="font-bold text-lg mb-2">
+            La Gran Diferencia: Apertura de Puertas
+          </p>
+          <p class="text-sm">
+            Una <strong>Regla de Transporte</strong> actúa sobre el contenido
+            del correo ya en tránsito (añadir disclaimer, bloquear).
+            <br /><br />
+            Un <strong>Conector de Recepción</strong> abre una
+            <strong>segunda puerta</strong> que acepta conexiones desde una
+            <strong>IP local confiable</strong> y está sujeta a menos
+            restricciones Antispam.
+            <strong>Solo el Conector permite hacer Relay</strong>
+            (que un sistema sin buzón envíe correo a terceros).
+          </p>
+        </div>
+      </section>
+    </div>
+
+    <!-- Cargar el script de navegación -->
+    <script src="../js/back-button.js"></script>
+  </body>
+</html>
+

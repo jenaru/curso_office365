@@ -1,0 +1,42 @@
+/* ===== TEMA ADMINISTRACIÓN ===== */
+:root {
+  --primary-color: var(--color-administracion);
+  --theme-primary: #3b82f6;
+  --theme-secondary: #2563eb;
+  --theme-accent: #1d4ed8;
+}
+
+/* Títulos con color del tema */
+h1,
+h2,
+h3 {
+  color: var(--theme-primary);
+}
+
+/* Elementos de lista del tema */
+.feature-list li::before,
+.service-list li::before {
+  color: var(--theme-primary);
+}
+
+/* Headers de tabla del tema */
+.admin-table th {
+  background-color: var(--theme-primary);
+}
+
+/* Elementos específicos de administración */
+.admin-section {
+  border-radius: 12px;
+  padding: 1rem;
+  margin: 0.75rem 0;
+  border-left: 4px solid;
+  background-color: #242424;
+}
+
+.admin-highlight {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(59, 130, 246, 0.05));
+  border: 2px solid var(--theme-primary);
+  border-radius: 12px;
+  padding: 1rem;
+  margin: 1rem 0;
+}

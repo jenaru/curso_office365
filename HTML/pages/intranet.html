@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Diseño de Intranets Modernas en SharePoint</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+        <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Estilos externos -->
+    <link rel="stylesheet" href="../css/pages-base.css">
+    <link rel="stylesheet" href="../css/themes/sharepoint.css">
+  </head>
+  <body>
+    <div class="document-container px-4 py-8 md:py-12">
+      <header class="text-center pb-8 border-b border-border-color mb-10">
+        <h1
+          class="text-4xl md:text-5xl font-extrabold leading-tight tracking-wider text-primary-color">
+          Diseño de Intranets Modernas en SharePoint
+        </h1>
+        <p class="mt-2 text-lg text-gray-400">
+          De la Jerarquía a la Estructura Plana: Estrategias para una Intranet
+          Efectiva
+        </p>
+      </header>
+
+      <!-- Sección 1: Paradigma de Arquitectura Moderna -->
+      <section
+        class="mb-10 content-card p-6 rounded-xl border-l-4"
+        style="border-color: var(--primary-color);">
+        <h2 class="text-3xl mb-4 text-primary-color">
+          1. El Paradigma de la Arquitectura Moderna
+        </h2>
+        <p class="text-gray-300 mb-6">
+          Para crear una buena intranet en M365, es fundamental comprender y
+          aplicar el modelo de <strong>SharePoint Moderno</strong>, dejando
+          atrás el modelo clásico basado en sitios y subsitios jerárquicos.
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div
+            class="info-box"
+            style="border-color: var(--highlight-communication);">
+            <h4 class="font-bold text-highlight-communication mb-2">
+              Independencia del Sitio
+            </h4>
+            <p class="text-xs text-gray-400">
+              Se eliminan las jerarquías de herencia de permisos. Cada sitio es
+              una <strong>"isla independiente"</strong>.
+            </p>
+          </div>
+
+          <div
+            class="info-box"
+            style="border-color: var(--highlight-collaboration);">
+            <h4 class="font-bold text-highlight-collaboration mb-2">
+              Flexibilidad Total
+            </h4>
+            <p class="text-xs text-gray-400">
+              Cada sitio gestiona su propio idioma, cuota de espacio y políticas
+              de compartición externa de manera individual.
+            </p>
+          </div>
+
+          <div class="info-box" style="border-color: var(--highlight-hub);">
+            <h4 class="font-bold text-highlight-hub mb-2">
+              Contenedores como Unidades
+            </h4>
+            <p class="text-xs text-gray-400">
+              Cada necesidad de aislamiento de permisos se traduce en un nuevo
+              "contenedor" (sitio o Team).
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sección 2: Clasificación de Contenedores -->
+      <section
+        class="mb-10 content-card p-6 rounded-xl border-l-4"
+        style="border-color: var(--highlight-communication);">
+        <h2 class="text-3xl mb-4 text-primary-color">
+          2. Clasificación de Contenedores y Plantillas
+        </h2>
+        <p class="text-gray-300 mb-6">
+          La primera decisión estratégica es definir el propósito del contenido
+          que albergará la intranet.
+        </p>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Tipo de Contenedor</th>
+                <th>Propósito</th>
+                <th>Base de Permisos</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <strong style="color: var(--highlight-communication);"
+                    >Sitios de Comunicación</strong
+                  >
+                </td>
+                <td>
+                  Comunicación "uno para muchos" (intranets, noticias, manuales,
+                  catálogos).
+                </td>
+                <td>
+                  Un pequeño grupo edita, el resto de la organización solo
+                  visualiza.
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <strong style="color: var(--highlight-collaboration);"
+                    >Sitios de Colaboración (Grupos M365/Teams)</strong
+                  >
+                </td>
+                <td>
+                  Trabajo diario y proyectos, donde todos los miembros editan y
+                  modifican el contenido.
+                </td>
+                <td>Son la base para Microsoft Teams.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div
+          class="callout p-4 rounded-lg bg-blue-900/50 border-l-4 border-highlight-collaboration text-gray-300">
+          <p class="font-bold text-highlight-collaboration">
+            Relación Team-SharePoint
+          </p>
+          <p class="text-sm">
+            Un <strong>Team</strong> es una capa adicional de visualización e
+            interacción que se construye sobre un Grupo de Office 365, y este a
+            su vez es un sitio de SharePoint Online (colaboración).
+          </p>
+        </div>
+      </section>
+
+      <!-- Sección 3: Estrategia de Diseño -->
+      <section
+        class="mb-10 content-card p-6 rounded-xl border-l-4"
+        style="border-color: var(--highlight-hub);">
+        <h2 class="text-3xl mb-4 text-primary-color">
+          3. Estrategia de Diseño para una Buena Intranet
+        </h2>
+
+        <h3 class="text-xl font-semibold mt-6 text-highlight-hub">
+          A. Navegación y Estructura Jerárquica Visual
+        </h3>
+
+        <div class="space-y-4 mt-4">
+          <div
+            class="p-4 rounded-lg bg-gray-800/50 border-t-4"
+            style="border-color: var(--primary-color);">
+            <h4 class="font-bold text-primary-color text-sm mb-2">
+              Página de Inicio (Landing Site)
+            </h4>
+            <p class="text-xs text-gray-400">
+              Sitio principal que actúa como puerta de entrada para todos los
+              usuarios.
+            </p>
+          </div>
+
+          <div
+            class="p-4 rounded-lg bg-gray-800/50 border-t-4"
+            style="border-color: var(--highlight-hub);">
+            <h4 class="font-bold text-highlight-hub text-sm mb-2">
+              Sitios Centrales (Hub Sites)
+            </h4>
+            <p class="text-xs text-gray-400">
+              Para agrupar visualmente sitios relacionados. Los sitios asociados
+              heredan un <strong>menú común</strong> y
+              <strong>esquema de colores</strong> compartido, pero mantienen
+              independencia de permisos.
+            </p>
+          </div>
+        </div>
+
+        <h3 class="text-xl font-semibold mt-6 text-highlight-communication">
+          B. Personalización Visual y Contenido Relevante
+        </h3>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+          <div
+            class="info-box"
+            style="border-color: var(--highlight-communication);">
+            <h4 class="font-bold text-highlight-communication mb-2">
+              Branding
+            </h4>
+            <p class="text-xs text-gray-400">
+              Logotipos y colores corporativos. Microsoft ofrece herramientas
+              para generar archivos XML con temas exactos.
+            </p>
+          </div>
+
+          <div
+            class="info-box"
+            style="border-color: var(--highlight-collaboration);">
+            <h4 class="font-bold text-highlight-collaboration mb-2">
+              Utilidad
+            </h4>
+            <p class="text-xs text-gray-400">
+              Contenido útil: noticias relevantes, enlaces a procesos internos
+              (vacaciones, bajas, etc.).
+            </p>
+          </div>
+
+          <div class="info-box" style="border-color: var(--highlight-hub);">
+            <h4 class="font-bold text-highlight-hub mb-2">Diseño Modular</h4>
+            <p class="text-xs text-gray-400">
+              Responsivo y modular, similar a WordPress, utilizando
+              <span class="code-block">Web Parts</span> y bloques predefinidos.
+            </p>
+          </div>
+        </div>
+
+        <h3 class="text-xl font-semibold mt-6 text-primary-color">
+          C. Segmentación de Audiencias
+        </h3>
+        <div
+          class="callout p-4 rounded-lg bg-cyan-900/50 border-l-4 border-primary-color text-gray-300 mt-4">
+          <p class="font-bold text-primary-color">
+            Identificación de Audiencias
+          </p>
+          <p class="text-sm">
+            Para evitar múltiples sitios idénticos, habilitar
+            <strong>Audience Targeting</strong>. Permite que elementos del sitio
+            se muestren personalizadamente según la pertenencia del usuario a
+            grupos específicos de Azure AD.
+          </p>
+        </div>
+      </section>
+
+      <!-- Sección 4: Gestión de Colaboración -->
+      <section
+        class="mb-10 content-card p-6 rounded-xl border-l-4"
+        style="border-color: var(--highlight-collaboration);">
+        <h2 class="text-3xl mb-4 text-primary-color">
+          4. Gestión de la Colaboración y Repositorios
+        </h2>
+
+        <div class="space-y-4">
+          <div
+            class="p-4 rounded-lg bg-gray-800/50 border-t-4"
+            style="border-color: var(--highlight-collaboration);">
+            <h4 class="font-bold text-highlight-collaboration text-sm mb-2">
+              Teams como Interfaz Preferida
+            </h4>
+            <p class="text-xs text-gray-400">
+              Aunque los archivos residen en SharePoint, los usuarios deben
+              acceder a través de <strong>Teams</strong>. Proporciona entorno
+              simplificado con chat, videollamadas, Planner y otras
+              aplicaciones.
+            </p>
+          </div>
+
+          <div
+            class="p-4 rounded-lg bg-gray-800/50 border-t-4"
+            style="border-color: var(--primary-color);">
+            <h4 class="font-bold text-primary-color text-sm mb-2">
+              Principio de Permisos Simplificado
+            </h4>
+            <p class="text-xs text-gray-400">
+              Filosofía simple: <strong>"o estás dentro o estás fuera"</strong>.
+              Evitar permisos granulares a nivel de carpeta o archivo.
+            </p>
+          </div>
+
+          <div
+            class="p-4 rounded-lg bg-gray-800/50 border-t-4"
+            style="border-color: var(--highlight-hub);">
+            <h4 class="font-bold text-highlight-hub text-sm mb-2">
+              Gobernanza de Creación
+            </h4>
+            <p class="text-xs text-gray-400">
+              Limitar la creación de Teams/sitios y delegar la propiedad
+              mediante formularios de solicitud.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sección 5: Advertencia Didáctica -->
+      <section
+        class="mb-10 content-card p-6 rounded-xl border-l-4"
+        style="border-color: var(--highlight-warning);">
+        <h2 class="text-3xl mb-4 text-primary-color">
+          5. Advertencia Didáctica: Evitar la Sincronización Local
+        </h2>
+
+        <div
+          class="callout p-4 rounded-lg bg-red-900/50 border-l-4 border-highlight-warning text-gray-300">
+          <p class="font-bold text-highlight-warning text-lg mb-2">
+            ⚠️ Mala Práctica a Evitar
+          </p>
+          <p class="text-sm">
+            <strong
+              >Evitar la sincronización de archivos de sitios de colaboración
+              (SharePoint/Teams) con el disco duro local (OneDrive).</strong
+            >
+          </p>
+          <p class="text-sm mt-3">
+            Aunque existe el botón de "Sincronizar", se desaconseja su uso para
+            archivos departamentales. La sincronización constante de grandes
+            volúmenes aumenta la probabilidad de errores y archivos duplicados.
+          </p>
+          <p class="text-sm mt-3 font-bold text-highlight-collaboration">
+            ✅ Método Correcto: Trabajar directamente en la nube,
+            preferentemente a través de la interfaz de Teams.
+          </p>
+        </div>
+      </section>
+    </div>
+
+    <!-- Cargar el script de navegación -->
+    <script src="../js/back-button.js"></script>
+  </body>
+</html>
+
