@@ -1,0 +1,912 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Directivas de Mensajería Teams - Curso Microsoft 365</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- CSS externo para estilos base y tema -->
+    <link rel="stylesheet" href="../css/pages-base.css" />
+    <link rel="stylesheet" href="../css/themes/administracion.css" />
+
+    <style>
+      :root {
+        --primary-color: #6264a7;
+        --primary-dark: #464775;
+        --primary-light: #8b8cc7;
+        --bg-dark: #0f0f1e;
+        --bg-card: #1a1b2e;
+        --bg-elevated: #252641;
+        --text-primary: #f0f0f3;
+        --text-secondary: #b4b4c8;
+        --accent: #818cf8;
+        --accent-glow: rgba(98, 100, 167, 0.3);
+        --success-color: #10b981;
+        --warning-color: #f59e0b;
+        --danger-color: #ef4444;
+        --chat-color: #00d4aa;
+        --message-color: #ff6b6b;
+      }
+
+      body {
+        background: linear-gradient(135deg, #0f0f1e 0%, #1a1b2e 50%, #252641 100%);
+        min-height: 100vh;
+      }
+
+      /* Enhanced Table Styles for Messaging */
+      .messaging-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        background: var(--bg-elevated);
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        margin: 2rem 0;
+      }
+
+      .messaging-table thead {
+        background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+      }
+
+      .messaging-table th {
+        padding: 1.5rem 1rem;
+        text-align: left;
+        color: white;
+        font-weight: 700;
+        font-size: 1rem;
+        position: relative;
+      }
+
+      .messaging-table th:first-child {
+        width: 30%;
+      }
+
+      .messaging-table th:nth-child(2) {
+        width: 30%;
+      }
+
+      .messaging-table th:last-child {
+        width: 40%;
+      }
+
+      .messaging-table tbody tr {
+        border-bottom: 1px solid rgba(98, 100, 167, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .messaging-table tbody tr:hover {
+        background: rgba(98, 100, 167, 0.1);
+        transform: scale(1.01);
+        box-shadow: 0 8px 25px rgba(98, 100, 167, 0.2);
+      }
+
+      .messaging-table td {
+        padding: 1.25rem 1rem;
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+        line-height: 1.6;
+        vertical-align: top;
+      }
+
+      .messaging-table td:first-child {
+        color: var(--text-primary);
+        font-weight: 600;
+        border-left: 3px solid transparent;
+      }
+
+      /* Message Feature Status Indicators */
+      .feature-status {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+
+      .feature-status.activated {
+        background: rgba(16, 185, 129, 0.2);
+        color: var(--success-color);
+        border: 1px solid rgba(16, 185, 129, 0.3);
+      }
+
+      .feature-status.configure {
+        background: rgba(245, 158, 11, 0.2);
+        color: var(--warning-color);
+        border: 1px solid rgba(245, 158, 11, 0.3);
+      }
+
+      .feature-status.allow {
+        background: rgba(0, 212, 170, 0.2);
+        color: var(--chat-color);
+        border: 1px solid rgba(0, 212, 170, 0.3);
+      }
+
+      .feature-status.default {
+        background: rgba(98, 100, 167, 0.2);
+        color: var(--primary-color);
+        border: 1px solid rgba(98, 100, 167, 0.3);
+      }
+
+      /* Feature icons */
+      .feature-icon {
+        font-size: 1rem;
+      }
+
+      /* Chat Features Grid */
+      .chat-features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+        margin: 2rem 0;
+      }
+
+      .chat-feature-card {
+        background: linear-gradient(135deg, var(--bg-elevated), var(--bg-card));
+        border-radius: 16px;
+        padding: 2rem;
+        border: 2px solid rgba(98, 100, 167, 0.15);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .chat-feature-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--chat-color), var(--primary-color));
+      }
+
+      .chat-feature-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 16px 48px var(--accent-glow);
+        border-color: var(--chat-color);
+      }
+
+      .chat-feature-icon {
+        font-size: 3rem;
+        text-align: center;
+        margin-bottom: 1rem;
+        filter: drop-shadow(0 4px 12px rgba(0, 212, 170, 0.4));
+        display: block;
+      }
+
+      /* Stats boxes for messaging */
+      .messaging-stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.5rem;
+        margin: 2rem 0;
+      }
+
+      .messaging-stat-box {
+        background: linear-gradient(135deg, var(--chat-color), #00b894);
+        border-radius: 12px;
+        padding: 1.5rem;
+        text-align: center;
+        box-shadow: 0 8px 24px rgba(0, 212, 170, 0.3);
+        transition: all 0.3s ease;
+      }
+
+      .messaging-stat-box:hover {
+        transform: scale(1.05);
+        box-shadow: 0 12px 36px rgba(0, 212, 170, 0.5);
+      }
+
+      .messaging-stat-box.primary {
+        background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+        box-shadow: 0 8px 24px var(--accent-glow);
+      }
+
+      .messaging-stat-box.warning {
+        background: linear-gradient(135deg, var(--warning-color), #d97706);
+        box-shadow: 0 8px 24px rgba(245, 158, 11, 0.3);
+      }
+
+      .stat-number {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: white;
+        display: block;
+        margin-bottom: 0.5rem;
+      }
+
+      .stat-label {
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.8);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      /* Key aspects section */
+      .key-aspects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin: 2rem 0;
+      }
+
+      .aspect-card {
+        background: linear-gradient(135deg, var(--bg-elevated), var(--bg-card));
+        border-radius: 16px;
+        padding: 2rem;
+        border: 2px solid rgba(98, 100, 167, 0.15);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .aspect-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--primary-color), var(--accent));
+      }
+
+      .aspect-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 16px 48px var(--accent-glow);
+        border-color: var(--primary-color);
+      }
+
+      .aspect-icon {
+        font-size: 3rem;
+        text-align: center;
+        margin-bottom: 1rem;
+        filter: drop-shadow(0 4px 12px var(--accent-glow));
+        display: block;
+      }
+
+      /* Enhanced info boxes */
+      .info-box-premium {
+        background: linear-gradient(135deg, var(--bg-elevated), var(--bg-card));
+        border-radius: 16px;
+        padding: 2rem;
+        margin: 1.5rem 0;
+        border-left: 4px solid var(--chat-color);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .info-box-premium::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle at top right, rgba(0, 212, 170, 0.2), transparent);
+        opacity: 0.3;
+        pointer-events: none;
+      }
+
+      /* Warning box */
+      .warning-box {
+        background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(217, 119, 6, 0.05));
+        border: 2px solid rgba(245, 158, 11, 0.3);
+        border-radius: 16px;
+        padding: 2rem;
+        margin: 2rem 0;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .warning-box::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--warning-color), #d97706);
+      }
+
+      /* Content sections */
+      .content-section {
+        animation: fadeInUp 0.6s ease-out;
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Responsive design */
+      @media (max-width: 768px) {
+        .messaging-table {
+          font-size: 0.8rem;
+        }
+
+        .messaging-table th,
+        .messaging-table td {
+          padding: 0.75rem 0.5rem;
+        }
+
+        .chat-feature-card,
+        .aspect-card {
+          padding: 1.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body class="bg-gray-900 text-gray-100">
+    <div class="document-container">
+      <div class="content-card">
+        <header class="page-header">
+          <div class="header-content">
+            <div class="icon-badge">
+              <span class="icon-large">💬</span>
+            </div>
+            <div>
+              <h1 class="page-title">Directivas de Mensajería en Microsoft Teams</h1>
+              <p class="page-subtitle">Configuraciones de Chat y Comunicación</p>
+            </div>
+          </div>
+        </header>
+
+        <!-- Introducción -->
+        <section class="content-section">
+          <p class="section-intro">
+            Las <strong>directivas de mensajería</strong> en Microsoft Teams controlan la experiencia de comunicación y
+            chat de los usuarios. Una configuración adecuada equilibra la funcionalidad, la productividad y el control
+            organizacional, permitiendo una comunicación efectiva mientras se mantienen los estándares corporativos.
+          </p>
+        </section>
+
+        <!-- Estadísticas clave -->
+        <section class="content-section">
+          <div class="messaging-stats">
+            <div class="messaging-stat-box">
+              <span class="stat-number">7</span>
+              <span class="stat-label">Configuraciones Clave</span>
+            </div>
+            <div class="messaging-stat-box primary">
+              <span class="stat-number">24h</span>
+              <span class="stat-label">Tiempo de Propagación</span>
+            </div>
+            <div class="messaging-stat-box warning">
+              <span class="stat-number">3</span>
+              <span class="stat-label">Niveles de Directivas</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Tabla principal de configuraciones -->
+        <section class="content-section">
+          <h2 class="section-title">
+            <span class="icon">⚙️</span>
+            Configuraciones Recomendadas de Mensajería
+          </h2>
+
+          <div class="info-box-premium">
+            <h4 style="color: var(--text-primary); font-size: 1.1rem; margin-bottom: 1rem">
+              💬 Directivas de Comunicación Efectiva
+            </h4>
+            <p style="color: var(--text-secondary); line-height: 1.7">
+              Las siguientes configuraciones están diseñadas para optimizar la experiencia de comunicación en Teams,
+              manteniendo un equilibrio entre funcionalidad y control organizacional.
+            </p>
+          </div>
+
+          <table class="messaging-table">
+            <thead>
+              <tr>
+                <th>Configuración</th>
+                <th>Recomendación/Práctica</th>
+                <th>Justificación/Detalles</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Activación del Chat (Global)</strong></td>
+                <td>
+                  <div class="feature-status activated">
+                    <span class="feature-icon">✅</span>
+                    <span>Activado</span>
+                  </div>
+                  (Por defecto)
+                </td>
+                <td>
+                  La directiva de mensajería controla si el chat está activado o no. Desactivarlo negaría la
+                  funcionalidad principal de comunicación de Teams, lo cual es inusual a menos que haya requisitos
+                  específicos que lo prohíban.
+                </td>
+              </tr>
+
+              <tr>
+                <td><strong>Uso de Memes, GIFs y Pegatinas (Stickers)</strong></td>
+                <td>
+                  <div class="feature-status activated">
+                    <span class="feature-icon">🎭</span>
+                    <span>Activado</span>
+                  </div>
+                  (Si el entorno lo permite)
+                </td>
+                <td>
+                  Aunque parezcan triviales, el uso de estos elementos ayuda a la comunicación, ya que el texto plano es
+                  "mucho más árido". Si bien algunos administradores pueden eliminarlos por considerar que no son
+                  serios, la tendencia es mantenerlos para fomentar una comunicación dinámica.
+                </td>
+              </tr>
+
+              <tr>
+                <td><strong>Creación de Mensajes de Voz</strong></td>
+                <td>
+                  <div class="feature-status configure">
+                    <span class="feature-icon">🎤</span>
+                    <span>Configurar</span>
+                  </div>
+                  Según la necesidad del usuario
+                </td>
+                <td>
+                  Las directivas permiten gestionar si los usuarios pueden crear mensajes de voz. Esto es especialmente
+                  relevante para el uso de Teams en dispositivos móviles.
+                </td>
+              </tr>
+
+              <tr>
+                <td><strong>Visualización de Contenido (Reciente vs. Favoritos)</strong></td>
+                <td>
+                  <div class="feature-status configure">
+                    <span class="feature-icon">📱</span>
+                    <span>Configurar</span>
+                  </div>
+                  Según el perfil del usuario
+                </td>
+                <td>
+                  Se puede definir si en dispositivos móviles lo más reciente aparece arriba o si se priorizan los
+                  favoritos. En roles como <em>Frontline Worker</em> (trabajadores de primera línea), donde el uso es
+                  mínimo, se suelen aplicar directivas que muestran solo lo básico.
+                </td>
+              </tr>
+
+              <tr>
+                <td><strong>Respuestas Sugeridas</strong></td>
+                <td>
+                  <div class="feature-status activated">
+                    <span class="feature-icon">💡</span>
+                    <span>Activado</span>
+                  </div>
+                  (Si se desea simplificar la comunicación)
+                </td>
+                <td>
+                  Permiten simplificar el proceso de respuesta al ofrecer opciones rápidas sin necesidad de teclear.
+                </td>
+              </tr>
+
+              <tr>
+                <td><strong>Roles dentro del Chat (Permisos)</strong></td>
+                <td>
+                  <div class="feature-status configure">
+                    <span class="feature-icon">👥</span>
+                    <span>Configurar</span>
+                  </div>
+                  Según el perfil (Si la organización lo requiere)
+                </td>
+                <td>
+                  La directiva puede controlar si se permite poner distintos roles dentro de un chat, asegurando que no
+                  todo el mundo tenga el mismo nivel de capacidad de comunicación.
+                </td>
+              </tr>
+
+              <tr>
+                <td><strong>Administración de Etiquetas (Tags)</strong></td>
+                <td>
+                  <div class="feature-status allow">
+                    <span class="feature-icon">🏷️</span>
+                    <span>Permitir</span>
+                  </div>
+                  A los propietarios administrar etiquetas
+                </td>
+                <td>
+                  Las etiquetas son cruciales para notificar rápidamente a un subconjunto específico de personas dentro
+                  de un Team grande (ej. solo a los directores en un Team de 200 personas). La directiva permite que los
+                  propietarios administren y sugieran estas etiquetas.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <!-- Aspectos clave de gestión -->
+        <section class="content-section">
+          <h2 class="section-title">
+            <span class="icon">🎯</span>
+            Aspectos Clave de la Gestión de Directivas
+          </h2>
+
+          <p class="section-intro">
+            Las directivas de mensajería operan bajo un <strong>principio de granularidad</strong> que es crucial para
+            una administración eficaz, al igual que otras directivas en Teams.
+          </p>
+
+          <div class="key-aspects-grid">
+            <div class="aspect-card">
+              <span class="aspect-icon">🌐</span>
+              <h4
+                style="
+                  color: var(--text-primary);
+                  font-size: 1.3rem;
+                  font-weight: 700;
+                  margin-bottom: 1rem;
+                  text-align: center;
+                "
+              >
+                Directiva Global (Estándar)
+              </h4>
+              <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.7; text-align: center">
+                Siempre existe, al menos, una directiva <strong>Global (Estándar)</strong> que se aplica por defecto a
+                todos los usuarios de la organización.
+              </p>
+              <div
+                style="
+                  background: rgba(98, 100, 167, 0.1);
+                  padding: 1rem;
+                  border-radius: 8px;
+                  margin-top: 1rem;
+                  text-align: center;
+                "
+              >
+                <span style="color: var(--primary-color); font-weight: 700; font-size: 0.85rem">Base Universal</span>
+              </div>
+            </div>
+
+            <div class="aspect-card">
+              <span class="aspect-icon">🎯</span>
+              <h4
+                style="
+                  color: var(--text-primary);
+                  font-size: 1.3rem;
+                  font-weight: 700;
+                  margin-bottom: 1rem;
+                  text-align: center;
+                "
+              >
+                Granularidad
+              </h4>
+              <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.7; text-align: center">
+                Puedes crear directivas personalizadas, como una <em>"Directiva VIP"</em> o
+                <em>"Directiva Comercial"</em>, con configuraciones específicas y asignarlas a usuarios o grupos
+                particulares.
+              </p>
+              <div
+                style="
+                  background: rgba(0, 212, 170, 0.1);
+                  padding: 1rem;
+                  border-radius: 8px;
+                  margin-top: 1rem;
+                  text-align: center;
+                "
+              >
+                <span style="color: var(--chat-color); font-weight: 700; font-size: 0.85rem">Control Selectivo</span>
+              </div>
+            </div>
+
+            <div class="aspect-card">
+              <span class="aspect-icon">📦</span>
+              <h4
+                style="
+                  color: var(--text-primary);
+                  font-size: 1.3rem;
+                  font-weight: 700;
+                  margin-bottom: 1rem;
+                  text-align: center;
+                "
+              >
+                Paquetes de Directivas
+              </h4>
+              <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.7; text-align: center">
+                Para organizaciones complejas, la forma más eficiente es mediante <strong>Policy Packages</strong>. Un
+                paquete agrupa múltiples directivas y se asigna al usuario o grupo, estandarizando la configuración para
+                roles específicos.
+              </p>
+              <div
+                style="
+                  background: rgba(245, 158, 11, 0.1);
+                  padding: 1rem;
+                  border-radius: 8px;
+                  margin-top: 1rem;
+                  text-align: center;
+                "
+              >
+                <span style="color: var(--warning-color); font-weight: 700; font-size: 0.85rem">Gestión Eficiente</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Ejemplos de uso por roles -->
+        <section class="content-section">
+          <h3 class="subsection-title">Ejemplos de Configuración por Roles</h3>
+
+          <div class="chat-features-grid">
+            <div class="chat-feature-card">
+              <span class="chat-feature-icon">👔</span>
+              <h4
+                style="
+                  color: var(--text-primary);
+                  font-size: 1.2rem;
+                  font-weight: 700;
+                  margin-bottom: 1rem;
+                  text-align: center;
+                "
+              >
+                Ejecutivos/VIP
+              </h4>
+              <ul
+                style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; margin: 0; padding-left: 1rem"
+              >
+                <li>✅ Chat activado globalmente</li>
+                <li>🚫 Memes/GIFs restringidos</li>
+                <li>✅ Mensajes de voz activados</li>
+                <li>⭐ Favoritos priorizados</li>
+                <li>✅ Roles de chat disponibles</li>
+                <li>✅ Administración de etiquetas</li>
+              </ul>
+            </div>
+
+            <div class="chat-feature-card">
+              <span class="chat-feature-icon">💼</span>
+              <h4
+                style="
+                  color: var(--text-primary);
+                  font-size: 1.2rem;
+                  font-weight: 700;
+                  margin-bottom: 1rem;
+                  text-align: center;
+                "
+              >
+                Comerciales
+              </h4>
+              <ul
+                style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; margin: 0; padding-left: 1rem"
+              >
+                <li>✅ Chat activado globalmente</li>
+                <li>✅ Memes/GIFs permitidos</li>
+                <li>✅ Mensajes de voz activados</li>
+                <li>📱 Contenido reciente priorizado</li>
+                <li>✅ Respuestas sugeridas activadas</li>
+                <li>⚙️ Roles básicos en chat</li>
+              </ul>
+            </div>
+
+            <div class="chat-feature-card">
+              <span class="chat-feature-icon">🔧</span>
+              <h4
+                style="
+                  color: var(--text-primary);
+                  font-size: 1.2rem;
+                  font-weight: 700;
+                  margin-bottom: 1rem;
+                  text-align: center;
+                "
+              >
+                Frontline Workers
+              </h4>
+              <ul
+                style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; margin: 0; padding-left: 1rem"
+              >
+                <li>✅ Chat activado (básico)</li>
+                <li>🚫 Memes/GIFs desactivados</li>
+                <li>✅ Mensajes de voz para móviles</li>
+                <li>⭐ Solo favoritos/básicos</li>
+                <li>✅ Respuestas sugeridas</li>
+                <li>🚫 Sin roles en chat</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- Advertencia importante -->
+        <section class="content-section">
+          <div class="warning-box">
+            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem">
+              <div style="font-size: 3rem">⏰</div>
+              <div>
+                <h4 style="color: var(--warning-color); font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem">
+                  Advertencia Didáctica
+                </h4>
+                <p style="color: var(--text-primary); font-size: 1rem; margin: 0">Tiempo de Propagación de Cambios</p>
+              </div>
+            </div>
+
+            <p style="color: var(--text-secondary); font-size: 1rem; line-height: 1.8; margin-bottom: 1.5rem">
+              Es vital recordar que los cambios realizados en las directivas de Teams
+              <strong>no son inmediatos</strong>; normalmente, tardan <strong>hasta un día en surtir efecto</strong>.
+              Por ello, se recomienda la paciencia tras aplicar cualquier modificación.
+            </p>
+
+            <div
+              style="
+                background: rgba(245, 158, 11, 0.2);
+                padding: 1.5rem;
+                border-radius: 12px;
+                border-left: 4px solid var(--warning-color);
+              "
+            >
+              <h5
+                style="
+                  color: var(--warning-color);
+                  font-weight: 700;
+                  margin-bottom: 0.75rem;
+                  display: flex;
+                  align-items: center;
+                  gap: 0.5rem;
+                "
+              >
+                <span>💡</span> Recomendación
+              </h5>
+              <p style="color: var(--text-secondary); font-size: 0.9rem; margin: 0; line-height: 1.6">
+                Planifica los cambios de directivas con al menos <strong>48 horas de anticipación</strong> antes de
+                eventos importantes o implementaciones críticas.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Mejores prácticas -->
+        <section class="content-section">
+          <h2 class="section-title">
+            <span class="icon">🏆</span>
+            Mejores Prácticas para Directivas de Mensajería
+          </h2>
+
+          <div class="info-box-premium">
+            <h4 style="color: var(--text-primary); font-size: 1.2rem; margin-bottom: 1.5rem">
+              💬 Estrategia de Comunicación Optimizada
+            </h4>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem">
+              <div
+                style="
+                  background: rgba(0, 212, 170, 0.1);
+                  padding: 1.5rem;
+                  border-radius: 12px;
+                  border-left: 4px solid var(--chat-color);
+                "
+              >
+                <h5 style="color: var(--chat-color); font-weight: 700; margin-bottom: 0.75rem">
+                  💡 Comunicación Efectiva
+                </h5>
+                <ul
+                  style="
+                    color: var(--text-secondary);
+                    font-size: 0.9rem;
+                    line-height: 1.6;
+                    margin: 0;
+                    padding-left: 1rem;
+                  "
+                >
+                  <li>Permite elementos visuales para enriquecer la comunicación</li>
+                  <li>Configura respuestas sugeridas para eficiencia</li>
+                  <li>Adapta la visualización según el tipo de usuario</li>
+                </ul>
+              </div>
+
+              <div
+                style="
+                  background: rgba(98, 100, 167, 0.1);
+                  padding: 1.5rem;
+                  border-radius: 12px;
+                  border-left: 4px solid var(--primary-color);
+                "
+              >
+                <h5 style="color: var(--primary-color); font-weight: 700; margin-bottom: 0.75rem">
+                  🎯 Control Granular
+                </h5>
+                <ul
+                  style="
+                    color: var(--text-secondary);
+                    font-size: 0.9rem;
+                    line-height: 1.6;
+                    margin: 0;
+                    padding-left: 1rem;
+                  "
+                >
+                  <li>Crea directivas específicas por departamento</li>
+                  <li>Usa paquetes de directivas para roles estándar</li>
+                  <li>Implementa etiquetas para notificaciones dirigidas</li>
+                </ul>
+              </div>
+
+              <div
+                style="
+                  background: rgba(245, 158, 11, 0.1);
+                  padding: 1.5rem;
+                  border-radius: 12px;
+                  border-left: 4px solid var(--warning-color);
+                "
+              >
+                <h5 style="color: var(--warning-color); font-weight: 700; margin-bottom: 0.75rem">
+                  ⚙️ Gestión Proactiva
+                </h5>
+                <ul
+                  style="
+                    color: var(--text-secondary);
+                    font-size: 0.9rem;
+                    line-height: 1.6;
+                    margin: 0;
+                    padding-left: 1rem;
+                  "
+                >
+                  <li>Planifica cambios con anticipación</li>
+                  <li>Documenta configuraciones por rol</li>
+                  <li>Monitorea la adopción y satisfacción del usuario</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Conclusión -->
+        <section class="content-section">
+          <div
+            style="
+              background: linear-gradient(135deg, var(--chat-color), #00b894);
+              border-radius: 20px;
+              padding: 2.5rem;
+              text-align: center;
+              margin-top: 3rem;
+              position: relative;
+              overflow: hidden;
+              box-shadow: 0 16px 48px rgba(0, 212, 170, 0.3);
+            "
+          >
+            <div
+              style="
+                position: absolute;
+                top: -50px;
+                right: -50px;
+                width: 200px;
+                height: 200px;
+                background: radial-gradient(circle, rgba(255, 255, 255, 0.1), transparent);
+                opacity: 0.5;
+              "
+            ></div>
+            <div style="position: relative; z-index: 1">
+              <div style="font-size: 3.5rem; margin-bottom: 1rem">💬</div>
+              <h3 style="color: white; font-size: 1.8rem; font-weight: 700; margin-bottom: 1rem">
+                Comunicación Optimizada = Productividad Mejorada
+              </h3>
+              <p
+                style="
+                  color: rgba(255, 255, 255, 0.9);
+                  font-size: 1.1rem;
+                  max-width: 700px;
+                  margin: 0 auto;
+                  line-height: 1.8;
+                "
+              >
+                Las directivas de mensajería bien configuradas fomentan una comunicación efectiva mientras mantienen el
+                control organizacional necesario.
+              </p>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <!-- Script de navegación automática -->
+    <script src="../js/back-button.js"></script>
+  </body>
+</html>

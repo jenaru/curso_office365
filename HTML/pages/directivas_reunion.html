@@ -1,0 +1,738 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Directivas de Reunión Teams - Curso Microsoft 365</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- CSS externo para estilos base y tema -->
+    <link rel="stylesheet" href="../css/pages-base.css" />
+    <link rel="stylesheet" href="../css/themes/administracion.css" />
+
+    <style>
+      :root {
+        --primary-color: #6264a7;
+        --primary-dark: #464775;
+        --primary-light: #8b8cc7;
+        --bg-dark: #0f0f1e;
+        --bg-card: #1a1b2e;
+        --bg-elevated: #252641;
+        --text-primary: #f0f0f3;
+        --text-secondary: #b4b4c8;
+        --accent: #818cf8;
+        --accent-glow: rgba(98, 100, 167, 0.3);
+        --success-color: #10b981;
+        --warning-color: #f59e0b;
+        --danger-color: #ef4444;
+      }
+
+      body {
+        background: linear-gradient(135deg, #0f0f1e 0%, #1a1b2e 50%, #252641 100%);
+        min-height: 100vh;
+      }
+
+      /* Enhanced Table Styles */
+      .policies-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        background: var(--bg-elevated);
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        margin: 2rem 0;
+      }
+
+      .policies-table thead {
+        background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+      }
+
+      .policies-table th {
+        padding: 1.5rem 1rem;
+        text-align: left;
+        color: white;
+        font-weight: 700;
+        font-size: 1rem;
+        position: relative;
+      }
+
+      .policies-table th:first-child {
+        width: 25%;
+      }
+
+      .policies-table th:nth-child(2) {
+        width: 35%;
+      }
+
+      .policies-table th:last-child {
+        width: 40%;
+      }
+
+      .policies-table tbody tr {
+        border-bottom: 1px solid rgba(98, 100, 167, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .policies-table tbody tr:hover {
+        background: rgba(98, 100, 167, 0.1);
+        transform: scale(1.01);
+        box-shadow: 0 8px 25px rgba(98, 100, 167, 0.2);
+      }
+
+      .policies-table td {
+        padding: 1.25rem 1rem;
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+        line-height: 1.6;
+        vertical-align: top;
+      }
+
+      .policies-table td:first-child {
+        color: var(--text-primary);
+        font-weight: 600;
+        border-left: 3px solid transparent;
+      }
+
+      /* Policy Status Indicators */
+      .policy-status {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+
+      .policy-status.activate {
+        background: rgba(16, 185, 129, 0.2);
+        color: var(--success-color);
+        border: 1px solid rgba(16, 185, 129, 0.3);
+      }
+
+      .policy-status.deactivate {
+        background: rgba(239, 68, 68, 0.2);
+        color: var(--danger-color);
+        border: 1px solid rgba(239, 68, 68, 0.3);
+      }
+
+      .policy-status.configure {
+        background: rgba(245, 158, 11, 0.2);
+        color: var(--warning-color);
+        border: 1px solid rgba(245, 158, 11, 0.3);
+      }
+
+      .policy-status.limit {
+        background: rgba(98, 100, 167, 0.2);
+        color: var(--primary-color);
+        border: 1px solid rgba(98, 100, 167, 0.3);
+      }
+
+      /* Icon styling */
+      .status-icon {
+        font-size: 1rem;
+      }
+
+      /* Additional Considerations Section */
+      .considerations-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+        margin: 2rem 0;
+      }
+
+      .consideration-card {
+        background: linear-gradient(135deg, var(--bg-elevated), var(--bg-card));
+        border-radius: 16px;
+        padding: 2rem;
+        border: 2px solid rgba(98, 100, 167, 0.15);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .consideration-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--primary-color), var(--accent));
+      }
+
+      .consideration-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 16px 48px var(--accent-glow);
+        border-color: var(--primary-color);
+      }
+
+      .consideration-icon {
+        font-size: 3rem;
+        text-align: center;
+        margin-bottom: 1rem;
+        filter: drop-shadow(0 4px 12px var(--accent-glow));
+        display: block;
+      }
+
+      /* Stats boxes */
+      .stats-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.5rem;
+        margin: 2rem 0;
+      }
+
+      .stat-box {
+        background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+        border-radius: 12px;
+        padding: 1.5rem;
+        text-align: center;
+        box-shadow: 0 8px 24px var(--accent-glow);
+        transition: all 0.3s ease;
+      }
+
+      .stat-box:hover {
+        transform: scale(1.05);
+        box-shadow: 0 12px 36px rgba(98, 100, 167, 0.6);
+      }
+
+      .stat-number {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: white;
+        display: block;
+        margin-bottom: 0.5rem;
+      }
+
+      .stat-label {
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.8);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      /* Enhanced info boxes */
+      .info-box-premium {
+        background: linear-gradient(135deg, var(--bg-elevated), var(--bg-card));
+        border-radius: 16px;
+        padding: 2rem;
+        margin: 1.5rem 0;
+        border-left: 4px solid var(--primary-color);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .info-box-premium::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle at top right, var(--accent-glow), transparent);
+        opacity: 0.3;
+        pointer-events: none;
+      }
+
+      /* Content sections */
+      .content-section {
+        animation: fadeInUp 0.6s ease-out;
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Responsive design */
+      @media (max-width: 768px) {
+        .policies-table {
+          font-size: 0.8rem;
+        }
+
+        .policies-table th,
+        .policies-table td {
+          padding: 0.75rem 0.5rem;
+        }
+
+        .consideration-card {
+          padding: 1.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body class="bg-gray-900 text-gray-100">
+    <div class="document-container">
+      <div class="content-card">
+        <header class="page-header">
+          <div class="header-content">
+            <div class="icon-badge">
+              <span class="icon-large">🎯</span>
+            </div>
+            <div>
+              <h1 class="page-title">Directivas de Reunión en Microsoft Teams</h1>
+              <p class="page-subtitle">Configuraciones Recomendadas y Mejores Prácticas</p>
+            </div>
+          </div>
+        </header>
+
+        <!-- Introducción -->
+        <section class="content-section">
+          <p class="section-intro">
+            Las <strong>directivas de reunión</strong> en Microsoft Teams son fundamentales para establecer un entorno
+            de colaboración seguro, eficiente y profesional. Una configuración adecuada puede prevenir problemas de
+            seguridad, mejorar la productividad y mantener la imagen corporativa.
+          </p>
+        </section>
+
+        <!-- Estadísticas clave -->
+        <section class="content-section">
+          <div class="stats-container">
+            <div class="stat-box">
+              <span class="stat-number">11</span>
+              <span class="stat-label">Configuraciones Clave</span>
+            </div>
+            <div class="stat-box" style="background: linear-gradient(135deg, #10b981, #059669)">
+              <span class="stat-number">24h</span>
+              <span class="stat-label">Tiempo de Propagación</span>
+            </div>
+            <div class="stat-box" style="background: linear-gradient(135deg, #f59e0b, #d97706)">
+              <span class="stat-number">4</span>
+              <span class="stat-label">Niveles de Control</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Tabla principal de configuraciones -->
+        <section class="content-section">
+          <h2 class="section-title">
+            <span class="icon">⚙️</span>
+            Configuraciones Recomendadas
+          </h2>
+
+          <div class="info-box-premium">
+            <h4 style="color: var(--text-primary); font-size: 1.1rem; margin-bottom: 1rem">
+              📋 Guía de Configuración de Directivas
+            </h4>
+            <p style="color: var(--text-secondary); line-height: 1.7">
+              La siguiente tabla presenta las configuraciones más importantes para las directivas de reunión, con
+              recomendaciones basadas en mejores prácticas de seguridad y productividad.
+            </p>
+          </div>
+
+          <table class="policies-table">
+            <thead>
+              <tr>
+                <th>Configuración</th>
+                <th>Recomendación/Práctica</th>
+                <th>Justificación/Detalles</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>"Reunirse ahora" en canales</strong></td>
+                <td>
+                  <div class="policy-status deactivate">
+                    <span class="status-icon">🚫</span>
+                    <span>Desactivar</span>
+                  </div>
+                  (Quitar el botón)
+                </td>
+                <td>
+                  Los usuarios a menudo no entienden que al usar la opción "Reunirse ahora" en un canal, se convoca una
+                  reunión para <em>todos</em> los miembros de ese equipo.
+                </td>
+              </tr>
+
+              <tr>
+                <td><strong>Programación de reuniones en canales</strong></td>
+                <td>
+                  <div class="policy-status activate">
+                    <span class="status-icon">✅</span>
+                    <span>Activar</span>
+                  </div>
+                  (Permitir)
+                </td>
+                <td>
+                  Es útil para canales cuyos miembros se reúnen de manera regular, ya que al programarla en el canal, se
+                  invita automáticamente a todos los miembros, evitando el tedio de tener que agregar las direcciones de
+                  correo electrónico una a una.
+                </td>
+              </tr>
+
+              <tr>
+                <td><strong>Grabación en la nube: Caducidad automática</strong></td>
+                <td>
+                  <div class="policy-status configure">
+                    <span class="status-icon">⚙️</span>
+                    <span>Configurar</span>
+                  </div>
+                  Una caducidad automática (ej. 120 días/horas)
+                </td>
+                <td>
+                  Se recomienda para gestionar el espacio de almacenamiento, ya que muchas grabaciones de reuniones no
+                  se usan después de grabarse.
+                </td>
+              </tr>
+
+              <tr>
+                <td><strong>Unión de personas anónimas</strong></td>
+                <td>
+                  <div class="policy-status deactivate">
+                    <span class="status-icon">🔒</span>
+                    <span>Desactivar</span>
+                  </div>
+                  (Quitar el permiso para la mayoría de los usuarios/directivas)
+                </td>
+                <td>
+                  Esto evita que personas sin autenticación ni identidad conocida puedan unirse a reuniones. Es
+                  especialmente importante si se va a tratar información confidencial.
+                </td>
+              </tr>
+
+              <tr>
+                <td><strong>Reenvío de reuniones</strong></td>
+                <td>
+                  <div class="policy-status deactivate">
+                    <span class="status-icon">🚫</span>
+                    <span>Desactivar</span>
+                  </div>
+                  (Restringir o prohibir)
+                </td>
+                <td>
+                  Previene que las invitaciones a reuniones se reenvíen indiscriminadamente, lo que podría permitir el
+                  acceso de personas anónimas a la reunión.
+                </td>
+              </tr>
+
+              <tr>
+                <td><strong>Uso Compartido de Pantalla</strong></td>
+                <td>
+                  <div class="policy-status limit">
+                    <span class="status-icon">🖥️</span>
+                    <span>Limitar</span>
+                  </div>
+                  A "Compartir solo una aplicación"
+                </td>
+                <td>
+                  Esto hace mucho más difícil que los usuarios compartan accidentalmente información confidencial que
+                  podría estar visible en otras ventanas de su escritorio.
+                </td>
+              </tr>
+
+              <tr>
+                <td><strong>Filtros de video (Fondos)</strong></td>
+                <td>
+                  <div class="policy-status limit">
+                    <span class="status-icon">🎨</span>
+                    <span>Limitar</span>
+                  </div>
+                  O restringir (como fondos predeterminados o corporativos)
+                </td>
+                <td>
+                  Puede ser necesario para mantener una imagen de seriedad de la empresa, evitando fondos inapropiados o
+                  no profesionales. Existe funcionalidad para cargar imágenes de fondo corporativas predeterminadas.
+                </td>
+              </tr>
+
+              <tr>
+                <td><strong>Activación de transcripción</strong></td>
+                <td>
+                  <div class="policy-status configure">
+                    <span class="status-icon">📝</span>
+                    <span>Revisar/Configurar</span>
+                  </div>
+                  Según las necesidades de la organización
+                </td>
+                <td>
+                  La transcripción en reuniones no está activa por defecto en las directivas que organiza el
+                  administrador.
+                </td>
+              </tr>
+
+              <tr>
+                <td><strong>Eventos en directo (Live Events)</strong></td>
+                <td>
+                  <div class="policy-status configure">
+                    <span class="status-icon">📡</span>
+                    <span>Cambiar</span>
+                  </div>
+                  La configuración de acceso con anticipación (aprox. 1 día)
+                </td>
+                <td>
+                  Por defecto, solo los miembros de la organización pueden unirse a Eventos en Directo. Si se requiere
+                  que el evento sea público, esta política debe modificarse con tiempo, ya que tarda un día en
+                  activarse.
+                </td>
+              </tr>
+
+              <tr>
+                <td><strong>Reuniones privadas (One-on-one calls)</strong></td>
+                <td>
+                  <div class="policy-status configure">
+                    <span class="status-icon">☎️</span>
+                    <span>Restringir/Desactivar</span>
+                  </div>
+                  Si es necesario
+                </td>
+                <td>
+                  En ciertos casos, la organización puede querer deshabilitar las llamadas uno a uno si ya se está
+                  utilizando otro software o plan de un tercero para ese tipo de comunicación.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <!-- Consideraciones adicionales -->
+        <section class="content-section">
+          <h2 class="section-title">
+            <span class="icon">💡</span>
+            Consideraciones Adicionales sobre Directivas
+          </h2>
+
+          <p class="section-intro">
+            Es importante recordar que la gestión de directivas en Teams opera de manera
+            <strong>modular y selectiva</strong>, ofreciendo diferentes niveles de control y flexibilidad.
+          </p>
+
+          <div class="considerations-grid">
+            <div class="consideration-card">
+              <span class="consideration-icon">🌐</span>
+              <h4
+                style="
+                  color: var(--text-primary);
+                  font-size: 1.3rem;
+                  font-weight: 700;
+                  margin-bottom: 1rem;
+                  text-align: center;
+                "
+              >
+                Directiva Global (Estándar)
+              </h4>
+              <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.7; text-align: center">
+                Siempre existe una <strong>directiva base</strong> que se aplica a todos los usuarios que no tienen una
+                directiva específica asignada. Esta es la configuración por defecto de la organización.
+              </p>
+            </div>
+
+            <div class="consideration-card">
+              <span class="consideration-icon">🎯</span>
+              <h4
+                style="
+                  color: var(--text-primary);
+                  font-size: 1.3rem;
+                  font-weight: 700;
+                  margin-bottom: 1rem;
+                  text-align: center;
+                "
+              >
+                Granularidad
+              </h4>
+              <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.7; text-align: center">
+                Puedes crear configuraciones específicas (ej. <em>"Directiva VIP"</em> o
+                <em>"Directiva Comerciales"</em>) y aplicarlas a un conjunto de usuarios en particular, permitiendo un
+                <strong>nivel de control distinto</strong> al del resto de la organización.
+              </p>
+            </div>
+
+            <div class="consideration-card">
+              <span class="consideration-icon">📦</span>
+              <h4
+                style="
+                  color: var(--text-primary);
+                  font-size: 1.3rem;
+                  font-weight: 700;
+                  margin-bottom: 1rem;
+                  text-align: center;
+                "
+              >
+                Paquetes de Directivas
+              </h4>
+              <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.7; text-align: center">
+                Para simplificar la administración, se pueden crear <strong>Policy Packages</strong> que agrupan varias
+                configuraciones (voz, chat, reuniones, etc.) y se asignan a grupos de usuarios como el grupo
+                <em>"Comercial"</em>.
+              </p>
+            </div>
+
+            <div class="consideration-card">
+              <span class="consideration-icon">⏰</span>
+              <h4
+                style="
+                  color: var(--text-primary);
+                  font-size: 1.3rem;
+                  font-weight: 700;
+                  margin-bottom: 1rem;
+                  text-align: center;
+                "
+              >
+                Tiempo de Propagación
+              </h4>
+              <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.7; text-align: center">
+                Es crucial tener en cuenta que los cambios realizados en las directivas de Teams
+                <strong>no tienen un efecto inmediato</strong>. Normalmente, estos cambios pueden tardar
+                <strong>hasta un día en aplicarse</strong>.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Mejores prácticas -->
+        <section class="content-section">
+          <h2 class="section-title">
+            <span class="icon">🏆</span>
+            Mejores Prácticas de Implementación
+          </h2>
+
+          <div class="info-box-premium">
+            <h4 style="color: var(--text-primary); font-size: 1.2rem; margin-bottom: 1.5rem">
+              🎯 Estrategia de Implementación Exitosa
+            </h4>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem">
+              <div
+                style="
+                  background: rgba(98, 100, 167, 0.1);
+                  padding: 1.5rem;
+                  border-radius: 12px;
+                  border-left: 4px solid var(--success-color);
+                "
+              >
+                <h5 style="color: var(--success-color); font-weight: 700; margin-bottom: 0.75rem">
+                  ✅ Fase de Planificación
+                </h5>
+                <ul
+                  style="
+                    color: var(--text-secondary);
+                    font-size: 0.9rem;
+                    line-height: 1.6;
+                    margin: 0;
+                    padding-left: 1rem;
+                  "
+                >
+                  <li>Evaluar necesidades de seguridad específicas</li>
+                  <li>Identificar grupos de usuarios con necesidades diferentes</li>
+                  <li>Documentar configuraciones actuales</li>
+                </ul>
+              </div>
+
+              <div
+                style="
+                  background: rgba(98, 100, 167, 0.1);
+                  padding: 1.5rem;
+                  border-radius: 12px;
+                  border-left: 4px solid var(--warning-color);
+                "
+              >
+                <h5 style="color: var(--warning-color); font-weight: 700; margin-bottom: 0.75rem">
+                  ⚙️ Fase de Configuración
+                </h5>
+                <ul
+                  style="
+                    color: var(--text-secondary);
+                    font-size: 0.9rem;
+                    line-height: 1.6;
+                    margin: 0;
+                    padding-left: 1rem;
+                  "
+                >
+                  <li>Implementar cambios en entorno de pruebas</li>
+                  <li>Crear directivas personalizadas por departamento</li>
+                  <li>Configurar caducidad de grabaciones</li>
+                </ul>
+              </div>
+
+              <div
+                style="
+                  background: rgba(98, 100, 167, 0.1);
+                  padding: 1.5rem;
+                  border-radius: 12px;
+                  border-left: 4px solid var(--primary-color);
+                "
+              >
+                <h5 style="color: var(--primary-color); font-weight: 700; margin-bottom: 0.75rem">
+                  🚀 Fase de Despliegue
+                </h5>
+                <ul
+                  style="
+                    color: var(--text-secondary);
+                    font-size: 0.9rem;
+                    line-height: 1.6;
+                    margin: 0;
+                    padding-left: 1rem;
+                  "
+                >
+                  <li>Implementar gradualmente por grupos</li>
+                  <li>Comunicar cambios con 48h de anticipación</li>
+                  <li>Monitorear adopción y problemas</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Conclusión -->
+        <section class="content-section">
+          <div
+            style="
+              background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+              border-radius: 20px;
+              padding: 2.5rem;
+              text-align: center;
+              margin-top: 3rem;
+              position: relative;
+              overflow: hidden;
+              box-shadow: 0 16px 48px var(--accent-glow);
+            "
+          >
+            <div
+              style="
+                position: absolute;
+                top: -50px;
+                right: -50px;
+                width: 200px;
+                height: 200px;
+                background: radial-gradient(circle, rgba(255, 255, 255, 0.1), transparent);
+                opacity: 0.5;
+              "
+            ></div>
+            <div style="position: relative; z-index: 1">
+              <div style="font-size: 3.5rem; margin-bottom: 1rem">🎯</div>
+              <h3 style="color: white; font-size: 1.8rem; font-weight: 700; margin-bottom: 1rem">
+                Directivas Efectivas = Reuniones Seguras
+              </h3>
+              <p
+                style="
+                  color: rgba(255, 255, 255, 0.9);
+                  font-size: 1.1rem;
+                  max-width: 700px;
+                  margin: 0 auto;
+                  line-height: 1.8;
+                "
+              >
+                Una configuración adecuada de las directivas de reunión es fundamental para mantener la seguridad,
+                productividad y profesionalismo en tu organización.
+              </p>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <!-- Script de navegación automática -->
+    <script src="../js/back-button.js"></script>
+  </body>
+</html>

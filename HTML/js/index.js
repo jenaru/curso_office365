@@ -177,6 +177,22 @@ const pages = [
       'Centro de Administración de Teams: gobierno, directivas, aplicaciones y colaboración externa',
     image: '👥',
     tag: 'teams'
+  },
+  {
+    title: 'Directivas de Reunión Teams',
+    file: 'directivas_reunion.html',
+    description:
+      'Configuraciones recomendadas para directivas de reunión: seguridad, grabaciones y mejores prácticas',
+    image: '🎯',
+    tag: 'teams'
+  },
+  {
+    title: 'Directivas de Mensajería Teams',
+    file: 'directivas_mensajeria.html',
+    description:
+      'Configuraciones de chat y comunicación: memes, mensajes de voz, etiquetas y roles por perfil de usuario',
+    image: '💬',
+    tag: 'teams'
   }
 ];
 
