@@ -193,6 +193,14 @@ const pages = [
       'Configuraciones de chat y comunicación: memes, mensajes de voz, etiquetas y roles por perfil de usuario',
     image: '💬',
     tag: 'teams'
+  },
+  {
+    title: 'Seguridad y Cumplimiento',
+    file: 'seguridad_cumplimiento.html',
+    description:
+      'Microsoft Defender y Purview: protección de amenazas, políticas de correo, auditoría y gobierno de datos',
+    image: '🔐',
+    tag: 'seguridad'
   }
 ];
 

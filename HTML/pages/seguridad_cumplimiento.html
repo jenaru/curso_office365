@@ -1,0 +1,1269 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Seguridad y Cumplimiento Microsoft 365 - Curso Microsoft 365</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- CSS externo para estilos base y tema -->
+    <link rel="stylesheet" href="../css/pages-base.css" />
+    <link rel="stylesheet" href="../css/themes/administracion.css" />
+
+    <style>
+      :root {
+        --primary-color: #ef4444;
+        --primary-dark: #dc2626;
+        --primary-light: #f87171;
+        --bg-dark: #0f0f1e;
+        --bg-card: #1a1b2e;
+        --bg-elevated: #252641;
+        --text-primary: #f0f0f3;
+        --text-secondary: #b4b4c8;
+        --accent: #f59e0b;
+        --accent-glow: rgba(239, 68, 68, 0.3);
+        --success-color: #10b981;
+        --warning-color: #f59e0b;
+        --danger-color: #ef4444;
+        --defender-color: #00a4ef;
+        --purview-color: #7b68ee;
+        --compliance-color: #32d74b;
+      }
+
+      body {
+        background: linear-gradient(135deg, #0f0f1e 0%, #1a1b2e 50%, #252641 100%);
+        min-height: 100vh;
+      }
+
+      /* Enhanced Security Sections */
+      .security-section {
+        background: linear-gradient(135deg, var(--bg-elevated), var(--bg-card));
+        border-radius: 20px;
+        padding: 2rem;
+        margin: 2rem 0;
+        border: 2px solid rgba(239, 68, 68, 0.15);
+        position: relative;
+        overflow: hidden;
+        transition: all 0.3s ease;
+      }
+
+      .security-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--danger-color), var(--warning-color));
+      }
+
+      .security-section:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 16px 48px var(--accent-glow);
+        border-color: var(--danger-color);
+      }
+
+      /* Admin Centers Grid */
+      .admin-centers-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin: 2rem 0;
+      }
+
+      .admin-center-card {
+        background: linear-gradient(135deg, var(--bg-elevated), var(--bg-card));
+        border-radius: 20px;
+        padding: 2.5rem;
+        border: 2px solid rgba(239, 68, 68, 0.15);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        text-align: center;
+      }
+
+      .admin-center-card.defender {
+        border-color: rgba(0, 164, 239, 0.3);
+      }
+
+      .admin-center-card.defender::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--defender-color), #0078d4);
+      }
+
+      .admin-center-card.purview {
+        border-color: rgba(123, 104, 238, 0.3);
+      }
+
+      .admin-center-card.purview::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--purview-color), #9370db);
+      }
+
+      .admin-center-card:hover {
+        transform: translateY(-12px);
+        box-shadow: 0 20px 60px rgba(239, 68, 68, 0.4);
+      }
+
+      .admin-center-card.defender:hover {
+        box-shadow: 0 20px 60px rgba(0, 164, 239, 0.4);
+      }
+
+      .admin-center-card.purview:hover {
+        box-shadow: 0 20px 60px rgba(123, 104, 238, 0.4);
+      }
+
+      .center-icon {
+        font-size: 4rem;
+        margin-bottom: 1.5rem;
+        filter: drop-shadow(0 4px 12px rgba(239, 68, 68, 0.4));
+        display: block;
+      }
+
+      .center-icon.defender {
+        filter: drop-shadow(0 4px 12px rgba(0, 164, 239, 0.4));
+      }
+
+      .center-icon.purview {
+        filter: drop-shadow(0 4px 12px rgba(123, 104, 238, 0.4));
+      }
+
+      /* License Features Grid */
+      .license-features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+        margin: 2rem 0;
+      }
+
+      .license-feature-card {
+        background: linear-gradient(135deg, var(--bg-elevated), var(--bg-card));
+        border-radius: 16px;
+        padding: 2rem;
+        border: 2px solid rgba(245, 158, 11, 0.15);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .license-feature-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--warning-color), #d97706);
+      }
+
+      .license-feature-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 16px 48px rgba(245, 158, 11, 0.3);
+        border-color: var(--warning-color);
+      }
+
+      .feature-icon {
+        font-size: 3rem;
+        text-align: center;
+        margin-bottom: 1rem;
+        filter: drop-shadow(0 4px 12px rgba(245, 158, 11, 0.4));
+        display: block;
+      }
+
+      /* Security Score Widget */
+      .security-score-widget {
+        background: linear-gradient(135deg, var(--success-color), #059669);
+        border-radius: 20px;
+        padding: 2.5rem;
+        text-align: center;
+        margin: 2rem 0;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 16px 48px rgba(16, 185, 129, 0.3);
+      }
+
+      .security-score-widget::before {
+        content: '';
+        position: absolute;
+        top: -50px;
+        right: -50px;
+        width: 200px;
+        height: 200px;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.1), transparent);
+        opacity: 0.5;
+      }
+
+      .score-display {
+        font-size: 4rem;
+        font-weight: 700;
+        color: white;
+        display: block;
+        margin-bottom: 1rem;
+        position: relative;
+        z-index: 1;
+      }
+
+      .score-label {
+        font-size: 1.2rem;
+        color: rgba(255, 255, 255, 0.9);
+        position: relative;
+        z-index: 1;
+      }
+
+      /* Policies Table */
+      .policies-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        background: var(--bg-elevated);
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        margin: 2rem 0;
+      }
+
+      .policies-table thead {
+        background: linear-gradient(135deg, var(--danger-color), var(--primary-dark));
+      }
+
+      .policies-table th {
+        padding: 1.5rem 1rem;
+        text-align: left;
+        color: white;
+        font-weight: 700;
+        font-size: 1rem;
+        position: relative;
+      }
+
+      .policies-table tbody tr {
+        border-bottom: 1px solid rgba(239, 68, 68, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .policies-table tbody tr:hover {
+        background: rgba(239, 68, 68, 0.1);
+        transform: scale(1.01);
+        box-shadow: 0 8px 25px rgba(239, 68, 68, 0.2);
+      }
+
+      .policies-table td {
+        padding: 1.25rem 1rem;
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+        line-height: 1.6;
+        vertical-align: top;
+      }
+
+      .policies-table td:first-child {
+        color: var(--text-primary);
+        font-weight: 600;
+        border-left: 3px solid transparent;
+      }
+
+      /* Risk Level Indicators */
+      .risk-level {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+
+      .risk-level.critical {
+        background: rgba(239, 68, 68, 0.2);
+        color: var(--danger-color);
+        border: 1px solid rgba(239, 68, 68, 0.3);
+      }
+
+      .risk-level.high {
+        background: rgba(245, 158, 11, 0.2);
+        color: var(--warning-color);
+        border: 1px solid rgba(245, 158, 11, 0.3);
+      }
+
+      .risk-level.medium {
+        background: rgba(16, 185, 129, 0.2);
+        color: var(--success-color);
+        border: 1px solid rgba(16, 185, 129, 0.3);
+      }
+
+      .risk-level.low {
+        background: rgba(99, 102, 241, 0.2);
+        color: #6366f1;
+        border: 1px solid rgba(99, 102, 241, 0.3);
+      }
+
+      /* Compliance Features */
+      .compliance-features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin: 2rem 0;
+      }
+
+      .compliance-feature-card {
+        background: linear-gradient(135deg, var(--bg-elevated), var(--bg-card));
+        border-radius: 16px;
+        padding: 2rem;
+        border: 2px solid rgba(123, 104, 238, 0.15);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .compliance-feature-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--purview-color), #9370db);
+      }
+
+      .compliance-feature-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 16px 48px rgba(123, 104, 238, 0.3);
+        border-color: var(--purview-color);
+      }
+
+      /* Enhanced info boxes */
+      .info-box-premium {
+        background: linear-gradient(135deg, var(--bg-elevated), var(--bg-card));
+        border-radius: 16px;
+        padding: 2rem;
+        margin: 1.5rem 0;
+        border-left: 4px solid var(--danger-color);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .info-box-premium::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle at top right, rgba(239, 68, 68, 0.2), transparent);
+        opacity: 0.3;
+        pointer-events: none;
+      }
+
+      /* Warning box */
+      .warning-box {
+        background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(217, 119, 6, 0.05));
+        border: 2px solid rgba(245, 158, 11, 0.3);
+        border-radius: 16px;
+        padding: 2rem;
+        margin: 2rem 0;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .warning-box::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--warning-color), #d97706);
+      }
+
+      /* Content sections */
+      .content-section {
+        animation: fadeInUp 0.6s ease-out;
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Stats boxes */
+      .security-stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.5rem;
+        margin: 2rem 0;
+      }
+
+      .security-stat-box {
+        background: linear-gradient(135deg, var(--danger-color), var(--primary-dark));
+        border-radius: 12px;
+        padding: 1.5rem;
+        text-align: center;
+        box-shadow: 0 8px 24px var(--accent-glow);
+        transition: all 0.3s ease;
+      }
+
+      .security-stat-box:hover {
+        transform: scale(1.05);
+        box-shadow: 0 12px 36px var(--accent-glow);
+      }
+
+      .security-stat-box.defender {
+        background: linear-gradient(135deg, var(--defender-color), #0078d4);
+        box-shadow: 0 8px 24px rgba(0, 164, 239, 0.3);
+      }
+
+      .security-stat-box.purview {
+        background: linear-gradient(135deg, var(--purview-color), #9370db);
+        box-shadow: 0 8px 24px rgba(123, 104, 238, 0.3);
+      }
+
+      .stat-number {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: white;
+        display: block;
+        margin-bottom: 0.5rem;
+      }
+
+      .stat-label {
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.8);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      /* Responsive design */
+      @media (max-width: 768px) {
+        .policies-table {
+          font-size: 0.8rem;
+        }
+
+        .policies-table th,
+        .policies-table td {
+          padding: 0.75rem 0.5rem;
+        }
+
+        .admin-center-card,
+        .compliance-feature-card {
+          padding: 1.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body class="bg-gray-900 text-gray-100">
+    <div class="document-container">
+      <div class="content-card">
+        <header class="page-header">
+          <div class="header-content">
+            <div class="icon-badge">
+              <span class="icon-large">🔐</span>
+            </div>
+            <div>
+              <h1 class="page-title">Seguridad y Cumplimiento en Microsoft 365</h1>
+              <p class="page-subtitle">Microsoft Defender & Microsoft Purview</p>
+            </div>
+          </div>
+        </header>
+
+        <!-- Introducción -->
+        <section class="content-section">
+          <p class="section-intro">
+            La gestión de <strong>seguridad y cumplimiento</strong> en Microsoft 365 se realiza a través de dos centros
+            especializados: <strong>Microsoft Defender</strong> para amenazas activas y protección, y
+            <strong>Microsoft Purview</strong> para gobierno de datos, auditorías y obligaciones legales.
+          </p>
+        </section>
+
+        <!-- Estadísticas clave -->
+        <section class="content-section">
+          <div class="security-stats">
+            <div class="security-stat-box">
+              <span class="stat-number">2</span>
+              <span class="stat-label">Centros de Admin</span>
+            </div>
+            <div class="security-stat-box defender">
+              <span class="stat-number">EDR</span>
+              <span class="stat-label">Detección Avanzada</span>
+            </div>
+            <div class="security-stat-box purview">
+              <span class="stat-number">100%</span>
+              <span class="stat-label">Retención Legal</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Centros de Administración -->
+        <section class="content-section">
+          <h2 class="section-title">
+            <span class="icon">🏢</span>
+            Centros de Administración Especializados
+          </h2>
+
+          <div class="admin-centers-grid">
+            <div class="admin-center-card defender">
+              <span class="center-icon defender">🛡️</span>
+              <h3 style="color: var(--defender-color); font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem">
+                Microsoft Defender
+              </h3>
+              <h4 style="color: var(--text-primary); font-size: 1.1rem; font-weight: 600; margin-bottom: 1rem">
+                Centro de Administración de Seguridad
+              </h4>
+              <ul
+                style="
+                  color: var(--text-secondary);
+                  font-size: 0.9rem;
+                  line-height: 1.6;
+                  text-align: left;
+                  padding-left: 1rem;
+                "
+              >
+                <li>🎯 Gestión activa de amenazas</li>
+                <li>🖥️ Protección de puntos de conexión</li>
+                <li>⚙️ Configuración de políticas de seguridad</li>
+                <li>🔍 Detección y Respuesta EDR</li>
+                <li>🤖 Investigación automatizada</li>
+              </ul>
+              <div style="background: rgba(0, 164, 239, 0.1); padding: 1rem; border-radius: 8px; margin-top: 1rem">
+                <span style="color: var(--defender-color); font-weight: 700; font-size: 0.85rem"
+                  >Administradores TI</span
+                >
+              </div>
+            </div>
+
+            <div class="admin-center-card purview">
+              <span class="center-icon purview">📋</span>
+              <h3 style="color: var(--purview-color); font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem">
+                Microsoft Purview
+              </h3>
+              <h4 style="color: var(--text-primary); font-size: 1.1rem; font-weight: 600; margin-bottom: 1rem">
+                Centro de Administración de Cumplimiento
+              </h4>
+              <ul
+                style="
+                  color: var(--text-secondary);
+                  font-size: 0.9rem;
+                  line-height: 1.6;
+                  text-align: left;
+                  padding-left: 1rem;
+                "
+              >
+                <li>⚖️ Obligaciones legales</li>
+                <li>📊 Gobierno de datos</li>
+                <li>🔍 Auditorías y compliance</li>
+                <li>🗂️ Gestión de riesgos</li>
+                <li>📋 Descubrimiento electrónico</li>
+              </ul>
+              <div style="background: rgba(123, 104, 238, 0.1); padding: 1rem; border-radius: 8px; margin-top: 1rem">
+                <span style="color: var(--purview-color); font-weight: 700; font-size: 0.85rem"
+                  >Personal Legal/Auditores</span
+                >
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Arquitectura de Licencias -->
+        <section class="content-section">
+          <h2 class="section-title">
+            <span class="icon">🎫</span>
+            Arquitectura y Dependencia de Licencias
+          </h2>
+
+          <div class="info-box-premium">
+            <h4 style="color: var(--text-primary); font-size: 1.2rem; margin-bottom: 1.5rem">
+              🏆 Business Premium: La Recomendación del Experto
+            </h4>
+            <p style="color: var(--text-secondary); line-height: 1.7; margin-bottom: 1.5rem">
+              La licencia <strong>Business Premium</strong> ofrece la mejor relación calidad-precio, incluyendo
+              funcionalidades avanzadas de seguridad que normalmente requieren licencias costosas.
+            </p>
+          </div>
+
+          <div class="license-features-grid">
+            <div class="license-feature-card">
+              <span class="feature-icon">🛡️</span>
+              <h4
+                style="
+                  color: var(--text-primary);
+                  font-size: 1.2rem;
+                  font-weight: 700;
+                  margin-bottom: 1rem;
+                  text-align: center;
+                "
+              >
+                Microsoft Defender for Business
+              </h4>
+              <p
+                style="
+                  color: var(--text-secondary);
+                  font-size: 0.9rem;
+                  line-height: 1.6;
+                  text-align: center;
+                  margin-bottom: 1rem;
+                "
+              >
+                Versión <em>light</em> del costoso Defender for Endpoint con capacidades EDR esenciales.
+              </p>
+              <ul style="color: var(--text-secondary); font-size: 0.85rem; line-height: 1.5; padding-left: 1rem">
+                <li>🔍 Detección y Respuesta de Puntos de Conexión (EDR)</li>
+                <li>🤖 Investigación automatizada de amenazas</li>
+                <li>⚡ Respuesta rápida a incidentes</li>
+              </ul>
+            </div>
+
+            <div class="license-feature-card">
+              <span class="feature-icon">📱</span>
+              <h4
+                style="
+                  color: var(--text-primary);
+                  font-size: 1.2rem;
+                  font-weight: 700;
+                  margin-bottom: 1rem;
+                  text-align: center;
+                "
+              >
+                Microsoft Intune
+              </h4>
+              <p
+                style="
+                  color: var(--text-secondary);
+                  font-size: 0.9rem;
+                  line-height: 1.6;
+                  text-align: center;
+                  margin-bottom: 1rem;
+                "
+              >
+                Gestión completa de dispositivos multiplataforma.
+              </p>
+              <ul style="color: var(--text-secondary); font-size: 0.85rem; line-height: 1.5; padding-left: 1rem">
+                <li>💻 Gestión de PC y laptops</li>
+                <li>📱 Control de iPad y Android</li>
+                <li>🍎 Soporte para macOS</li>
+              </ul>
+            </div>
+
+            <div class="license-feature-card">
+              <span class="feature-icon">🔑</span>
+              <h4
+                style="
+                  color: var(--text-primary);
+                  font-size: 1.2rem;
+                  font-weight: 700;
+                  margin-bottom: 1rem;
+                  text-align: center;
+                "
+              >
+                Azure AD P1
+              </h4>
+              <p
+                style="
+                  color: var(--text-secondary);
+                  font-size: 0.9rem;
+                  line-height: 1.6;
+                  text-align: center;
+                  margin-bottom: 1rem;
+                "
+              >
+                Identidad avanzada con controles de acceso inteligentes.
+              </p>
+              <ul style="color: var(--text-secondary); font-size: 0.85rem; line-height: 1.5; padding-left: 1rem">
+                <li>🚪 Acceso Condicional</li>
+                <li>🔒 Autenticación multifactor</li>
+                <li>📍 Controles basados en ubicación</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="warning-box">
+            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem">
+              <div style="font-size: 2.5rem">⚠️</div>
+              <div>
+                <h4 style="color: var(--warning-color); font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem">
+                  Importante: Licenciamiento Granular
+                </h4>
+              </div>
+            </div>
+            <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.7">
+              Aunque el panel de administración permita configurar funcionalidades avanzadas, su
+              <strong>uso real depende de que todos los usuarios tengan la licencia adecuada</strong>. Muchas
+              características requieren Azure AD P1 o superior.
+            </p>
+          </div>
+        </section>
+
+        <!-- Puntuación de Seguridad -->
+        <section class="content-section">
+          <h2 class="section-title">
+            <span class="icon">📊</span>
+            Seguridad de la Plataforma e Identidad
+          </h2>
+
+          <div class="security-score-widget">
+            <div style="position: relative; z-index: 1">
+              <span class="score-display">85%</span>
+              <span class="score-label">Secure Score Promedio</span>
+              <p
+                style="
+                  color: rgba(255, 255, 255, 0.8);
+                  font-size: 0.9rem;
+                  margin-top: 1rem;
+                  max-width: 500px;
+                  margin-left: auto;
+                  margin-right: auto;
+                "
+              >
+                Herramienta esencial que evalúa el estado de seguridad del tenant y ofrece acciones priorizadas para
+                mejorar la protección
+              </p>
+            </div>
+          </div>
+
+          <div class="security-section">
+            <h3 class="subsection-title">🎯 Componentes Clave de Seguridad</h3>
+
+            <div
+              style="
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 1.5rem;
+                margin-top: 1.5rem;
+              "
+            >
+              <div
+                style="
+                  background: rgba(16, 185, 129, 0.1);
+                  padding: 1.5rem;
+                  border-radius: 12px;
+                  border-left: 4px solid var(--success-color);
+                "
+              >
+                <h4
+                  style="
+                    color: var(--success-color);
+                    font-weight: 700;
+                    margin-bottom: 0.75rem;
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                  "
+                >
+                  <span>📊</span> Secure Score
+                </h4>
+                <ul
+                  style="
+                    color: var(--text-secondary);
+                    font-size: 0.9rem;
+                    line-height: 1.6;
+                    margin: 0;
+                    padding-left: 1rem;
+                  "
+                >
+                  <li>Evaluación continua del estado de seguridad</li>
+                  <li>Acciones recomendadas priorizadas</li>
+                  <li>Mejoras como habilitar MFA global</li>
+                  <li>Control de reenvío de correo</li>
+                </ul>
+              </div>
+
+              <div
+                style="
+                  background: rgba(239, 68, 68, 0.1);
+                  padding: 1.5rem;
+                  border-radius: 12px;
+                  border-left: 4px solid var(--danger-color);
+                "
+              >
+                <h4
+                  style="
+                    color: var(--danger-color);
+                    font-weight: 700;
+                    margin-bottom: 0.75rem;
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                  "
+                >
+                  <span>🔒</span> Security Defaults
+                </h4>
+                <ul
+                  style="
+                    color: var(--text-secondary);
+                    font-size: 0.9rem;
+                    line-height: 1.6;
+                    margin: 0;
+                    padding-left: 1rem;
+                  "
+                >
+                  <li>Configuración básica obligatoria</li>
+                  <li>No administrable por el usuario</li>
+                  <li>MFA activado automáticamente</li>
+                  <li>Será obligatorio según Microsoft</li>
+                </ul>
+              </div>
+
+              <div
+                style="
+                  background: rgba(0, 164, 239, 0.1);
+                  padding: 1.5rem;
+                  border-radius: 12px;
+                  border-left: 4px solid var(--defender-color);
+                "
+              >
+                <h4
+                  style="
+                    color: var(--defender-color);
+                    font-weight: 700;
+                    margin-bottom: 0.75rem;
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                  "
+                >
+                  <span>🚪</span> Conditional Access
+                </h4>
+                <ul
+                  style="
+                    color: var(--text-secondary);
+                    font-size: 0.9rem;
+                    line-height: 1.6;
+                    margin: 0;
+                    padding-left: 1rem;
+                  "
+                >
+                  <li>Reglas basadas en riesgo y ubicación</li>
+                  <li>MFA según contexto (fuera de red)</li>
+                  <li>Bloqueo por "viaje imposible"</li>
+                  <li>Control granular de dispositivos</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Políticas de Protección de Correo -->
+        <section class="content-section">
+          <h2 class="section-title">
+            <span class="icon">📧</span>
+            Políticas de Protección de Correo
+          </h2>
+
+          <div class="info-box-premium">
+            <h4 style="color: var(--text-primary); font-size: 1.1rem; margin-bottom: 1rem">
+              🎯 El Correo: Principal Vector de Ataque
+            </h4>
+            <p style="color: var(--text-secondary); line-height: 1.7">
+              El correo electrónico representa el <strong>principal punto de entrada</strong> para amenazas de
+              seguridad. Las políticas de protección son fundamentales para una defensa eficaz contra malware, spam y
+              phishing.
+            </p>
+          </div>
+
+          <table class="policies-table">
+            <thead>
+              <tr>
+                <th>Política de Protección</th>
+                <th>Nivel de Riesgo</th>
+                <th>Configuración Recomendada</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Antimalware</strong></td>
+                <td>
+                  <div class="risk-level critical">
+                    <span>🚨</span>
+                    <span>Crítico</span>
+                  </div>
+                </td>
+                <td>
+                  <strong>Extremadamente estricto</strong> - "Con el malware no se negocia" <br /><br />
+                  <strong>Extensiones bloqueadas:</strong>
+                  <ul style="margin-top: 0.5rem; padding-left: 1rem; font-size: 0.85rem">
+                    <li>.ISO, .LNK, .CMD, .BAT</li>
+                    <li>Formatos comunes de ransomware</li>
+                    <li>Ejecutables encubiertos</li>
+                  </ul>
+                </td>
+              </tr>
+
+              <tr>
+                <td><strong>Antispam & Antiphishing</strong></td>
+                <td>
+                  <div class="risk-level high">
+                    <span>⚠️</span>
+                    <span>Alto</span>
+                  </div>
+                </td>
+                <td>
+                  <strong>Configuración de umbrales de agresividad</strong>
+                  <br /><br />
+                  <strong>Bloqueo por origen:</strong>
+                  <ul style="margin-top: 0.5rem; padding-left: 1rem; font-size: 0.85rem">
+                    <li>Países sin relación comercial</li>
+                    <li>Idiomas no utilizados</li>
+                    <li>Puntuación de riesgo aumentada</li>
+                  </ul>
+                </td>
+              </tr>
+
+              <tr>
+                <td><strong>Controles SPF, DKIM, DMARC</strong></td>
+                <td>
+                  <div class="risk-level medium">
+                    <span>🔒</span>
+                    <span>Medio</span>
+                  </div>
+                </td>
+                <td>
+                  <strong>Autenticación de dominio completa</strong>
+                  <br /><br />
+                  <ul style="margin-top: 0.5rem; padding-left: 1rem; font-size: 0.85rem">
+                    <li><strong>SPF:</strong> Servidores autorizados</li>
+                    <li><strong>DKIM:</strong> Firma digital de correos</li>
+                    <li><strong>DMARC:</strong> Política de fallos + reportes</li>
+                  </ul>
+                </td>
+              </tr>
+
+              <tr>
+                <td><strong>Reenvío de Correo</strong></td>
+                <td>
+                  <div class="risk-level critical">
+                    <span>🚨</span>
+                    <span>Crítico</span>
+                  </div>
+                </td>
+                <td>
+                  <strong>Control estricto y justificación obligatoria</strong>
+                  <br /><br />
+                  <div
+                    style="background: rgba(239, 68, 68, 0.1); padding: 0.75rem; border-radius: 6px; margin-top: 0.5rem"
+                  >
+                    <span style="color: var(--danger-color); font-size: 0.85rem; font-weight: 600">
+                      ⚠️ Técnica #1 usada por atacantes para persistencia
+                    </span>
+                  </div>
+                </td>
+              </tr>
+
+              <tr>
+                <td><strong>Cuarentena</strong></td>
+                <td>
+                  <div class="risk-level low">
+                    <span>ℹ️</span>
+                    <span>Bajo</span>
+                  </div>
+                </td>
+                <td>
+                  <strong>Políticas modernas con control granular</strong>
+                  <br /><br />
+                  <ul style="margin-top: 0.5rem; padding-left: 1rem; font-size: 0.85rem">
+                    <li>Usuarios pueden ver mensajes retenidos</li>
+                    <li>Solicitud de liberación (sin liberación directa)</li>
+                    <li>Revisión administrativa requerida</li>
+                  </ul>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <!-- Cumplimiento y Purview -->
+        <section class="content-section">
+          <h2 class="section-title">
+            <span class="icon">📋</span>
+            Cumplimiento, Retención y Auditoría (Purview)
+          </h2>
+
+          <div class="info-box-premium">
+            <h4 style="color: var(--purview-color); font-size: 1.1rem; margin-bottom: 1rem">
+              ⚖️ Gobierno de Información y Obligaciones Legales
+            </h4>
+            <p style="color: var(--text-secondary); line-height: 1.7">
+              Microsoft Purview se centra en el <strong>gobierno de datos</strong> para cumplir con requisitos legales,
+              auditorías y gestión de riesgos organizacionales.
+            </p>
+          </div>
+
+          <div class="compliance-features-grid">
+            <div class="compliance-feature-card">
+              <span class="feature-icon" style="color: var(--purview-color)">🗂️</span>
+              <h4
+                style="
+                  color: var(--text-primary);
+                  font-size: 1.2rem;
+                  font-weight: 700;
+                  margin-bottom: 1rem;
+                  text-align: center;
+                "
+              >
+                Retención y Litigation Hold
+              </h4>
+              <div style="background: rgba(239, 68, 68, 0.1); padding: 1rem; border-radius: 8px; margin-bottom: 1rem">
+                <p style="color: var(--danger-color); font-size: 0.9rem; font-weight: 600; margin: 0">
+                  ⚠️ Office 365 NO ofrece backup tradicional
+                </p>
+              </div>
+              <ul
+                style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; margin: 0; padding-left: 1rem"
+              >
+                <li>✅ Retención avanzada de contenido</li>
+                <li>📧 Conservación permanente de buzones</li>
+                <li>💬 Historial completo de Teams</li>
+                <li>🔒 Inmutable ante eliminación de usuarios</li>
+              </ul>
+            </div>
+
+            <div class="compliance-feature-card">
+              <span class="feature-icon" style="color: var(--purview-color)">🔍</span>
+              <h4
+                style="
+                  color: var(--text-primary);
+                  font-size: 1.2rem;
+                  font-weight: 700;
+                  margin-bottom: 1rem;
+                  text-align: center;
+                "
+              >
+                Auditoría Avanzada
+              </h4>
+              <div style="background: rgba(245, 158, 11, 0.1); padding: 1rem; border-radius: 8px; margin-bottom: 1rem">
+                <p style="color: var(--warning-color); font-size: 0.9rem; font-weight: 600; margin: 0">
+                  ⚠️ En tenants antiguos puede estar desactivada
+                </p>
+              </div>
+              <ul
+                style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; margin: 0; padding-left: 1rem"
+              >
+                <li>📊 Registro detallado de acciones</li>
+                <li>👤 Seguimiento de usuarios y administradores</li>
+                <li>📁 Modificaciones de archivos</li>
+                <li>⏰ Línea temporal completa</li>
+              </ul>
+            </div>
+
+            <div class="compliance-feature-card">
+              <span class="feature-icon" style="color: var(--purview-color)">⚖️</span>
+              <h4
+                style="
+                  color: var(--text-primary);
+                  font-size: 1.2rem;
+                  font-weight: 700;
+                  margin-bottom: 1rem;
+                  text-align: center;
+                "
+              >
+                eDiscovery
+              </h4>
+              <div style="background: rgba(123, 104, 238, 0.1); padding: 1rem; border-radius: 8px; margin-bottom: 1rem">
+                <p style="color: var(--purview-color); font-size: 0.9rem; font-weight: 600; margin: 0">
+                  ⚖️ Herramienta legal especializada
+                </p>
+              </div>
+              <ul
+                style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; margin: 0; padding-left: 1rem"
+              >
+                <li>🔍 Búsquedas legales específicas</li>
+                <li>📄 Extracción de evidencia</li>
+                <li>🏛️ Formato admisible en tribunales</li>
+                <li>📊 Reportes forenses detallados</li>
+              </ul>
+            </div>
+
+            <div class="compliance-feature-card">
+              <span class="feature-icon" style="color: var(--purview-color)">🏷️</span>
+              <h4
+                style="
+                  color: var(--text-primary);
+                  font-size: 1.2rem;
+                  font-weight: 700;
+                  margin-bottom: 1rem;
+                  text-align: center;
+                "
+              >
+                Etiquetas de Confidencialidad
+              </h4>
+              <div style="background: rgba(245, 158, 11, 0.1); padding: 1rem; border-radius: 8px; margin-bottom: 1rem">
+                <p style="color: var(--warning-color); font-size: 0.9rem; font-weight: 600; margin: 0">
+                  🎫 Requiere licenciamiento avanzado
+                </p>
+              </div>
+              <ul
+                style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; margin: 0; padding-left: 1rem"
+              >
+                <li>🔒 Sellos de seguridad persistentes</li>
+                <li>📄 Control independiente de ubicación</li>
+                <li>🚫 Restricción de impresión/descarga</li>
+                <li>⏰ Caducidad automática de documentos</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- Mejores prácticas -->
+        <section class="content-section">
+          <h2 class="section-title">
+            <span class="icon">🏆</span>
+            Estrategia Integral de Seguridad y Cumplimiento
+          </h2>
+
+          <div class="info-box-premium">
+            <h4 style="color: var(--text-primary); font-size: 1.2rem; margin-bottom: 1.5rem">
+              🎯 Marco de Trabajo Recomendado
+            </h4>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem">
+              <div
+                style="
+                  background: rgba(239, 68, 68, 0.1);
+                  padding: 1.5rem;
+                  border-radius: 12px;
+                  border-left: 4px solid var(--danger-color);
+                "
+              >
+                <h5 style="color: var(--danger-color); font-weight: 700; margin-bottom: 0.75rem">
+                  🛡️ Seguridad Proactiva
+                </h5>
+                <ul
+                  style="
+                    color: var(--text-secondary);
+                    font-size: 0.9rem;
+                    line-height: 1.6;
+                    margin: 0;
+                    padding-left: 1rem;
+                  "
+                >
+                  <li>Implementar Business Premium como base</li>
+                  <li>Configurar Secure Score como KPI principal</li>
+                  <li>Aplicar políticas antimalware estrictas</li>
+                  <li>Monitorear reenvíos de correo constantemente</li>
+                </ul>
+              </div>
+
+              <div
+                style="
+                  background: rgba(123, 104, 238, 0.1);
+                  padding: 1.5rem;
+                  border-radius: 12px;
+                  border-left: 4px solid var(--purview-color);
+                "
+              >
+                <h5 style="color: var(--purview-color); font-weight: 700; margin-bottom: 0.75rem">
+                  📋 Cumplimiento Continuo
+                </h5>
+                <ul
+                  style="
+                    color: var(--text-secondary);
+                    font-size: 0.9rem;
+                    line-height: 1.6;
+                    margin: 0;
+                    padding-left: 1rem;
+                  "
+                >
+                  <li>Activar auditoría en tenants antiguos</li>
+                  <li>Configurar Litigation Hold según necesidad</li>
+                  <li>Preparar eDiscovery para equipos legales</li>
+                  <li>Evaluar etiquetas de confidencialidad</li>
+                </ul>
+              </div>
+
+              <div
+                style="
+                  background: rgba(0, 164, 239, 0.1);
+                  padding: 1.5rem;
+                  border-radius: 12px;
+                  border-left: 4px solid var(--defender-color);
+                "
+              >
+                <h5 style="color: var(--defender-color); font-weight: 700; margin-bottom: 0.75rem">
+                  🔧 Gestión Operativa
+                </h5>
+                <ul
+                  style="
+                    color: var(--text-secondary);
+                    font-size: 0.9rem;
+                    line-height: 1.6;
+                    margin: 0;
+                    padding-left: 1rem;
+                  "
+                >
+                  <li>Separar roles: TI vs Legal/Auditores</li>
+                  <li>Validar licenciamiento antes de configurar</li>
+                  <li>Documentar políticas y excepciones</li>
+                  <li>Establecer revisiones periódicas</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Conclusión -->
+        <section class="content-section">
+          <div
+            style="
+              background: linear-gradient(135deg, var(--danger-color), var(--primary-dark));
+              border-radius: 20px;
+              padding: 2.5rem;
+              text-align: center;
+              margin-top: 3rem;
+              position: relative;
+              overflow: hidden;
+              box-shadow: 0 16px 48px var(--accent-glow);
+            "
+          >
+            <div
+              style="
+                position: absolute;
+                top: -50px;
+                right: -50px;
+                width: 200px;
+                height: 200px;
+                background: radial-gradient(circle, rgba(255, 255, 255, 0.1), transparent);
+                opacity: 0.5;
+              "
+            ></div>
+            <div style="position: relative; z-index: 1">
+              <div style="font-size: 3.5rem; margin-bottom: 1rem">🔐</div>
+              <h3 style="color: white; font-size: 1.8rem; font-weight: 700; margin-bottom: 1rem">
+                Seguridad = Defensa en Profundidad + Cumplimiento Proactivo
+              </h3>
+              <p
+                style="
+                  color: rgba(255, 255, 255, 0.9);
+                  font-size: 1.1rem;
+                  max-width: 700px;
+                  margin: 0 auto;
+                  line-height: 1.8;
+                "
+              >
+                La combinación de Microsoft Defender y Purview proporciona una plataforma completa para proteger y
+                gobernar los datos organizacionales.
+              </p>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <!-- Script de navegación automática -->
+    <script src="../js/back-button.js"></script>
+  </body>
+</html>
