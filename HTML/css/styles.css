@@ -31,6 +31,61 @@ h1 {
   color: #2563eb;
   font-weight: bold;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+/* Efecto de borde iluminado que se mueve */
+h1::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg,
+      transparent,
+      #0b63f1,
+      #60a5fa,
+      #93c5fd,
+      #dbeafe,
+      transparent,
+      transparent,
+      transparent);
+  border-radius: 10px;
+  z-index: -1;
+  opacity: 0;
+  animation: borderRotate 3s linear infinite;
+  transition: opacity 0.1s ease;
+}
+
+h1:hover::before {
+  opacity: 1;
+}
+
+@keyframes borderRotate {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Versión para modo oscuro */
+body.dark-mode h1::before {
+  background: linear-gradient(45deg,
+      transparent,
+      #60a5fa,
+      #3b82f6,
+      #1d4ed8,
+      #1e40af,
+      transparent,
+      transparent,
+      transparent);
 }
 
 /* ===== MENÚ DE TARJETAS ===== */
