@@ -24,7 +24,7 @@
 ├── 📁 HTML/                          # 🌐 Aplicación web principal
 │   ├── 📄 index.html                 # Página principal con navegación
 │   ├── 📁 css/                       # 🎨 Estilos modulares (10 archivos)
-│   │   ├── pages-base.css            # Estilos base compartidos  
+│   │   ├── pages-base.css            # Estilos base compartidos
 │   │   └── themes/                   # Temas por categoría
 │   ├── 📁 js/                        # ⚡ JavaScript optimizado
 │   │   ├── index.js                  # Sistema de navegación y filtros
@@ -78,17 +78,20 @@ npm run build
 ## 📚 Contenido Educativo
 
 ### 🏗️ Arquitectura (3 módulos)
+
 - Arquitectura de contenedores
 - Conectores y flujo de datos
 - Configuración de infraestructura
 
 ### 🔐 Identidad y Licenciamiento (4 módulos)
+
 - Gestión de usuarios y grupos
 - Asignación de licencias
 - Usuarios invitados
 - Roles y permisos
 
 ### 📧 Exchange Online (6 módulos)
+
 - Administración Exchange
 - Flujo de correo
 - Reglas de correo
@@ -97,6 +100,7 @@ npm run build
 - Buzones compartidos
 
 ### 📊 SharePoint Online (5 módulos)
+
 - Administración SharePoint
 - Sitios de colaboración
 - Sitios de comunicación
@@ -104,29 +108,34 @@ npm run build
 - Uso compartido y permisos
 
 ### 🛠️ Administración (3 módulos)
+
 - Soporte técnico
 - Usuarios activos
 - Herramientas administrativas
 
 ### 📋 Recursos (2 módulos)
+
 - Resumen general
 - Documentación técnica
 
 ## 🎨 Características Técnicas
 
 ### Frontend Moderno
+
 - **HTML5 Semántico** - Estructura accesible y SEO optimizada
 - **CSS3 Modular** - Sistema de temas con variables CSS
 - **JavaScript ES2021** - Código moderno y optimizado
 - **Tailwind CSS** - Framework utility-first para diseño rápido
 
 ### Development Experience
+
 - **🔍 ESLint** - Linting automático con reglas ES2021
 - **💅 Prettier** - Formateo consistente de código
 - **⚡ Vite** - Build system ultrarrápido con HMR
 - **📦 npm Scripts** - Automatización de tareas
 
 ### Production Ready
+
 - **🗜️ Optimización** - Assets minificados y optimizados
 - **📱 PWA** - Progressive Web App con service worker
 - **🔒 Seguridad** - Headers de seguridad configurados
@@ -135,13 +144,15 @@ npm run build
 ## 🛠️ Scripts Disponibles
 
 ### Desarrollo
+
 ```bash
 .\tasks.ps1 dev          # Servidor de desarrollo
-.\tasks.ps1 build        # Build de producción  
+.\tasks.ps1 build        # Build de producción
 .\tasks.ps1 preview      # Vista previa del build
 ```
 
 ### Calidad de Código
+
 ```bash
 .\tasks.ps1 lint         # Verificar código con ESLint
 .\tasks.ps1 format       # Formatear con Prettier
@@ -149,6 +160,7 @@ npm run build
 ```
 
 ### Utilidades
+
 ```bash
 .\tasks.ps1 setup        # Configuración inicial
 .\tasks.ps1 clean        # Limpiar archivos temporales
@@ -168,24 +180,28 @@ npm run build
 ## 🌐 Deploy y Hosting
 
 ### GitHub Pages
+
 ```bash
 # El proyecto está listo para GitHub Pages
 # Solo activa Pages apuntando a la rama main
 ```
 
 ### Netlify
+
 ```bash
 npm run build
 netlify deploy --prod --dir=dist
 ```
 
 ### Vercel
+
 ```bash
-npm run build  
+npm run build
 vercel --prod
 ```
 
 ### Servidor Traditional
+
 ```bash
 # Subir la carpeta HTML/ a tu servidor web
 # El proyecto es estático, no requiere backend
@@ -216,7 +232,7 @@ Esta plataforma educativa fue creada para proporcionar una experiencia de aprend
 ### 🌟 Destacados
 
 - ✅ **Código limpio y documentado**
-- ✅ **Arquitectura escalable y mantenible**  
+- ✅ **Arquitectura escalable y mantenible**
 - ✅ **Performance optimizado**
 - ✅ **SEO y accessibility friendly**
 - ✅ **Mobile-first responsive design**

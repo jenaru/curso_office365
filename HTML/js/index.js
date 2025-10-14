@@ -2,211 +2,220 @@
 
 const pages = [
   {
-    title: "Resumen General",
-    file: "resumen_general.html",
-    description: "Resumen General del curso",
-    image: "📊",
-    tag: "arquitectura",
+    title: 'Resumen General',
+    file: 'resumen_general.html',
+    description: 'Resumen General del curso',
+    image: '📊',
+    tag: 'arquitectura'
   },
   {
-    title: "Agregar Dominios",
-    file: "agregar_dominios.html",
-    description: "Cómo agregar y configurar dominios personalizados en M365",
-    image: "🌐",
-    tag: "administracion",
+    title: 'Agregar Dominios',
+    file: 'agregar_dominios.html',
+    description: 'Cómo agregar y configurar dominios personalizados en M365',
+    image: '🌐',
+    tag: 'administracion'
   },
   {
-    title: "Asignacion de Licencias",
-    file: "asignacion_licencias.html",
-    description: "Cómo asignar licencias a usuarios",
-    image: "🎫",
-    tag: "licenciamiento",
+    title: 'Asignacion de Licencias',
+    file: 'asignacion_licencias.html',
+    description: 'Cómo asignar licencias a usuarios',
+    image: '🎫',
+    tag: 'licenciamiento'
   },
   {
-    title: "Usuario Invitado",
-    file: "usuario_invitado.html",
-    description: "¿Que es un usuario invitado?",
-    image: "👤",
-    tag: "identidad",
+    title: 'Usuario Invitado',
+    file: 'usuario_invitado.html',
+    description: '¿Que es un usuario invitado?',
+    image: '👤',
+    tag: 'identidad'
   },
 
   {
-    title: "Matriz de Identidades",
-    file: "usuarios_mail.html",
+    title: 'Matriz de Identidades',
+    file: 'usuarios_mail.html',
     description:
-      "Comparativa de usuarios, invitados y contactos en Microsoft 365",
-    image: "👥",
-    tag: "identidad",
+      'Comparativa de usuarios, invitados y contactos en Microsoft 365',
+    image: '👥',
+    tag: 'identidad'
   },
   {
-    title: "Tipos de Grupos",
-    file: "grupos.html",
-    description: "Tipos de grupos y destinatarios en Microsoft 365",
-    image: "👫",
-    tag: "identidad",
+    title: 'Tipos de Grupos',
+    file: 'grupos.html',
+    description: 'Tipos de grupos y destinatarios en Microsoft 365',
+    image: '👫',
+    tag: 'identidad'
   },
   {
-    title: "Roles y Permisos",
-    file: "roles.html",
-    description: "Roles de administración y granularidad de permisos en M365",
-    image: "🔐",
-    tag: "seguridad",
+    title: 'Roles y Permisos',
+    file: 'roles.html',
+    description: 'Roles de administración y granularidad de permisos en M365',
+    image: '🔐',
+    tag: 'seguridad'
   },
   {
-    title: "Buzones de Recursos",
-    file: "salas.html",
-    description: "Gestión de salas y equipamiento en Exchange Online",
-    image: "🏢",
-    tag: "correo",
+    title: 'Buzones de Recursos',
+    file: 'salas.html',
+    description: 'Gestión de salas y equipamiento en Exchange Online',
+    image: '🏢',
+    tag: 'correo'
   },
   {
-    title: "Soporte Técnico",
-    file: "soporte_tecnico.html",
-    description: "Gestión de incidencias y soporte técnico en M365",
-    image: "🛠️",
-    tag: "administracion",
+    title: 'Soporte Técnico',
+    file: 'soporte_tecnico.html',
+    description: 'Gestión de incidencias y soporte técnico en M365',
+    image: '🛠️',
+    tag: 'administracion'
   },
   {
-    title: "Usuarios Activos",
-    file: "usuarios_activos.html",
+    title: 'Usuarios Activos',
+    file: 'usuarios_activos.html',
     description:
-      "Gestión de usuarios activos, licencias y delegación en Azure AD",
-    image: "🧑‍💼",
-    tag: "identidad",
+      'Gestión de usuarios activos, licencias y delegación en Azure AD',
+    image: '🧑‍💼',
+    tag: 'identidad'
   },
   {
-    title: "Administración de Exchange",
-    file: "adm_exchange.html",
+    title: 'Administración de Exchange',
+    file: 'adm_exchange.html',
     description:
-      "Centro de Administración de Exchange - Destinatarios, flujo de correo y seguridad",
-    image: "📧",
-    tag: "correo",
+      'Centro de Administración de Exchange - Destinatarios, flujo de correo y seguridad',
+    image: '📧',
+    tag: 'correo'
   },
   {
-    title: "Flujo de Correo",
-    file: "flujo_correo.html",
+    title: 'Flujo de Correo',
+    file: 'flujo_correo.html',
     description:
-      "Seguimiento de mensajes, reglas de transporte y configuración de conectores",
-    image: "🔀",
-    tag: "correo",
+      'Seguimiento de mensajes, reglas de transporte y configuración de conectores',
+    image: '🔀',
+    tag: 'correo'
   },
   {
-    title: "Reglas de Transporte",
-    file: "reglas_coreo.html",
+    title: 'Reglas de Transporte',
+    file: 'reglas_coreo.html',
     description:
-      "Automatización y aplicación de políticas al flujo de correo con reglas",
-    image: "⚙️",
-    tag: "correo",
+      'Automatización y aplicación de políticas al flujo de correo con reglas',
+    image: '⚙️',
+    tag: 'correo'
   },
   {
-    title: "Dominios Aceptados y Remotos",
-    file: "dominios_remotos_aceptados.html",
+    title: 'Dominios Aceptados y Remotos',
+    file: 'dominios_remotos_aceptados.html',
     description:
-      "Configuración de dominios autoritativos, de retransmisión y dominios remotos en Exchange",
-    image: "🌐",
-    tag: "correo",
+      'Configuración de dominios autoritativos, de retransmisión y dominios remotos en Exchange',
+    image: '🌐',
+    tag: 'correo'
   },
   {
-    title: "Conectores de Correo",
-    file: "conectores.html",
+    title: 'Conectores de Correo',
+    file: 'conectores.html',
     description:
-      "Configuración de conectores inbound y outbound para rutas específicas de correo",
-    image: "🔗",
-    tag: "correo",
+      'Configuración de conectores inbound y outbound para rutas específicas de correo',
+    image: '🔗',
+    tag: 'correo'
   },
   {
-    title: "Uso Compartido",
-    file: "uso_compartido.html",
+    title: 'Uso Compartido',
+    file: 'uso_compartido.html',
     description:
-      "Compartición federada e individual de calendarios en Exchange Online",
-    image: "📅",
-    tag: "correo",
+      'Compartición federada e individual de calendarios en Exchange Online',
+    image: '📅',
+    tag: 'correo'
   },
   {
-    title: "SharePoint Moderno",
-    file: "resumen_sharepoint.html",
+    title: 'SharePoint Moderno',
+    file: 'resumen_sharepoint.html',
     description:
-      "Evolución de SharePoint clásico a moderno, sitios de colaboración y arquitectura",
-    image: "📚",
-    tag: "sharepoint",
+      'Evolución de SharePoint clásico a moderno, sitios de colaboración y arquitectura',
+    image: '📚',
+    tag: 'sharepoint'
   },
   {
-    title: "Arquitectura de Contenedores de SharePoint",
-    file: "arquitectura_contenedores.html",
+    title: 'Arquitectura de Contenedores de SharePoint',
+    file: 'arquitectura_contenedores.html',
     description:
-      "Filosofía moderna de contenedores: Teams, Grupos M365, permisos y gobernanza",
-    image: "🏗️",
-    tag: "sharepoint",
+      'Filosofía moderna de contenedores: Teams, Grupos M365, permisos y gobernanza',
+    image: '🏗️',
+    tag: 'sharepoint'
   },
   {
-    title: "Diseño de Intranets",
-    file: "intranet.html",
+    title: 'Diseño de Intranets',
+    file: 'intranet.html',
     description:
-      "Estrategias para crear intranets modernas con SharePoint: navegación, hub sites y audiencias",
-    image: "🌐",
-    tag: "sharepoint",
+      'Estrategias para crear intranets modernas con SharePoint: navegación, hub sites y audiencias',
+    image: '🌐',
+    tag: 'sharepoint'
   },
   {
-    title: "Sitios de Comunicación",
-    file: "sitio_comunicacion.html",
+    title: 'Sitios de Comunicación',
+    file: 'sitio_comunicacion.html',
     description:
-      "Núcleo de la intranet moderna: difusión one-to-many, permisos y personalización visual",
-    image: "📢",
-    tag: "sharepoint",
+      'Núcleo de la intranet moderna: difusión one-to-many, permisos y personalización visual',
+    image: '📢',
+    tag: 'sharepoint'
   },
   {
-    title: "Sitios de Colaboración",
-    file: "sitio_colaboracion.html",
+    title: 'Sitios de Colaboración',
+    file: 'sitio_colaboracion.html',
     description:
-      "Piedra angular del trabajo en equipo: Teams, Grupos M365 y participación activa",
-    image: "🤝",
-    tag: "sharepoint",
+      'Piedra angular del trabajo en equipo: Teams, Grupos M365 y participación activa',
+    image: '🤝',
+    tag: 'sharepoint'
   },
   {
-    title: "Administración de SharePoint",
-    file: "adm_sharepoint.html",
+    title: 'Administración de SharePoint',
+    file: 'adm_sharepoint.html',
     description:
-      "Centro de administración: gobernanza, políticas globales y gestión de sitios activos",
-    image: "⚙️",
-    tag: "sharepoint",
+      'Centro de administración: gobernanza, políticas globales y gestión de sitios activos',
+    image: '⚙️',
+    tag: 'sharepoint'
   },
+  {
+    title: 'Administración de Teams',
+    file: 'adm_teams.html',
+    description:
+      'Centro de Administración de Teams: gobierno, directivas, aplicaciones y colaboración externa',
+    image: '👥',
+    tag: 'teams'
+  }
 ];
 
 // Colores para cada categoría
 const tagColors = {
-  arquitectura: "#6366f1",
-  licenciamiento: "#f59e0b",
-  identidad: "#10b981",
-  administracion: "#3b82f6",
-  seguridad: "#ef4444",
-  correo: "#8b5cf6",
-  sharepoint: "#0ea5e9",
+  arquitectura: '#6366f1',
+  licenciamiento: '#f59e0b',
+  identidad: '#10b981',
+  administracion: '#3b82f6',
+  seguridad: '#ef4444',
+  correo: '#8b5cf6',
+  sharepoint: '#0ea5e9',
+  teams: '#6264A7'
 };
 
 // Obtener tags únicos
 function getUniqueTags() {
-  const tags = pages.map((page) => page.tag);
+  const tags = pages.map(page => page.tag);
   return [...new Set(tags)].sort();
 }
 
 // Filtrar páginas por tag
 function filterPagesByTag(tag = null) {
-  if (!tag || tag === "todos") {
+  if (!tag || tag === 'todos') {
     return pages;
   }
-  return pages.filter((page) => page.tag === tag);
+  return pages.filter(page => page.tag === tag);
 }
 
 // Renderizar menú de tarjetas
 function renderMenu(filteredPages = pages) {
-  const menu = document.getElementById("menu");
+  const menu = document.getElementById('menu');
   if (!menu) return;
 
-  menu.innerHTML = "";
+  menu.innerHTML = '';
 
-  filteredPages.forEach((page) => {
-    const card = document.createElement("div");
-    card.className = "card";
+  filteredPages.forEach(page => {
+    const card = document.createElement('div');
+    card.className = 'card';
 
     card.innerHTML = `
       <div 
@@ -248,7 +257,7 @@ function renderMenu(filteredPages = pages) {
       <div 
         class="tag-badge" 
         style="
-          background-color: ${tagColors[page.tag] || "#6b7280"}; 
+          background-color: ${tagColors[page.tag] || '#6b7280'}; 
           color: white; 
           padding: 6px 12px; 
           border-radius: 12px; 
@@ -278,7 +287,7 @@ function renderMenu(filteredPages = pages) {
 
 // Renderizar filtros de tags
 function renderTagFilters() {
-  const filterContainer = document.getElementById("tag-filters");
+  const filterContainer = document.getElementById('tag-filters');
   if (!filterContainer) return;
 
   const tags = getUniqueTags();
@@ -289,9 +298,9 @@ function renderTagFilters() {
   `;
 
   // Botones de categorías
-  tags.forEach((tag) => {
-    const filterBtn = document.createElement("button");
-    filterBtn.className = "filter-btn";
+  tags.forEach(tag => {
+    const filterBtn = document.createElement('button');
+    filterBtn.className = 'filter-btn';
     filterBtn.style.borderColor = tagColors[tag];
     filterBtn.textContent = tag.charAt(0).toUpperCase() + tag.slice(1);
     filterBtn.onclick = () => filterByTag(tag, filterBtn);
@@ -302,24 +311,24 @@ function renderTagFilters() {
 // Filtrar por tag y actualizar UI
 function filterByTag(tag, buttonElement) {
   // Actualizar botones activos en la barra de filtros
-  document.querySelectorAll(".filter-btn").forEach((btn) => {
-    btn.classList.remove("active");
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.classList.remove('active');
   });
 
   // Buscar y activar el botón correspondiente en la barra de filtros
-  const filterButtons = document.querySelectorAll(".filter-btn");
-  filterButtons.forEach((btn) => {
+  const filterButtons = document.querySelectorAll('.filter-btn');
+  filterButtons.forEach(btn => {
     if (
-      (tag === "todos" && btn.textContent === "Todos") ||
-      (tag !== "todos" && btn.textContent.toLowerCase() === tag)
+      (tag === 'todos' && btn.textContent === 'Todos') ||
+      (tag !== 'todos' && btn.textContent.toLowerCase() === tag)
     ) {
-      btn.classList.add("active");
+      btn.classList.add('active');
     }
   });
 
   // Si el elemento clickeado no es un botón de filtro, manejar manualmente
-  if (buttonElement && buttonElement.classList.contains("filter-btn")) {
-    buttonElement.classList.add("active");
+  if (buttonElement && buttonElement.classList.contains('filter-btn')) {
+    buttonElement.classList.add('active');
   }
 
   // Filtrar y renderizar páginas
@@ -330,17 +339,17 @@ function filterByTag(tag, buttonElement) {
 // Función para cargar página (si se necesita)
 function loadPage(pageFile) {
   fetch(`pages/${pageFile}`)
-    .then((response) => response.text())
-    .then((html) => {
-      document.getElementById("content").innerHTML = html;
+    .then(response => response.text())
+    .then(html => {
+      document.getElementById('content').innerHTML = html;
     })
-    .catch((error) => {
-      console.error("Error cargando la página:", error);
+    .catch(error => {
+      console.error('Error cargando la página:', error);
     });
 }
 
 // Inicializar cuando el DOM esté listo
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener('DOMContentLoaded', () => {
   renderMenu();
   renderTagFilters();
   loadThemePreference();
@@ -351,55 +360,55 @@ document.addEventListener("DOMContentLoaded", () => {
 // Función para alternar entre modo oscuro y claro
 function toggleTheme() {
   const body = document.body;
-  const themeIcon = document.getElementById("theme-icon");
-  const themeText = document.getElementById("theme-text");
+  const themeIcon = document.getElementById('theme-icon');
+  const themeText = document.getElementById('theme-text');
 
-  if (body.classList.contains("dark-mode")) {
+  if (body.classList.contains('dark-mode')) {
     // Cambiar a modo claro
-    body.classList.remove("dark-mode");
-    themeIcon.textContent = "🌞";
-    themeText.textContent = "Modo Claro";
-    localStorage.setItem("theme", "light");
+    body.classList.remove('dark-mode');
+    themeIcon.textContent = '🌞';
+    themeText.textContent = 'Modo Claro';
+    localStorage.setItem('theme', 'light');
   } else {
     // Cambiar a modo oscuro
-    body.classList.add("dark-mode");
-    themeIcon.textContent = "🌙";
-    themeText.textContent = "Modo Oscuro";
-    localStorage.setItem("theme", "dark");
+    body.classList.add('dark-mode');
+    themeIcon.textContent = '🌙';
+    themeText.textContent = 'Modo Oscuro';
+    localStorage.setItem('theme', 'dark');
   }
 }
 
 // Función para cargar la preferencia de tema guardada
 function loadThemePreference() {
-  const savedTheme = localStorage.getItem("theme");
+  const savedTheme = localStorage.getItem('theme');
   const body = document.body;
-  const themeIcon = document.getElementById("theme-icon");
-  const themeText = document.getElementById("theme-text");
+  const themeIcon = document.getElementById('theme-icon');
+  const themeText = document.getElementById('theme-text');
 
   // Si hay una preferencia guardada, aplicarla
-  if (savedTheme === "dark") {
-    body.classList.add("dark-mode");
-    themeIcon.textContent = "🌙";
-    themeText.textContent = "Modo Oscuro";
+  if (savedTheme === 'dark') {
+    body.classList.add('dark-mode');
+    themeIcon.textContent = '🌙';
+    themeText.textContent = 'Modo Oscuro';
   } else {
     // Por defecto modo claro
-    body.classList.remove("dark-mode");
-    themeIcon.textContent = "🌞";
-    themeText.textContent = "Modo Claro";
+    body.classList.remove('dark-mode');
+    themeIcon.textContent = '🌞';
+    themeText.textContent = 'Modo Claro';
   }
 
   // Si no hay preferencia guardada, detectar preferencia del sistema
   if (!savedTheme) {
     const prefersDark =
       window.matchMedia &&
-      window.matchMedia("(prefers-color-scheme: dark)").matches;
+      window.matchMedia('(prefers-color-scheme: dark)').matches;
     if (prefersDark) {
-      body.classList.add("dark-mode");
-      themeIcon.textContent = "🌙";
-      themeText.textContent = "Modo Oscuro";
-      localStorage.setItem("theme", "dark");
+      body.classList.add('dark-mode');
+      themeIcon.textContent = '🌙';
+      themeText.textContent = 'Modo Oscuro';
+      localStorage.setItem('theme', 'dark');
     } else {
-      localStorage.setItem("theme", "light");
+      localStorage.setItem('theme', 'light');
     }
   }
 }
@@ -407,23 +416,23 @@ function loadThemePreference() {
 // Escuchar cambios en la preferencia del sistema
 if (window.matchMedia) {
   window
-    .matchMedia("(prefers-color-scheme: dark)")
-    .addEventListener("change", (e) => {
+    .matchMedia('(prefers-color-scheme: dark)')
+    .addEventListener('change', e => {
       // Solo aplicar si no hay preferencia manual guardada
-      const savedTheme = localStorage.getItem("theme");
+      const savedTheme = localStorage.getItem('theme');
       if (!savedTheme) {
         const body = document.body;
-        const themeIcon = document.getElementById("theme-icon");
-        const themeText = document.getElementById("theme-text");
+        const themeIcon = document.getElementById('theme-icon');
+        const themeText = document.getElementById('theme-text');
 
         if (e.matches) {
-          body.classList.add("dark-mode");
-          themeIcon.textContent = "🌙";
-          themeText.textContent = "Modo Oscuro";
+          body.classList.add('dark-mode');
+          themeIcon.textContent = '🌙';
+          themeText.textContent = 'Modo Oscuro';
         } else {
-          body.classList.remove("dark-mode");
-          themeIcon.textContent = "🌞";
-          themeText.textContent = "Modo Claro";
+          body.classList.remove('dark-mode');
+          themeIcon.textContent = '🌞';
+          themeText.textContent = 'Modo Claro';
         }
       }
     });

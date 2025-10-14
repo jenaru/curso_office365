@@ -1,0 +1,2780 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Administración de Teams - Curso Microsoft 365</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- CSS externo para estilos base y tema -->
+    <link rel="stylesheet" href="../css/pages-base.css" />
+    <link rel="stylesheet" href="../css/themes/administracion.css" />
+
+    <style>
+      :root {
+        --primary-color: #6264a7;
+        --primary-dark: #464775;
+        --primary-light: #8b8cc7;
+        --bg-dark: #0f0f1e;
+        --bg-card: #1a1b2e;
+        --bg-elevated: #252641;
+        --text-primary: #f0f0f3;
+        --text-secondary: #b4b4c8;
+        --accent: #818cf8;
+        --accent-glow: rgba(98, 100, 167, 0.3);
+      }
+
+      body {
+        background: linear-gradient(135deg, #0f0f1e 0%, #1a1b2e 50%, #252641 100%);
+        min-height: 100vh;
+      }
+
+      /* Arquitectura Diagram */
+      .architecture-diagram {
+        background: var(--bg-elevated);
+        border-radius: 16px;
+        padding: 2rem;
+        margin: 2rem 0;
+        position: relative;
+        overflow: hidden;
+        border: 1px solid rgba(98, 100, 167, 0.2);
+      }
+
+      .architecture-diagram::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--primary-color), var(--accent));
+      }
+
+      .arch-layer {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 2rem;
+        margin: 1.5rem 0;
+        position: relative;
+      }
+
+      .arch-box {
+        background: linear-gradient(135deg, var(--bg-card), var(--bg-elevated));
+        border: 2px solid var(--primary-color);
+        border-radius: 12px;
+        padding: 1.5rem;
+        flex: 1;
+        text-align: center;
+        box-shadow: 0 8px 32px var(--accent-glow);
+        transition: all 0.3s ease;
+        position: relative;
+      }
+
+      .arch-box:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 48px rgba(98, 100, 167, 0.5);
+      }
+
+      .arch-box .icon {
+        font-size: 3rem;
+        display: block;
+        margin-bottom: 0.5rem;
+        filter: drop-shadow(0 4px 12px var(--accent-glow));
+      }
+
+      .arch-box h4 {
+        color: var(--text-primary);
+        font-size: 1.1rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+      }
+
+      .arch-box p {
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+        line-height: 1.6;
+      }
+
+      .arch-arrow {
+        font-size: 2rem;
+        color: var(--primary-color);
+        animation: pulse 2s ease-in-out infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+        50% {
+          opacity: 0.6;
+          transform: scale(1.1);
+        }
+      }
+
+      /* Policy Cards with Visual Icons */
+      .policy-visual-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+        margin: 2rem 0;
+      }
+
+      .policy-card {
+        background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-elevated) 100%);
+        border-radius: 16px;
+        padding: 2rem;
+        border: 1px solid rgba(98, 100, 167, 0.15);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .policy-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, var(--primary-color), var(--accent));
+        transform: scaleX(0);
+        transition: transform 0.3s ease;
+      }
+
+      .policy-card:hover::before {
+        transform: scaleX(1);
+      }
+
+      .policy-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 16px 48px var(--accent-glow);
+        border-color: var(--primary-color);
+      }
+
+      .policy-icon-large {
+        font-size: 3.5rem;
+        text-align: center;
+        margin-bottom: 1rem;
+        filter: drop-shadow(0 4px 16px var(--accent-glow));
+        display: block;
+      }
+
+      /* Governance Flow Diagram */
+      .governance-flow {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 1rem;
+        margin: 2rem 0;
+        position: relative;
+      }
+
+      .flow-step {
+        background: linear-gradient(135deg, var(--bg-elevated), var(--bg-card));
+        border-radius: 12px;
+        padding: 1.5rem;
+        border: 2px solid transparent;
+        position: relative;
+        transition: all 0.3s ease;
+      }
+
+      .flow-step::before {
+        content: attr(data-step);
+        position: absolute;
+        top: -12px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: var(--primary-color);
+        color: white;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 0.9rem;
+        box-shadow: 0 4px 12px var(--accent-glow);
+      }
+
+      .flow-step:hover {
+        border-color: var(--primary-color);
+        transform: scale(1.05);
+        box-shadow: 0 8px 24px var(--accent-glow);
+      }
+
+      /* Comparison Table Enhanced */
+      .comparison-enhanced {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        margin: 2rem 0;
+      }
+
+      @media (max-width: 768px) {
+        .comparison-enhanced {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .comparison-card {
+        background: linear-gradient(135deg, var(--bg-elevated), var(--bg-card));
+        border-radius: 16px;
+        padding: 2rem;
+        border: 2px solid transparent;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .comparison-card::after {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .comparison-card:hover::after {
+        opacity: 1;
+      }
+
+      .comparison-card:hover {
+        border-color: var(--primary-color);
+        transform: translateY(-8px);
+        box-shadow: 0 16px 48px var(--accent-glow);
+      }
+
+      .comparison-icon {
+        font-size: 4rem;
+        text-align: center;
+        margin-bottom: 1rem;
+        display: block;
+        filter: drop-shadow(0 4px 16px var(--accent-glow));
+      }
+
+      /* Stats/Metrics Display */
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.5rem;
+        margin: 2rem 0;
+      }
+
+      .stat-box {
+        background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+        border-radius: 12px;
+        padding: 1.5rem;
+        text-align: center;
+        box-shadow: 0 8px 24px var(--accent-glow);
+        transition: all 0.3s ease;
+      }
+
+      .stat-box:hover {
+        transform: scale(1.05);
+        box-shadow: 0 12px 36px rgba(98, 100, 167, 0.6);
+      }
+
+      .stat-number {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: white;
+        display: block;
+        margin-bottom: 0.5rem;
+      }
+
+      .stat-label {
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.8);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      /* Enhanced Info Boxes */
+      .info-box-modern {
+        background: linear-gradient(135deg, var(--bg-elevated), var(--bg-card));
+        border-radius: 16px;
+        padding: 2rem;
+        margin: 1.5rem 0;
+        border-left: 4px solid var(--primary-color);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .info-box-modern::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle at top right, var(--accent-glow), transparent);
+        opacity: 0.3;
+        pointer-events: none;
+      }
+
+      /* Interactive Hover Effects */
+      .interactive-section {
+        transition: all 0.3s ease;
+      }
+
+      .interactive-section:hover {
+        transform: translateX(8px);
+      }
+
+      /* Glowing Borders */
+      .glow-border {
+        position: relative;
+        border: 2px solid transparent;
+        border-radius: 12px;
+        background:
+          linear-gradient(var(--bg-card), var(--bg-card)) padding-box,
+          linear-gradient(135deg, var(--primary-color), var(--accent)) border-box;
+      }
+
+      /* Content Enhancement */
+      .content-section {
+        animation: fadeInUp 0.6s ease-out;
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Responsive Grid Improvements */
+      .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        margin: 2rem 0;
+      }
+
+      .feature-card {
+        background: linear-gradient(135deg, var(--bg-elevated), var(--bg-card));
+        border-radius: 16px;
+        padding: 2rem;
+        border: 1px solid rgba(98, 100, 167, 0.15);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .feature-card::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background: linear-gradient(90deg, var(--primary-color), var(--accent));
+        transform: scaleX(0);
+        transition: transform 0.3s ease;
+      }
+
+      .feature-card:hover::after {
+        transform: scaleX(1);
+      }
+
+      .feature-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 36px var(--accent-glow);
+        border-color: var(--primary-color);
+      }
+    </style>
+  </head>
+  <body class="bg-gray-900 text-gray-100">
+    <div class="document-container">
+      <div class="content-card">
+        <header class="page-header">
+          <div class="header-content">
+            <div class="icon-badge">
+              <span class="icon-large">👥</span>
+            </div>
+            <div>
+              <h1 class="page-title">Administración de Microsoft Teams</h1>
+              <p class="page-subtitle">Centro de Administración y Gobierno de Teams</p>
+            </div>
+          </div>
+        </header>
+
+        <!-- Introducción -->
+        <section class="content-section">
+          <p class="section-intro">
+            Teams es una de las tres herramientas principales o cargas de trabajo fundamentales de Microsoft 365, junto
+            con <strong>Exchange Online</strong> (correo electrónico) y <strong>SharePoint</strong> (repositorio de
+            archivos). Teams actúa como un aglutinador de información y capacidad de comunicación, y su administración
+            se lleva a cabo principalmente a través del <strong>Centro de Administración de Teams</strong>.
+          </p>
+        </section>
+
+        <!-- Arquitectura y Fundamentos -->
+        <section class="content-section">
+          <h2 class="section-title">
+            <span class="icon">🏗️</span>
+            Arquitectura y Fundamentos de Teams
+          </h2>
+
+          <div class="info-box info">
+            <div class="info-box-header">
+              <span class="info-icon">💡</span>
+              <span class="info-title">Concepto Clave</span>
+            </div>
+            <p>
+              <strong>Teams como capa visual:</strong> Teams no es una entidad independiente, sino una capa adicional
+              sobre otros servicios de Microsoft 365.
+            </p>
+          </div>
+
+          <h3 class="subsection-title">Estructura Subyacente</h3>
+
+          <!-- Diagrama de Arquitectura Visual -->
+          <div class="architecture-diagram">
+            <h4 style="text-align: center; color: var(--text-primary); margin-bottom: 2rem; font-size: 1.3rem">
+              🏗️ Arquitectura de Teams: Capas de Servicio
+            </h4>
+
+            <div class="arch-layer">
+              <div class="arch-box">
+                <span class="icon">👥</span>
+                <h4>Microsoft Teams</h4>
+                <p>Capa de experiencia de usuario<br />Interfaz visual y colaboración</p>
+              </div>
+            </div>
+
+            <div style="text-align: center; margin: 1rem 0">
+              <span class="arch-arrow">⬇️</span>
+            </div>
+
+            <div class="arch-layer">
+              <div class="arch-box">
+                <span class="icon">👥</span>
+                <h4>Grupos Microsoft 365</h4>
+                <p>Gestión de membresía y permisos<br />Identidad del equipo</p>
+              </div>
+            </div>
+
+            <div style="text-align: center; margin: 1rem 0">
+              <span class="arch-arrow">⬇️</span>
+            </div>
+
+            <div class="arch-layer">
+              <div class="arch-box" style="border-color: #0ea5e9">
+                <span class="icon">📚</span>
+                <h4>Sitio SharePoint Online</h4>
+                <p>Almacenamiento de archivos<br />Bibliotecas de documentos</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="feature-grid" style="margin-top: 2rem">
+            <div class="feature-card">
+              <div class="feature-icon">👥</div>
+              <h4 class="feature-title">Grupos de Microsoft 365</h4>
+              <p class="feature-description">
+                Cada vez que se crea un Team, automáticamente se crea un <strong>Grupo de Office 365</strong>
+                (anteriormente Grupos Modernos o Unificados).
+              </p>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-icon">📚</div>
+              <h4 class="feature-title">Sitio de SharePoint</h4>
+              <p class="feature-description">
+                Este grupo, a su vez, es un <strong>Sitio de SharePoint Online</strong> que almacena todos los archivos
+                del Team.
+              </p>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-icon">⚙️</div>
+              <h4 class="feature-title">Administración Compartida</h4>
+              <p class="feature-description">
+                Algunas configuraciones se gestionan desde Teams, otras desde el Centro de Administración de SharePoint.
+              </p>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-icon">🔒</div>
+              <h4 class="feature-title">Sitios Ocultos</h4>
+              <p class="feature-description">
+                El Grupo suele permanecer oculto en la interfaz tradicional si ha sido creado como Team. Modificable vía
+                PowerShell.
+              </p>
+            </div>
+          </div>
+
+          <div class="info-box warning">
+            <div class="info-box-header">
+              <span class="info-icon">⚠️</span>
+              <span class="info-title">Nota Importante</span>
+            </div>
+            <p>
+              El objeto que gestiona la <strong>membresía y el acceso</strong> a un Team es el
+              <strong>Grupo de Microsoft 365</strong> que se encuentra debajo.
+            </p>
+          </div>
+        </section>
+
+        <!-- Gobierno y Gestión -->
+        <section class="content-section">
+          <h2 class="section-title">
+            <span class="icon">🏛️</span>
+            Gobierno y Gestión de Equipos
+          </h2>
+
+          <p class="section-intro">
+            Una de las tareas de administración más importantes es el <strong>Gobierno</strong> (Governance) de la
+            plataforma, especialmente para evitar la proliferación descontrolada de Teams.
+          </p>
+
+          <div class="info-box error">
+            <div class="info-box-header">
+              <span class="info-icon">🚫</span>
+              <span class="info-title">Ejemplo de Mala Práctica</span>
+            </div>
+            <p>
+              Equipos con nombres confusos como <em>"Manoli, Pepi, Antonio y yo"</em> que dificultan la organización y
+              gestión de la plataforma.
+            </p>
+          </div>
+
+          <h3 class="subsection-title">Mejores Prácticas de Gobierno</h3>
+
+          <!-- Estadísticas de Gobierno -->
+          <div class="stats-grid">
+            <div class="stat-box">
+              <span class="stat-number">4</span>
+              <span class="stat-label">Pasos Clave</span>
+            </div>
+            <div class="stat-box" style="background: linear-gradient(135deg, #10b981, #059669)">
+              <span class="stat-number">100%</span>
+              <span class="stat-label">Control</span>
+            </div>
+            <div class="stat-box" style="background: linear-gradient(135deg, #f59e0b, #d97706)">
+              <span class="stat-number">∞</span>
+              <span class="stat-label">Escalabilidad</span>
+            </div>
+          </div>
+
+          <!-- Flujo de Gobierno Visual -->
+          <div class="governance-flow">
+            <div class="flow-step" data-step="1">
+              <div style="text-align: center; font-size: 2.5rem; margin-bottom: 1rem">🔒</div>
+              <h4 style="color: var(--text-primary); font-weight: 700; margin-bottom: 0.5rem">
+                Limitación de Creación
+              </h4>
+              <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6">
+                Limitar quién puede crear Teams controlando la creación de Grupos de Microsoft 365.
+              </p>
+            </div>
+
+            <div class="flow-step" data-step="2">
+              <div style="text-align: center; font-size: 2.5rem; margin-bottom: 1rem">📝</div>
+              <h4 style="color: var(--text-primary); font-weight: 700; margin-bottom: 0.5rem">Proceso Formal</h4>
+              <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6">
+                Implementar un proceso formal de solicitud (formulario) para la creación de nuevos Teams.
+              </p>
+            </div>
+
+            <div class="flow-step" data-step="3">
+              <div style="text-align: center; font-size: 2.5rem; margin-bottom: 1rem">👤</div>
+              <h4 style="color: var(--text-primary); font-weight: 700; margin-bottom: 0.5rem">Roles de Propietario</h4>
+              <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6">
+                Asignar un <strong>Propietario</strong> que gestione la membresía y configuraciones internas, liberando
+                al administrador general.
+              </p>
+            </div>
+
+            <div class="flow-step" data-step="4">
+              <div style="text-align: center; font-size: 2.5rem; margin-bottom: 1rem">📊</div>
+              <h4 style="color: var(--text-primary); font-weight: 700; margin-bottom: 0.5rem">Monitoreo y Reportes</h4>
+              <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6">
+                Generar informes sobre uso, última actividad y tráfico de archivos para optimizar licencias.
+              </p>
+            </div>
+          </div>
+
+          <h3 class="subsection-title">Capacidades del Administrador</h3>
+
+          <div class="info-box-modern" style="text-align: center; margin-bottom: 2rem">
+            <h4 style="font-size: 1.2rem; color: var(--text-primary); margin-bottom: 1rem">
+              🎯 Panel de Control del Administrador
+            </h4>
+            <p style="color: var(--text-secondary); font-size: 0.95rem">
+              Gestión completa sin necesidad de ser propietario directo de los equipos
+            </p>
+          </div>
+
+          <div
+            class="admin-capabilities-grid"
+            style="
+              display: grid;
+              grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+              gap: 1.5rem;
+              margin: 2rem 0;
+            "
+          >
+            <div
+              class="capability-card"
+              style="
+                background: linear-gradient(135deg, var(--bg-elevated), var(--bg-card));
+                border-radius: 16px;
+                padding: 2rem;
+                border: 1px solid rgba(98, 100, 167, 0.15);
+                transition: all 0.3s ease;
+                position: relative;
+                overflow: hidden;
+              "
+            >
+              <div
+                style="
+                  position: absolute;
+                  top: -50px;
+                  right: -50px;
+                  width: 150px;
+                  height: 150px;
+                  background: radial-gradient(circle, var(--accent-glow), transparent);
+                  opacity: 0.3;
+                "
+              ></div>
+              <div
+                style="
+                  font-size: 3rem;
+                  text-align: center;
+                  margin-bottom: 1rem;
+                  filter: drop-shadow(0 4px 12px var(--accent-glow));
+                "
+              >
+                📋
+              </div>
+              <h4
+                style="
+                  color: var(--text-primary);
+                  font-size: 1.2rem;
+                  font-weight: 700;
+                  margin-bottom: 0.75rem;
+                  text-align: center;
+                "
+              >
+                Vista Global Completa
+              </h4>
+              <p style="color: var(--text-secondary); font-size: 0.9rem; text-align: center; line-height: 1.6">
+                Acceso al <strong>listado completo</strong> de todos los equipos activos de la organización con
+                información detallada de membresía y actividad.
+              </p>
+              <div
+                style="
+                  margin-top: 1rem;
+                  padding: 0.75rem;
+                  background: rgba(98, 100, 167, 0.1);
+                  border-radius: 8px;
+                  text-align: center;
+                "
+              >
+                <span style="color: var(--primary-color); font-weight: 700; font-size: 0.85rem"
+                  >✓ Visibilidad Total</span
+                >
+              </div>
+            </div>
+
+            <div
+              class="capability-card"
+              style="
+                background: linear-gradient(135deg, var(--bg-elevated), var(--bg-card));
+                border-radius: 16px;
+                padding: 2rem;
+                border: 1px solid rgba(98, 100, 167, 0.15);
+                transition: all 0.3s ease;
+                position: relative;
+                overflow: hidden;
+              "
+            >
+              <div
+                style="
+                  position: absolute;
+                  top: -50px;
+                  right: -50px;
+                  width: 150px;
+                  height: 150px;
+                  background: radial-gradient(circle, var(--accent-glow), transparent);
+                  opacity: 0.3;
+                "
+              ></div>
+              <div
+                style="
+                  font-size: 3rem;
+                  text-align: center;
+                  margin-bottom: 1rem;
+                  filter: drop-shadow(0 4px 12px var(--accent-glow));
+                "
+              >
+                ⚙️
+              </div>
+              <h4
+                style="
+                  color: var(--text-primary);
+                  font-size: 1.2rem;
+                  font-weight: 700;
+                  margin-bottom: 0.75rem;
+                  text-align: center;
+                "
+              >
+                Modificación de Propiedades
+              </h4>
+              <p style="color: var(--text-secondary); font-size: 0.9rem; text-align: center; line-height: 1.6">
+                Cambiar configuraciones críticas como <strong>visibilidad</strong> (público ↔ privado), nombre,
+                descripción y clasificación de datos.
+              </p>
+              <div
+                style="
+                  margin-top: 1rem;
+                  padding: 0.75rem;
+                  background: rgba(98, 100, 167, 0.1);
+                  border-radius: 8px;
+                  text-align: center;
+                "
+              >
+                <span style="color: var(--primary-color); font-weight: 700; font-size: 0.85rem">✓ Control Total</span>
+              </div>
+            </div>
+
+            <div
+              class="capability-card"
+              style="
+                background: linear-gradient(135deg, var(--bg-elevated), var(--bg-card));
+                border-radius: 16px;
+                padding: 2rem;
+                border: 1px solid rgba(98, 100, 167, 0.15);
+                transition: all 0.3s ease;
+                position: relative;
+                overflow: hidden;
+              "
+            >
+              <div
+                style="
+                  position: absolute;
+                  top: -50px;
+                  right: -50px;
+                  width: 150px;
+                  height: 150px;
+                  background: radial-gradient(circle, var(--accent-glow), transparent);
+                  opacity: 0.3;
+                "
+              ></div>
+              <div
+                style="
+                  font-size: 3rem;
+                  text-align: center;
+                  margin-bottom: 1rem;
+                  filter: drop-shadow(0 4px 12px var(--accent-glow));
+                "
+              >
+                👥
+              </div>
+              <h4
+                style="
+                  color: var(--text-primary);
+                  font-size: 1.2rem;
+                  font-weight: 700;
+                  margin-bottom: 0.75rem;
+                  text-align: center;
+                "
+              >
+                Gestión de Miembros
+              </h4>
+              <p style="color: var(--text-secondary); font-size: 0.9rem; text-align: center; line-height: 1.6">
+                Administrar <strong>membresía y canales</strong> sin necesidad de ser propietario, incluyendo adición,
+                eliminación y cambio de roles.
+              </p>
+              <div
+                style="
+                  margin-top: 1rem;
+                  padding: 0.75rem;
+                  background: rgba(98, 100, 167, 0.1);
+                  border-radius: 8px;
+                  text-align: center;
+                "
+              >
+                <span style="color: var(--primary-color); font-weight: 700; font-size: 0.85rem"
+                  >✓ Gestión Delegada</span
+                >
+              </div>
+            </div>
+
+            <div
+              class="capability-card"
+              style="
+                background: linear-gradient(135deg, var(--bg-elevated), var(--bg-card));
+                border-radius: 16px;
+                padding: 2rem;
+                border: 1px solid rgba(98, 100, 167, 0.15);
+                transition: all 0.3s ease;
+                position: relative;
+                overflow: hidden;
+              "
+            >
+              <div
+                style="
+                  position: absolute;
+                  top: -50px;
+                  right: -50px;
+                  width: 150px;
+                  height: 150px;
+                  background: radial-gradient(circle, var(--accent-glow), transparent);
+                  opacity: 0.3;
+                "
+              ></div>
+              <div
+                style="
+                  font-size: 3rem;
+                  text-align: center;
+                  margin-bottom: 1rem;
+                  filter: drop-shadow(0 4px 12px var(--accent-glow));
+                "
+              >
+                📊
+              </div>
+              <h4
+                style="
+                  color: var(--text-primary);
+                  font-size: 1.2rem;
+                  font-weight: 700;
+                  margin-bottom: 0.75rem;
+                  text-align: center;
+                "
+              >
+                Informes y Analytics
+              </h4>
+              <p style="color: var(--text-secondary); font-size: 0.9rem; text-align: center; line-height: 1.6">
+                Generar <strong>reportes detallados</strong> de uso, actividad, última conexión, tráfico de archivos y
+                métricas de colaboración.
+              </p>
+              <div
+                style="
+                  margin-top: 1rem;
+                  padding: 0.75rem;
+                  background: rgba(98, 100, 167, 0.1);
+                  border-radius: 8px;
+                  text-align: center;
+                "
+              >
+                <span style="color: var(--primary-color); font-weight: 700; font-size: 0.85rem"
+                  >✓ Insights Profundos</span
+                >
+              </div>
+            </div>
+
+            <div
+              class="capability-card"
+              style="
+                background: linear-gradient(135deg, var(--bg-elevated), var(--bg-card));
+                border-radius: 16px;
+                padding: 2rem;
+                border: 1px solid rgba(98, 100, 167, 0.15);
+                transition: all 0.3s ease;
+                position: relative;
+                overflow: hidden;
+              "
+            >
+              <div
+                style="
+                  position: absolute;
+                  top: -50px;
+                  right: -50px;
+                  width: 150px;
+                  height: 150px;
+                  background: radial-gradient(circle, var(--accent-glow), transparent);
+                  opacity: 0.3;
+                "
+              ></div>
+              <div
+                style="
+                  font-size: 3rem;
+                  text-align: center;
+                  margin-bottom: 1rem;
+                  filter: drop-shadow(0 4px 12px var(--accent-glow));
+                "
+              >
+                🧹
+              </div>
+              <h4
+                style="
+                  color: var(--text-primary);
+                  font-size: 1.2rem;
+                  font-weight: 700;
+                  margin-bottom: 0.75rem;
+                  text-align: center;
+                "
+              >
+                Optimización Proactiva
+              </h4>
+              <p style="color: var(--text-secondary); font-size: 0.9rem; text-align: center; line-height: 1.6">
+                Tomar <strong>decisiones de limpieza</strong>, archivar equipos inactivos y optimizar licencias
+                basándose en datos reales de uso.
+              </p>
+              <div
+                style="
+                  margin-top: 1rem;
+                  padding: 0.75rem;
+                  background: rgba(98, 100, 167, 0.1);
+                  border-radius: 8px;
+                  text-align: center;
+                "
+              >
+                <span style="color: var(--primary-color); font-weight: 700; font-size: 0.85rem"
+                  >✓ Eficiencia Máxima</span
+                >
+              </div>
+            </div>
+
+            <div
+              class="capability-card"
+              style="
+                background: linear-gradient(135deg, var(--bg-elevated), var(--bg-card));
+                border-radius: 16px;
+                padding: 2rem;
+                border: 1px solid rgba(98, 100, 167, 0.15);
+                transition: all 0.3s ease;
+                position: relative;
+                overflow: hidden;
+              "
+            >
+              <div
+                style="
+                  position: absolute;
+                  top: -50px;
+                  right: -50px;
+                  width: 150px;
+                  height: 150px;
+                  background: radial-gradient(circle, var(--accent-glow), transparent);
+                  opacity: 0.3;
+                "
+              ></div>
+              <div
+                style="
+                  font-size: 3rem;
+                  text-align: center;
+                  margin-bottom: 1rem;
+                  filter: drop-shadow(0 4px 12px var(--accent-glow));
+                "
+              >
+                🔐
+              </div>
+              <h4
+                style="
+                  color: var(--text-primary);
+                  font-size: 1.2rem;
+                  font-weight: 700;
+                  margin-bottom: 0.75rem;
+                  text-align: center;
+                "
+              >
+                Auditoría y Cumplimiento
+              </h4>
+              <p style="color: var(--text-secondary); font-size: 0.9rem; text-align: center; line-height: 1.6">
+                Revisar <strong>logs de auditoría</strong>, rastrear cambios de configuración y garantizar cumplimiento
+                de políticas corporativas.
+              </p>
+              <div
+                style="
+                  margin-top: 1rem;
+                  padding: 0.75rem;
+                  background: rgba(98, 100, 167, 0.1);
+                  border-radius: 8px;
+                  text-align: center;
+                "
+              >
+                <span style="color: var(--primary-color); font-weight: 700; font-size: 0.85rem"
+                  >✓ Trazabilidad Total</span
+                >
+              </div>
+            </div>
+          </div>
+
+          <style>
+            .capability-card:hover {
+              transform: translateY(-8px);
+              box-shadow: 0 16px 48px var(--accent-glow);
+              border-color: var(--primary-color);
+            }
+          </style>
+        </section>
+
+        <!-- Configuración por Directivas -->
+        <section class="content-section">
+          <h2 class="section-title">
+            <span class="icon">📋</span>
+            Configuración por Directivas (Policies)
+          </h2>
+
+          <p class="section-intro">
+            La configuración en Teams se basa en <strong>Directivas</strong>, lo cual permite una gestión granular y
+            selectiva. Por defecto existe una <strong>Directiva Global (Estándar)</strong> que se aplica a todos los
+            usuarios.
+          </p>
+
+          <div class="info-box info">
+            <div class="info-box-header">
+              <span class="info-icon">📦</span>
+              <span class="info-title">Paquetes de Directivas</span>
+            </div>
+            <p>
+              Para organizaciones complejas, los <strong>Policy Packages</strong> simplifican la administración al
+              agrupar múltiples directivas (llamadas, mensajería, reuniones) y aplicarlas conjuntamente a un grupo (ej.
+              "Comercial").
+            </p>
+          </div>
+
+          <h3 class="subsection-title">Tipos de Directivas</h3>
+
+          <!-- Stats sobre directivas -->
+          <div class="info-box-modern" style="text-align: center; margin-bottom: 2rem">
+            <h4 style="font-size: 1.2rem; color: var(--text-primary); margin-bottom: 1rem">
+              📊 Sistema de Directivas Granular
+            </h4>
+            <div class="stats-grid">
+              <div class="stat-box" style="background: linear-gradient(135deg, #6264a7, #464775)">
+                <span class="stat-number">5</span>
+                <span class="stat-label">Tipos de Directivas</span>
+              </div>
+              <div class="stat-box" style="background: linear-gradient(135deg, #10b981, #059669)">
+                <span class="stat-number">∞</span>
+                <span class="stat-label">Configuraciones</span>
+              </div>
+              <div class="stat-box" style="background: linear-gradient(135deg, #f59e0b, #d97706)">
+                <span class="stat-number">1</span>
+                <span class="stat-label">Global por defecto</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="policy-visual-grid">
+            <div class="policy-card">
+              <span class="policy-icon-large">👥</span>
+              <h4
+                style="
+                  color: var(--text-primary);
+                  font-size: 1.3rem;
+                  font-weight: 700;
+                  margin-bottom: 0.5rem;
+                  text-align: center;
+                "
+              >
+                Directivas de Equipo
+              </h4>
+              <p style="color: var(--text-secondary); text-align: center; margin-bottom: 1.5rem; font-size: 0.95rem">
+                Controlan funcionalidades básicas dentro de un Team
+              </p>
+              <ul class="card-list">
+                <li>✓ Creación de canales</li>
+                <li>✓ Canales privados</li>
+                <li>✓ Configuración de miembros</li>
+              </ul>
+            </div>
+
+            <div class="policy-card">
+              <span class="policy-icon-large">💬</span>
+              <h4
+                style="
+                  color: var(--text-primary);
+                  font-size: 1.3rem;
+                  font-weight: 700;
+                  margin-bottom: 0.5rem;
+                  text-align: center;
+                "
+              >
+                Directivas de Mensajería
+              </h4>
+              <p style="color: var(--text-secondary); text-align: center; margin-bottom: 1.5rem; font-size: 0.95rem">
+                Definen qué se permite en los chats y mensajes
+              </p>
+              <ul class="card-list">
+                <li>✓ Uso de GIFs y memes</li>
+                <li>✓ Edición de mensajes enviados</li>
+                <li>✓ Uso de etiquetas (tags)</li>
+                <li>✓ Notificaciones a grupos específicos</li>
+              </ul>
+            </div>
+
+            <div class="policy-card">
+              <span class="policy-icon-large">📹</span>
+              <h4
+                style="
+                  color: var(--text-primary);
+                  font-size: 1.3rem;
+                  font-weight: 700;
+                  margin-bottom: 0.5rem;
+                  text-align: center;
+                "
+              >
+                Directivas de Reunión
+              </h4>
+              <p style="color: var(--text-secondary); text-align: center; margin-bottom: 1.5rem; font-size: 0.95rem">
+                Gobiernan la experiencia de videoconferencia
+              </p>
+              <ul class="card-list">
+                <li>✓ Unión anónima a reuniones</li>
+                <li>✓ Opciones de audio y video</li>
+                <li>✓ Restricciones de presentación</li>
+                <li>✓ Compartir pantalla</li>
+                <li>✓ Caducidad de grabaciones (ej. 120 días)</li>
+                <li>✓ Botón "Reunirse ahora"</li>
+              </ul>
+            </div>
+
+            <div class="policy-card">
+              <span class="policy-icon-large">📡</span>
+              <h4
+                style="
+                  color: var(--text-primary);
+                  font-size: 1.3rem;
+                  font-weight: 700;
+                  margin-bottom: 0.5rem;
+                  text-align: center;
+                "
+              >
+                Directivas de Eventos en Directo
+              </h4>
+              <p style="color: var(--text-secondary); text-align: center; margin-bottom: 1.5rem; font-size: 0.95rem">
+                Controlan los parámetros de Live Events
+              </p>
+              <ul class="card-list">
+                <li>✓ Presentaciones unidireccionales</li>
+                <li>✓ Webinars y keynotes</li>
+                <li>✓ Grandes audiencias</li>
+                <li>✓ Apertura al público externo</li>
+                <li>✓ Tiempo de activación (~1 día)</li>
+              </ul>
+            </div>
+
+            <div class="policy-card">
+              <span class="policy-icon-large">🔄</span>
+              <h4
+                style="
+                  color: var(--text-primary);
+                  font-size: 1.3rem;
+                  font-weight: 700;
+                  margin-bottom: 0.5rem;
+                  text-align: center;
+                "
+              >
+                Directivas de Actualización
+              </h4>
+              <p style="color: var(--text-secondary); text-align: center; margin-bottom: 1.5rem; font-size: 0.95rem">
+                Controlan la versión de Teams que reciben los usuarios
+              </p>
+              <ul class="card-list">
+                <li>✓ Versiones de vista previa</li>
+                <li>✓ Versiones estables</li>
+                <li>✓ Rollout progresivo</li>
+                <li>✓ Usuarios avanzados vs. estándar</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- Aplicaciones y Personalización -->
+        <section class="content-section">
+          <h2 class="section-title">
+            <span class="icon">🔌</span>
+            Aplicaciones y Personalización de Interfaz
+          </h2>
+
+          <p class="section-intro">
+            Teams permite integrar miles de aplicaciones de terceros (Adobe Acrobat, Trello) y aplicaciones de Microsoft
+            para extender su funcionalidad.
+          </p>
+
+          <h3 class="subsection-title">Niveles de Configuración</h3>
+
+          <div class="feature-grid">
+            <div class="feature-card">
+              <div class="feature-icon">🌐</div>
+              <h4 class="feature-title">Configuración Global</h4>
+              <p class="feature-description">
+                Reglas para toda la organización, como prohibir aplicaciones de terceros o aplicaciones personalizadas.
+              </p>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-icon">🔧</div>
+              <h4 class="feature-title">Por Aplicación</h4>
+              <p class="feature-description">
+                Decidir aplicación por aplicación cuáles se permiten o se bloquean en la organización.
+              </p>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-icon">🎨</div>
+              <h4 class="feature-title">Personalización de Interfaz</h4>
+              <p class="feature-description">
+                Definir qué aplicaciones aparecen en el panel izquierdo y en qué orden (máximo 6).
+              </p>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-icon">📌</div>
+              <h4 class="feature-title">Aplicaciones Destacadas</h4>
+              <p class="feature-description">
+                Simplificar el entorno destacando herramientas corporativas esenciales como gestión de turnos.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Acceso Externo y Colaboración -->
+        <section class="content-section">
+          <h2 class="section-title">
+            <span class="icon">🌍</span>
+            Gestión de Acceso Externo y Colaboración
+          </h2>
+
+          <!-- Comparación Visual Mejorada -->
+          <div class="info-box-modern" style="text-align: center; margin-bottom: 2rem">
+            <h4 style="font-size: 1.3rem; color: var(--text-primary); margin-bottom: 0.5rem">
+              🌍 Tipos de Acceso Externo
+            </h4>
+            <p style="color: var(--text-secondary); font-size: 1rem">
+              Dos formas diferentes de colaborar con personas fuera de tu organización
+            </p>
+          </div>
+
+          <div class="comparison-enhanced">
+            <div class="comparison-card glow-border">
+              <span class="comparison-icon">👤</span>
+              <h4
+                style="
+                  color: var(--text-primary);
+                  font-size: 1.5rem;
+                  font-weight: 700;
+                  text-align: center;
+                  margin-bottom: 1rem;
+                "
+              >
+                Acceso de Invitados<br />(Guests)
+              </h4>
+
+              <div
+                style="background: rgba(98, 100, 167, 0.1); padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem"
+              >
+                <p style="color: var(--text-primary); font-weight: 600; margin-bottom: 0.5rem">📖 Definición:</p>
+                <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6">
+                  Configuración para personas externas agregadas a un Team como miembros con acceso completo.
+                </p>
+              </div>
+
+              <h5 style="color: var(--primary-color); font-size: 1.1rem; margin-bottom: 1rem; font-weight: 700">
+                ✅ Capacidades por defecto:
+              </h5>
+              <ul class="feature-list" style="text-align: left">
+                <li><strong>Lectura y escritura</strong> (no solo lectura)</li>
+                <li><strong>Participación activa</strong> en conversaciones</li>
+                <li><strong>Acceso a archivos</strong> del Team</li>
+                <li><strong>Controlado por directivas</strong> específicas</li>
+              </ul>
+
+              <div
+                style="
+                  margin-top: 1.5rem;
+                  padding: 1rem;
+                  background: rgba(16, 185, 129, 0.1);
+                  border-radius: 8px;
+                  border-left: 4px solid #10b981;
+                "
+              >
+                <p style="color: #10b981; font-weight: 600; margin: 0">✓ Ideal para colaboración a largo plazo</p>
+              </div>
+            </div>
+
+            <div class="comparison-card glow-border">
+              <span class="comparison-icon">🔗</span>
+              <h4
+                style="
+                  color: var(--text-primary);
+                  font-size: 1.5rem;
+                  font-weight: 700;
+                  text-align: center;
+                  margin-bottom: 1rem;
+                "
+              >
+                Acceso Externo<br />(External Access)
+              </h4>
+
+              <div
+                style="background: rgba(98, 100, 167, 0.1); padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem"
+              >
+                <p style="color: var(--text-primary); font-weight: 600; margin-bottom: 0.5rem">📖 Definición:</p>
+                <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6">
+                  Capacidad de comunicarse con usuarios de otras organizaciones sin agregarlos al Team.
+                </p>
+              </div>
+
+              <h5 style="color: var(--primary-color); font-size: 1.1rem; margin-bottom: 1rem; font-weight: 700">
+                ✅ Características:
+              </h5>
+              <ul class="feature-list" style="text-align: left">
+                <li><strong>Chat con otras organizaciones</strong> de Teams</li>
+                <li><strong>Compatibilidad con Skype</strong></li>
+                <li><strong>Limitación por dominios</strong> específicos</li>
+                <li><strong>Sin acceso a recursos</strong> internos</li>
+              </ul>
+
+              <div
+                style="
+                  margin-top: 1.5rem;
+                  padding: 1rem;
+                  background: rgba(59, 130, 246, 0.1);
+                  border-radius: 8px;
+                  border-left: 4px solid #3b82f6;
+                "
+              >
+                <p style="color: #3b82f6; font-weight: 600; margin: 0">✓ Ideal para comunicación puntual</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tabla comparativa resumida -->
+          <div class="info-box-modern" style="margin-top: 2rem">
+            <h4 style="text-align: center; color: var(--text-primary); margin-bottom: 1.5rem; font-size: 1.2rem">
+              📊 Comparación Rápida
+            </h4>
+            <div style="overflow-x: auto">
+              <table style="width: 100%; border-collapse: collapse">
+                <thead>
+                  <tr style="background: rgba(98, 100, 167, 0.2)">
+                    <th
+                      style="
+                        padding: 1rem;
+                        text-align: left;
+                        color: var(--text-primary);
+                        border-bottom: 2px solid var(--primary-color);
+                      "
+                    >
+                      Característica
+                    </th>
+                    <th
+                      style="
+                        padding: 1rem;
+                        text-align: center;
+                        color: var(--text-primary);
+                        border-bottom: 2px solid var(--primary-color);
+                      "
+                    >
+                      👤 Guests
+                    </th>
+                    <th
+                      style="
+                        padding: 1rem;
+                        text-align: center;
+                        color: var(--text-primary);
+                        border-bottom: 2px solid var(--primary-color);
+                      "
+                    >
+                      🔗 External
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td
+                      style="
+                        padding: 0.75rem;
+                        color: var(--text-secondary);
+                        border-bottom: 1px solid rgba(98, 100, 167, 0.1);
+                      "
+                    >
+                      Acceso a archivos
+                    </td>
+                    <td
+                      style="
+                        padding: 0.75rem;
+                        text-align: center;
+                        color: #10b981;
+                        font-weight: 700;
+                        border-bottom: 1px solid rgba(98, 100, 167, 0.1);
+                      "
+                    >
+                      ✅ Sí
+                    </td>
+                    <td
+                      style="
+                        padding: 0.75rem;
+                        text-align: center;
+                        color: #ef4444;
+                        font-weight: 700;
+                        border-bottom: 1px solid rgba(98, 100, 167, 0.1);
+                      "
+                    >
+                      ❌ No
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      style="
+                        padding: 0.75rem;
+                        color: var(--text-secondary);
+                        border-bottom: 1px solid rgba(98, 100, 167, 0.1);
+                      "
+                    >
+                      Miembro del Team
+                    </td>
+                    <td
+                      style="
+                        padding: 0.75rem;
+                        text-align: center;
+                        color: #10b981;
+                        font-weight: 700;
+                        border-bottom: 1px solid rgba(98, 100, 167, 0.1);
+                      "
+                    >
+                      ✅ Sí
+                    </td>
+                    <td
+                      style="
+                        padding: 0.75rem;
+                        text-align: center;
+                        color: #ef4444;
+                        font-weight: 700;
+                        border-bottom: 1px solid rgba(98, 100, 167, 0.1);
+                      "
+                    >
+                      ❌ No
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      style="
+                        padding: 0.75rem;
+                        color: var(--text-secondary);
+                        border-bottom: 1px solid rgba(98, 100, 167, 0.1);
+                      "
+                    >
+                      Chat 1:1
+                    </td>
+                    <td
+                      style="
+                        padding: 0.75rem;
+                        text-align: center;
+                        color: #10b981;
+                        font-weight: 700;
+                        border-bottom: 1px solid rgba(98, 100, 167, 0.1);
+                      "
+                    >
+                      ✅ Sí
+                    </td>
+                    <td
+                      style="
+                        padding: 0.75rem;
+                        text-align: center;
+                        color: #10b981;
+                        font-weight: 700;
+                        border-bottom: 1px solid rgba(98, 100, 167, 0.1);
+                      "
+                    >
+                      ✅ Sí
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding: 0.75rem; color: var(--text-secondary)">Requiere invitación</td>
+                    <td style="padding: 0.75rem; text-align: center; color: #10b981; font-weight: 700">✅ Sí</td>
+                    <td style="padding: 0.75rem; text-align: center; color: #ef4444; font-weight: 700">❌ No</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- Administración Adicional -->
+        <section class="content-section">
+          <h2 class="section-title">
+            <span class="icon">⚙️</span>
+            Administración Adicional y Consideraciones
+          </h2>
+
+          <p class="section-intro">
+            Más allá de la administración básica, Teams ofrece capacidades avanzadas que pueden ser críticas según las
+            necesidades de tu organización.
+          </p>
+
+          <div class="advanced-admin-grid" style="display: grid; gap: 2rem; margin: 2rem 0">
+            <!-- Telefonía y Voz -->
+            <div
+              class="advanced-feature-card"
+              style="
+                background: linear-gradient(135deg, var(--bg-elevated), var(--bg-card));
+                border-radius: 20px;
+                padding: 2.5rem;
+                border: 2px solid rgba(98, 100, 167, 0.15);
+                position: relative;
+                overflow: hidden;
+                transition: all 0.3s ease;
+              "
+            >
+              <div
+                style="
+                  position: absolute;
+                  top: -100px;
+                  right: -100px;
+                  width: 300px;
+                  height: 300px;
+                  background: radial-gradient(circle, rgba(98, 100, 167, 0.2), transparent);
+                  opacity: 0.5;
+                "
+              ></div>
+
+              <div style="display: flex; align-items: start; gap: 2rem; position: relative; z-index: 1">
+                <div
+                  style="
+                    flex-shrink: 0;
+                    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+                    width: 80px;
+                    height: 80px;
+                    border-radius: 20px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 2.5rem;
+                    box-shadow: 0 8px 24px var(--accent-glow);
+                  "
+                >
+                  ☎️
+                </div>
+
+                <div style="flex: 1">
+                  <h3 style="color: var(--text-primary); font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem">
+                    Telefonía y Voz (Teams Voice)
+                  </h3>
+                  <p style="color: var(--text-secondary); font-size: 1rem; line-height: 1.8; margin-bottom: 1.5rem">
+                    Teams puede actuar como una <strong>centralita telefónica completa</strong> (PBX en la nube) con
+                    funcionalidad VoIP empresarial, reemplazando infraestructura telefónica tradicional.
+                  </p>
+
+                  <div
+                    style="
+                      display: grid;
+                      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                      gap: 1rem;
+                      margin-bottom: 1.5rem;
+                    "
+                  >
+                    <div
+                      style="
+                        background: rgba(98, 100, 167, 0.1);
+                        padding: 1rem;
+                        border-radius: 12px;
+                        border-left: 3px solid var(--primary-color);
+                      "
+                    >
+                      <div style="color: var(--primary-color); font-size: 1.5rem; margin-bottom: 0.5rem">📞</div>
+                      <h5 style="color: var(--text-primary); font-weight: 700; margin-bottom: 0.25rem">
+                        Llamadas PSTN
+                      </h5>
+                      <p style="color: var(--text-secondary); font-size: 0.85rem">Llamadas a números externos</p>
+                    </div>
+
+                    <div
+                      style="
+                        background: rgba(98, 100, 167, 0.1);
+                        padding: 1rem;
+                        border-radius: 12px;
+                        border-left: 3px solid var(--primary-color);
+                      "
+                    >
+                      <div style="color: var(--primary-color); font-size: 1.5rem; margin-bottom: 0.5rem">📧</div>
+                      <h5 style="color: var(--text-primary); font-weight: 700; margin-bottom: 0.25rem">
+                        Correo de Voz
+                      </h5>
+                      <p style="color: var(--text-secondary); font-size: 0.85rem">Buzón unificado con transcripción</p>
+                    </div>
+
+                    <div
+                      style="
+                        background: rgba(98, 100, 167, 0.1);
+                        padding: 1rem;
+                        border-radius: 12px;
+                        border-left: 3px solid var(--primary-color);
+                      "
+                    >
+                      <div style="color: var(--primary-color); font-size: 1.5rem; margin-bottom: 0.5rem">🔀</div>
+                      <h5 style="color: var(--text-primary); font-weight: 700; margin-bottom: 0.25rem">
+                        Auto Attendant
+                      </h5>
+                      <p style="color: var(--text-secondary); font-size: 0.85rem">Menús interactivos IVR</p>
+                    </div>
+
+                    <div
+                      style="
+                        background: rgba(98, 100, 167, 0.1);
+                        padding: 1rem;
+                        border-radius: 12px;
+                        border-left: 3px solid var(--primary-color);
+                      "
+                    >
+                      <div style="color: var(--primary-color); font-size: 1.5rem; margin-bottom: 0.5rem">📊</div>
+                      <h5 style="color: var(--text-primary); font-weight: 700; margin-bottom: 0.25rem">Call Queues</h5>
+                      <p style="color: var(--text-secondary); font-size: 0.85rem">Colas de atención</p>
+                    </div>
+                  </div>
+
+                  <div
+                    style="
+                      background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(217, 119, 6, 0.1));
+                      padding: 1.25rem;
+                      border-radius: 12px;
+                      border-left: 4px solid #f59e0b;
+                    "
+                  >
+                    <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem">
+                      <span style="font-size: 1.25rem">⚠️</span>
+                      <strong style="color: #f59e0b; font-size: 0.95rem">Consideraciones de Licenciamiento</strong>
+                    </div>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem; margin: 0; line-height: 1.6">
+                      Requiere <strong>licencias adicionales</strong> (Phone System + Calling Plan o Direct Routing). Si
+                      no usas telefonía, estas opciones pueden ignorarse completamente.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Correo Electrónico a Canales -->
+            <div
+              class="advanced-feature-card"
+              style="
+                background: linear-gradient(135deg, var(--bg-elevated), var(--bg-card));
+                border-radius: 20px;
+                padding: 2.5rem;
+                border: 2px solid rgba(98, 100, 167, 0.15);
+                position: relative;
+                overflow: hidden;
+                transition: all 0.3s ease;
+              "
+            >
+              <div
+                style="
+                  position: absolute;
+                  top: -100px;
+                  right: -100px;
+                  width: 300px;
+                  height: 300px;
+                  background: radial-gradient(circle, rgba(98, 100, 167, 0.2), transparent);
+                  opacity: 0.5;
+                "
+              ></div>
+
+              <div style="display: flex; align-items: start; gap: 2rem; position: relative; z-index: 1">
+                <div
+                  style="
+                    flex-shrink: 0;
+                    background: linear-gradient(135deg, #0ea5e9, #0369a1);
+                    width: 80px;
+                    height: 80px;
+                    border-radius: 20px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 2.5rem;
+                    box-shadow: 0 8px 24px rgba(14, 165, 233, 0.3);
+                  "
+                >
+                  📧
+                </div>
+
+                <div style="flex: 1">
+                  <h3 style="color: var(--text-primary); font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem">
+                    Integración Email-to-Channel
+                  </h3>
+                  <p style="color: var(--text-secondary); font-size: 1rem; line-height: 1.8; margin-bottom: 1.5rem">
+                    Cada canal de Teams puede tener su propia <strong>dirección de correo electrónico</strong>,
+                    permitiendo la integración con sistemas externos y workflows tradicionales basados en email.
+                  </p>
+
+                  <!-- Diagrama de flujo email -->
+                  <div
+                    style="
+                      background: rgba(14, 165, 233, 0.05);
+                      padding: 1.5rem;
+                      border-radius: 12px;
+                      margin-bottom: 1.5rem;
+                      border: 1px dashed rgba(14, 165, 233, 0.3);
+                    "
+                  >
+                    <div
+                      style="
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-around;
+                        flex-wrap: wrap;
+                        gap: 1rem;
+                      "
+                    >
+                      <div style="text-align: center">
+                        <div
+                          style="
+                            background: rgba(14, 165, 233, 0.2);
+                            width: 60px;
+                            height: 60px;
+                            border-radius: 12px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            margin: 0 auto 0.5rem;
+                            font-size: 1.75rem;
+                          "
+                        >
+                          📬
+                        </div>
+                        <p style="color: var(--text-primary); font-size: 0.85rem; font-weight: 600; margin: 0">
+                          Email Externo
+                        </p>
+                      </div>
+
+                      <div style="color: #0ea5e9; font-size: 2rem">→</div>
+
+                      <div style="text-align: center">
+                        <div
+                          style="
+                            background: rgba(14, 165, 233, 0.2);
+                            width: 60px;
+                            height: 60px;
+                            border-radius: 12px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            margin: 0 auto 0.5rem;
+                            font-size: 1.75rem;
+                          "
+                        >
+                          📮
+                        </div>
+                        <p style="color: var(--text-primary); font-size: 0.85rem; font-weight: 600; margin: 0">
+                          Canal Teams
+                        </p>
+                      </div>
+
+                      <div style="color: #0ea5e9; font-size: 2rem">→</div>
+
+                      <div style="text-align: center">
+                        <div
+                          style="
+                            background: rgba(14, 165, 233, 0.2);
+                            width: 60px;
+                            height: 60px;
+                            border-radius: 12px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            margin: 0 auto 0.5rem;
+                            font-size: 1.75rem;
+                          "
+                        >
+                          💬
+                        </div>
+                        <p style="color: var(--text-primary); font-size: 0.85rem; font-weight: 600; margin: 0">
+                          Publicación
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem">
+                    <div style="background: rgba(98, 100, 167, 0.1); padding: 1rem; border-radius: 10px">
+                      <div style="color: #0ea5e9; font-weight: 700; margin-bottom: 0.5rem">
+                        ✓ Dirección única por canal
+                      </div>
+                      <p style="color: var(--text-secondary); font-size: 0.85rem; margin: 0">
+                        Cada canal obtiene su email
+                      </p>
+                    </div>
+
+                    <div style="background: rgba(98, 100, 167, 0.1); padding: 1rem; border-radius: 10px">
+                      <div style="color: #0ea5e9; font-weight: 700; margin-bottom: 0.5rem">✓ Conversión automática</div>
+                      <p style="color: var(--text-secondary); font-size: 0.85rem; margin: 0">Emails → Publicaciones</p>
+                    </div>
+
+                    <div style="background: rgba(98, 100, 167, 0.1); padding: 1rem; border-radius: 10px">
+                      <div style="color: #0ea5e9; font-weight: 700; margin-bottom: 0.5rem">✓ Adjuntos preservados</div>
+                      <p style="color: var(--text-secondary); font-size: 0.85rem; margin: 0">
+                        Carpeta dedicada en SharePoint
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- PowerShell -->
+            <div
+              class="advanced-feature-card"
+              style="
+                background: linear-gradient(135deg, var(--bg-elevated), var(--bg-card));
+                border-radius: 20px;
+                padding: 2.5rem;
+                border: 2px solid rgba(98, 100, 167, 0.15);
+                position: relative;
+                overflow: hidden;
+                transition: all 0.3s ease;
+              "
+            >
+              <div
+                style="
+                  position: absolute;
+                  top: -100px;
+                  right: -100px;
+                  width: 300px;
+                  height: 300px;
+                  background: radial-gradient(circle, rgba(98, 100, 167, 0.2), transparent);
+                  opacity: 0.5;
+                "
+              ></div>
+
+              <div style="display: flex; align-items: start; gap: 2rem; position: relative; z-index: 1">
+                <div
+                  style="
+                    flex-shrink: 0;
+                    background: linear-gradient(135deg, #10b981, #059669);
+                    width: 80px;
+                    height: 80px;
+                    border-radius: 20px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 2.5rem;
+                    box-shadow: 0 8px 24px rgba(16, 185, 129, 0.3);
+                  "
+                >
+                  💻
+                </div>
+
+                <div style="flex: 1">
+                  <h3 style="color: var(--text-primary); font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem">
+                    Administración con PowerShell
+                  </h3>
+                  <p style="color: var(--text-secondary); font-size: 1rem; line-height: 1.8; margin-bottom: 1.5rem">
+                    Para tareas complejas, automatización y configuraciones avanzadas que no están disponibles en la
+                    interfaz web, <strong>PowerShell</strong> es la herramienta definitiva del administrador.
+                  </p>
+
+                  <div
+                    style="
+                      background: rgba(15, 15, 30, 0.8);
+                      padding: 1.5rem;
+                      border-radius: 12px;
+                      margin-bottom: 1.5rem;
+                      border: 1px solid rgba(16, 185, 129, 0.3);
+                      font-family: 'Courier New', monospace;
+                    "
+                  >
+                    <div style="color: #10b981; font-size: 0.85rem; margin-bottom: 0.5rem; font-weight: 600">
+                      $ Módulo de Teams
+                    </div>
+                    <code style="color: #a5b4fc; font-size: 0.9rem; display: block; line-height: 1.6">
+                      Install-Module -Name MicrosoftTeams<br />
+                      Connect-MicrosoftTeams<br />
+                      Get-Team | Select-Object DisplayName, Visibility
+                    </code>
+                  </div>
+
+                  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem">
+                    <div
+                      style="
+                        background: rgba(16, 185, 129, 0.1);
+                        padding: 1.25rem;
+                        border-radius: 12px;
+                        border-left: 3px solid #10b981;
+                      "
+                    >
+                      <div style="color: #10b981; font-size: 1.5rem; margin-bottom: 0.5rem">⚡</div>
+                      <h5 style="color: var(--text-primary); font-weight: 700; margin-bottom: 0.5rem">
+                        Operaciones Masivas
+                      </h5>
+                      <p style="color: var(--text-secondary); font-size: 0.85rem; margin: 0">
+                        Modificar cientos de Teams en segundos
+                      </p>
+                    </div>
+
+                    <div
+                      style="
+                        background: rgba(16, 185, 129, 0.1);
+                        padding: 1.25rem;
+                        border-radius: 12px;
+                        border-left: 3px solid #10b981;
+                      "
+                    >
+                      <div style="color: #10b981; font-size: 1.5rem; margin-bottom: 0.5rem">🔧</div>
+                      <h5 style="color: var(--text-primary); font-weight: 700; margin-bottom: 0.5rem">
+                        Configuraciones Ocultas
+                      </h5>
+                      <p style="color: var(--text-secondary); font-size: 0.85rem; margin: 0">
+                        Acceso a opciones no disponibles en UI
+                      </p>
+                    </div>
+
+                    <div
+                      style="
+                        background: rgba(16, 185, 129, 0.1);
+                        padding: 1.25rem;
+                        border-radius: 12px;
+                        border-left: 3px solid #10b981;
+                      "
+                    >
+                      <div style="color: #10b981; font-size: 1.5rem; margin-bottom: 0.5rem">🤖</div>
+                      <h5 style="color: var(--text-primary); font-weight: 700; margin-bottom: 0.5rem">
+                        Automatización
+                      </h5>
+                      <p style="color: var(--text-secondary); font-size: 0.85rem; margin: 0">
+                        Scripts para tareas repetitivas
+                      </p>
+                    </div>
+
+                    <div
+                      style="
+                        background: rgba(16, 185, 129, 0.1);
+                        padding: 1.25rem;
+                        border-radius: 12px;
+                        border-left: 3px solid #10b981;
+                      "
+                    >
+                      <div style="color: #10b981; font-size: 1.5rem; margin-bottom: 0.5rem">📊</div>
+                      <h5 style="color: var(--text-primary); font-weight: 700; margin-bottom: 0.5rem">
+                        Reportes Avanzados
+                      </h5>
+                      <p style="color: var(--text-secondary); font-size: 0.85rem; margin: 0">
+                        Extracción y análisis de datos
+                      </p>
+                    </div>
+                  </div>
+
+                  <div
+                    style="
+                      background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(5, 150, 105, 0.1));
+                      padding: 1.25rem;
+                      border-radius: 12px;
+                      border-left: 4px solid #10b981;
+                    "
+                  >
+                    <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem">
+                      <span style="font-size: 1.25rem">💡</span>
+                      <strong style="color: #10b981; font-size: 0.95rem">Casos de Uso Esenciales</strong>
+                    </div>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem; margin: 0; line-height: 1.6">
+                      Control de visibilidad de sitios de SharePoint, gestión masiva de políticas, exportación de
+                      auditorías, y configuraciones de gobierno no disponibles en el portal web.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <style>
+            .advanced-feature-card:hover {
+              transform: translateY(-5px);
+              box-shadow: 0 20px 60px rgba(98, 100, 167, 0.3);
+              border-color: var(--primary-color);
+            }
+          </style>
+        </section>
+
+        <!-- Resumen y Mejores Prácticas -->
+        <section class="content-section">
+          <h2 class="section-title">
+            <span class="icon">✅</span>
+            Resumen y Mejores Prácticas
+          </h2>
+
+          <!-- Header visual del resumen -->
+          <div
+            style="
+              background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+              border-radius: 20px;
+              padding: 3rem 2rem;
+              text-align: center;
+              margin-bottom: 3rem;
+              position: relative;
+              overflow: hidden;
+              box-shadow: 0 16px 48px var(--accent-glow);
+            "
+          >
+            <div
+              style="
+                position: absolute;
+                top: -50px;
+                right: -50px;
+                width: 200px;
+                height: 200px;
+                background: radial-gradient(circle, rgba(255, 255, 255, 0.1), transparent);
+                opacity: 0.5;
+              "
+            ></div>
+            <div
+              style="
+                position: absolute;
+                bottom: -30px;
+                left: -30px;
+                width: 150px;
+                height: 150px;
+                background: radial-gradient(circle, rgba(255, 255, 255, 0.1), transparent);
+                opacity: 0.5;
+              "
+            ></div>
+
+            <div style="position: relative; z-index: 1">
+              <div
+                style="font-size: 4rem; margin-bottom: 1rem; filter: drop-shadow(0 4px 16px rgba(255, 255, 255, 0.3))"
+              >
+                🎯
+              </div>
+              <h3 style="color: white; font-size: 2rem; font-weight: 700; margin-bottom: 1rem">
+                Guía de Excelencia en Teams
+              </h3>
+              <p
+                style="
+                  color: rgba(255, 255, 255, 0.9);
+                  font-size: 1.1rem;
+                  max-width: 800px;
+                  margin: 0 auto;
+                  line-height: 1.8;
+                "
+              >
+                7 pilares fundamentales para una administración profesional y eficiente de Microsoft Teams
+              </p>
+            </div>
+          </div>
+
+          <!-- Grid de mejores prácticas -->
+          <div
+            class="best-practices-grid"
+            style="
+              display: grid;
+              grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+              gap: 2rem;
+              margin: 2rem 0;
+            "
+          >
+            <!-- 1. Arquitectura -->
+            <div
+              class="practice-card"
+              style="
+                background: linear-gradient(135deg, var(--bg-elevated), var(--bg-card));
+                border-radius: 16px;
+                padding: 2rem;
+                border: 2px solid transparent;
+                transition: all 0.3s ease;
+                position: relative;
+                overflow: hidden;
+              "
+            >
+              <div
+                style="
+                  position: absolute;
+                  top: 0;
+                  left: 0;
+                  width: 100%;
+                  height: 4px;
+                  background: linear-gradient(90deg, #6264a7, #818cf8);
+                "
+              ></div>
+
+              <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem">
+                <div
+                  style="
+                    background: linear-gradient(135deg, #6264a7, #464775);
+                    width: 60px;
+                    height: 60px;
+                    border-radius: 12px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 2rem;
+                    flex-shrink: 0;
+                    box-shadow: 0 4px 12px var(--accent-glow);
+                  "
+                >
+                  🏗️
+                </div>
+                <div>
+                  <div
+                    style="
+                      color: var(--primary-color);
+                      font-size: 0.75rem;
+                      font-weight: 700;
+                      text-transform: uppercase;
+                      letter-spacing: 1px;
+                      margin-bottom: 0.25rem;
+                    "
+                  >
+                    Pilar 1
+                  </div>
+                  <h4 style="color: var(--text-primary); font-size: 1.2rem; font-weight: 700; margin: 0">
+                    Arquitectura
+                  </h4>
+                </div>
+              </div>
+
+              <p style="color: var(--text-secondary); line-height: 1.7; margin-bottom: 1rem">
+                Comprender la <strong>relación en capas</strong>: Teams → Grupos Microsoft 365 → SharePoint Online.
+              </p>
+
+              <div
+                style="
+                  background: rgba(98, 100, 167, 0.1);
+                  padding: 1rem;
+                  border-radius: 10px;
+                  border-left: 3px solid var(--primary-color);
+                "
+              >
+                <div style="color: var(--text-primary); font-weight: 600; font-size: 0.9rem; margin-bottom: 0.5rem">
+                  ✓ Acción Clave:
+                </div>
+                <p style="color: var(--text-secondary); font-size: 0.85rem; margin: 0">
+                  Documentar la infraestructura subyacente y cómo cada capa afecta permisos y almacenamiento.
+                </p>
+              </div>
+            </div>
+
+            <!-- 2. Gobierno -->
+            <div
+              class="practice-card"
+              style="
+                background: linear-gradient(135deg, var(--bg-elevated), var(--bg-card));
+                border-radius: 16px;
+                padding: 2rem;
+                border: 2px solid transparent;
+                transition: all 0.3s ease;
+                position: relative;
+                overflow: hidden;
+              "
+            >
+              <div
+                style="
+                  position: absolute;
+                  top: 0;
+                  left: 0;
+                  width: 100%;
+                  height: 4px;
+                  background: linear-gradient(90deg, #f59e0b, #d97706);
+                "
+              ></div>
+
+              <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem">
+                <div
+                  style="
+                    background: linear-gradient(135deg, #f59e0b, #d97706);
+                    width: 60px;
+                    height: 60px;
+                    border-radius: 12px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 2rem;
+                    flex-shrink: 0;
+                    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
+                  "
+                >
+                  🏛️
+                </div>
+                <div>
+                  <div
+                    style="
+                      color: #f59e0b;
+                      font-size: 0.75rem;
+                      font-weight: 700;
+                      text-transform: uppercase;
+                      letter-spacing: 1px;
+                      margin-bottom: 0.25rem;
+                    "
+                  >
+                    Pilar 2
+                  </div>
+                  <h4 style="color: var(--text-primary); font-size: 1.2rem; font-weight: 700; margin: 0">Gobierno</h4>
+                </div>
+              </div>
+
+              <p style="color: var(--text-secondary); line-height: 1.7; margin-bottom: 1rem">
+                Implementar <strong>políticas de creación</strong>, nomenclatura y proceso de solicitud formal.
+              </p>
+
+              <div
+                style="
+                  background: rgba(245, 158, 11, 0.1);
+                  padding: 1rem;
+                  border-radius: 10px;
+                  border-left: 3px solid #f59e0b;
+                "
+              >
+                <div style="color: var(--text-primary); font-weight: 600; font-size: 0.9rem; margin-bottom: 0.5rem">
+                  ✓ Acción Clave:
+                </div>
+                <p style="color: var(--text-secondary); font-size: 0.85rem; margin: 0">
+                  Limitar creación de Teams a usuarios específicos y establecer convenciones de nombres claras.
+                </p>
+              </div>
+            </div>
+
+            <!-- 3. Directivas -->
+            <div
+              class="practice-card"
+              style="
+                background: linear-gradient(135deg, var(--bg-elevated), var(--bg-card));
+                border-radius: 16px;
+                padding: 2rem;
+                border: 2px solid transparent;
+                transition: all 0.3s ease;
+                position: relative;
+                overflow: hidden;
+              "
+            >
+              <div
+                style="
+                  position: absolute;
+                  top: 0;
+                  left: 0;
+                  width: 100%;
+                  height: 4px;
+                  background: linear-gradient(90deg, #8b5cf6, #6d28d9);
+                "
+              ></div>
+
+              <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem">
+                <div
+                  style="
+                    background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+                    width: 60px;
+                    height: 60px;
+                    border-radius: 12px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 2rem;
+                    flex-shrink: 0;
+                    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
+                  "
+                >
+                  📋
+                </div>
+                <div>
+                  <div
+                    style="
+                      color: #8b5cf6;
+                      font-size: 0.75rem;
+                      font-weight: 700;
+                      text-transform: uppercase;
+                      letter-spacing: 1px;
+                      margin-bottom: 0.25rem;
+                    "
+                  >
+                    Pilar 3
+                  </div>
+                  <h4 style="color: var(--text-primary); font-size: 1.2rem; font-weight: 700; margin: 0">Directivas</h4>
+                </div>
+              </div>
+
+              <p style="color: var(--text-secondary); line-height: 1.7; margin-bottom: 1rem">
+                Usar <strong>Policy Packages</strong> para gestión granular por departamento o rol.
+              </p>
+
+              <div
+                style="
+                  background: rgba(139, 92, 246, 0.1);
+                  padding: 1rem;
+                  border-radius: 10px;
+                  border-left: 3px solid #8b5cf6;
+                "
+              >
+                <div style="color: var(--text-primary); font-weight: 600; font-size: 0.9rem; margin-bottom: 0.5rem">
+                  ✓ Acción Clave:
+                </div>
+                <p style="color: var(--text-secondary); font-size: 0.85rem; margin: 0">
+                  Crear paquetes personalizados que agrupen directivas de mensajería, reuniones y llamadas.
+                </p>
+              </div>
+            </div>
+
+            <!-- 4. Aplicaciones -->
+            <div
+              class="practice-card"
+              style="
+                background: linear-gradient(135deg, var(--bg-elevated), var(--bg-card));
+                border-radius: 16px;
+                padding: 2rem;
+                border: 2px solid transparent;
+                transition: all 0.3s ease;
+                position: relative;
+                overflow: hidden;
+              "
+            >
+              <div
+                style="
+                  position: absolute;
+                  top: 0;
+                  left: 0;
+                  width: 100%;
+                  height: 4px;
+                  background: linear-gradient(90deg, #0ea5e9, #0369a1);
+                "
+              ></div>
+
+              <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem">
+                <div
+                  style="
+                    background: linear-gradient(135deg, #0ea5e9, #0369a1);
+                    width: 60px;
+                    height: 60px;
+                    border-radius: 12px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 2rem;
+                    flex-shrink: 0;
+                    box-shadow: 0 4px 12px rgba(14, 165, 233, 0.4);
+                  "
+                >
+                  🔌
+                </div>
+                <div>
+                  <div
+                    style="
+                      color: #0ea5e9;
+                      font-size: 0.75rem;
+                      font-weight: 700;
+                      text-transform: uppercase;
+                      letter-spacing: 1px;
+                      margin-bottom: 0.25rem;
+                    "
+                  >
+                    Pilar 4
+                  </div>
+                  <h4 style="color: var(--text-primary); font-size: 1.2rem; font-weight: 700; margin: 0">
+                    Aplicaciones
+                  </h4>
+                </div>
+              </div>
+
+              <p style="color: var(--text-secondary); line-height: 1.7; margin-bottom: 1rem">
+                Controlar el <strong>ecosistema de apps</strong> y personalizar la interfaz para cada grupo.
+              </p>
+
+              <div
+                style="
+                  background: rgba(14, 165, 233, 0.1);
+                  padding: 1rem;
+                  border-radius: 10px;
+                  border-left: 3px solid #0ea5e9;
+                "
+              >
+                <div style="color: var(--text-primary); font-weight: 600; font-size: 0.9rem; margin-bottom: 0.5rem">
+                  ✓ Acción Clave:
+                </div>
+                <p style="color: var(--text-secondary); font-size: 0.85rem; margin: 0">
+                  Auditar apps de terceros, bloquear no autorizadas y destacar herramientas corporativas.
+                </p>
+              </div>
+            </div>
+
+            <!-- 5. Colaboración -->
+            <div
+              class="practice-card"
+              style="
+                background: linear-gradient(135deg, var(--bg-elevated), var(--bg-card));
+                border-radius: 16px;
+                padding: 2rem;
+                border: 2px solid transparent;
+                transition: all 0.3s ease;
+                position: relative;
+                overflow: hidden;
+              "
+            >
+              <div
+                style="
+                  position: absolute;
+                  top: 0;
+                  left: 0;
+                  width: 100%;
+                  height: 4px;
+                  background: linear-gradient(90deg, #ec4899, #be185d);
+                "
+              ></div>
+
+              <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem">
+                <div
+                  style="
+                    background: linear-gradient(135deg, #ec4899, #be185d);
+                    width: 60px;
+                    height: 60px;
+                    border-radius: 12px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 2rem;
+                    flex-shrink: 0;
+                    box-shadow: 0 4px 12px rgba(236, 72, 153, 0.4);
+                  "
+                >
+                  🌍
+                </div>
+                <div>
+                  <div
+                    style="
+                      color: #ec4899;
+                      font-size: 0.75rem;
+                      font-weight: 700;
+                      text-transform: uppercase;
+                      letter-spacing: 1px;
+                      margin-bottom: 0.25rem;
+                    "
+                  >
+                    Pilar 5
+                  </div>
+                  <h4 style="color: var(--text-primary); font-size: 1.2rem; font-weight: 700; margin: 0">
+                    Colaboración
+                  </h4>
+                </div>
+              </div>
+
+              <p style="color: var(--text-secondary); line-height: 1.7; margin-bottom: 1rem">
+                Configurar <strong>accesos externos</strong> (Guests vs External) según necesidades de seguridad.
+              </p>
+
+              <div
+                style="
+                  background: rgba(236, 72, 153, 0.1);
+                  padding: 1rem;
+                  border-radius: 10px;
+                  border-left: 3px solid #ec4899;
+                "
+              >
+                <div style="color: var(--text-primary); font-weight: 600; font-size: 0.9rem; margin-bottom: 0.5rem">
+                  ✓ Acción Clave:
+                </div>
+                <p style="color: var(--text-secondary); font-size: 0.85rem; margin: 0">
+                  Definir políticas claras para invitados con acceso a archivos vs. acceso externo solo chat.
+                </p>
+              </div>
+            </div>
+
+            <!-- 6. Monitoreo -->
+            <div
+              class="practice-card"
+              style="
+                background: linear-gradient(135deg, var(--bg-elevated), var(--bg-card));
+                border-radius: 16px;
+                padding: 2rem;
+                border: 2px solid transparent;
+                transition: all 0.3s ease;
+                position: relative;
+                overflow: hidden;
+              "
+            >
+              <div
+                style="
+                  position: absolute;
+                  top: 0;
+                  left: 0;
+                  width: 100%;
+                  height: 4px;
+                  background: linear-gradient(90deg, #10b981, #059669);
+                "
+              ></div>
+
+              <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem">
+                <div
+                  style="
+                    background: linear-gradient(135deg, #10b981, #059669);
+                    width: 60px;
+                    height: 60px;
+                    border-radius: 12px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 2rem;
+                    flex-shrink: 0;
+                    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+                  "
+                >
+                  📊
+                </div>
+                <div>
+                  <div
+                    style="
+                      color: #10b981;
+                      font-size: 0.75rem;
+                      font-weight: 700;
+                      text-transform: uppercase;
+                      letter-spacing: 1px;
+                      margin-bottom: 0.25rem;
+                    "
+                  >
+                    Pilar 6
+                  </div>
+                  <h4 style="color: var(--text-primary); font-size: 1.2rem; font-weight: 700; margin: 0">Monitoreo</h4>
+                </div>
+              </div>
+
+              <p style="color: var(--text-secondary); line-height: 1.7; margin-bottom: 1rem">
+                Generar <strong>reportes regulares</strong> de uso, actividad y optimización de licencias.
+              </p>
+
+              <div
+                style="
+                  background: rgba(16, 185, 129, 0.1);
+                  padding: 1rem;
+                  border-radius: 10px;
+                  border-left: 3px solid #10b981;
+                "
+              >
+                <div style="color: var(--text-primary); font-weight: 600; font-size: 0.9rem; margin-bottom: 0.5rem">
+                  ✓ Acción Clave:
+                </div>
+                <p style="color: var(--text-secondary); font-size: 0.85rem; margin: 0">
+                  Establecer revisiones mensuales de Teams inactivos y tráfico de archivos por equipo.
+                </p>
+              </div>
+            </div>
+
+            <!-- 7. PowerShell -->
+            <div
+              class="practice-card"
+              style="
+                background: linear-gradient(135deg, var(--bg-elevated), var(--bg-card));
+                border-radius: 16px;
+                padding: 2rem;
+                border: 2px solid transparent;
+                transition: all 0.3s ease;
+                position: relative;
+                overflow: hidden;
+              "
+            >
+              <div
+                style="
+                  position: absolute;
+                  top: 0;
+                  left: 0;
+                  width: 100%;
+                  height: 4px;
+                  background: linear-gradient(90deg, #ef4444, #b91c1c);
+                "
+              ></div>
+
+              <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem">
+                <div
+                  style="
+                    background: linear-gradient(135deg, #ef4444, #b91c1c);
+                    width: 60px;
+                    height: 60px;
+                    border-radius: 12px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 2rem;
+                    flex-shrink: 0;
+                    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+                  "
+                >
+                  💻
+                </div>
+                <div>
+                  <div
+                    style="
+                      color: #ef4444;
+                      font-size: 0.75rem;
+                      font-weight: 700;
+                      text-transform: uppercase;
+                      letter-spacing: 1px;
+                      margin-bottom: 0.25rem;
+                    "
+                  >
+                    Pilar 7
+                  </div>
+                  <h4 style="color: var(--text-primary); font-size: 1.2rem; font-weight: 700; margin: 0">PowerShell</h4>
+                </div>
+              </div>
+
+              <p style="color: var(--text-secondary); line-height: 1.7; margin-bottom: 1rem">
+                Dominar <strong>comandos avanzados</strong> para automatización y configuraciones ocultas.
+              </p>
+
+              <div
+                style="
+                  background: rgba(239, 68, 68, 0.1);
+                  padding: 1rem;
+                  border-radius: 10px;
+                  border-left: 3px solid #ef4444;
+                "
+              >
+                <div style="color: var(--text-primary); font-weight: 600; font-size: 0.9rem; margin-bottom: 0.5rem">
+                  ✓ Acción Clave:
+                </div>
+                <p style="color: var(--text-secondary); font-size: 0.85rem; margin: 0">
+                  Crear biblioteca de scripts para tareas recurrentes y operaciones masivas.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <style>
+            .practice-card:hover {
+              transform: translateY(-8px);
+              box-shadow: 0 20px 60px rgba(98, 100, 167, 0.3);
+              border-color: var(--primary-color);
+            }
+          </style>
+
+          <!-- Conclusión final -->
+          <div
+            style="
+              background: linear-gradient(135deg, rgba(98, 100, 167, 0.1), rgba(129, 140, 248, 0.05));
+              border-radius: 20px;
+              padding: 2.5rem;
+              margin-top: 3rem;
+              border: 2px solid rgba(98, 100, 167, 0.2);
+              position: relative;
+              overflow: hidden;
+            "
+          >
+            <div
+              style="
+                position: absolute;
+                top: -50px;
+                right: -50px;
+                width: 200px;
+                height: 200px;
+                background: radial-gradient(circle, var(--accent-glow), transparent);
+                opacity: 0.3;
+              "
+            ></div>
+
+            <div style="position: relative; z-index: 1">
+              <div style="text-align: center; margin-bottom: 2rem">
+                <div style="font-size: 3rem; margin-bottom: 1rem">📚</div>
+                <h3 style="color: var(--text-primary); font-size: 1.8rem; font-weight: 700; margin-bottom: 0.5rem">
+                  Recursos y Centro de Administración
+                </h3>
+                <div
+                  style="
+                    width: 60px;
+                    height: 4px;
+                    background: linear-gradient(90deg, var(--primary-color), var(--accent));
+                    margin: 0 auto;
+                    border-radius: 2px;
+                  "
+                ></div>
+              </div>
+
+              <p
+                style="
+                  color: var(--text-secondary);
+                  font-size: 1.05rem;
+                  line-height: 1.9;
+                  text-align: center;
+                  max-width: 900px;
+                  margin: 0 auto 2rem;
+                "
+              >
+                El <strong style="color: var(--text-primary)">Centro de Administración de Teams</strong> es una interfaz
+                robusta y completa que centraliza la mayor parte de la gestión. Sin embargo, para una administración
+                verdaderamente efectiva, es
+                <strong style="color: var(--text-primary)">fundamental comprender las interrelaciones</strong> con
+                SharePoint y los Grupos de Microsoft 365.
+              </p>
+
+              <div
+                style="
+                  display: grid;
+                  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                  gap: 1.5rem;
+                  margin-top: 2rem;
+                "
+              >
+                <div
+                  style="
+                    background: rgba(98, 100, 167, 0.15);
+                    padding: 1.5rem;
+                    border-radius: 12px;
+                    text-align: center;
+                    border: 1px solid rgba(98, 100, 167, 0.2);
+                  "
+                >
+                  <div style="font-size: 2rem; margin-bottom: 0.75rem">🎓</div>
+                  <h5 style="color: var(--text-primary); font-weight: 700; margin-bottom: 0.5rem">
+                    Formación Continua
+                  </h5>
+                  <p style="color: var(--text-secondary); font-size: 0.9rem; margin: 0">
+                    Mantente actualizado con Microsoft Learn y documentación oficial
+                  </p>
+                </div>
+
+                <div
+                  style="
+                    background: rgba(98, 100, 167, 0.15);
+                    padding: 1.5rem;
+                    border-radius: 12px;
+                    text-align: center;
+                    border: 1px solid rgba(98, 100, 167, 0.2);
+                  "
+                >
+                  <div style="font-size: 2rem; margin-bottom: 0.75rem">🧪</div>
+                  <h5 style="color: var(--text-primary); font-weight: 700; margin-bottom: 0.5rem">
+                    Entorno de Pruebas
+                  </h5>
+                  <p style="color: var(--text-secondary); font-size: 0.9rem; margin: 0">
+                    Experimenta con configuraciones en tenant de desarrollo
+                  </p>
+                </div>
+
+                <div
+                  style="
+                    background: rgba(98, 100, 167, 0.15);
+                    padding: 1.5rem;
+                    border-radius: 12px;
+                    text-align: center;
+                    border: 1px solid rgba(98, 100, 167, 0.2);
+                  "
+                >
+                  <div style="font-size: 2rem; margin-bottom: 0.75rem">👥</div>
+                  <h5 style="color: var(--text-primary); font-weight: 700; margin-bottom: 0.5rem">Comunidad Tech</h5>
+                  <p style="color: var(--text-secondary); font-size: 0.9rem; margin: 0">
+                    Participa en foros y grupos de administradores Microsoft 365
+                  </p>
+                </div>
+              </div>
+
+              <div
+                style="
+                  text-align: center;
+                  margin-top: 2.5rem;
+                  padding-top: 2rem;
+                  border-top: 1px solid rgba(98, 100, 167, 0.2);
+                "
+              >
+                <p style="color: var(--primary-color); font-size: 1.1rem; font-weight: 600; margin: 0">
+                  ✨ Una administración efectiva de Teams es la clave para una colaboración empresarial exitosa
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <!-- Script de navegación automática -->
+    <script src="../js/back-button.js"></script>
+  </body>
+</html>
