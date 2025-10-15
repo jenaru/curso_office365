@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
@@ -15,11 +15,90 @@
       <span id="theme-text">Modo Claro</span>
     </button>
 
-    <div style="text-align:center; margin-top:30px;">
+    <div style="text-align: center; margin-top: 30px">
       <h1>Curso Office 365</h1>
+
+      <!-- Botones para acceso al manual -->
+      <div
+        class="manual-buttons"
+        style="margin: 20px 0; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap"
+      >
+        <a
+          href="manual.html"
+          target="_blank"
+          class="manual-btn"
+          style="
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition:
+              transform 0.2s ease,
+              box-shadow 0.2s ease;
+          "
+        >
+          📖 Ver Manual Completo (HTML)
+        </a>
+
+        <a
+          href="manualOfficce365.pdf"
+          download="Manual_Microsoft365_Completo.pdf"
+          class="manual-btn"
+          style="
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition:
+              transform 0.2s ease,
+              box-shadow 0.2s ease;
+          "
+        >
+          📥 Descargar Manual (PDF)
+        </a>
+      </div>
     </div>
     <div id="tag-filters"></div>
     <div id="menu"></div>
+
+    <style>
+      /* Estilos para los botones del manual */
+      .manual-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15) !important;
+      }
+
+      .manual-btn:active {
+        transform: translateY(0);
+      }
+
+      /* Responsive para móviles */
+      @media (max-width: 768px) {
+        .manual-buttons {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .manual-btn {
+          width: 90%;
+          max-width: 300px;
+          justify-content: center;
+        }
+      }
+    </style>
+
     <script src="js/index.js"></script>
   </body>
 </html>

@@ -201,6 +201,46 @@ const pages = [
       'Microsoft Defender y Purview: protección de amenazas, políticas de correo, auditoría y gobierno de datos',
     image: '🔐',
     tag: 'seguridad'
+  },
+  {
+    title: 'Directivas de Retención',
+    file: 'directiva_retencion.html',
+    description:
+      'Gobierno de datos y cumplimiento legal: Litigation Hold, Archive Mailbox, etiquetas Purview y auditoría',
+    image: '📦',
+    tag: 'seguridad'
+  },
+  {
+    title: 'Directivas de Confidencialidad',
+    file: 'directiva_confidencialidad.html',
+    description:
+      'Information Protection y DRM: control granular, cifrado persistente, caducidad y protección multi-workload',
+    image: '🔒',
+    tag: 'seguridad'
+  },
+  {
+    title: 'Microsoft Defender',
+    file: 'microsoft_defender.html',
+    description:
+      'Plataforma integral de seguridad: EDR, tiers de licenciamiento, Safe Links, Secure Score y protección avanzada',
+    image: '🛡️',
+    tag: 'seguridad'
+  },
+  {
+    title: 'Defender para Office 365',
+    file: 'defender_correo.html',
+    description:
+      'Escudo antimalware de correo: SPF, DKIM, DMARC, políticas sin negociación y autenticación robusta',
+    image: '📧',
+    tag: 'correo'
+  },
+  {
+    title: 'Directivas de Correo',
+    file: 'directivas_correo.html',
+    description:
+      'Marco de políticas de seguridad: antiphishing, antimalware, antispam, cuarentena y configuración granular',
+    image: '📋',
+    tag: 'correo'
   }
 ];
 

@@ -1,0 +1,1262 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Microsoft Defender para Office 365 - Protección de Correo - Curso Microsoft 365</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- CSS externo para estilos base y tema -->
+    <link rel="stylesheet" href="../css/pages-base.css" />
+    <link rel="stylesheet" href="../css/themes/correo.css" />
+
+    <style>
+      :root {
+        --primary-color: #8b5cf6;
+        --primary-dark: #7c3aed;
+        --primary-light: #a78bfa;
+        --bg-dark: #0f0f1e;
+        --bg-card: #1a1b2e;
+        --bg-elevated: #252641;
+        --text-primary: #f0f0f3;
+        --text-secondary: #b4b4c8;
+        --accent: #ef4444;
+        --accent-glow: rgba(139, 92, 246, 0.3);
+        --success-color: #10b981;
+        --warning-color: #f59e0b;
+        --danger-color: #ef4444;
+        --email-security-color: #8b5cf6;
+        --spf-color: #06b6d4;
+        --dkim-color: #10b981;
+        --dmarc-color: #f59e0b;
+        --quarantine-color: #ef4444;
+        --auth-flow-color: #6366f1;
+      }
+
+      body {
+        background: linear-gradient(135deg, #0f0f1e 0%, #1a1b2e 50%, #252641 100%);
+        min-height: 100vh;
+      }
+
+      /* Email Security Protocol Cards */
+      .email-protocols-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 2rem;
+        margin: 2rem 0;
+      }
+
+      .protocol-card {
+        background: linear-gradient(135deg, var(--bg-elevated), var(--bg-card));
+        border-radius: 20px;
+        padding: 2.5rem;
+        border: 2px solid rgba(139, 92, 246, 0.15);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        text-align: center;
+      }
+
+      .protocol-card.spf {
+        border-color: rgba(6, 182, 212, 0.3);
+      }
+
+      .protocol-card.spf::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--spf-color), #22d3ee);
+      }
+
+      .protocol-card.dkim {
+        border-color: rgba(16, 185, 129, 0.3);
+      }
+
+      .protocol-card.dkim::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--dkim-color), #34d399);
+      }
+
+      .protocol-card.dmarc {
+        border-color: rgba(245, 158, 11, 0.3);
+      }
+
+      .protocol-card.dmarc::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--dmarc-color), #fbbf24);
+      }
+
+      .protocol-card:hover {
+        transform: translateY(-12px);
+        box-shadow: 0 20px 60px var(--accent-glow);
+      }
+
+      .protocol-card.spf:hover {
+        box-shadow: 0 20px 60px rgba(6, 182, 212, 0.4);
+      }
+
+      .protocol-card.dkim:hover {
+        box-shadow: 0 20px 60px rgba(16, 185, 129, 0.4);
+      }
+
+      .protocol-card.dmarc:hover {
+        box-shadow: 0 20px 60px rgba(245, 158, 11, 0.4);
+      }
+
+      .protocol-icon {
+        font-size: 4rem;
+        margin-bottom: 1.5rem;
+        filter: drop-shadow(0 4px 12px var(--accent-glow));
+        display: block;
+      }
+
+      .protocol-icon.spf {
+        filter: drop-shadow(0 4px 12px rgba(6, 182, 212, 0.4));
+      }
+
+      .protocol-icon.dkim {
+        filter: drop-shadow(0 4px 12px rgba(16, 185, 129, 0.4));
+      }
+
+      .protocol-icon.dmarc {
+        filter: drop-shadow(0 4px 12px rgba(245, 158, 11, 0.4));
+      }
+
+      /* Policy Actions Grid */
+      .policy-actions-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+        margin: 2rem 0;
+      }
+
+      .policy-action-card {
+        background: linear-gradient(135deg, var(--bg-elevated), var(--bg-card));
+        border-radius: 20px;
+        padding: 2.5rem;
+        border: 2px solid rgba(139, 92, 246, 0.15);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        text-align: center;
+      }
+
+      .policy-action-card.antimalware {
+        border-color: rgba(239, 68, 68, 0.3);
+      }
+
+      .policy-action-card.antimalware::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--danger-color), #ff5252);
+      }
+
+      .policy-action-card.antiphishing {
+        border-color: rgba(139, 92, 246, 0.3);
+      }
+
+      .policy-action-card.antiphishing::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--email-security-color), #a78bfa);
+      }
+
+      .policy-action-card.quarantine {
+        border-color: rgba(245, 158, 11, 0.3);
+      }
+
+      .policy-action-card.quarantine::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--warning-color), #fbbf24);
+      }
+
+      .policy-action-card:hover {
+        transform: translateY(-12px);
+        box-shadow: 0 20px 60px var(--accent-glow);
+      }
+
+      .policy-action-card.antimalware:hover {
+        box-shadow: 0 20px 60px rgba(239, 68, 68, 0.4);
+      }
+
+      .policy-action-card.antiphishing:hover {
+        box-shadow: 0 20px 60px rgba(139, 92, 246, 0.4);
+      }
+
+      .policy-action-card.quarantine:hover {
+        box-shadow: 0 20px 60px rgba(245, 158, 11, 0.4);
+      }
+
+      .policy-icon {
+        font-size: 4rem;
+        margin-bottom: 1.5rem;
+        filter: drop-shadow(0 4px 12px var(--accent-glow));
+        display: block;
+      }
+
+      .policy-icon.antimalware {
+        filter: drop-shadow(0 4px 12px rgba(239, 68, 68, 0.4));
+      }
+
+      .policy-icon.antiphishing {
+        filter: drop-shadow(0 4px 12px rgba(139, 92, 246, 0.4));
+      }
+
+      .policy-icon.quarantine {
+        filter: drop-shadow(0 4px 12px rgba(245, 158, 11, 0.4));
+      }
+
+      /* DMARC Policy Table */
+      .dmarc-policies-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        background: var(--bg-elevated);
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        margin: 2rem 0;
+      }
+
+      .dmarc-policies-table thead {
+        background: linear-gradient(135deg, var(--dmarc-color), #f59e0b);
+      }
+
+      .dmarc-policies-table th {
+        padding: 1.5rem 1rem;
+        text-align: left;
+        color: white;
+        font-weight: 700;
+        font-size: 1rem;
+        position: relative;
+      }
+
+      .dmarc-policies-table tbody tr {
+        border-bottom: 1px solid rgba(245, 158, 11, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .dmarc-policies-table tbody tr:hover {
+        background: rgba(245, 158, 11, 0.1);
+        transform: scale(1.01);
+        box-shadow: 0 8px 25px rgba(245, 158, 11, 0.2);
+      }
+
+      .dmarc-policies-table td {
+        padding: 1.25rem 1rem;
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+        line-height: 1.6;
+        vertical-align: top;
+      }
+
+      .dmarc-policies-table td:first-child {
+        color: var(--text-primary);
+        font-weight: 600;
+        border-left: 3px solid transparent;
+      }
+
+      /* Email Flow Diagram */
+      .email-flow-diagram {
+        background: linear-gradient(135deg, var(--auth-flow-color), var(--primary-dark));
+        border-radius: 20px;
+        padding: 2.5rem;
+        margin: 2rem 0;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 16px 48px rgba(99, 102, 241, 0.3);
+      }
+
+      .email-flow-diagram::before {
+        content: '';
+        position: absolute;
+        top: -50px;
+        right: -50px;
+        width: 200px;
+        height: 200px;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.1), transparent);
+        opacity: 0.5;
+      }
+
+      .flow-step {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin: 1rem 0;
+        border-left: 4px solid white;
+        position: relative;
+        z-index: 1;
+      }
+
+      .flow-step-number {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 2rem;
+        height: 2rem;
+        background: white;
+        color: var(--auth-flow-color);
+        border-radius: 50%;
+        font-weight: 700;
+        margin-right: 1rem;
+        font-size: 0.9rem;
+      }
+
+      /* Authentication Status Badges */
+      .auth-status {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+
+      .auth-status.pass {
+        background: rgba(16, 185, 129, 0.2);
+        color: var(--success-color);
+        border: 1px solid rgba(16, 185, 129, 0.3);
+      }
+
+      .auth-status.fail {
+        background: rgba(239, 68, 68, 0.2);
+        color: var(--danger-color);
+        border: 1px solid rgba(239, 68, 68, 0.3);
+      }
+
+      .auth-status.none {
+        background: rgba(107, 114, 128, 0.2);
+        color: #9ca3af;
+        border: 1px solid rgba(107, 114, 128, 0.3);
+      }
+
+      .auth-status.quarantine {
+        background: rgba(245, 158, 11, 0.2);
+        color: var(--warning-color);
+        border: 1px solid rgba(245, 158, 11, 0.3);
+      }
+
+      /* Critical Warning Box */
+      .critical-warning {
+        background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(220, 38, 38, 0.05));
+        border: 3px solid rgba(239, 68, 68, 0.4);
+        border-radius: 20px;
+        padding: 2.5rem;
+        margin: 2rem 0;
+        position: relative;
+        overflow: hidden;
+        animation: pulse 2s infinite;
+      }
+
+      .critical-warning::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--danger-color), #ff5252);
+      }
+
+      .critical-warning::after {
+        content: '';
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        width: 100px;
+        height: 100px;
+        background: radial-gradient(circle, rgba(239, 68, 68, 0.2), transparent);
+        border-radius: 50%;
+        animation: pulse 1.5s infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: scale(1);
+          opacity: 1;
+        }
+        50% {
+          transform: scale(1.02);
+          opacity: 0.9;
+        }
+      }
+
+      /* DNS Record Examples */
+      .dns-record {
+        background: var(--bg-elevated);
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin: 1rem 0;
+        border-left: 4px solid var(--primary-color);
+        font-family: 'Courier New', monospace;
+        font-size: 0.9rem;
+        overflow-x: auto;
+      }
+
+      .dns-record.spf {
+        border-left-color: var(--spf-color);
+      }
+
+      .dns-record.dkim {
+        border-left-color: var(--dkim-color);
+      }
+
+      .dns-record.dmarc {
+        border-left-color: var(--dmarc-color);
+      }
+
+      /* Statistics boxes */
+      .email-security-stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.5rem;
+        margin: 2rem 0;
+      }
+
+      .email-stat-box {
+        background: linear-gradient(135deg, var(--email-security-color), var(--primary-dark));
+        border-radius: 12px;
+        padding: 1.5rem;
+        text-align: center;
+        box-shadow: 0 8px 24px var(--accent-glow);
+        transition: all 0.3s ease;
+      }
+
+      .email-stat-box:hover {
+        transform: scale(1.05);
+        box-shadow: 0 12px 36px var(--accent-glow);
+      }
+
+      .email-stat-box.spf {
+        background: linear-gradient(135deg, var(--spf-color), #0891b2);
+        box-shadow: 0 8px 24px rgba(6, 182, 212, 0.3);
+      }
+
+      .email-stat-box.dkim {
+        background: linear-gradient(135deg, var(--dkim-color), #059669);
+        box-shadow: 0 8px 24px rgba(16, 185, 129, 0.3);
+      }
+
+      .email-stat-box.dmarc {
+        background: linear-gradient(135deg, var(--dmarc-color), #d97706);
+        box-shadow: 0 8px 24px rgba(245, 158, 11, 0.3);
+      }
+
+      .email-stat-box.danger {
+        background: linear-gradient(135deg, var(--danger-color), #dc2626);
+        box-shadow: 0 8px 24px rgba(239, 68, 68, 0.3);
+      }
+
+      .stat-number {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: white;
+        display: block;
+        margin-bottom: 0.5rem;
+      }
+
+      .stat-label {
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.8);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      /* Enhanced info boxes */
+      .info-box-premium {
+        background: linear-gradient(135deg, var(--bg-elevated), var(--bg-card));
+        border-radius: 16px;
+        padding: 2rem;
+        margin: 1.5rem 0;
+        border-left: 4px solid var(--email-security-color);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .info-box-premium::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle at top right, rgba(139, 92, 246, 0.2), transparent);
+        opacity: 0.3;
+        pointer-events: none;
+      }
+
+      /* Content sections */
+      .content-section {
+        animation: fadeInUp 0.6s ease-out;
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Responsive design */
+      @media (max-width: 768px) {
+        .dmarc-policies-table {
+          font-size: 0.8rem;
+        }
+
+        .dmarc-policies-table th,
+        .dmarc-policies-table td {
+          padding: 0.75rem 0.5rem;
+        }
+
+        .protocol-card,
+        .policy-action-card {
+          padding: 1.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body class="bg-gray-900 text-gray-100">
+    <div class="document-container">
+      <div class="content-card">
+        <header class="page-header">
+          <div class="header-content">
+            <div class="icon-badge">
+              <span class="icon-large">📧</span>
+            </div>
+            <div>
+              <h1 class="page-title">Microsoft Defender para Office 365</h1>
+              <p class="page-subtitle">El Escudo Antimalware y Protección de Correo Electrónico</p>
+            </div>
+          </div>
+        </header>
+
+        <!-- Introducción -->
+        <section class="content-section">
+          <p class="section-intro">
+            <strong>Microsoft Defender para Office 365</strong> constituye la solución de seguridad que protege la
+            infraestructura de correo electrónico mientras está <strong>en tránsito</strong> dentro de la plataforma
+            Microsoft 365, diferenciándose del antivirus tradicional de puesto de cliente.
+          </p>
+        </section>
+
+        <!-- Estadísticas clave -->
+        <section class="content-section">
+          <div class="email-security-stats">
+            <div class="email-stat-box spf">
+              <span class="stat-number">SPF</span>
+              <span class="stat-label">IPs Autorizadas</span>
+            </div>
+            <div class="email-stat-box dkim">
+              <span class="stat-number">DKIM</span>
+              <span class="stat-label">Firma Criptográfica</span>
+            </div>
+            <div class="email-stat-box dmarc">
+              <span class="stat-number">DMARC</span>
+              <span class="stat-label">Política Unificada</span>
+            </div>
+            <div class="email-stat-box danger">
+              <span class="stat-number">0</span>
+              <span class="stat-label">Negociación Malware</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Funcionalidades esenciales -->
+        <section class="content-section">
+          <h2 class="section-title">
+            <span class="icon">🛡️</span>
+            Funcionalidades Esenciales de Protección
+          </h2>
+
+          <div class="info-box-premium">
+            <h4 style="color: var(--text-primary); font-size: 1.1rem; margin-bottom: 1rem">
+              🚫 Protección en Tiempo Real Durante el Tránsito
+            </h4>
+            <p style="color: var(--text-secondary); line-height: 1.7">
+              A diferencia de los antivirus tradicionales, Defender actúa
+              <strong>mientras el correo está en tránsito</strong>, proporcionando múltiples capas de protección antes
+              de que el mensaje llegue al buzón del usuario.
+            </p>
+          </div>
+
+          <div class="policy-actions-grid">
+            <div class="policy-action-card antimalware">
+              <span class="policy-icon antimalware">🦠</span>
+              <h3 style="color: var(--danger-color); font-size: 1.8rem; font-weight: 700; margin-bottom: 1rem">
+                Antispam y Antimalware
+              </h3>
+
+              <h4 style="color: var(--text-primary); font-size: 1.1rem; font-weight: 600; margin-bottom: 1rem">
+                Política Sin Negociación
+              </h4>
+
+              <ul
+                style="
+                  color: var(--text-secondary);
+                  font-size: 0.9rem;
+                  line-height: 1.6;
+                  text-align: left;
+                  padding-left: 1rem;
+                  margin: 1rem 0;
+                "
+              >
+                <li>🔍 Escaneo de tráfico de correo en tiempo real</li>
+                <li>🚫 Bloqueo automático de amenazas conocidas</li>
+                <li>📦 Cuarentena obligatoria de malware detectado</li>
+                <li>🗑️ Eliminación directa sin opción de liberación</li>
+                <li>📊 Monitoreo continuo de patrones de amenaza</li>
+              </ul>
+
+              <div class="critical-warning" style="margin-top: 1rem; padding: 1rem; position: relative; z-index: 1">
+                <p
+                  style="
+                    color: var(--danger-color);
+                    font-weight: 700;
+                    font-size: 0.85rem;
+                    margin: 0;
+                    text-align: center;
+                  "
+                >
+                  ⚠️ "NO SE NEGOCIA" - Eliminación Automática
+                </p>
+              </div>
+            </div>
+
+            <div class="policy-action-card antiphishing">
+              <span class="policy-icon antiphishing">🎣</span>
+              <h3 style="color: var(--email-security-color); font-size: 1.8rem; font-weight: 700; margin-bottom: 1rem">
+                Antiphishing Avanzado
+              </h3>
+
+              <h4 style="color: var(--text-primary); font-size: 1.1rem; font-weight: 600; margin-bottom: 1rem">
+                IA y Indicadores Visuales
+              </h4>
+
+              <ul
+                style="
+                  color: var(--text-secondary);
+                  font-size: 0.9rem;
+                  line-height: 1.6;
+                  text-align: left;
+                  padding-left: 1rem;
+                  margin: 1rem 0;
+                "
+              >
+                <li>🤖 Inteligencia artificial para detección de spoofing</li>
+                <li>👁️ Indicadores visuales de remitentes nuevos</li>
+                <li>🔍 Análisis de patrones de suplantación</li>
+                <li>⚡ Alertas en tiempo real al usuario</li>
+                <li>📈 Aprendizaje continuo de amenazas</li>
+              </ul>
+
+              <div style="background: rgba(139, 92, 246, 0.1); padding: 1rem; border-radius: 8px; margin-top: 1rem">
+                <p style="color: var(--email-security-color); font-weight: 700; font-size: 0.85rem; margin: 0">
+                  🎯 Primera impresión visual de remitentes
+                </p>
+              </div>
+            </div>
+
+            <div class="policy-action-card quarantine">
+              <span class="policy-icon quarantine">🔒</span>
+              <h3 style="color: var(--warning-color); font-size: 1.8rem; font-weight: 700; margin-bottom: 1rem">
+                Cuarentena y Revisiones
+              </h3>
+
+              <h4 style="color: var(--text-primary); font-size: 1.1rem; font-weight: 600; margin-bottom: 1rem">
+                Control Administrativo Centralizado
+              </h4>
+
+              <ul
+                style="
+                  color: var(--text-secondary);
+                  font-size: 0.9rem;
+                  line-height: 1.6;
+                  text-align: left;
+                  padding-left: 1rem;
+                  margin: 1rem 0;
+                "
+              >
+                <li>📋 Centro de seguridad para revisión</li>
+                <li>👀 Vista previa sin riesgo de ejecución</li>
+                <li>🚫 Acceso limitado para usuarios estándar</li>
+                <li>🔐 Solo administradores pueden liberar</li>
+                <li>📊 Historial completo de decisiones</li>
+              </ul>
+
+              <div style="background: rgba(245, 158, 11, 0.1); padding: 1rem; border-radius: 8px; margin-top: 1rem">
+                <p style="color: var(--warning-color); font-weight: 700; font-size: 0.85rem; margin: 0">
+                  🛡️ Protección contra liberación accidental
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- La Tríada de Autenticación -->
+        <section class="content-section">
+          <h2 class="section-title">
+            <span class="icon">🔐</span>
+            La Tríada de Autenticación: SPF, DKIM y DMARC
+          </h2>
+
+          <div class="info-box-premium">
+            <h4 style="color: var(--text-primary); font-size: 1.1rem; margin-bottom: 1rem">
+              🌐 Configuración Mediante DNS Público
+            </h4>
+            <p style="color: var(--text-secondary); line-height: 1.7">
+              Estos tres protocolos se configuran mediante <strong>registros en el DNS público</strong> de su dominio y
+              permiten a los servidores de correo receptores verificar la legitimidad de los correos enviados.
+            </p>
+          </div>
+
+          <!-- Flujo de autenticación -->
+          <div class="email-flow-diagram">
+            <div style="position: relative; z-index: 1">
+              <h3 style="color: white; font-size: 1.5rem; font-weight: 700; margin-bottom: 2rem; text-align: center">
+                📬 Flujo de Verificación de Autenticación
+              </h3>
+
+              <div class="flow-step">
+                <div style="display: flex; align-items: center">
+                  <span class="flow-step-number">1</span>
+                  <div>
+                    <h4 style="color: white; font-weight: 600; margin-bottom: 0.5rem">Recepción del Correo</h4>
+                    <p style="color: rgba(255, 255, 255, 0.8); margin: 0; font-size: 0.9rem">
+                      El servidor receptor recibe un correo que afirma ser de su dominio
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flow-step">
+                <div style="display: flex; align-items: center">
+                  <span class="flow-step-number">2</span>
+                  <div>
+                    <h4 style="color: white; font-weight: 600; margin-bottom: 0.5rem">Verificación SPF</h4>
+                    <p style="color: rgba(255, 255, 255, 0.8); margin: 0; font-size: 0.9rem">
+                      Consulta DNS para validar si la IP de origen está autorizada
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flow-step">
+                <div style="display: flex; align-items: center">
+                  <span class="flow-step-number">3</span>
+                  <div>
+                    <h4 style="color: white; font-weight: 600; margin-bottom: 0.5rem">Validación DKIM</h4>
+                    <p style="color: rgba(255, 255, 255, 0.8); margin: 0; font-size: 0.9rem">
+                      Verifica la firma criptográfica usando la clave pública en DNS
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flow-step">
+                <div style="display: flex; align-items: center">
+                  <span class="flow-step-number">4</span>
+                  <div>
+                    <h4 style="color: white; font-weight: 600; margin-bottom: 0.5rem">Aplicación DMARC</h4>
+                    <p style="color: rgba(255, 255, 255, 0.8); margin: 0; font-size: 0.9rem">
+                      Ejecuta la política definida según los resultados de SPF y DKIM
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="email-protocols-grid">
+            <div class="protocol-card spf">
+              <span class="protocol-icon spf">🏠</span>
+              <h3 style="color: var(--spf-color); font-size: 1.8rem; font-weight: 700; margin-bottom: 1rem">SPF</h3>
+
+              <h4 style="color: var(--text-primary); font-size: 1.1rem; font-weight: 600; margin-bottom: 1rem">
+                Sender Protection Framework
+              </h4>
+
+              <ul
+                style="
+                  color: var(--text-secondary);
+                  font-size: 0.9rem;
+                  line-height: 1.6;
+                  text-align: left;
+                  padding-left: 1rem;
+                  margin: 1rem 0;
+                "
+              >
+                <li>📍 Identifica servidores autorizados por dominio</li>
+                <li>🛡️ Previene uso no autorizado del dominio</li>
+                <li>📝 Registro TXT en DNS público</li>
+                <li>🌐 Lista IPs y hosts permitidos</li>
+                <li>⚠️ Incluye Office 365 y servicios de marketing</li>
+              </ul>
+
+              <div class="dns-record spf">
+                <strong style="color: var(--spf-color)">Ejemplo SPF:</strong><br />
+                v=spf1 include:spf.protection.outlook.com ~all
+              </div>
+
+              <div class="critical-warning" style="margin-top: 1rem; padding: 1rem; position: relative; z-index: 1">
+                <p
+                  style="
+                    color: var(--danger-color);
+                    font-weight: 700;
+                    font-size: 0.85rem;
+                    margin: 0;
+                    text-align: center;
+                  "
+                >
+                  ⚠️ CUIDADO: Muchas empresas tienen SPF mal configurado
+                </p>
+              </div>
+            </div>
+
+            <div class="protocol-card dkim">
+              <span class="protocol-icon dkim">🔑</span>
+              <h3 style="color: var(--dkim-color); font-size: 1.8rem; font-weight: 700; margin-bottom: 1rem">DKIM</h3>
+
+              <h4 style="color: var(--text-primary); font-size: 1.1rem; font-weight: 600; margin-bottom: 1rem">
+                DomainKeys Identified Mail
+              </h4>
+
+              <ul
+                style="
+                  color: var(--text-secondary);
+                  font-size: 0.9rem;
+                  line-height: 1.6;
+                  text-align: left;
+                  padding-left: 1rem;
+                  margin: 1rem 0;
+                "
+              >
+                <li>🔐 Firma digital criptográfica</li>
+                <li>✅ Verifica integridad del mensaje</li>
+                <li>🗝️ Clave privada gestionada por Office 365</li>
+                <li>🌐 Clave pública publicada en DNS</li>
+                <li>📋 Selectores selector1 y selector2</li>
+              </ul>
+
+              <div class="dns-record dkim">
+                <strong style="color: var(--dkim-color)">Ejemplo DKIM:</strong><br />
+                selector1._domainkey.ejemplo.com TXT "k=rsa; p=..."
+              </div>
+
+              <div style="background: rgba(16, 185, 129, 0.1); padding: 1rem; border-radius: 8px; margin-top: 1rem">
+                <p style="color: var(--dkim-color); font-weight: 700; font-size: 0.85rem; margin: 0">
+                  🔒 Aumenta confianza en correos entrantes y salientes
+                </p>
+              </div>
+            </div>
+
+            <div class="protocol-card dmarc">
+              <span class="protocol-icon dmarc">⚖️</span>
+              <h3 style="color: var(--dmarc-color); font-size: 1.8rem; font-weight: 700; margin-bottom: 1rem">DMARC</h3>
+
+              <h4 style="color: var(--text-primary); font-size: 1.1rem; font-weight: 600; margin-bottom: 1rem">
+                Domain-based Message Authentication
+              </h4>
+
+              <ul
+                style="
+                  color: var(--text-secondary);
+                  font-size: 0.9rem;
+                  line-height: 1.6;
+                  text-align: left;
+                  padding-left: 1rem;
+                  margin: 1rem 0;
+                "
+              >
+                <li>📋 Política unificada para SPF y DKIM</li>
+                <li>🎯 Define acciones ante fallos de autenticación</li>
+                <li>📊 Reportes detallados (RUA y RUF)</li>
+                <li>🌐 Registro TXT en DNS</li>
+                <li>🛡️ Protege contra suplantación de identidad</li>
+              </ul>
+
+              <div class="dns-record dmarc">
+                <strong style="color: var(--dmarc-color)">Ejemplo DMARC:</strong><br />
+                v=DMARC1; p=quarantine; rua=mailto:admin@ejemplo.com
+              </div>
+
+              <div style="background: rgba(245, 158, 11, 0.1); padding: 1rem; border-radius: 8px; margin-top: 1rem">
+                <p style="color: var(--dmarc-color); font-weight: 700; font-size: 0.85rem; margin: 0">
+                  📊 Permite al emisor definir comportamiento del receptor
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Políticas DMARC -->
+        <section class="content-section">
+          <h3 class="subsection-title">⚖️ Políticas de Acción DMARC</h3>
+
+          <div class="info-box-premium">
+            <h4 style="color: var(--text-primary); font-size: 1.1rem; margin-bottom: 1rem">
+              🎯 Definición de Comportamiento del Receptor
+            </h4>
+            <p style="color: var(--text-secondary); line-height: 1.7">
+              DMARC permite al emisor indicar al servidor receptor <strong>qué acción tomar</strong>
+              si un correo falla las comprobaciones de SPF y/o DKIM.
+            </p>
+          </div>
+
+          <table class="dmarc-policies-table">
+            <thead>
+              <tr>
+                <th>Política DMARC</th>
+                <th>Configuración DNS</th>
+                <th>Comportamiento del Receptor</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <strong>None (p=none)</strong>
+                  <br />
+                  <div class="auth-status none">
+                    <span>👁️</span>
+                    <span>Solo Monitoreo</span>
+                  </div>
+                </td>
+                <td>
+                  <code style="background: rgba(107, 114, 128, 0.1); padding: 0.5rem; border-radius: 4px">
+                    v=DMARC1; p=none; rua=mailto:reports@domain.com
+                  </code>
+                </td>
+                <td>
+                  <strong>No tomar ninguna acción</strong> (aceptar correo) <br /><br />
+                  Se utiliza principalmente para <strong>monitorear</strong> y generar reportes sin impactar la entrega.
+                  Ideal para la fase inicial de implementación.
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <strong>Quarantine (p=quarantine)</strong>
+                  <br />
+                  <div class="auth-status quarantine">
+                    <span>🔒</span>
+                    <span>Cuarentena</span>
+                  </div>
+                </td>
+                <td>
+                  <code style="background: rgba(245, 158, 11, 0.1); padding: 0.5rem; border-radius: 4px">
+                    v=DMARC1; p=quarantine; rua=mailto:reports@domain.com
+                  </code>
+                </td>
+                <td>
+                  <strong>Marcar como sospechoso</strong> y enviar a cuarentena <br /><br />
+                  El correo se entrega pero marcado como spam o en carpeta de cuarentena. Permite revisión manual antes
+                  de bloqueo total.
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <strong>Reject (p=reject)</strong>
+                  <br />
+                  <div class="auth-status fail">
+                    <span>🚫</span>
+                    <span>Rechazo Total</span>
+                  </div>
+                </td>
+                <td>
+                  <code style="background: rgba(239, 68, 68, 0.1); padding: 0.5rem; border-radius: 4px">
+                    v=DMARC1; p=reject; rua=mailto:reports@domain.com
+                  </code>
+                </td>
+                <td>
+                  <strong>Rechazar completamente</strong> el correo <br /><br />
+                  Máximo nivel de protección. El correo es rechazado en el servidor y nunca llega al buzón del
+                  destinatario.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <!-- Gestión en Defender -->
+        <section class="content-section">
+          <h2 class="section-title">
+            <span class="icon">⚙️</span>
+            Gestión de Políticas en Microsoft Defender
+          </h2>
+
+          <div class="info-box-premium">
+            <h4 style="color: var(--text-primary); font-size: 1.2rem; margin-bottom: 1.5rem">
+              🏛️ Portal de Seguridad (Microsoft Purview)
+            </h4>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem">
+              <div
+                style="
+                  background: rgba(139, 92, 246, 0.1);
+                  padding: 1.5rem;
+                  border-radius: 12px;
+                  border-left: 4px solid var(--email-security-color);
+                "
+              >
+                <h5 style="color: var(--email-security-color); font-weight: 700; margin-bottom: 0.75rem">
+                  🎣 Políticas Antiphishing
+                </h5>
+                <ul
+                  style="
+                    color: var(--text-secondary);
+                    font-size: 0.9rem;
+                    line-height: 1.6;
+                    margin: 0;
+                    padding-left: 1rem;
+                  "
+                >
+                  <li>Configuración de agresividad según SPF/DKIM</li>
+                  <li>Umbrales de seguridad personalizables</li>
+                  <li>IA para usuarios y dominios específicos</li>
+                  <li>Monitoreo de suplantación interna</li>
+                </ul>
+              </div>
+
+              <div
+                style="
+                  background: rgba(16, 185, 129, 0.1);
+                  padding: 1.5rem;
+                  border-radius: 12px;
+                  border-left: 4px solid var(--dkim-color);
+                "
+              >
+                <h5 style="color: var(--dkim-color); font-weight: 700; margin-bottom: 0.75rem">
+                  🔐 Configuración de Autenticación
+                </h5>
+                <ul
+                  style="
+                    color: var(--text-secondary);
+                    font-size: 0.9rem;
+                    line-height: 1.6;
+                    margin: 0;
+                    padding-left: 1rem;
+                  "
+                >
+                  <li>Activación de DKIM por dominio</li>
+                  <li>Verificación de selectores DNS</li>
+                  <li>Monitoreo de estado de autenticación</li>
+                  <li>Troubleshooting de configuración</li>
+                </ul>
+              </div>
+
+              <div
+                style="
+                  background: rgba(245, 158, 11, 0.1);
+                  padding: 1.5rem;
+                  border-radius: 12px;
+                  border-left: 4px solid var(--warning-color);
+                "
+              >
+                <h5 style="color: var(--warning-color); font-weight: 700; margin-bottom: 0.75rem">
+                  🔒 Gestión de Cuarentena
+                </h5>
+                <ul
+                  style="
+                    color: var(--text-secondary);
+                    font-size: 0.9rem;
+                    line-height: 1.6;
+                    margin: 0;
+                    padding-left: 1rem;
+                  "
+                >
+                  <li>Acceso limitado para usuarios estándar</li>
+                  <li>Solo vista previa sin liberación</li>
+                  <li>Control administrativo total</li>
+                  <li>Prevención de liberación accidental</li>
+                </ul>
+              </div>
+
+              <div
+                style="
+                  background: rgba(6, 182, 212, 0.1);
+                  padding: 1.5rem;
+                  border-radius: 12px;
+                  border-left: 4px solid var(--spf-color);
+                "
+              >
+                <h5 style="color: var(--spf-color); font-weight: 700; margin-bottom: 0.75rem">
+                  🎯 Simulaciones de Ataque
+                </h5>
+                <ul
+                  style="
+                    color: var(--text-secondary);
+                    font-size: 0.9rem;
+                    line-height: 1.6;
+                    margin: 0;
+                    padding-left: 1rem;
+                  "
+                >
+                  <li>IPs de simulación whitelistadas</li>
+                  <li>Bypass de filtros para pruebas</li>
+                  <li>Testing de resistencia de usuarios</li>
+                  <li>Métricas de efectividad de training</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Mejores prácticas -->
+        <section class="content-section">
+          <h2 class="section-title">
+            <span class="icon">🏆</span>
+            Estrategia de Implementación de Autenticación
+          </h2>
+
+          <div
+            style="
+              background: linear-gradient(135deg, var(--auth-flow-color), var(--primary-dark));
+              border-radius: 20px;
+              padding: 2rem;
+              margin: 2rem 0;
+              position: relative;
+              overflow: hidden;
+            "
+          >
+            <div
+              style="
+                position: absolute;
+                top: -50px;
+                right: -50px;
+                width: 150px;
+                height: 150px;
+                background: radial-gradient(circle, rgba(255, 255, 255, 0.1), transparent);
+                opacity: 0.5;
+              "
+            ></div>
+            <div style="position: relative; z-index: 1">
+              <h3 style="color: white; font-size: 1.3rem; font-weight: 700; margin-bottom: 1.5rem; text-align: center">
+                📋 Ruta de Implementación Recomendada
+              </h3>
+
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem">
+                <div
+                  style="background: rgba(255, 255, 255, 0.1); padding: 1rem; border-radius: 8px; text-align: center"
+                >
+                  <div style="font-size: 2rem; margin-bottom: 0.5rem">1️⃣</div>
+                  <h4 style="color: white; font-size: 0.9rem; font-weight: 700; margin-bottom: 0.5rem">SPF Primero</h4>
+                  <p style="color: rgba(255, 255, 255, 0.8); font-size: 0.8rem; margin: 0">
+                    Configurar IPs autorizadas
+                  </p>
+                </div>
+                <div
+                  style="background: rgba(255, 255, 255, 0.1); padding: 1rem; border-radius: 8px; text-align: center"
+                >
+                  <div style="font-size: 2rem; margin-bottom: 0.5rem">2️⃣</div>
+                  <h4 style="color: white; font-size: 0.9rem; font-weight: 700; margin-bottom: 0.5rem">Activar DKIM</h4>
+                  <p style="color: rgba(255, 255, 255, 0.8); font-size: 0.8rem; margin: 0">Habilitar firma digital</p>
+                </div>
+                <div
+                  style="background: rgba(255, 255, 255, 0.1); padding: 1rem; border-radius: 8px; text-align: center"
+                >
+                  <div style="font-size: 2rem; margin-bottom: 0.5rem">3️⃣</div>
+                  <h4 style="color: white; font-size: 0.9rem; font-weight: 700; margin-bottom: 0.5rem">
+                    DMARC Monitor
+                  </h4>
+                  <p style="color: rgba(255, 255, 255, 0.8); font-size: 0.8rem; margin: 0">Empezar con p=none</p>
+                </div>
+                <div
+                  style="background: rgba(255, 255, 255, 0.1); padding: 1rem; border-radius: 8px; text-align: center"
+                >
+                  <div style="font-size: 2rem; margin-bottom: 0.5rem">4️⃣</div>
+                  <h4 style="color: white; font-size: 0.9rem; font-weight: 700; margin-bottom: 0.5rem">Endurecer</h4>
+                  <p style="color: rgba(255, 255, 255, 0.8); font-size: 0.8rem; margin: 0">Evolucionar a p=reject</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Conclusión -->
+        <section class="content-section">
+          <div
+            style="
+              background: linear-gradient(135deg, var(--email-security-color), var(--primary-dark));
+              border-radius: 20px;
+              padding: 2.5rem;
+              text-align: center;
+              margin-top: 3rem;
+              position: relative;
+              overflow: hidden;
+              box-shadow: 0 16px 48px var(--accent-glow);
+            "
+          >
+            <div
+              style="
+                position: absolute;
+                top: -50px;
+                right: -50px;
+                width: 200px;
+                height: 200px;
+                background: radial-gradient(circle, rgba(255, 255, 255, 0.1), transparent);
+                opacity: 0.5;
+              "
+            ></div>
+            <div style="position: relative; z-index: 1">
+              <div style="font-size: 3.5rem; margin-bottom: 1rem">📧</div>
+              <h3 style="color: white; font-size: 1.8rem; font-weight: 700; margin-bottom: 1rem">
+                Defender = Protección Multicapa + Autenticación Robusta
+              </h3>
+              <p
+                style="
+                  color: rgba(255, 255, 255, 0.9);
+                  font-size: 1.1rem;
+                  max-width: 700px;
+                  margin: 0 auto;
+                  line-height: 1.8;
+                "
+              >
+                La combinación de políticas antimalware sin negociación y la tríada SPF-DKIM-DMARC proporciona una
+                defensa integral contra amenazas de correo electrónico modernas.
+              </p>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <!-- Script de navegación automática -->
+    <script src="../js/back-button.js"></script>
+  </body>
+</html>

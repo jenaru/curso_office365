@@ -1,0 +1,1471 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Directivas de Correo en Microsoft 365 - Curso Microsoft 365</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- CSS externo para estilos base y tema -->
+    <link rel="stylesheet" href="../css/pages-base.css" />
+    <link rel="stylesheet" href="../css/themes/correo.css" />
+
+    <style>
+      :root {
+        --primary-color: #8b5cf6;
+        --primary-dark: #7c3aed;
+        --primary-light: #a78bfa;
+        --bg-dark: #0f0f1e;
+        --bg-card: #1a1b2e;
+        --bg-elevated: #252641;
+        --text-primary: #f0f0f3;
+        --text-secondary: #b4b4c8;
+        --accent: #ef4444;
+        --accent-glow: rgba(139, 92, 246, 0.3);
+        --success-color: #10b981;
+        --warning-color: #f59e0b;
+        --danger-color: #ef4444;
+        --policy-color: #8b5cf6;
+        --antiphishing-color: #06b6d4;
+        --antimalware-color: #ef4444;
+        --antispam-color: #10b981;
+        --quarantine-color: #f59e0b;
+        --auth-color: #6366f1;
+        --global-policy-color: #64748b;
+        --custom-policy-color: #8b5cf6;
+      }
+
+      body {
+        background: linear-gradient(135deg, #0f0f1e 0%, #1a1b2e 50%, #252641 100%);
+        min-height: 100vh;
+      }
+
+      /* Policy Framework Grid */
+      .policy-framework-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 2rem;
+        margin: 2rem 0;
+      }
+
+      .policy-framework-card {
+        background: linear-gradient(135deg, var(--bg-elevated), var(--bg-card));
+        border-radius: 20px;
+        padding: 2.5rem;
+        border: 2px solid rgba(139, 92, 246, 0.15);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        text-align: center;
+      }
+
+      .policy-framework-card.global {
+        border-color: rgba(100, 116, 139, 0.3);
+      }
+
+      .policy-framework-card.global::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--global-policy-color), #94a3b8);
+      }
+
+      .policy-framework-card.custom {
+        border-color: rgba(139, 92, 246, 0.3);
+      }
+
+      .policy-framework-card.custom::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--custom-policy-color), #a78bfa);
+      }
+
+      .policy-framework-card.analyzer {
+        border-color: rgba(99, 102, 241, 0.3);
+      }
+
+      .policy-framework-card.analyzer::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--auth-color), #818cf8);
+      }
+
+      .policy-framework-card:hover {
+        transform: translateY(-12px);
+        box-shadow: 0 20px 60px var(--accent-glow);
+      }
+
+      .policy-framework-card.global:hover {
+        box-shadow: 0 20px 60px rgba(100, 116, 139, 0.4);
+      }
+
+      .policy-framework-card.custom:hover {
+        box-shadow: 0 20px 60px rgba(139, 92, 246, 0.4);
+      }
+
+      .policy-framework-card.analyzer:hover {
+        box-shadow: 0 20px 60px rgba(99, 102, 241, 0.4);
+      }
+
+      .framework-icon {
+        font-size: 4rem;
+        margin-bottom: 1.5rem;
+        filter: drop-shadow(0 4px 12px var(--accent-glow));
+        display: block;
+      }
+
+      .framework-icon.global {
+        filter: drop-shadow(0 4px 12px rgba(100, 116, 139, 0.4));
+      }
+
+      .framework-icon.custom {
+        filter: drop-shadow(0 4px 12px rgba(139, 92, 246, 0.4));
+      }
+
+      .framework-icon.analyzer {
+        filter: drop-shadow(0 4px 12px rgba(99, 102, 241, 0.4));
+      }
+
+      /* Threat Policies Grid */
+      .threat-policies-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 2rem;
+        margin: 2rem 0;
+      }
+
+      .threat-policy-card {
+        background: linear-gradient(135deg, var(--bg-elevated), var(--bg-card));
+        border-radius: 20px;
+        padding: 2.5rem;
+        border: 2px solid rgba(139, 92, 246, 0.15);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        text-align: center;
+      }
+
+      .threat-policy-card.antiphishing {
+        border-color: rgba(6, 182, 212, 0.3);
+      }
+
+      .threat-policy-card.antiphishing::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--antiphishing-color), #22d3ee);
+      }
+
+      .threat-policy-card.antimalware {
+        border-color: rgba(239, 68, 68, 0.3);
+      }
+
+      .threat-policy-card.antimalware::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--antimalware-color), #ff5252);
+      }
+
+      .threat-policy-card.antispam {
+        border-color: rgba(16, 185, 129, 0.3);
+      }
+
+      .threat-policy-card.antispam::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--antispam-color), #34d399);
+      }
+
+      .threat-policy-card:hover {
+        transform: translateY(-12px);
+        box-shadow: 0 20px 60px var(--accent-glow);
+      }
+
+      .threat-policy-card.antiphishing:hover {
+        box-shadow: 0 20px 60px rgba(6, 182, 212, 0.4);
+      }
+
+      .threat-policy-card.antimalware:hover {
+        box-shadow: 0 20px 60px rgba(239, 68, 68, 0.4);
+      }
+
+      .threat-policy-card.antispam:hover {
+        box-shadow: 0 20px 60px rgba(16, 185, 129, 0.4);
+      }
+
+      .threat-icon {
+        font-size: 4rem;
+        margin-bottom: 1.5rem;
+        filter: drop-shadow(0 4px 12px var(--accent-glow));
+        display: block;
+      }
+
+      .threat-icon.antiphishing {
+        filter: drop-shadow(0 4px 12px rgba(6, 182, 212, 0.4));
+      }
+
+      .threat-icon.antimalware {
+        filter: drop-shadow(0 4px 12px rgba(239, 68, 68, 0.4));
+      }
+
+      .threat-icon.antispam {
+        filter: drop-shadow(0 4px 12px rgba(16, 185, 129, 0.4));
+      }
+
+      /* Quarantine Policy Configuration */
+      .quarantine-config-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin: 2rem 0;
+      }
+
+      .quarantine-config-card {
+        background: linear-gradient(135deg, var(--bg-elevated), var(--bg-card));
+        border-radius: 20px;
+        padding: 2.5rem;
+        border: 2px solid rgba(245, 158, 11, 0.15);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        text-align: center;
+      }
+
+      .quarantine-config-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--quarantine-color), #fbbf24);
+      }
+
+      .quarantine-config-card:hover {
+        transform: translateY(-12px);
+        box-shadow: 0 20px 60px rgba(245, 158, 11, 0.4);
+      }
+
+      .quarantine-icon {
+        font-size: 4rem;
+        margin-bottom: 1.5rem;
+        filter: drop-shadow(0 4px 12px rgba(245, 158, 11, 0.4));
+        display: block;
+      }
+
+      /* File Extension Blocking Table */
+      .file-extensions-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        background: var(--bg-elevated);
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        margin: 2rem 0;
+      }
+
+      .file-extensions-table thead {
+        background: linear-gradient(135deg, var(--antimalware-color), #dc2626);
+      }
+
+      .file-extensions-table th {
+        padding: 1.5rem 1rem;
+        text-align: left;
+        color: white;
+        font-weight: 700;
+        font-size: 1rem;
+        position: relative;
+      }
+
+      .file-extensions-table tbody tr {
+        border-bottom: 1px solid rgba(239, 68, 68, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .file-extensions-table tbody tr:hover {
+        background: rgba(239, 68, 68, 0.1);
+        transform: scale(1.01);
+        box-shadow: 0 8px 25px rgba(239, 68, 68, 0.2);
+      }
+
+      .file-extensions-table td {
+        padding: 1.25rem 1rem;
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+        line-height: 1.6;
+        vertical-align: top;
+      }
+
+      .file-extensions-table td:first-child {
+        color: var(--text-primary);
+        font-weight: 600;
+        border-left: 3px solid transparent;
+      }
+
+      /* Authentication Protocols Summary */
+      .auth-protocols-summary {
+        background: linear-gradient(135deg, var(--auth-color), var(--primary-dark));
+        border-radius: 20px;
+        padding: 2.5rem;
+        margin: 2rem 0;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 16px 48px rgba(99, 102, 241, 0.3);
+      }
+
+      .auth-protocols-summary::before {
+        content: '';
+        position: absolute;
+        top: -50px;
+        right: -50px;
+        width: 200px;
+        height: 200px;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.1), transparent);
+        opacity: 0.5;
+      }
+
+      .auth-protocol {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin: 1rem 0;
+        border-left: 4px solid white;
+        position: relative;
+        z-index: 1;
+      }
+
+      .auth-protocol h4 {
+        color: white;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        font-size: 1.1rem;
+      }
+
+      .auth-protocol p {
+        color: rgba(255, 255, 255, 0.9);
+        margin: 0;
+        font-size: 0.9rem;
+        line-height: 1.6;
+      }
+
+      /* Policy Level Indicators */
+      .policy-level {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+
+      .policy-level.global {
+        background: rgba(100, 116, 139, 0.2);
+        color: var(--global-policy-color);
+        border: 1px solid rgba(100, 116, 139, 0.3);
+      }
+
+      .policy-level.custom {
+        background: rgba(139, 92, 246, 0.2);
+        color: var(--custom-policy-color);
+        border: 1px solid rgba(139, 92, 246, 0.3);
+      }
+
+      .policy-level.strict {
+        background: rgba(239, 68, 68, 0.2);
+        color: var(--danger-color);
+        border: 1px solid rgba(239, 68, 68, 0.3);
+      }
+
+      .policy-level.moderate {
+        background: rgba(245, 158, 11, 0.2);
+        color: var(--warning-color);
+        border: 1px solid rgba(245, 158, 11, 0.3);
+      }
+
+      .policy-level.permissive {
+        background: rgba(16, 185, 129, 0.2);
+        color: var(--success-color);
+        border: 1px solid rgba(16, 185, 129, 0.3);
+      }
+
+      /* Expert Warning Box */
+      .expert-warning {
+        background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(217, 119, 6, 0.05));
+        border: 3px solid rgba(245, 158, 11, 0.4);
+        border-radius: 20px;
+        padding: 2.5rem;
+        margin: 2rem 0;
+        position: relative;
+        overflow: hidden;
+        animation: pulse 2s infinite;
+      }
+
+      .expert-warning::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--warning-color), #fbbf24);
+      }
+
+      .expert-warning::after {
+        content: '';
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        width: 100px;
+        height: 100px;
+        background: radial-gradient(circle, rgba(245, 158, 11, 0.2), transparent);
+        border-radius: 50%;
+        animation: pulse 1.5s infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: scale(1);
+          opacity: 1;
+        }
+        50% {
+          transform: scale(1.02);
+          opacity: 0.9;
+        }
+      }
+
+      /* Statistics boxes */
+      .policy-stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.5rem;
+        margin: 2rem 0;
+      }
+
+      .policy-stat-box {
+        background: linear-gradient(135deg, var(--policy-color), var(--primary-dark));
+        border-radius: 12px;
+        padding: 1.5rem;
+        text-align: center;
+        box-shadow: 0 8px 24px var(--accent-glow);
+        transition: all 0.3s ease;
+      }
+
+      .policy-stat-box:hover {
+        transform: scale(1.05);
+        box-shadow: 0 12px 36px var(--accent-glow);
+      }
+
+      .policy-stat-box.antiphishing {
+        background: linear-gradient(135deg, var(--antiphishing-color), #0891b2);
+        box-shadow: 0 8px 24px rgba(6, 182, 212, 0.3);
+      }
+
+      .policy-stat-box.antimalware {
+        background: linear-gradient(135deg, var(--antimalware-color), #dc2626);
+        box-shadow: 0 8px 24px rgba(239, 68, 68, 0.3);
+      }
+
+      .policy-stat-box.antispam {
+        background: linear-gradient(135deg, var(--antispam-color), #059669);
+        box-shadow: 0 8px 24px rgba(16, 185, 129, 0.3);
+      }
+
+      .policy-stat-box.quarantine {
+        background: linear-gradient(135deg, var(--quarantine-color), #d97706);
+        box-shadow: 0 8px 24px rgba(245, 158, 11, 0.3);
+      }
+
+      .stat-number {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: white;
+        display: block;
+        margin-bottom: 0.5rem;
+      }
+
+      .stat-label {
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.8);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      /* Enhanced info boxes */
+      .info-box-premium {
+        background: linear-gradient(135deg, var(--bg-elevated), var(--bg-card));
+        border-radius: 16px;
+        padding: 2rem;
+        margin: 1.5rem 0;
+        border-left: 4px solid var(--policy-color);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .info-box-premium::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle at top right, rgba(139, 92, 246, 0.2), transparent);
+        opacity: 0.3;
+        pointer-events: none;
+      }
+
+      /* Content sections */
+      .content-section {
+        animation: fadeInUp 0.6s ease-out;
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Responsive design */
+      @media (max-width: 768px) {
+        .file-extensions-table {
+          font-size: 0.8rem;
+        }
+
+        .file-extensions-table th,
+        .file-extensions-table td {
+          padding: 0.75rem 0.5rem;
+        }
+
+        .policy-framework-card,
+        .threat-policy-card,
+        .quarantine-config-card {
+          padding: 1.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body class="bg-gray-900 text-gray-100">
+    <div class="document-container">
+      <div class="content-card">
+        <header class="page-header">
+          <div class="header-content">
+            <div class="icon-badge">
+              <span class="icon-large">📋</span>
+            </div>
+            <div>
+              <h1 class="page-title">Directivas de Correo en Microsoft 365</h1>
+              <p class="page-subtitle">Marco General y Configuración de Políticas de Seguridad</p>
+            </div>
+          </div>
+        </header>
+
+        <!-- Introducción -->
+        <section class="content-section">
+          <p class="section-intro">
+            Todas las configuraciones de seguridad en Microsoft 365 se gestionan mediante
+            <strong>Directivas (Policies)</strong> que actúan sobre el correo
+            <strong>mientras está en tránsito</strong> dentro de la plataforma, antes de que llegue al buzón del
+            usuario.
+          </p>
+        </section>
+
+        <!-- Estadísticas clave -->
+        <section class="content-section">
+          <div class="policy-stats">
+            <div class="policy-stat-box antiphishing">
+              <span class="stat-number">AI</span>
+              <span class="stat-label">Detección Phishing</span>
+            </div>
+            <div class="policy-stat-box antimalware">
+              <span class="stat-number">0</span>
+              <span class="stat-label">Negociación Malware</span>
+            </div>
+            <div class="policy-stat-box antispam">
+              <span class="stat-number">∞</span>
+              <span class="stat-label">Filtros Geográficos</span>
+            </div>
+            <div class="policy-stat-box quarantine">
+              <span class="stat-number">👁️</span>
+              <span class="stat-label">Vista Limitada</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Marco general de directivas -->
+        <section class="content-section">
+          <h2 class="section-title">
+            <span class="icon">🏗️</span>
+            Marco General de las Directivas
+          </h2>
+
+          <div class="info-box-premium">
+            <h4 style="color: var(--text-primary); font-size: 1.1rem; margin-bottom: 1rem">
+              ⚙️ Mecanismo de Aplicación de Políticas
+            </h4>
+            <p style="color: var(--text-secondary); line-height: 1.7">
+              Las directivas permiten configuraciones <strong>granulares por usuario o grupo</strong>, desde una
+              política global básica hasta directivas personalizadas para usuarios VIP con configuraciones de seguridad
+              más estrictas.
+            </p>
+          </div>
+
+          <div class="policy-framework-grid">
+            <div class="policy-framework-card global">
+              <span class="framework-icon global">🌐</span>
+              <h3 style="color: var(--global-policy-color); font-size: 1.8rem; font-weight: 700; margin-bottom: 1rem">
+                Directiva Estándar
+              </h3>
+
+              <div class="policy-level global">
+                <span>🏢</span>
+                <span>Global/Organization</span>
+              </div>
+
+              <h4 style="color: var(--text-primary); font-size: 1.1rem; font-weight: 600; margin-bottom: 1rem">
+                Aplicación por Defecto
+              </h4>
+
+              <ul
+                style="
+                  color: var(--text-secondary);
+                  font-size: 0.9rem;
+                  line-height: 1.6;
+                  text-align: left;
+                  padding-left: 1rem;
+                  margin: 1rem 0;
+                "
+              >
+                <li>📊 Siempre existe una directiva estándar</li>
+                <li>🌍 Se aplica a toda la organización</li>
+                <li>⚖️ Configuración base de seguridad</li>
+                <li>👥 Usuarios sin directiva específica</li>
+                <li>🔧 Punto de partida para personalización</li>
+              </ul>
+
+              <div style="background: rgba(100, 116, 139, 0.1); padding: 1rem; border-radius: 8px; margin-top: 1rem">
+                <p style="color: var(--global-policy-color); font-weight: 700; font-size: 0.85rem; margin: 0">
+                  🏢 Base organizacional para todas las políticas
+                </p>
+              </div>
+            </div>
+
+            <div class="policy-framework-card custom">
+              <span class="framework-icon custom">🎯</span>
+              <h3 style="color: var(--custom-policy-color); font-size: 1.8rem; font-weight: 700; margin-bottom: 1rem">
+                Directivas Personalizadas
+              </h3>
+
+              <div class="policy-level custom">
+                <span>👤</span>
+                <span>Específicas/VIP</span>
+              </div>
+
+              <h4 style="color: var(--text-primary); font-size: 1.1rem; font-weight: 600; margin-bottom: 1rem">
+                Segmentación Avanzada
+              </h4>
+
+              <ul
+                style="
+                  color: var(--text-secondary);
+                  font-size: 0.9rem;
+                  line-height: 1.6;
+                  text-align: left;
+                  padding-left: 1rem;
+                  margin: 1rem 0;
+                "
+              >
+                <li>🎯 Asignación a usuarios específicos</li>
+                <li>👥 Aplicación por grupos de seguridad</li>
+                <li>🔒 Configuraciones más estrictas para VIP</li>
+                <li>📋 Ejemplos: "Directiva B", "Directiva VIP"</li>
+                <li>⚡ Sin afectar al resto de la organización</li>
+              </ul>
+
+              <div style="background: rgba(139, 92, 246, 0.1); padding: 1rem; border-radius: 8px; margin-top: 1rem">
+                <p style="color: var(--custom-policy-color); font-weight: 700; font-size: 0.85rem; margin: 0">
+                  🎯 Protección granular por perfil de riesgo
+                </p>
+              </div>
+            </div>
+
+            <div class="policy-framework-card analyzer">
+              <span class="framework-icon analyzer">🔍</span>
+              <h3 style="color: var(--auth-color); font-size: 1.8rem; font-weight: 700; margin-bottom: 1rem">
+                Configuration Analyzer
+              </h3>
+
+              <div class="policy-level moderate">
+                <span>⚡</span>
+                <span>Recomendaciones</span>
+              </div>
+
+              <h4 style="color: var(--text-primary); font-size: 1.1rem; font-weight: 600; margin-bottom: 1rem">
+                Optimización Automática
+              </h4>
+
+              <ul
+                style="
+                  color: var(--text-secondary);
+                  font-size: 0.9rem;
+                  line-height: 1.6;
+                  text-align: left;
+                  padding-left: 1rem;
+                  margin: 1rem 0;
+                "
+              >
+                <li>📊 Revisión de políticas existentes</li>
+                <li>💡 Recomendaciones activas de mejora</li>
+                <li>🔒 Sugerencias para reducir entradas permitidas</li>
+                <li>📈 Aumentar postura de seguridad</li>
+                <li>⚖️ Optimización automática de configuración</li>
+              </ul>
+
+              <div style="background: rgba(99, 102, 241, 0.1); padding: 1rem; border-radius: 8px; margin-top: 1rem">
+                <p style="color: var(--auth-color); font-weight: 700; font-size: 0.85rem; margin: 0">
+                  🎯 Objetivo: Reducir a cero entradas permitidas
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Tipos fundamentales de directivas -->
+        <section class="content-section">
+          <h2 class="section-title">
+            <span class="icon">🛡️</span>
+            Tipos Fundamentales de Directivas de Amenazas
+          </h2>
+
+          <div class="info-box-premium">
+            <h4 style="color: var(--text-primary); font-size: 1.1rem; margin-bottom: 1rem">
+              🔄 Tres Pilares de Protección de Flujo de Correo
+            </h4>
+            <p style="color: var(--text-secondary); line-height: 1.7">
+              Antiphishing, Antispam y Antimalware constituyen los <strong>tres tipos principales</strong>
+              de directivas que gestionan el flujo de correo, cada una con configuraciones específicas y niveles de
+              protección diferenciados.
+            </p>
+          </div>
+
+          <div class="threat-policies-grid">
+            <div class="threat-policy-card antiphishing">
+              <span class="threat-icon antiphishing">🎣</span>
+              <h3 style="color: var(--antiphishing-color); font-size: 1.8rem; font-weight: 700; margin-bottom: 1rem">
+                Directiva Antiphishing
+              </h3>
+
+              <div class="policy-level strict">
+                <span>🤖</span>
+                <span>IA Antisuplantación</span>
+              </div>
+
+              <h4 style="color: var(--text-primary); font-size: 1.1rem; font-weight: 600; margin-bottom: 1rem">
+                Protección Contra Suplantación
+              </h4>
+
+              <ul
+                style="
+                  color: var(--text-secondary);
+                  font-size: 0.9rem;
+                  line-height: 1.6;
+                  text-align: left;
+                  padding-left: 1rem;
+                  margin: 1rem 0;
+                "
+              >
+                <li>🤖 Motor de IA para detección automática</li>
+                <li>👥 Listas de usuarios protegidos de alto riesgo</li>
+                <li>🌐 Vigilancia de dominios específicos</li>
+                <li>🔒 Envío a Cuarentena o Correo no Deseado</li>
+                <li>👁️ Indicadores visuales ("vía", "?") para usuarios</li>
+              </ul>
+
+              <div style="background: rgba(6, 182, 212, 0.1); padding: 1.5rem; border-radius: 12px; margin-top: 1rem">
+                <h5 style="color: var(--antiphishing-color); font-weight: 700; margin-bottom: 0.75rem">
+                  🎯 Configuraciones Clave
+                </h5>
+                <ul
+                  style="
+                    color: var(--text-secondary);
+                    font-size: 0.85rem;
+                    line-height: 1.5;
+                    margin: 0;
+                    padding-left: 1rem;
+                  "
+                >
+                  <li>Activación del motor de IA específico</li>
+                  <li>Definición de usuarios VIP protegidos</li>
+                  <li>Configuración de acciones automáticas</li>
+                  <li>Habilitación de avisos visuales</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="threat-policy-card antimalware">
+              <span class="threat-icon antimalware">🦠</span>
+              <h3 style="color: var(--antimalware-color); font-size: 1.8rem; font-weight: 700; margin-bottom: 1rem">
+                Directiva Antimalware
+              </h3>
+
+              <div class="policy-level strict">
+                <span>🚫</span>
+                <span>Sin Negociación</span>
+              </div>
+
+              <h4 style="color: var(--text-primary); font-size: 1.1rem; font-weight: 600; margin-bottom: 1rem">
+                Bloqueo de Archivos Maliciosos
+              </h4>
+
+              <ul
+                style="
+                  color: var(--text-secondary);
+                  font-size: 0.9rem;
+                  line-height: 1.6;
+                  text-align: left;
+                  padding-left: 1rem;
+                  margin: 1rem 0;
+                "
+              >
+                <li>🚫 Regla: "NO SE NEGOCIA" con malware</li>
+                <li>🗑️ Eliminación o cuarentena automática</li>
+                <li>📧 Notificaciones al administrador</li>
+                <li>🔒 Common Attachment Filter crítico</li>
+                <li>⚠️ Bloqueo preventivo de extensiones peligrosas</li>
+              </ul>
+
+              <div style="background: rgba(239, 68, 68, 0.1); padding: 1.5rem; border-radius: 12px; margin-top: 1rem">
+                <h5 style="color: var(--antimalware-color); font-weight: 700; margin-bottom: 0.75rem">
+                  ⚠️ Extensiones Críticas a Bloquear
+                </h5>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 0.5rem">
+                  <div
+                    style="background: rgba(239, 68, 68, 0.1); padding: 0.5rem; border-radius: 6px; text-align: center"
+                  >
+                    <code style="color: var(--antimalware-color); font-weight: 700">.CMD, .BAT</code>
+                  </div>
+                  <div
+                    style="background: rgba(239, 68, 68, 0.1); padding: 0.5rem; border-radius: 6px; text-align: center"
+                  >
+                    <code style="color: var(--antimalware-color); font-weight: 700">.LNK</code>
+                  </div>
+                  <div
+                    style="background: rgba(239, 68, 68, 0.1); padding: 0.5rem; border-radius: 6px; text-align: center"
+                  >
+                    <code style="color: var(--antimalware-color); font-weight: 700">.ISO</code>
+                  </div>
+                  <div
+                    style="background: rgba(239, 68, 68, 0.1); padding: 0.5rem; border-radius: 6px; text-align: center"
+                  >
+                    <code style="color: var(--antimalware-color); font-weight: 700">Macros</code>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="threat-policy-card antispam">
+              <span class="threat-icon antispam">📬</span>
+              <h3 style="color: var(--antispam-color); font-size: 1.8rem; font-weight: 700; margin-bottom: 1rem">
+                Directiva Antispam
+              </h3>
+
+              <div class="policy-level moderate">
+                <span>⚖️</span>
+                <span>Umbrales Configurables</span>
+              </div>
+
+              <h4 style="color: var(--text-primary); font-size: 1.1rem; font-weight: 600; margin-bottom: 1rem">
+                Gestión de Correo Masivo
+              </h4>
+
+              <ul
+                style="
+                  color: var(--text-secondary);
+                  font-size: 0.9rem;
+                  line-height: 1.6;
+                  text-align: left;
+                  padding-left: 1rem;
+                  margin: 1rem 0;
+                "
+              >
+                <li>📊 Umbrales de puntuación de correo masivo</li>
+                <li>🔍 Chequeos de contenido sospechoso</li>
+                <li>🌐 URLs con IPs en lugar de dominios</li>
+                <li>🗺️ Filtros geográficos por país</li>
+                <li>🗣️ Filtros lingüísticos por idioma</li>
+              </ul>
+
+              <div style="background: rgba(16, 185, 129, 0.1); padding: 1.5rem; border-radius: 12px; margin-top: 1rem">
+                <h5 style="color: var(--antispam-color); font-weight: 700; margin-bottom: 0.75rem">
+                  🎯 Criterios de Filtrado
+                </h5>
+                <ul
+                  style="
+                    color: var(--text-secondary);
+                    font-size: 0.85rem;
+                    line-height: 1.5;
+                    margin: 0;
+                    padding-left: 1rem;
+                  "
+                >
+                  <li>Ajuste de estrictez del filtro masivo</li>
+                  <li>Detección de dominios maliciosos conocidos</li>
+                  <li>Bloqueo por origen geográfico</li>
+                  <li>Filtrado por idioma no empresarial</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Tabla de extensiones peligrosas -->
+        <section class="content-section">
+          <h3 class="subsection-title">⚠️ Common Attachment Filter - Extensiones Críticas</h3>
+
+          <div class="info-box-premium">
+            <h4 style="color: var(--text-primary); font-size: 1.1rem; margin-bottom: 1rem">
+              🔍 Bloqueo Preventivo de Ingeniería Social
+            </h4>
+            <p style="color: var(--text-secondary); line-height: 1.7">
+              Aunque no contengan virus conocidos, estas extensiones son <strong>frecuentemente utilizadas</strong>
+              en ataques de ingeniería social y ransomware, siendo esencial bloquearlas preventivamente.
+            </p>
+          </div>
+
+          <table class="file-extensions-table">
+            <thead>
+              <tr>
+                <th>Tipo de Archivo</th>
+                <th>Extensiones</th>
+                <th>Riesgo y Uso en Ataques</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <strong>Scripts de Sistema</strong>
+                  <br />
+                  <div class="policy-level strict">
+                    <span>🚨</span>
+                    <span>Crítico</span>
+                  </div>
+                </td>
+                <td>
+                  <code
+                    style="
+                      background: rgba(239, 68, 68, 0.1);
+                      padding: 0.25rem 0.5rem;
+                      border-radius: 4px;
+                      color: var(--antimalware-color);
+                    "
+                  >
+                    .CMD, .BAT, .PS1
+                  </code>
+                </td>
+                <td>
+                  <strong>Ejecución directa de comandos</strong>
+                  <br /><br />
+                  Permiten ejecutar comandos del sistema operativo directamente. Utilizados para descargar payloads
+                  adicionales, crear persistencia o ejecutar ransomware sin detección inicial.
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <strong>Accesos Directos</strong>
+                  <br />
+                  <div class="policy-level strict">
+                    <span>🎯</span>
+                    <span>Muy Alto</span>
+                  </div>
+                </td>
+                <td>
+                  <code
+                    style="
+                      background: rgba(239, 68, 68, 0.1);
+                      padding: 0.25rem 0.5rem;
+                      border-radius: 4px;
+                      color: var(--antimalware-color);
+                    "
+                  >
+                    .LNK
+                  </code>
+                </td>
+                <td>
+                  <strong>Troyanos de acceso directo</strong>
+                  <br /><br />
+                  Archivos de acceso directo de Windows que pueden ejecutar comandos ocultos. Frecuentemente usados en
+                  ataques de ingeniería social donde el usuario cree estar abriendo un documento legítimo.
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <strong>Imágenes de Disco</strong>
+                  <br />
+                  <div class="policy-level strict">
+                    <span>💿</span>
+                    <span>Emergente</span>
+                  </div>
+                </td>
+                <td>
+                  <code
+                    style="
+                      background: rgba(239, 68, 68, 0.1);
+                      padding: 0.25rem 0.5rem;
+                      border-radius: 4px;
+                      color: var(--antimalware-color);
+                    "
+                  >
+                    .ISO, .IMG
+                  </code>
+                </td>
+                <td>
+                  <strong>Bypass de protecciones</strong>
+                  <br /><br />
+                  Imágenes de disco que contienen archivos LNK maliciosos o ejecutables. El usuario monta la imagen y
+                  ejecuta contenido malicioso pensando que es software legítimo. Método en aumento en 2024-2025.
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <strong>Macros Office</strong>
+                  <br />
+                  <div class="policy-level moderate">
+                    <span>📄</span>
+                    <span>Controlado</span>
+                  </div>
+                </td>
+                <td>
+                  <code
+                    style="
+                      background: rgba(245, 158, 11, 0.1);
+                      padding: 0.25rem 0.5rem;
+                      border-radius: 4px;
+                      color: var(--warning-color);
+                    "
+                  >
+                    .DOCM, .XLSM, .PPTM
+                  </code>
+                </td>
+                <td>
+                  <strong>Ejecución de código VBA</strong>
+                  <br /><br />
+                  Documentos de Office con macros habilitadas. Microsoft ha mejorado la protección por defecto, pero
+                  siguen siendo vectores de ataque viables cuando el usuario habilita macros manualmente.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <!-- Directivas de cuarentena -->
+        <section class="content-section">
+          <h2 class="section-title">
+            <span class="icon">🔒</span>
+            Directivas de Cuarentena Modernas
+          </h2>
+
+          <div class="info-box-premium">
+            <h4 style="color: var(--text-primary); font-size: 1.1rem; margin-bottom: 1rem">
+              👤 Control Granular del Acceso de Usuario
+            </h4>
+            <p style="color: var(--text-secondary); line-height: 1.7">
+              Las políticas de cuarentena permiten definir <strong>cómo los usuarios interactúan</strong>
+              con mensajes retenidos, evitando la liberación accidental de contenido malicioso por parte de "usuarios
+              patata".
+            </p>
+          </div>
+
+          <div class="quarantine-config-grid">
+            <div class="quarantine-config-card">
+              <span class="quarantine-icon">👁️</span>
+              <h3 style="color: var(--quarantine-color); font-size: 1.8rem; font-weight: 700; margin-bottom: 1rem">
+                Acceso Limitado
+              </h3>
+
+              <div class="policy-level moderate">
+                <span>👀</span>
+                <span>Vista Previa Únicamente</span>
+              </div>
+
+              <h4 style="color: var(--text-primary); font-size: 1.1rem; font-weight: 600; margin-bottom: 1rem">
+                Usuarios Estándar ("Patata")
+              </h4>
+
+              <ul
+                style="
+                  color: var(--text-secondary);
+                  font-size: 0.9rem;
+                  line-height: 1.6;
+                  text-align: left;
+                  padding-left: 1rem;
+                  margin: 1rem 0;
+                "
+              >
+                <li>👁️ Previsualización del mensaje completo</li>
+                <li>📝 Solicitud de liberación (no automática)</li>
+                <li>🚫 **No pueden liberar** por sí mismos</li>
+                <li>🗑️ Eliminación directa de cuarentena</li>
+                <li>🚨 Bloqueo del emisor específico</li>
+              </ul>
+
+              <div style="background: rgba(245, 158, 11, 0.1); padding: 1rem; border-radius: 8px; margin-top: 1rem">
+                <p style="color: var(--quarantine-color); font-weight: 700; font-size: 0.85rem; margin: 0">
+                  🛡️ Previene liberación accidental de malware
+                </p>
+              </div>
+            </div>
+
+            <div class="quarantine-config-card">
+              <span class="quarantine-icon">📧</span>
+              <h3 style="color: var(--quarantine-color); font-size: 1.8rem; font-weight: 700; margin-bottom: 1rem">
+                Notificaciones
+              </h3>
+
+              <div class="policy-level permissive">
+                <span>⏰</span>
+                <span>Programables</span>
+              </div>
+
+              <h4 style="color: var(--text-primary); font-size: 1.1rem; font-weight: 600; margin-bottom: 1rem">
+                Gestión de Alertas
+              </h4>
+
+              <ul
+                style="
+                  color: var(--text-secondary);
+                  font-size: 0.9rem;
+                  line-height: 1.6;
+                  text-align: left;
+                  padding-left: 1rem;
+                  margin: 1rem 0;
+                "
+              >
+                <li>📅 Frecuencia configurable (diaria recomendada)</li>
+                <li>📊 Resumen de mensajes en cuarentena</li>
+                <li>🎯 Información específica por tipo de amenaza</li>
+                <li>⚡ Enlaces directos para revisión</li>
+                <li>📈 Métricas de actividad de seguridad</li>
+              </ul>
+
+              <div style="background: rgba(245, 158, 11, 0.1); padding: 1rem; border-radius: 8px; margin-top: 1rem">
+                <p style="color: var(--quarantine-color); font-weight: 700; font-size: 0.85rem; margin: 0">
+                  ⏰ Recomendado: Una notificación diaria
+                </p>
+              </div>
+            </div>
+
+            <div class="quarantine-config-card">
+              <span class="quarantine-icon">🔧</span>
+              <h3 style="color: var(--quarantine-color); font-size: 1.8rem; font-weight: 700; margin-bottom: 1rem">
+                Control Administrativo
+              </h3>
+
+              <div class="policy-level custom">
+                <span>👑</span>
+                <span>Acceso Total</span>
+              </div>
+
+              <h4 style="color: var(--text-primary); font-size: 1.1rem; font-weight: 600; margin-bottom: 1rem">
+                Gestión Completa
+              </h4>
+
+              <ul
+                style="
+                  color: var(--text-secondary);
+                  font-size: 0.9rem;
+                  line-height: 1.6;
+                  text-align: left;
+                  padding-left: 1rem;
+                  margin: 1rem 0;
+                "
+              >
+                <li>🔓 Liberación inmediata de mensajes</li>
+                <li>📊 Vista completa de toda la cuarentena</li>
+                <li>⚙️ Configuración de políticas específicas</li>
+                <li>📈 Analytics y reportes detallados</li>
+                <li>🎯 Ajuste fino de filtros automáticos</li>
+              </ul>
+
+              <div style="background: rgba(245, 158, 11, 0.1); padding: 1rem; border-radius: 8px; margin-top: 1rem">
+                <p style="color: var(--quarantine-color); font-weight: 700; font-size: 0.85rem; margin: 0">
+                  👑 Decisión final en liberación de contenido
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Resumen de autenticación -->
+        <section class="content-section">
+          <h2 class="section-title">
+            <span class="icon">🔐</span>
+            Directivas de Autenticación (SPF, DKIM, DMARC)
+          </h2>
+
+          <div class="auth-protocols-summary">
+            <div style="position: relative; z-index: 1">
+              <h3 style="color: white; font-size: 1.5rem; font-weight: 700; margin-bottom: 2rem; text-align: center">
+                🔗 Integración con Microsoft Defender
+              </h3>
+
+              <div class="auth-protocol">
+                <h4>🏠 SPF (Sender Protection Framework)</h4>
+                <p>
+                  Verificación básica de IP de origen mediante registro TXT en DNS. Defender utiliza fallos de SPF para
+                  aumentar el score de riesgo del mensaje.
+                </p>
+              </div>
+
+              <div class="auth-protocol">
+                <h4>🔑 DKIM (DomainKeys Identified Mail)</h4>
+                <p>
+                  Autenticación criptográfica con firma digital. La ausencia de DKIM válido o firmas inválidas
+                  incrementan la puntuación de amenaza en las directivas.
+                </p>
+              </div>
+
+              <div class="auth-protocol">
+                <h4>⚖️ DMARC (Domain-based Message Authentication)</h4>
+                <p>
+                  Política unificada que combina SPF y DKIM. Define acciones específicas (None/Quarantine/Reject) y
+                  proporciona reportes detallados RUA/RUF.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Warning de experto -->
+        <section class="content-section">
+          <div class="expert-warning">
+            <div
+              style="
+                display: flex;
+                align-items: center;
+                gap: 1.5rem;
+                margin-bottom: 2rem;
+                position: relative;
+                z-index: 1;
+              "
+            >
+              <div style="font-size: 4rem">⚠️</div>
+              <div>
+                <h2 style="color: var(--warning-color); font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem">
+                  ADVERTENCIA DE EXPERTO
+                </h2>
+                <h3 style="color: var(--text-primary); font-size: 1.5rem; font-weight: 600; margin: 0">
+                  Configuración de Políticas SPF/DMARC
+                </h3>
+              </div>
+            </div>
+
+            <div
+              style="
+                background: rgba(245, 158, 11, 0.1);
+                padding: 2rem;
+                border-radius: 16px;
+                margin-bottom: 1.5rem;
+                position: relative;
+                z-index: 1;
+              "
+            >
+              <p
+                style="
+                  color: var(--text-primary);
+                  font-size: 1.2rem;
+                  font-weight: 600;
+                  margin-bottom: 1rem;
+                  text-align: center;
+                "
+              >
+                🚨 Fundamental pero Riesgoso
+              </p>
+              <p style="color: var(--text-secondary); font-size: 1rem; line-height: 1.8; text-align: center">
+                Es <strong>esencial pero arriesgado</strong> configurar políticas que rechacen correos basándose en
+                fallos de SPF o DMARC. Muchas organizaciones, incluso grandes empresas,
+                <strong>no tienen estos registros configurados correctamente</strong>, lo que podría llevar al bloqueo
+                de correos legítimos de clientes o proveedores importantes.
+              </p>
+            </div>
+
+            <div
+              style="
+                background: rgba(245, 158, 11, 0.1);
+                padding: 1.5rem;
+                border-radius: 12px;
+                position: relative;
+                z-index: 1;
+              "
+            >
+              <h4 style="color: var(--warning-color); font-weight: 700; margin-bottom: 1rem; text-align: center">
+                📊 Recomendación de Implementación
+              </h4>
+              <p
+                style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; text-align: center; margin: 0"
+              >
+                Las políticas de Defender permiten <strong>ajustar la estrictez</strong> con estos fallos. Comenzar con
+                configuraciones permisivas y endurecer gradualmente basándose en reportes DMARC.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Mejores prácticas -->
+        <section class="content-section">
+          <h2 class="section-title">
+            <span class="icon">🏆</span>
+            Estrategia de Implementación de Directivas
+          </h2>
+
+          <div
+            style="
+              background: linear-gradient(135deg, var(--policy-color), var(--primary-dark));
+              border-radius: 20px;
+              padding: 2rem;
+              margin: 2rem 0;
+              position: relative;
+              overflow: hidden;
+            "
+          >
+            <div
+              style="
+                position: absolute;
+                top: -50px;
+                right: -50px;
+                width: 150px;
+                height: 150px;
+                background: radial-gradient(circle, rgba(255, 255, 255, 0.1), transparent);
+                opacity: 0.5;
+              "
+            ></div>
+            <div style="position: relative; z-index: 1">
+              <h3 style="color: white; font-size: 1.3rem; font-weight: 700; margin-bottom: 1.5rem; text-align: center">
+                📋 Marco de Trabajo para Políticas de Correo
+              </h3>
+
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem">
+                <div style="background: rgba(255, 255, 255, 0.1); padding: 1rem; border-radius: 8px">
+                  <h4 style="color: white; font-size: 0.9rem; font-weight: 700; margin-bottom: 0.5rem">
+                    🌐 1. Directiva Global Base
+                  </h4>
+                  <p style="color: rgba(255, 255, 255, 0.8); font-size: 0.8rem; margin: 0">
+                    Configuración estándar para toda la organización
+                  </p>
+                </div>
+                <div style="background: rgba(255, 255, 255, 0.1); padding: 1rem; border-radius: 8px">
+                  <h4 style="color: white; font-size: 0.9rem; font-weight: 700; margin-bottom: 0.5rem">
+                    🎯 2. Segmentación VIP
+                  </h4>
+                  <p style="color: rgba(255, 255, 255, 0.8); font-size: 0.8rem; margin: 0">
+                    Directivas personalizadas para usuarios críticos
+                  </p>
+                </div>
+                <div style="background: rgba(255, 255, 255, 0.1); padding: 1rem; border-radius: 8px">
+                  <h4 style="color: white; font-size: 0.9rem; font-weight: 700; margin-bottom: 0.5rem">
+                    📊 3. Análisis Continuo
+                  </h4>
+                  <p style="color: rgba(255, 255, 255, 0.8); font-size: 0.8rem; margin: 0">
+                    Configuration Analyzer para optimización
+                  </p>
+                </div>
+                <div style="background: rgba(255, 255, 255, 0.1); padding: 1rem; border-radius: 8px">
+                  <h4 style="color: white; font-size: 0.9rem; font-weight: 700; margin-bottom: 0.5rem">
+                    ⚡ 4. Ajuste Dinámico
+                  </h4>
+                  <p style="color: rgba(255, 255, 255, 0.8); font-size: 0.8rem; margin: 0">
+                    Refinamiento basado en amenazas emergentes
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Conclusión -->
+        <section class="content-section">
+          <div
+            style="
+              background: linear-gradient(135deg, var(--policy-color), var(--primary-dark));
+              border-radius: 20px;
+              padding: 2.5rem;
+              text-align: center;
+              margin-top: 3rem;
+              position: relative;
+              overflow: hidden;
+              box-shadow: 0 16px 48px var(--accent-glow);
+            "
+          >
+            <div
+              style="
+                position: absolute;
+                top: -50px;
+                right: -50px;
+                width: 200px;
+                height: 200px;
+                background: radial-gradient(circle, rgba(255, 255, 255, 0.1), transparent);
+                opacity: 0.5;
+              "
+            ></div>
+            <div style="position: relative; z-index: 1">
+              <div style="font-size: 3.5rem; margin-bottom: 1rem">📋</div>
+              <h3 style="color: white; font-size: 1.8rem; font-weight: 700; margin-bottom: 1rem">
+                Directivas = Protección Granular + Control Administrativo
+              </h3>
+              <p
+                style="
+                  color: rgba(255, 255, 255, 0.9);
+                  font-size: 1.1rem;
+                  max-width: 700px;
+                  margin: 0 auto;
+                  line-height: 1.8;
+                "
+              >
+                La configuración estratégica de directivas antiphishing, antimalware y antispam, combinada con políticas
+                de cuarentena modernas, proporciona un control granular sobre la seguridad del correo electrónico
+                organizacional.
+              </p>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <!-- Script de navegación automática -->
+    <script src="../js/back-button.js"></script>
+  </body>
+</html>

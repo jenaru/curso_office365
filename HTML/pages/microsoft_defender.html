@@ -1,0 +1,1284 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Microsoft Defender Office 365 - Curso Microsoft 365</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- CSS externo para estilos base y tema -->
+    <link rel="stylesheet" href="../css/pages-base.css" />
+    <link rel="stylesheet" href="../css/themes/administracion.css" />
+
+    <style>
+      :root {
+        --primary-color: #00a4ef;
+        --primary-dark: #0078d4;
+        --primary-light: #40e0d0;
+        --bg-dark: #0f0f1e;
+        --bg-card: #1a1b2e;
+        --bg-elevated: #252641;
+        --text-primary: #f0f0f3;
+        --text-secondary: #b4b4c8;
+        --accent: #ef4444;
+        --accent-glow: rgba(0, 164, 239, 0.3);
+        --success-color: #10b981;
+        --warning-color: #f59e0b;
+        --danger-color: #ef4444;
+        --defender-color: #00a4ef;
+        --business-color: #10b981;
+        --enterprise-color: #7b68ee;
+        --office365-color: #ff6b6b;
+        --edr-color: #ffa726;
+      }
+
+      body {
+        background: linear-gradient(135deg, #0f0f1e 0%, #1a1b2e 50%, #252641 100%);
+        min-height: 100vh;
+      }
+
+      /* Defender Tiers Grid */
+      .defender-tiers-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 2rem;
+        margin: 2rem 0;
+      }
+
+      .defender-tier-card {
+        background: linear-gradient(135deg, var(--bg-elevated), var(--bg-card));
+        border-radius: 20px;
+        padding: 2.5rem;
+        border: 2px solid rgba(0, 164, 239, 0.15);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        text-align: center;
+      }
+
+      .defender-tier-card.business {
+        border-color: rgba(16, 185, 129, 0.3);
+      }
+
+      .defender-tier-card.business::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--business-color), #34d399);
+      }
+
+      .defender-tier-card.enterprise {
+        border-color: rgba(123, 104, 238, 0.3);
+      }
+
+      .defender-tier-card.enterprise::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--enterprise-color), #9575cd);
+      }
+
+      .defender-tier-card.office365 {
+        border-color: rgba(255, 107, 107, 0.3);
+      }
+
+      .defender-tier-card.office365::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--office365-color), #ff8a80);
+      }
+
+      .defender-tier-card:hover {
+        transform: translateY(-12px);
+        box-shadow: 0 20px 60px var(--accent-glow);
+      }
+
+      .defender-tier-card.business:hover {
+        box-shadow: 0 20px 60px rgba(16, 185, 129, 0.4);
+      }
+
+      .defender-tier-card.enterprise:hover {
+        box-shadow: 0 20px 60px rgba(123, 104, 238, 0.4);
+      }
+
+      .defender-tier-card.office365:hover {
+        box-shadow: 0 20px 60px rgba(255, 107, 107, 0.4);
+      }
+
+      .tier-icon {
+        font-size: 4rem;
+        margin-bottom: 1.5rem;
+        filter: drop-shadow(0 4px 12px var(--accent-glow));
+        display: block;
+      }
+
+      .tier-icon.business {
+        filter: drop-shadow(0 4px 12px rgba(16, 185, 129, 0.4));
+      }
+
+      .tier-icon.enterprise {
+        filter: drop-shadow(0 4px 12px rgba(123, 104, 238, 0.4));
+      }
+
+      .tier-icon.office365 {
+        filter: drop-shadow(0 4px 12px rgba(255, 107, 107, 0.4));
+      }
+
+      /* License Badge */
+      .license-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+      }
+
+      .license-badge.premium {
+        background: rgba(16, 185, 129, 0.2);
+        color: var(--business-color);
+        border: 1px solid rgba(16, 185, 129, 0.3);
+      }
+
+      .license-badge.enterprise {
+        background: rgba(123, 104, 238, 0.2);
+        color: var(--enterprise-color);
+        border: 1px solid rgba(123, 104, 238, 0.3);
+      }
+
+      .license-badge.standard {
+        background: rgba(245, 158, 11, 0.2);
+        color: var(--warning-color);
+        border: 1px solid rgba(245, 158, 11, 0.3);
+      }
+
+      /* Security Features Grid */
+      .security-features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin: 2rem 0;
+      }
+
+      .security-feature-card {
+        background: linear-gradient(135deg, var(--bg-elevated), var(--bg-card));
+        border-radius: 20px;
+        padding: 2.5rem;
+        border: 2px solid rgba(0, 164, 239, 0.15);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        text-align: center;
+      }
+
+      .security-feature-card.secure-score {
+        border-color: rgba(16, 185, 129, 0.3);
+      }
+
+      .security-feature-card.secure-score::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--success-color), #34d399);
+      }
+
+      .security-feature-card.safe-links {
+        border-color: rgba(255, 167, 38, 0.3);
+      }
+
+      .security-feature-card.safe-links::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--edr-color), #ffb74d);
+      }
+
+      .security-feature-card.threat-analytics {
+        border-color: rgba(239, 68, 68, 0.3);
+      }
+
+      .security-feature-card.threat-analytics::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--danger-color), #ff5252);
+      }
+
+      .security-feature-card.device-management {
+        border-color: rgba(123, 104, 238, 0.3);
+      }
+
+      .security-feature-card.device-management::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--enterprise-color), #9575cd);
+      }
+
+      .security-feature-card:hover {
+        transform: translateY(-12px);
+        box-shadow: 0 20px 60px var(--accent-glow);
+      }
+
+      .security-feature-card.secure-score:hover {
+        box-shadow: 0 20px 60px rgba(16, 185, 129, 0.4);
+      }
+
+      .security-feature-card.safe-links:hover {
+        box-shadow: 0 20px 60px rgba(255, 167, 38, 0.4);
+      }
+
+      .security-feature-card.threat-analytics:hover {
+        box-shadow: 0 20px 60px rgba(239, 68, 68, 0.4);
+      }
+
+      .security-feature-card.device-management:hover {
+        box-shadow: 0 20px 60px rgba(123, 104, 238, 0.4);
+      }
+
+      .feature-icon {
+        font-size: 4rem;
+        margin-bottom: 1.5rem;
+        filter: drop-shadow(0 4px 12px var(--accent-glow));
+        display: block;
+      }
+
+      .feature-icon.secure-score {
+        filter: drop-shadow(0 4px 12px rgba(16, 185, 129, 0.4));
+      }
+
+      .feature-icon.safe-links {
+        filter: drop-shadow(0 4px 12px rgba(255, 167, 38, 0.4));
+      }
+
+      .feature-icon.threat-analytics {
+        filter: drop-shadow(0 4px 12px rgba(239, 68, 68, 0.4));
+      }
+
+      .feature-icon.device-management {
+        filter: drop-shadow(0 4px 12px rgba(123, 104, 238, 0.4));
+      }
+
+      /* Secure Score Widget */
+      .secure-score-widget {
+        background: linear-gradient(135deg, var(--success-color), #059669);
+        border-radius: 20px;
+        padding: 2.5rem;
+        text-align: center;
+        margin: 2rem 0;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 16px 48px rgba(16, 185, 129, 0.3);
+      }
+
+      .secure-score-widget::before {
+        content: '';
+        position: absolute;
+        top: -50px;
+        right: -50px;
+        width: 200px;
+        height: 200px;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.1), transparent);
+        opacity: 0.5;
+      }
+
+      .score-display {
+        font-size: 4rem;
+        font-weight: 700;
+        color: white;
+        display: block;
+        margin-bottom: 1rem;
+        position: relative;
+        z-index: 1;
+      }
+
+      .score-label {
+        font-size: 1.2rem;
+        color: rgba(255, 255, 255, 0.9);
+        position: relative;
+        z-index: 1;
+      }
+
+      /* Policies Table */
+      .policies-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        background: var(--bg-elevated);
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        margin: 2rem 0;
+      }
+
+      .policies-table thead {
+        background: linear-gradient(135deg, var(--defender-color), var(--primary-dark));
+      }
+
+      .policies-table th {
+        padding: 1.5rem 1rem;
+        text-align: left;
+        color: white;
+        font-weight: 700;
+        font-size: 1rem;
+        position: relative;
+      }
+
+      .policies-table tbody tr {
+        border-bottom: 1px solid rgba(0, 164, 239, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .policies-table tbody tr:hover {
+        background: rgba(0, 164, 239, 0.1);
+        transform: scale(1.01);
+        box-shadow: 0 8px 25px rgba(0, 164, 239, 0.2);
+      }
+
+      .policies-table td {
+        padding: 1.25rem 1rem;
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+        line-height: 1.6;
+        vertical-align: top;
+      }
+
+      .policies-table td:first-child {
+        color: var(--text-primary);
+        font-weight: 600;
+        border-left: 3px solid transparent;
+      }
+
+      /* Threat Level Indicators */
+      .threat-level {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+
+      .threat-level.critical {
+        background: rgba(239, 68, 68, 0.2);
+        color: var(--danger-color);
+        border: 1px solid rgba(239, 68, 68, 0.3);
+      }
+
+      .threat-level.high {
+        background: rgba(245, 158, 11, 0.2);
+        color: var(--warning-color);
+        border: 1px solid rgba(245, 158, 11, 0.3);
+      }
+
+      .threat-level.medium {
+        background: rgba(0, 164, 239, 0.2);
+        color: var(--defender-color);
+        border: 1px solid rgba(0, 164, 239, 0.3);
+      }
+
+      .threat-level.automated {
+        background: rgba(16, 185, 129, 0.2);
+        color: var(--success-color);
+        border: 1px solid rgba(16, 185, 129, 0.3);
+      }
+
+      /* Business Premium Highlight */
+      .business-premium-highlight {
+        background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(52, 211, 153, 0.05));
+        border: 3px solid rgba(16, 185, 129, 0.4);
+        border-radius: 20px;
+        padding: 2.5rem;
+        margin: 2rem 0;
+        position: relative;
+        overflow: hidden;
+        animation: pulse 2s infinite;
+      }
+
+      .business-premium-highlight::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--business-color), #34d399);
+      }
+
+      .business-premium-highlight::after {
+        content: '';
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        width: 100px;
+        height: 100px;
+        background: radial-gradient(circle, rgba(16, 185, 129, 0.2), transparent);
+        border-radius: 50%;
+        animation: pulse 1.5s infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: scale(1);
+          opacity: 1;
+        }
+        50% {
+          transform: scale(1.02);
+          opacity: 0.9;
+        }
+      }
+
+      /* Stats boxes */
+      .defender-stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.5rem;
+        margin: 2rem 0;
+      }
+
+      .defender-stat-box {
+        background: linear-gradient(135deg, var(--defender-color), var(--primary-dark));
+        border-radius: 12px;
+        padding: 1.5rem;
+        text-align: center;
+        box-shadow: 0 8px 24px var(--accent-glow);
+        transition: all 0.3s ease;
+      }
+
+      .defender-stat-box:hover {
+        transform: scale(1.05);
+        box-shadow: 0 12px 36px var(--accent-glow);
+      }
+
+      .defender-stat-box.business {
+        background: linear-gradient(135deg, var(--business-color), #059669);
+        box-shadow: 0 8px 24px rgba(16, 185, 129, 0.3);
+      }
+
+      .defender-stat-box.enterprise {
+        background: linear-gradient(135deg, var(--enterprise-color), #6a5acd);
+        box-shadow: 0 8px 24px rgba(123, 104, 238, 0.3);
+      }
+
+      .defender-stat-box.danger {
+        background: linear-gradient(135deg, var(--danger-color), #dc2626);
+        box-shadow: 0 8px 24px rgba(239, 68, 68, 0.3);
+      }
+
+      .stat-number {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: white;
+        display: block;
+        margin-bottom: 0.5rem;
+      }
+
+      .stat-label {
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.8);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      /* Enhanced info boxes */
+      .info-box-premium {
+        background: linear-gradient(135deg, var(--bg-elevated), var(--bg-card));
+        border-radius: 16px;
+        padding: 2rem;
+        margin: 1.5rem 0;
+        border-left: 4px solid var(--defender-color);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .info-box-premium::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle at top right, rgba(0, 164, 239, 0.2), transparent);
+        opacity: 0.3;
+        pointer-events: none;
+      }
+
+      /* Content sections */
+      .content-section {
+        animation: fadeInUp 0.6s ease-out;
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Responsive design */
+      @media (max-width: 768px) {
+        .policies-table {
+          font-size: 0.8rem;
+        }
+
+        .policies-table th,
+        .policies-table td {
+          padding: 0.75rem 0.5rem;
+        }
+
+        .defender-tier-card,
+        .security-feature-card {
+          padding: 1.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body class="bg-gray-900 text-gray-100">
+    <div class="document-container">
+      <div class="content-card">
+        <header class="page-header">
+          <div class="header-content">
+            <div class="icon-badge">
+              <span class="icon-large">🛡️</span>
+            </div>
+            <div>
+              <h1 class="page-title">Microsoft Defender para Office 365</h1>
+              <p class="page-subtitle">Protección Avanzada de Endpoint y Correo Electrónico</p>
+            </div>
+          </div>
+        </header>
+
+        <!-- Introducción -->
+        <section class="content-section">
+          <p class="section-intro">
+            <strong>Microsoft Defender</strong> constituye la plataforma integral de seguridad para Office 365,
+            proporcionando protección avanzada contra amenazas modernas a través de diferentes tiers de licenciamiento
+            con capacidades específicas de <strong>EDR, Safe Links y Threat Analytics</strong>.
+          </p>
+        </section>
+
+        <!-- Estadísticas clave -->
+        <section class="content-section">
+          <div class="defender-stats">
+            <div class="defender-stat-box business">
+              <span class="stat-number">300</span>
+              <span class="stat-label">Usuarios Máx. Business</span>
+            </div>
+            <div class="defender-stat-box">
+              <span class="stat-number">EDR</span>
+              <span class="stat-label">Análisis Comportamental</span>
+            </div>
+            <div class="defender-stat-box enterprise">
+              <span class="stat-number">E5</span>
+              <span class="stat-label">Endpoint Enterprise</span>
+            </div>
+            <div class="defender-stat-box danger">
+              <span class="stat-number">10</span>
+              <span class="stat-label">Años Audit Logs</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Business Premium Destacado -->
+        <section class="content-section">
+          <div class="business-premium-highlight">
+            <div
+              style="
+                display: flex;
+                align-items: center;
+                gap: 1.5rem;
+                margin-bottom: 2rem;
+                position: relative;
+                z-index: 1;
+              "
+            >
+              <div style="font-size: 4rem">💎</div>
+              <div>
+                <h2 style="color: var(--business-color); font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem">
+                  BUSINESS PREMIUM: VALOR EXCEPCIONAL
+                </h2>
+                <h3 style="color: var(--text-primary); font-size: 1.5rem; font-weight: 600; margin: 0">
+                  Defender for Business Incluido
+                </h3>
+              </div>
+            </div>
+
+            <div
+              style="
+                background: rgba(16, 185, 129, 0.1);
+                padding: 2rem;
+                border-radius: 16px;
+                margin-bottom: 1.5rem;
+                position: relative;
+                z-index: 1;
+              "
+            >
+              <p
+                style="
+                  color: var(--text-primary);
+                  font-size: 1.2rem;
+                  font-weight: 600;
+                  margin-bottom: 1rem;
+                  text-align: center;
+                "
+              >
+                🏆 Plataforma de seguridad muy avanzada normalmente costosa
+              </p>
+              <p style="color: var(--text-secondary); font-size: 1rem; line-height: 1.8; text-align: center">
+                Microsoft ha incluido <strong>recientemente</strong> Defender for Business en Business Premium, haciendo
+                esta licencia <strong>altamente valiosa</strong> para organizaciones hasta 300 usuarios.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Nomenclatura y tiers -->
+        <section class="content-section">
+          <h2 class="section-title">
+            <span class="icon">🏷️</span>
+            Nomenclatura y Tiers de Licenciamiento
+          </h2>
+
+          <div class="info-box-premium">
+            <h4 style="color: var(--text-primary); font-size: 1.1rem; margin-bottom: 1rem">
+              ⚖️ Funcionalidad Directamente Dependiente del Licenciamiento
+            </h4>
+            <p style="color: var(--text-secondary); line-height: 1.7">
+              Es <strong>esencial distinguir</strong> las diferentes versiones de Defender, ya que las capacidades
+              varían significativamente según el plan de licenciamiento.
+            </p>
+          </div>
+
+          <div class="defender-tiers-grid">
+            <div class="defender-tier-card business">
+              <span class="tier-icon business">🏢</span>
+              <h3 style="color: var(--business-color); font-size: 1.8rem; font-weight: 700; margin-bottom: 1rem">
+                Defender for Business
+              </h3>
+
+              <div class="license-badge premium">
+                <span>💼</span>
+                <span>Business Premium</span>
+              </div>
+
+              <h4 style="color: var(--text-primary); font-size: 1.1rem; font-weight: 600; margin-bottom: 1rem">
+                Para Negocios (≤300 usuarios)
+              </h4>
+
+              <ul
+                style="
+                  color: var(--text-secondary);
+                  font-size: 0.9rem;
+                  line-height: 1.6;
+                  text-align: left;
+                  padding-left: 1rem;
+                  margin: 1rem 0;
+                "
+              >
+                <li>🦠 Antivirus y Protección Next-Gen</li>
+                <li>🔍 EDR (Endpoint Detection & Response)</li>
+                <li>📊 Administración de Vulnerabilidades</li>
+                <li>🤖 Investigación y Respuesta Automatizada</li>
+                <li>⏱️ Timeline de incidentes de seguridad</li>
+                <li>🔒 Aislamiento y remediación automática</li>
+              </ul>
+
+              <div style="background: rgba(16, 185, 129, 0.1); padding: 1rem; border-radius: 8px; margin-top: 1rem">
+                <p style="color: var(--business-color); font-weight: 700; font-size: 0.85rem; margin: 0">
+                  💎 Versión "light" con características de alto nivel
+                </p>
+              </div>
+            </div>
+
+            <div class="defender-tier-card enterprise">
+              <span class="tier-icon enterprise">🏭</span>
+              <h3 style="color: var(--enterprise-color); font-size: 1.8rem; font-weight: 700; margin-bottom: 1rem">
+                Defender for Endpoint
+              </h3>
+
+              <div class="license-badge enterprise">
+                <span>🎯</span>
+                <span>E5 / Complemento</span>
+              </div>
+
+              <h4 style="color: var(--text-primary); font-size: 1.1rem; font-weight: 600; margin-bottom: 1rem">
+                Enterprise (Grandes Empresas)
+              </h4>
+
+              <ul
+                style="
+                  color: var(--text-secondary);
+                  font-size: 0.9rem;
+                  line-height: 1.6;
+                  text-align: left;
+                  padding-left: 1rem;
+                  margin: 1rem 0;
+                "
+              >
+                <li>🚀 Funcionalidades completas Plan 2</li>
+                <li>🎯 Hunting avanzado de amenazas</li>
+                <li>📈 Analytics predictivos</li>
+                <li>🔬 Forense digital completo</li>
+                <li>🌐 Integración con SIEM/SOAR</li>
+                <li>⚡ Respuesta automatizada enterprise</li>
+              </ul>
+
+              <div style="background: rgba(123, 104, 238, 0.1); padding: 1rem; border-radius: 8px; margin-top: 1rem">
+                <p style="color: var(--enterprise-color); font-weight: 700; font-size: 0.85rem; margin: 0">
+                  🏆 Solución completa para grandes organizaciones
+                </p>
+              </div>
+            </div>
+
+            <div class="defender-tier-card office365">
+              <span class="tier-icon office365">📧</span>
+              <h3 style="color: var(--office365-color); font-size: 1.8rem; font-weight: 700; margin-bottom: 1rem">
+                Defender for Office 365
+              </h3>
+
+              <div class="license-badge standard">
+                <span>⚠️</span>
+                <span>Plan 1 No en Standard</span>
+              </div>
+
+              <h4 style="color: var(--text-primary); font-size: 1.1rem; font-weight: 600; margin-bottom: 1rem">
+                Protección de Correo Electrónico
+              </h4>
+
+              <ul
+                style="
+                  color: var(--text-secondary);
+                  font-size: 0.9rem;
+                  line-height: 1.6;
+                  text-align: left;
+                  padding-left: 1rem;
+                  margin: 1rem 0;
+                "
+              >
+                <li>🔗 Safe Links (vínculos seguros)</li>
+                <li>📎 Safe Attachments (adjuntos seguros)</li>
+                <li>🎣 Anti-phishing avanzado</li>
+                <li>📊 Threat Analytics detallado</li>
+                <li>🔍 Threat Explorer</li>
+                <li>⚡ Respuesta a incidentes de correo</li>
+              </ul>
+
+              <div style="background: rgba(255, 107, 107, 0.1); padding: 1rem; border-radius: 8px; margin-top: 1rem">
+                <p style="color: var(--office365-color); font-weight: 700; font-size: 0.85rem; margin: 0">
+                  ⚠️ Funciones avanzadas no en Business Standard
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Funcionalidades clave del Centro de Seguridad -->
+        <section class="content-section">
+          <h2 class="section-title">
+            <span class="icon">🏛️</span>
+            Funcionalidades Clave en el Centro de Seguridad
+          </h2>
+
+          <div class="info-box-premium">
+            <h4 style="color: var(--text-primary); font-size: 1.1rem; margin-bottom: 1rem">
+              🏢 Gestión Centralizada en Microsoft Purview
+            </h4>
+            <p style="color: var(--text-secondary); line-height: 1.7">
+              La gestión de Defender se realiza principalmente en el <strong>Centro de Seguridad</strong>, ahora parte
+              de Microsoft Purview (Cumplimiento), proporcionando un punto único de control.
+            </p>
+          </div>
+
+          <!-- Secure Score Widget -->
+          <div class="secure-score-widget">
+            <div style="position: relative; z-index: 1">
+              <span class="score-display">85%</span>
+              <span class="score-label">Secure Score Típico</span>
+              <p
+                style="
+                  color: rgba(255, 255, 255, 0.8);
+                  font-size: 0.9rem;
+                  margin-top: 1rem;
+                  max-width: 500px;
+                  margin-left: auto;
+                  margin-right: auto;
+                "
+              >
+                Métrica de postura de seguridad que evalúa configuraciones recomendadas como MFA global
+              </p>
+            </div>
+          </div>
+
+          <div class="security-features-grid">
+            <div class="security-feature-card secure-score">
+              <span class="feature-icon secure-score">📊</span>
+              <h3 style="color: var(--success-color); font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem">
+                Secure Score
+              </h3>
+              <h4 style="color: var(--text-primary); font-size: 1.1rem; font-weight: 600; margin-bottom: 1rem">
+                Métrica de Postura de Seguridad
+              </h4>
+
+              <ul
+                style="
+                  color: var(--text-secondary);
+                  font-size: 0.9rem;
+                  line-height: 1.6;
+                  text-align: left;
+                  padding-left: 1rem;
+                  margin: 1rem 0;
+                "
+              >
+                <li>📈 Porcentaje de configuraciones activas</li>
+                <li>🎯 Acciones correctivas específicas</li>
+                <li>📚 Guías de implementación detalladas</li>
+                <li>✅ Opción de marcar riesgo "aceptado"</li>
+                <li>🔄 Actualización continua de recomendaciones</li>
+              </ul>
+
+              <div style="background: rgba(16, 185, 129, 0.1); padding: 1rem; border-radius: 8px; margin-top: 1rem">
+                <p style="color: var(--success-color); font-weight: 700; font-size: 0.85rem; margin: 0">
+                  🎯 KPI principal de seguridad organizacional
+                </p>
+              </div>
+            </div>
+
+            <div class="security-feature-card safe-links">
+              <span class="feature-icon safe-links">🔗</span>
+              <h3 style="color: var(--edr-color); font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem">
+                Safe Links
+              </h3>
+              <h4 style="color: var(--text-primary); font-size: 1.1rem; font-weight: 600; margin-bottom: 1rem">
+                Protección de Vínculos Maliciosos
+              </h4>
+
+              <ul
+                style="
+                  color: var(--text-secondary);
+                  font-size: 0.9rem;
+                  line-height: 1.6;
+                  text-align: left;
+                  padding-left: 1rem;
+                  margin: 1rem 0;
+                "
+              >
+                <li>🛡️ Redirección y prueba en entorno seguro</li>
+                <li>🎣 Mitigación de riesgo de phishing</li>
+                <li>⚡ Verificación en tiempo real</li>
+                <li>📊 Reportes de enlaces bloqueados</li>
+                <li>🔄 Actualización continua de amenazas</li>
+              </ul>
+
+              <div style="background: rgba(255, 167, 38, 0.1); padding: 1rem; border-radius: 8px; margin-top: 1rem">
+                <p style="color: var(--edr-color); font-weight: 700; font-size: 0.85rem; margin: 0">
+                  🛡️ Primera línea de defensa anti-phishing
+                </p>
+              </div>
+            </div>
+
+            <div class="security-feature-card threat-analytics">
+              <span class="feature-icon threat-analytics">🔍</span>
+              <h3 style="color: var(--danger-color); font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem">
+                Threat Analytics
+              </h3>
+              <h4 style="color: var(--text-primary); font-size: 1.1rem; font-weight: 600; margin-bottom: 1rem">
+                Análisis de Amenazas Avanzado
+              </h4>
+
+              <ul
+                style="
+                  color: var(--text-secondary);
+                  font-size: 0.9rem;
+                  line-height: 1.6;
+                  text-align: left;
+                  padding-left: 1rem;
+                  margin: 1rem 0;
+                "
+              >
+                <li>🚨 Campañas de ataques más recientes</li>
+                <li>🔬 Análisis de ransomware y TrickBot</li>
+                <li>🎯 Alertas específicas para su organización</li>
+                <li>📋 Metodologías de ataque detalladas</li>
+                <li>🔄 Movimiento lateral y robo de credenciales</li>
+              </ul>
+
+              <div style="background: rgba(239, 68, 68, 0.1); padding: 1rem; border-radius: 8px; margin-top: 1rem">
+                <p style="color: var(--danger-color); font-weight: 700; font-size: 0.85rem; margin: 0">
+                  🔬 Intelligence de amenazas en tiempo real
+                </p>
+              </div>
+            </div>
+
+            <div class="security-feature-card device-management">
+              <span class="feature-icon device-management">📱</span>
+              <h3 style="color: var(--enterprise-color); font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem">
+                Device Management
+              </h3>
+              <h4 style="color: var(--text-primary); font-size: 1.1rem; font-weight: 600; margin-bottom: 1rem">
+                Requiere Intune (Business Premium)
+              </h4>
+
+              <ul
+                style="
+                  color: var(--text-secondary);
+                  font-size: 0.9rem;
+                  line-height: 1.6;
+                  text-align: left;
+                  padding-left: 1rem;
+                  margin: 1rem 0;
+                "
+              >
+                <li>📊 Inventario completo de dispositivos</li>
+                <li>⚠️ Evaluación de riesgo y vulnerabilidad</li>
+                <li>🖥️ PCs, iPads, macOS, Android inscritos</li>
+                <li>☁️ Defender for Cloud Apps</li>
+                <li>🚨 Monitoreo de apps maliciosas</li>
+              </ul>
+
+              <div style="background: rgba(123, 104, 238, 0.1); padding: 1rem; border-radius: 8px; margin-top: 1rem">
+                <p style="color: var(--enterprise-color); font-weight: 700; font-size: 0.85rem; margin: 0">
+                  📱 Gestión integral multi-plataforma
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Directivas de seguridad -->
+        <section class="content-section">
+          <h2 class="section-title">
+            <span class="icon">📋</span>
+            Defender y Directivas de Seguridad
+          </h2>
+
+          <div class="info-box-premium">
+            <h4 style="color: var(--text-primary); font-size: 1.1rem; margin-bottom: 1rem">
+              ⚙️ Aplicación de Políticas Granulares
+            </h4>
+            <p style="color: var(--text-secondary); line-height: 1.7">
+              Defender opera a través de diversas <strong>directivas (policies)</strong> que definen el comportamiento
+              específico de la seguridad organizacional.
+            </p>
+          </div>
+
+          <table class="policies-table">
+            <thead>
+              <tr>
+                <th>Directiva de Seguridad</th>
+                <th>Nivel de Amenaza</th>
+                <th>Configuración y Comportamiento</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Anti-Phishing y Anti-Spam</strong></td>
+                <td>
+                  <div class="threat-level high">
+                    <span>⚠️</span>
+                    <span>Alto</span>
+                  </div>
+                </td>
+                <td>
+                  <strong>Umbral de agresividad configurable</strong>
+                  <br /><br />
+                  Define la sensibilidad del filtro de correo y puede bloquear adjuntos de riesgo como archivos .ISO,
+                  ejecutables LNK/CMD, y otros formatos comunes en ataques.
+                </td>
+              </tr>
+
+              <tr>
+                <td><strong>Anti-Malware</strong></td>
+                <td>
+                  <div class="threat-level critical">
+                    <span>🚨</span>
+                    <span>Crítico</span>
+                  </div>
+                </td>
+                <td>
+                  <strong>Sin negociación - Eliminación automática</strong>
+                  <br /><br />
+                  Si detecta malware, se elimina inmediatamente. Configurable para notificar al administrador. Política
+                  más estricta de Defender.
+                </td>
+              </tr>
+
+              <tr>
+                <td><strong>Cuarentena</strong></td>
+                <td>
+                  <div class="threat-level medium">
+                    <span>🔒</span>
+                    <span>Medio</span>
+                  </div>
+                </td>
+                <td>
+                  <strong>Políticas específicas de manejo</strong>
+                  <br /><br />
+                  Acceso limitado para usuarios para revisar mensajes sin permiso de liberación, evitando que usuarios
+                  "torpes" liberen correos peligrosos inadvertidamente.
+                </td>
+              </tr>
+
+              <tr>
+                <td><strong>Cumplimiento (Sensitivity/Retention)</strong></td>
+                <td>
+                  <div class="threat-level automated">
+                    <span>🏷️</span>
+                    <span>Automatizado</span>
+                  </div>
+                </td>
+                <td>
+                  <strong>Integración con Purview (Licencia E3+)</strong>
+                  <br /><br />
+                  Etiquetas de confidencialidad y retención trabajan junto con Defender para proteger datos sensibles,
+                  con capacidades como prevención de impresión y caducidad automática.
+                </td>
+              </tr>
+
+              <tr>
+                <td><strong>Audit Logs</strong></td>
+                <td>
+                  <div class="threat-level automated">
+                    <span>📊</span>
+                    <span>Continuo</span>
+                  </div>
+                </td>
+                <td>
+                  <strong>Registro completo de actividades</strong>
+                  <br /><br />
+                  Por defecto, registra todas las actividades (modificaciones, compartidos, inicios de sesión).
+                  Retención configurable hasta 10 años según política de auditoría.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <!-- Casos de uso y implementación -->
+        <section class="content-section">
+          <h3 class="subsection-title">🔍 EDR: Más Allá del Antivirus Tradicional</h3>
+
+          <div
+            style="
+              background: linear-gradient(135deg, var(--bg-elevated), var(--bg-card));
+              border-radius: 16px;
+              padding: 2rem;
+              border: 2px solid rgba(255, 167, 38, 0.15);
+              margin: 1.5rem 0;
+            "
+          >
+            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem">
+              <div style="font-size: 3rem">🔬</div>
+              <div>
+                <h4 style="color: var(--edr-color); font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem">
+                  Endpoint Detection and Response
+                </h4>
+                <p style="color: var(--text-secondary); font-size: 1rem; margin: 0">
+                  Análisis comportamental vs detección por firmas
+                </p>
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem">
+              <div style="background: rgba(239, 68, 68, 0.1); padding: 1rem; border-radius: 8px">
+                <h5 style="color: var(--danger-color); font-weight: 700; margin-bottom: 0.5rem">
+                  ❌ Antivirus Tradicional
+                </h5>
+                <p style="color: var(--text-secondary); font-size: 0.9rem; margin: 0">
+                  Basado en firmas conocidas de malware
+                </p>
+              </div>
+              <div style="background: rgba(255, 167, 38, 0.1); padding: 1rem; border-radius: 8px">
+                <h5 style="color: var(--edr-color); font-weight: 700; margin-bottom: 0.5rem">✅ EDR Moderno</h5>
+                <p style="color: var(--text-secondary); font-size: 0.9rem; margin: 0">
+                  Análisis comportamental y correlación entre equipos
+                </p>
+              </div>
+              <div style="background: rgba(16, 185, 129, 0.1); padding: 1rem; border-radius: 8px">
+                <h5 style="color: var(--success-color); font-weight: 700; margin-bottom: 0.5rem">🤖 Automatización</h5>
+                <p style="color: var(--text-secondary); font-size: 0.9rem; margin: 0">
+                  Investigación y respuesta sin intervención humana
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Mejores prácticas -->
+        <section class="content-section">
+          <h2 class="section-title">
+            <span class="icon">🏆</span>
+            Estrategia de Implementación de Defender
+          </h2>
+
+          <div class="info-box-premium">
+            <h4 style="color: var(--text-primary); font-size: 1.2rem; margin-bottom: 1.5rem">
+              🎯 Marco de Trabajo Recomendado
+            </h4>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem">
+              <div
+                style="
+                  background: rgba(16, 185, 129, 0.1);
+                  padding: 1.5rem;
+                  border-radius: 12px;
+                  border-left: 4px solid var(--business-color);
+                "
+              >
+                <h5 style="color: var(--business-color); font-weight: 700; margin-bottom: 0.75rem">💼 Para Negocios</h5>
+                <ul
+                  style="
+                    color: var(--text-secondary);
+                    font-size: 0.9rem;
+                    line-height: 1.6;
+                    margin: 0;
+                    padding-left: 1rem;
+                  "
+                >
+                  <li>Aprovechar Business Premium + Defender</li>
+                  <li>Activar Safe Links inmediatamente</li>
+                  <li>Configurar Secure Score como KPI</li>
+                  <li>Entrenar usuarios en phishing</li>
+                </ul>
+              </div>
+
+              <div
+                style="
+                  background: rgba(0, 164, 239, 0.1);
+                  padding: 1.5rem;
+                  border-radius: 12px;
+                  border-left: 4px solid var(--defender-color);
+                "
+              >
+                <h5 style="color: var(--defender-color); font-weight: 700; margin-bottom: 0.75rem">
+                  🛡️ Configuración Crítica
+                </h5>
+                <ul
+                  style="
+                    color: var(--text-secondary);
+                    font-size: 0.9rem;
+                    line-height: 1.6;
+                    margin: 0;
+                    padding-left: 1rem;
+                  "
+                >
+                  <li>Anti-malware sin negociación</li>
+                  <li>Cuarentena con acceso limitado</li>
+                  <li>Bloquear extensiones peligrosas</li>
+                  <li>Monitorear Threat Analytics</li>
+                </ul>
+              </div>
+
+              <div
+                style="
+                  background: rgba(123, 104, 238, 0.1);
+                  padding: 1.5rem;
+                  border-radius: 12px;
+                  border-left: 4px solid var(--enterprise-color);
+                "
+              >
+                <h5 style="color: var(--enterprise-color); font-weight: 700; margin-bottom: 0.75rem">🏭 Enterprise</h5>
+                <ul
+                  style="
+                    color: var(--text-secondary);
+                    font-size: 0.9rem;
+                    line-height: 1.6;
+                    margin: 0;
+                    padding-left: 1rem;
+                  "
+                >
+                  <li>Defender for Endpoint completo</li>
+                  <li>Integración SIEM/SOAR</li>
+                  <li>Hunting proactivo de amenazas</li>
+                  <li>Forense digital avanzado</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Conclusión -->
+        <section class="content-section">
+          <div
+            style="
+              background: linear-gradient(135deg, var(--defender-color), var(--primary-dark));
+              border-radius: 20px;
+              padding: 2.5rem;
+              text-align: center;
+              margin-top: 3rem;
+              position: relative;
+              overflow: hidden;
+              box-shadow: 0 16px 48px var(--accent-glow);
+            "
+          >
+            <div
+              style="
+                position: absolute;
+                top: -50px;
+                right: -50px;
+                width: 200px;
+                height: 200px;
+                background: radial-gradient(circle, rgba(255, 255, 255, 0.1), transparent);
+                opacity: 0.5;
+              "
+            ></div>
+            <div style="position: relative; z-index: 1">
+              <div style="font-size: 3.5rem; margin-bottom: 1rem">🛡️</div>
+              <h3 style="color: white; font-size: 1.8rem; font-weight: 700; margin-bottom: 1rem">
+                Defender = Protección Multicapa + Intelligence Avanzada
+              </h3>
+              <p
+                style="
+                  color: rgba(255, 255, 255, 0.9);
+                  font-size: 1.1rem;
+                  max-width: 700px;
+                  margin: 0 auto;
+                  line-height: 1.8;
+                "
+              >
+                Microsoft Defender evoluciona más allá del antivirus tradicional, proporcionando EDR, análisis
+                comportamental y protección integral contra amenazas modernas.
+              </p>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <!-- Script de navegación automática -->
+    <script src="../js/back-button.js"></script>
+  </body>
+</html>

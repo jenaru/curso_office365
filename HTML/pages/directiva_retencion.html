@@ -1,0 +1,1139 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Directivas de Retención Office 365 - Curso Microsoft 365</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- CSS externo para estilos base y tema -->
+    <link rel="stylesheet" href="../css/pages-base.css" />
+    <link rel="stylesheet" href="../css/themes/administracion.css" />
+
+    <style>
+      :root {
+        --primary-color: #7b68ee;
+        --primary-dark: #6a5acd;
+        --primary-light: #9370db;
+        --bg-dark: #0f0f1e;
+        --bg-card: #1a1b2e;
+        --bg-elevated: #252641;
+        --text-primary: #f0f0f3;
+        --text-secondary: #b4b4c8;
+        --accent: #32d74b;
+        --accent-glow: rgba(123, 104, 238, 0.3);
+        --success-color: #10b981;
+        --warning-color: #f59e0b;
+        --danger-color: #ef4444;
+        --purview-color: #7b68ee;
+        --retention-color: #32d74b;
+        --archive-color: #00a4ef;
+        --litigation-color: #ff6b6b;
+      }
+
+      body {
+        background: linear-gradient(135deg, #0f0f1e 0%, #1a1b2e 50%, #252641 100%);
+        min-height: 100vh;
+      }
+
+      /* Critical Concept Alert */
+      .critical-concept {
+        background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(255, 107, 107, 0.05));
+        border: 3px solid rgba(239, 68, 68, 0.4);
+        border-radius: 20px;
+        padding: 2.5rem;
+        margin: 2rem 0;
+        position: relative;
+        overflow: hidden;
+        animation: pulse 2s infinite;
+      }
+
+      .critical-concept::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--danger-color), var(--warning-color));
+      }
+
+      .critical-concept::after {
+        content: '';
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        width: 100px;
+        height: 100px;
+        background: radial-gradient(circle, rgba(239, 68, 68, 0.2), transparent);
+        border-radius: 50%;
+        animation: pulse 1.5s infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: scale(1);
+          opacity: 1;
+        }
+        50% {
+          transform: scale(1.02);
+          opacity: 0.9;
+        }
+      }
+
+      /* Retention Mechanisms Grid */
+      .retention-mechanisms-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin: 2rem 0;
+      }
+
+      .mechanism-card {
+        background: linear-gradient(135deg, var(--bg-elevated), var(--bg-card));
+        border-radius: 20px;
+        padding: 2.5rem;
+        border: 2px solid rgba(123, 104, 238, 0.15);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        text-align: center;
+      }
+
+      .mechanism-card.litigation {
+        border-color: rgba(255, 107, 107, 0.3);
+      }
+
+      .mechanism-card.litigation::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--litigation-color), #ff8a80);
+      }
+
+      .mechanism-card.archive {
+        border-color: rgba(0, 164, 239, 0.3);
+      }
+
+      .mechanism-card.archive::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--archive-color), #42a5f5);
+      }
+
+      .mechanism-card.purview {
+        border-color: rgba(123, 104, 238, 0.3);
+      }
+
+      .mechanism-card.purview::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--purview-color), #9575cd);
+      }
+
+      .mechanism-card.mrm {
+        border-color: rgba(50, 215, 75, 0.3);
+      }
+
+      .mechanism-card.mrm::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--retention-color), #66bb6a);
+      }
+
+      .mechanism-card:hover {
+        transform: translateY(-12px);
+        box-shadow: 0 20px 60px var(--accent-glow);
+      }
+
+      .mechanism-card.litigation:hover {
+        box-shadow: 0 20px 60px rgba(255, 107, 107, 0.4);
+      }
+
+      .mechanism-card.archive:hover {
+        box-shadow: 0 20px 60px rgba(0, 164, 239, 0.4);
+      }
+
+      .mechanism-card.purview:hover {
+        box-shadow: 0 20px 60px rgba(123, 104, 238, 0.4);
+      }
+
+      .mechanism-card.mrm:hover {
+        box-shadow: 0 20px 60px rgba(50, 215, 75, 0.4);
+      }
+
+      .mechanism-icon {
+        font-size: 4rem;
+        margin-bottom: 1.5rem;
+        filter: drop-shadow(0 4px 12px var(--accent-glow));
+        display: block;
+      }
+
+      .mechanism-icon.litigation {
+        filter: drop-shadow(0 4px 12px rgba(255, 107, 107, 0.4));
+      }
+
+      .mechanism-icon.archive {
+        filter: drop-shadow(0 4px 12px rgba(0, 164, 239, 0.4));
+      }
+
+      .mechanism-icon.purview {
+        filter: drop-shadow(0 4px 12px rgba(123, 104, 238, 0.4));
+      }
+
+      .mechanism-icon.mrm {
+        filter: drop-shadow(0 4px 12px rgba(50, 215, 75, 0.4));
+      }
+
+      /* Timeline Visualization */
+      .retention-timeline {
+        background: linear-gradient(135deg, var(--bg-elevated), var(--bg-card));
+        border-radius: 20px;
+        padding: 2rem;
+        margin: 2rem 0;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .retention-timeline::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--warning-color), var(--danger-color));
+      }
+
+      .timeline-item {
+        display: flex;
+        align-items: center;
+        margin: 1.5rem 0;
+        padding: 1rem;
+        background: rgba(123, 104, 238, 0.1);
+        border-radius: 12px;
+        border-left: 4px solid var(--purview-color);
+        transition: all 0.3s ease;
+      }
+
+      .timeline-item:hover {
+        transform: translateX(10px);
+        background: rgba(123, 104, 238, 0.2);
+      }
+
+      .timeline-icon {
+        font-size: 2rem;
+        margin-right: 1rem;
+        width: 60px;
+        text-align: center;
+      }
+
+      .timeline-content h4 {
+        color: var(--text-primary);
+        font-size: 1.1rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+      }
+
+      .timeline-content p {
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+        margin: 0;
+        line-height: 1.6;
+      }
+
+      /* Comparison Table */
+      .comparison-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        background: var(--bg-elevated);
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        margin: 2rem 0;
+      }
+
+      .comparison-table thead {
+        background: linear-gradient(135deg, var(--purview-color), var(--primary-dark));
+      }
+
+      .comparison-table th {
+        padding: 1.5rem 1rem;
+        text-align: left;
+        color: white;
+        font-weight: 700;
+        font-size: 1rem;
+        position: relative;
+      }
+
+      .comparison-table tbody tr {
+        border-bottom: 1px solid rgba(123, 104, 238, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .comparison-table tbody tr:hover {
+        background: rgba(123, 104, 238, 0.1);
+        transform: scale(1.01);
+        box-shadow: 0 8px 25px rgba(123, 104, 238, 0.2);
+      }
+
+      .comparison-table td {
+        padding: 1.25rem 1rem;
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+        line-height: 1.6;
+        vertical-align: top;
+      }
+
+      .comparison-table td:first-child {
+        color: var(--text-primary);
+        font-weight: 600;
+        border-left: 3px solid transparent;
+      }
+
+      /* License Requirements */
+      .license-requirement {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+
+      .license-requirement.basic {
+        background: rgba(16, 185, 129, 0.2);
+        color: var(--success-color);
+        border: 1px solid rgba(16, 185, 129, 0.3);
+      }
+
+      .license-requirement.advanced {
+        background: rgba(245, 158, 11, 0.2);
+        color: var(--warning-color);
+        border: 1px solid rgba(245, 158, 11, 0.3);
+      }
+
+      .license-requirement.premium {
+        background: rgba(123, 104, 238, 0.2);
+        color: var(--purview-color);
+        border: 1px solid rgba(123, 104, 238, 0.3);
+      }
+
+      /* Data Loss Warning */
+      .data-loss-warning {
+        background: linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(255, 107, 107, 0.1));
+        border: 2px solid rgba(239, 68, 68, 0.4);
+        border-radius: 16px;
+        padding: 2rem;
+        margin: 2rem 0;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .data-loss-warning::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--danger-color), var(--warning-color));
+      }
+
+      /* Stats boxes */
+      .retention-stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.5rem;
+        margin: 2rem 0;
+      }
+
+      .retention-stat-box {
+        background: linear-gradient(135deg, var(--purview-color), var(--primary-dark));
+        border-radius: 12px;
+        padding: 1.5rem;
+        text-align: center;
+        box-shadow: 0 8px 24px var(--accent-glow);
+        transition: all 0.3s ease;
+      }
+
+      .retention-stat-box:hover {
+        transform: scale(1.05);
+        box-shadow: 0 12px 36px var(--accent-glow);
+      }
+
+      .retention-stat-box.danger {
+        background: linear-gradient(135deg, var(--danger-color), #dc2626);
+        box-shadow: 0 8px 24px rgba(239, 68, 68, 0.3);
+      }
+
+      .retention-stat-box.warning {
+        background: linear-gradient(135deg, var(--warning-color), #d97706);
+        box-shadow: 0 8px 24px rgba(245, 158, 11, 0.3);
+      }
+
+      .retention-stat-box.archive {
+        background: linear-gradient(135deg, var(--archive-color), #0078d4);
+        box-shadow: 0 8px 24px rgba(0, 164, 239, 0.3);
+      }
+
+      .stat-number {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: white;
+        display: block;
+        margin-bottom: 0.5rem;
+      }
+
+      .stat-label {
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.8);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      /* Enhanced info boxes */
+      .info-box-premium {
+        background: linear-gradient(135deg, var(--bg-elevated), var(--bg-card));
+        border-radius: 16px;
+        padding: 2rem;
+        margin: 1.5rem 0;
+        border-left: 4px solid var(--purview-color);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .info-box-premium::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle at top right, rgba(123, 104, 238, 0.2), transparent);
+        opacity: 0.3;
+        pointer-events: none;
+      }
+
+      /* Content sections */
+      .content-section {
+        animation: fadeInUp 0.6s ease-out;
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Responsive design */
+      @media (max-width: 768px) {
+        .comparison-table {
+          font-size: 0.8rem;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+          padding: 0.75rem 0.5rem;
+        }
+
+        .mechanism-card {
+          padding: 1.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body class="bg-gray-900 text-gray-100">
+    <div class="document-container">
+      <div class="content-card">
+        <header class="page-header">
+          <div class="header-content">
+            <div class="icon-badge">
+              <span class="icon-large">📦</span>
+            </div>
+            <div>
+              <h1 class="page-title">Directivas de Retención en Office 365</h1>
+              <p class="page-subtitle">Gobierno de Datos y Cumplimiento Legal</p>
+            </div>
+          </div>
+        </header>
+
+        <!-- Introducción -->
+        <section class="content-section">
+          <p class="section-intro">
+            Las <strong>directivas de retención</strong> en Office 365 constituyen la estrategia fundamental de
+            Microsoft para el <strong>gobierno de datos y cumplimiento legal</strong>, diferenciándose claramente de las
+            copias de seguridad tradicionales.
+          </p>
+        </section>
+
+        <!-- Estadísticas clave -->
+        <section class="content-section">
+          <div class="retention-stats">
+            <div class="retention-stat-box danger">
+              <span class="stat-number">NO</span>
+              <span class="stat-label">Backup Tradicional</span>
+            </div>
+            <div class="retention-stat-box warning">
+              <span class="stat-number">30</span>
+              <span class="stat-label">Días Máximo Defecto</span>
+            </div>
+            <div class="retention-stat-box archive">
+              <span class="stat-number">100GB</span>
+              <span class="stat-label">Buzón Archivo Defecto</span>
+            </div>
+            <div class="retention-stat-box">
+              <span class="stat-number">∞</span>
+              <span class="stat-label">Litigation Hold</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Concepto fundamental crítico -->
+        <section class="content-section">
+          <div class="critical-concept">
+            <div
+              style="
+                display: flex;
+                align-items: center;
+                gap: 1.5rem;
+                margin-bottom: 2rem;
+                position: relative;
+                z-index: 1;
+              "
+            >
+              <div style="font-size: 4rem">🚨</div>
+              <div>
+                <h2 style="color: var(--danger-color); font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem">
+                  CONCEPTO FUNDAMENTAL
+                </h2>
+                <h3 style="color: var(--text-primary); font-size: 1.5rem; font-weight: 600; margin: 0">
+                  Retención ≠ Copia de Seguridad
+                </h3>
+              </div>
+            </div>
+
+            <div
+              style="
+                background: rgba(239, 68, 68, 0.1);
+                padding: 2rem;
+                border-radius: 16px;
+                margin-bottom: 1.5rem;
+                position: relative;
+                z-index: 1;
+              "
+            >
+              <p
+                style="
+                  color: var(--text-primary);
+                  font-size: 1.2rem;
+                  font-weight: 600;
+                  margin-bottom: 1rem;
+                  text-align: center;
+                "
+              >
+                📧 Office 365 NO incluye copia de seguridad (backup) del correo
+              </p>
+              <p style="color: var(--text-secondary); font-size: 1rem; line-height: 1.8; text-align: center">
+                La estrategia de Microsoft se basa en <strong>retención</strong> y <strong>disponibilidad</strong>
+                del servicio, no en backups tradicionales.
+              </p>
+            </div>
+
+            <div
+              style="
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 1rem;
+                position: relative;
+                z-index: 1;
+              "
+            >
+              <div style="background: rgba(16, 185, 129, 0.1); padding: 1rem; border-radius: 8px; text-align: center">
+                <div style="font-size: 1.5rem; margin-bottom: 0.5rem">🛡️</div>
+                <p style="color: var(--success-color); font-weight: 700; font-size: 0.9rem">Disponibilidad 99.9%</p>
+                <p style="color: var(--text-secondary); font-size: 0.8rem">Caída máx. 4 horas</p>
+              </div>
+              <div style="background: rgba(0, 164, 239, 0.1); padding: 1rem; border-radius: 8px; text-align: center">
+                <div style="font-size: 1.5rem; margin-bottom: 0.5rem">📊</div>
+                <p style="color: var(--archive-color); font-weight: 700; font-size: 0.9rem">4 Copias DB</p>
+                <p style="color: var(--text-secondary); font-size: 0.8rem">3 replicadas + 1 país</p>
+              </div>
+              <div style="background: rgba(245, 158, 11, 0.1); padding: 1rem; border-radius: 8px; text-align: center">
+                <div style="font-size: 1.5rem; margin-bottom: 0.5rem">⏰</div>
+                <p style="color: var(--warning-color); font-weight: 700; font-size: 0.9rem">Desfase 2h</p>
+                <p style="color: var(--text-secondary); font-size: 0.8rem">Pérdida máx. elementos</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Timeline de retención por defecto -->
+        <section class="content-section">
+          <h2 class="section-title">
+            <span class="icon">⏰</span>
+            Retención por Defecto y Pérdida de Datos
+          </h2>
+
+          <div class="data-loss-warning">
+            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem">
+              <div style="font-size: 3rem">⚠️</div>
+              <div>
+                <h4 style="color: var(--danger-color); font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem">
+                  Advertencia: Pérdida Permanente de Datos
+                </h4>
+                <p style="color: var(--text-primary); font-size: 1rem; margin: 0">
+                  Sin mecanismos adicionales, los datos se pierden permanentemente
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="retention-timeline">
+            <h3
+              style="
+                color: var(--text-primary);
+                font-size: 1.3rem;
+                font-weight: 700;
+                margin-bottom: 1.5rem;
+                text-align: center;
+              "
+            >
+              📅 Proceso de Eliminación y Retención
+            </h3>
+
+            <div class="timeline-item">
+              <div class="timeline-icon">🗑️</div>
+              <div class="timeline-content">
+                <h4>Usuario Elimina Correo</h4>
+                <p>El usuario borra un correo y lo elimina permanentemente de la carpeta de elementos eliminados</p>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="timeline-icon">💾</div>
+              <div class="timeline-content">
+                <h4>Retención Interna (15 días por defecto)</h4>
+                <p>Office 365 mantiene el elemento eliminado internamente por un período configurable</p>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="timeline-icon">⚙️</div>
+              <div class="timeline-content">
+                <h4>Extensión Posible (hasta 30 días)</h4>
+                <p>El período de retención puede ampliarse desde 15 hasta 30 días máximo</p>
+              </div>
+            </div>
+
+            <div
+              class="timeline-item"
+              style="border-left-color: var(--danger-color); background: rgba(239, 68, 68, 0.1)"
+            >
+              <div class="timeline-icon" style="color: var(--danger-color)">💀</div>
+              <div class="timeline-content">
+                <h4 style="color: var(--danger-color)">Pérdida Permanente (30+ días)</h4>
+                <p>
+                  Una vez superados los 30 días, la información se pierde de forma
+                  <strong>permanente e irrecuperable</strong>
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Mecanismos avanzados de retención -->
+        <section class="content-section">
+          <h2 class="section-title">
+            <span class="icon">🔧</span>
+            Mecanismos Avanzados de Retención y Cumplimiento
+          </h2>
+
+          <div class="info-box-premium">
+            <h4 style="color: var(--text-primary); font-size: 1.1rem; margin-bottom: 1rem">
+              ⚖️ Para Requisitos Legales y Regulatorios
+            </h4>
+            <p style="color: var(--text-secondary); line-height: 1.7">
+              Cuando el cumplimiento legal (compliance) lo requiere, existen mecanismos que aseguran que el contenido se
+              mantenga <strong>indefinidamente</strong> o por períodos prolongados específicos.
+            </p>
+          </div>
+
+          <div class="retention-mechanisms-grid">
+            <div class="mechanism-card litigation">
+              <span class="mechanism-icon litigation">⚖️</span>
+              <h3 style="color: var(--litigation-color); font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem">
+                Litigation Hold
+              </h3>
+              <h4 style="color: var(--text-primary); font-size: 1.1rem; font-weight: 600; margin-bottom: 1rem">
+                Suspensión por Litigio
+              </h4>
+
+              <div class="license-requirement premium">
+                <span>🎫</span>
+                <span>Licencia Avanzada</span>
+              </div>
+
+              <ul
+                style="
+                  color: var(--text-secondary);
+                  font-size: 0.9rem;
+                  line-height: 1.6;
+                  text-align: left;
+                  padding-left: 1rem;
+                  margin: 1rem 0;
+                "
+              >
+                <li>✅ Todos los cambios se registran siempre</li>
+                <li>🔒 Nunca se elimina nada permanentemente</li>
+                <li>👁️ Usuario percibe eliminación normal</li>
+                <li>🕰️ Versiones históricas completas</li>
+                <li>💾 Consume espacio en DB subyacente</li>
+              </ul>
+
+              <div style="background: rgba(255, 107, 107, 0.1); padding: 1rem; border-radius: 8px; margin-top: 1rem">
+                <p style="color: var(--litigation-color); font-weight: 700; font-size: 0.85rem; margin: 0">
+                  🏛️ Acceso: Centro Admin Exchange
+                </p>
+              </div>
+            </div>
+
+            <div class="mechanism-card archive">
+              <span class="mechanism-icon archive">📁</span>
+              <h3 style="color: var(--archive-color); font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem">
+                Archive Mailbox
+              </h3>
+              <h4 style="color: var(--text-primary); font-size: 1.1rem; font-weight: 600; margin-bottom: 1rem">
+                Buzón de Archivado
+              </h4>
+
+              <div class="license-requirement basic">
+                <span>📧</span>
+                <span>Incluido en Licencias</span>
+              </div>
+
+              <ul
+                style="
+                  color: var(--text-secondary);
+                  font-size: 0.9rem;
+                  line-height: 1.6;
+                  text-align: left;
+                  padding-left: 1rem;
+                  margin: 1rem 0;
+                "
+              >
+                <li>💾 100 GB por defecto</li>
+                <li>📈 Ampliable a Terabytes</li>
+                <li>🔄 Reglas automáticas MRM</li>
+                <li>⚡ No se descarga a OST local</li>
+                <li>🎯 Mejora rendimiento diario</li>
+              </ul>
+
+              <div style="background: rgba(0, 164, 239, 0.1); padding: 1rem; border-radius: 8px; margin-top: 1rem">
+                <p style="color: var(--archive-color); font-weight: 700; font-size: 0.85rem; margin: 0">
+                  🎯 Ventaja: Información histórica sin impacto
+                </p>
+              </div>
+            </div>
+
+            <div class="mechanism-card mrm">
+              <span class="mechanism-icon mrm">⚙️</span>
+              <h3 style="color: var(--retention-color); font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem">
+                MRM Policies
+              </h3>
+              <h4 style="color: var(--text-primary); font-size: 1.1rem; font-weight: 600; margin-bottom: 1rem">
+                Directivas MRM Heredadas
+              </h4>
+
+              <div class="license-requirement basic">
+                <span>🔧</span>
+                <span>Exchange Legacy</span>
+              </div>
+
+              <ul
+                style="
+                  color: var(--text-secondary);
+                  font-size: 0.9rem;
+                  line-height: 1.6;
+                  text-align: left;
+                  padding-left: 1rem;
+                  margin: 1rem 0;
+                "
+              >
+                <li>🤖 Autogestión de contenido</li>
+                <li>📅 Reglas basadas en tiempo</li>
+                <li>🗂️ Políticas por carpeta</li>
+                <li>👤 Aplicación manual por usuario</li>
+                <li>💻 Outlook y OWA compatibles</li>
+              </ul>
+
+              <div style="background: rgba(50, 215, 75, 0.1); padding: 1rem; border-radius: 8px; margin-top: 1rem">
+                <p style="color: var(--retention-color); font-weight: 700; font-size: 0.85rem; margin: 0">
+                  📝 Ejemplo: Bandeja entrada 1 mes
+                </p>
+              </div>
+            </div>
+
+            <div class="mechanism-card purview">
+              <span class="mechanism-icon purview">🏷️</span>
+              <h3 style="color: var(--purview-color); font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem">
+                Purview Labels
+              </h3>
+              <h4 style="color: var(--text-primary); font-size: 1.1rem; font-weight: 600; margin-bottom: 1rem">
+                Etiquetas Modernas
+              </h4>
+
+              <div class="license-requirement premium">
+                <span>🎫</span>
+                <span>E3 o Superior</span>
+              </div>
+
+              <ul
+                style="
+                  color: var(--text-secondary);
+                  font-size: 0.9rem;
+                  line-height: 1.6;
+                  text-align: left;
+                  padding-left: 1rem;
+                  margin: 1rem 0;
+                "
+              >
+                <li>🌐 Alcance global (SharePoint, OneDrive, Teams)</li>
+                <li>⚖️ Cumplimiento legal específico</li>
+                <li>🔒 Retention Labels persistentes</li>
+                <li>🛡️ Sensitivity Labels avanzadas</li>
+                <li>📋 Gestión desde Purview</li>
+              </ul>
+
+              <div style="background: rgba(123, 104, 238, 0.1); padding: 1rem; border-radius: 8px; margin-top: 1rem">
+                <p style="color: var(--purview-color); font-weight: 700; font-size: 0.85rem; margin: 0">
+                  ⚖️ Ejemplo: Retención legal 5 años
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Tabla comparativa -->
+        <section class="content-section">
+          <h2 class="section-title">
+            <span class="icon">📊</span>
+            Comparativa de Mecanismos de Retención
+          </h2>
+
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>Mecanismo</th>
+                <th>Capacidad</th>
+                <th>Alcance</th>
+                <th>Licenciamiento</th>
+                <th>Uso Principal</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Retención por Defecto</strong></td>
+                <td>15-30 días</td>
+                <td>Solo correo eliminado</td>
+                <td>
+                  <div class="license-requirement basic">
+                    <span>✅</span>
+                    <span>Incluido</span>
+                  </div>
+                </td>
+                <td>Recuperación accidental básica</td>
+              </tr>
+
+              <tr>
+                <td><strong>Litigation Hold</strong></td>
+                <td>Ilimitado</td>
+                <td>Buzón completo + historial</td>
+                <td>
+                  <div class="license-requirement advanced">
+                    <span>🎫</span>
+                    <span>Avanzada</span>
+                  </div>
+                </td>
+                <td>Cumplimiento legal total</td>
+              </tr>
+
+              <tr>
+                <td><strong>Archive Mailbox</strong></td>
+                <td>100GB - Terabytes</td>
+                <td>Correo archivado</td>
+                <td>
+                  <div class="license-requirement basic">
+                    <span>📧</span>
+                    <span>Incluido</span>
+                  </div>
+                </td>
+                <td>Gestión de espacio y rendimiento</td>
+              </tr>
+
+              <tr>
+                <td><strong>MRM Policies</strong></td>
+                <td>Configurable</td>
+                <td>Por carpeta/buzón</td>
+                <td>
+                  <div class="license-requirement basic">
+                    <span>⚙️</span>
+                    <span>Exchange</span>
+                  </div>
+                </td>
+                <td>Autogestión usuario</td>
+              </tr>
+
+              <tr>
+                <td><strong>Purview Retention</strong></td>
+                <td>Configurable (años)</td>
+                <td>Multi-workload global</td>
+                <td>
+                  <div class="license-requirement premium">
+                    <span>🎫</span>
+                    <span>E3+</span>
+                  </div>
+                </td>
+                <td>Compliance empresarial</td>
+              </tr>
+
+              <tr>
+                <td><strong>Audit Logs</strong></td>
+                <td>Hasta 10 años</td>
+                <td>Actividad completa</td>
+                <td>
+                  <div class="license-requirement premium">
+                    <span>📋</span>
+                    <span>Compliance</span>
+                  </div>
+                </td>
+                <td>Auditoría y forense</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <!-- Mejores prácticas -->
+        <section class="content-section">
+          <h2 class="section-title">
+            <span class="icon">🏆</span>
+            Estrategia Recomendada de Retención
+          </h2>
+
+          <div class="info-box-premium">
+            <h4 style="color: var(--text-primary); font-size: 1.2rem; margin-bottom: 1.5rem">
+              🎯 Marco de Trabajo Integral
+            </h4>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem">
+              <div
+                style="
+                  background: rgba(239, 68, 68, 0.1);
+                  padding: 1.5rem;
+                  border-radius: 12px;
+                  border-left: 4px solid var(--danger-color);
+                "
+              >
+                <h5 style="color: var(--danger-color); font-weight: 700; margin-bottom: 0.75rem">
+                  🚨 Conciencia Crítica
+                </h5>
+                <ul
+                  style="
+                    color: var(--text-secondary);
+                    font-size: 0.9rem;
+                    line-height: 1.6;
+                    margin: 0;
+                    padding-left: 1rem;
+                  "
+                >
+                  <li>Educar sobre la ausencia de backup</li>
+                  <li>Extender retención a 30 días mínimo</li>
+                  <li>Documentar pérdidas potenciales</li>
+                  <li>Evaluar necesidades legales</li>
+                </ul>
+              </div>
+
+              <div
+                style="
+                  background: rgba(123, 104, 238, 0.1);
+                  padding: 1.5rem;
+                  border-radius: 12px;
+                  border-left: 4px solid var(--purview-color);
+                "
+              >
+                <h5 style="color: var(--purview-color); font-weight: 700; margin-bottom: 0.75rem">
+                  ⚖️ Compliance Proactivo
+                </h5>
+                <ul
+                  style="
+                    color: var(--text-secondary);
+                    font-size: 0.9rem;
+                    line-height: 1.6;
+                    margin: 0;
+                    padding-left: 1rem;
+                  "
+                >
+                  <li>Implementar Litigation Hold selectivo</li>
+                  <li>Configurar Archive Mailbox universal</li>
+                  <li>Evaluar etiquetas Purview</li>
+                  <li>Activar auditoría completa</li>
+                </ul>
+              </div>
+
+              <div
+                style="
+                  background: rgba(0, 164, 239, 0.1);
+                  padding: 1.5rem;
+                  border-radius: 12px;
+                  border-left: 4px solid var(--archive-color);
+                "
+              >
+                <h5 style="color: var(--archive-color); font-weight: 700; margin-bottom: 0.75rem">
+                  🔧 Gestión Operativa
+                </h5>
+                <ul
+                  style="
+                    color: var(--text-secondary);
+                    font-size: 0.9rem;
+                    line-height: 1.6;
+                    margin: 0;
+                    padding-left: 1rem;
+                  "
+                >
+                  <li>Monitorear consumo de espacio</li>
+                  <li>Revisar costos de licenciamiento</li>
+                  <li>Documentar políticas aplicadas</li>
+                  <li>Capacitar usuarios finales</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Auditoría avanzada -->
+        <section class="content-section">
+          <h3 class="subsection-title">🔍 Retención de Registros de Auditoría</h3>
+
+          <div
+            style="
+              background: linear-gradient(135deg, var(--bg-elevated), var(--bg-card));
+              border-radius: 16px;
+              padding: 2rem;
+              border: 2px solid rgba(123, 104, 238, 0.15);
+              margin: 1.5rem 0;
+            "
+          >
+            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem">
+              <div style="font-size: 3rem">📋</div>
+              <div>
+                <h4 style="color: var(--purview-color); font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem">
+                  Audit Logs en Microsoft Purview
+                </h4>
+                <p style="color: var(--text-secondary); font-size: 1rem; margin: 0">
+                  Políticas avanzadas de auditoría para cumplimiento forense
+                </p>
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem">
+              <div style="background: rgba(123, 104, 238, 0.1); padding: 1rem; border-radius: 8px">
+                <h5 style="color: var(--purview-color); font-weight: 700; margin-bottom: 0.5rem">📊 Capacidad</h5>
+                <p style="color: var(--text-secondary); font-size: 0.9rem; margin: 0">
+                  Hasta 10 años de registros de actividad
+                </p>
+              </div>
+              <div style="background: rgba(123, 104, 238, 0.1); padding: 1rem; border-radius: 8px">
+                <h5 style="color: var(--purview-color); font-weight: 700; margin-bottom: 0.5rem">🔍 Alcance</h5>
+                <p style="color: var(--text-secondary); font-size: 0.9rem; margin: 0">
+                  Actividad completa de usuarios y admins
+                </p>
+              </div>
+              <div style="background: rgba(123, 104, 238, 0.1); padding: 1rem; border-radius: 8px">
+                <h5 style="color: var(--purview-color); font-weight: 700; margin-bottom: 0.5rem">⚖️ Propósito</h5>
+                <p style="color: var(--text-secondary); font-size: 0.9rem; margin: 0">
+                  Investigaciones forenses y compliance
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Conclusión -->
+        <section class="content-section">
+          <div
+            style="
+              background: linear-gradient(135deg, var(--purview-color), var(--primary-dark));
+              border-radius: 20px;
+              padding: 2.5rem;
+              text-align: center;
+              margin-top: 3rem;
+              position: relative;
+              overflow: hidden;
+              box-shadow: 0 16px 48px var(--accent-glow);
+            "
+          >
+            <div
+              style="
+                position: absolute;
+                top: -50px;
+                right: -50px;
+                width: 200px;
+                height: 200px;
+                background: radial-gradient(circle, rgba(255, 255, 255, 0.1), transparent);
+                opacity: 0.5;
+              "
+            ></div>
+            <div style="position: relative; z-index: 1">
+              <div style="font-size: 3.5rem; margin-bottom: 1rem">📦</div>
+              <h3 style="color: white; font-size: 1.8rem; font-weight: 700; margin-bottom: 1rem">
+                Retención Inteligente = Cumplimiento + Disponibilidad
+              </h3>
+              <p
+                style="
+                  color: rgba(255, 255, 255, 0.9);
+                  font-size: 1.1rem;
+                  max-width: 700px;
+                  margin: 0 auto;
+                  line-height: 1.8;
+                "
+              >
+                La estrategia de retención de Microsoft combina disponibilidad de servicio con mecanismos avanzados de
+                cumplimiento legal.
+              </p>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <!-- Script de navegación automática -->
+    <script src="../js/back-button.js"></script>
+  </body>
+</html>

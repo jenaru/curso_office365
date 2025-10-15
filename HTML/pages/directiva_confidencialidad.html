@@ -1,0 +1,1192 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Directivas de Confidencialidad Office 365 - Curso Microsoft 365</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- CSS externo para estilos base y tema -->
+    <link rel="stylesheet" href="../css/pages-base.css" />
+    <link rel="stylesheet" href="../css/themes/administracion.css" />
+
+    <style>
+      :root {
+        --primary-color: #7b68ee;
+        --primary-dark: #6a5acd;
+        --primary-light: #9370db;
+        --bg-dark: #0f0f1e;
+        --bg-card: #1a1b2e;
+        --bg-elevated: #252641;
+        --text-primary: #f0f0f3;
+        --text-secondary: #b4b4c8;
+        --accent: #ff6b6b;
+        --accent-glow: rgba(123, 104, 238, 0.3);
+        --success-color: #10b981;
+        --warning-color: #f59e0b;
+        --danger-color: #ef4444;
+        --purview-color: #7b68ee;
+        --protection-color: #ff6b6b;
+        --encryption-color: #00d4aa;
+        --drm-color: #ffa726;
+      }
+
+      body {
+        background: linear-gradient(135deg, #0f0f1e 0%, #1a1b2e 50%, #252641 100%);
+        min-height: 100vh;
+      }
+
+      /* Protection Features Grid */
+      .protection-features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin: 2rem 0;
+      }
+
+      .protection-feature-card {
+        background: linear-gradient(135deg, var(--bg-elevated), var(--bg-card));
+        border-radius: 20px;
+        padding: 2.5rem;
+        border: 2px solid rgba(255, 107, 107, 0.15);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        text-align: center;
+      }
+
+      .protection-feature-card.access {
+        border-color: rgba(255, 107, 107, 0.3);
+      }
+
+      .protection-feature-card.access::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--protection-color), #ff8a80);
+      }
+
+      .protection-feature-card.drm {
+        border-color: rgba(255, 167, 38, 0.3);
+      }
+
+      .protection-feature-card.drm::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--drm-color), #ffb74d);
+      }
+
+      .protection-feature-card.expiry {
+        border-color: rgba(245, 158, 11, 0.3);
+      }
+
+      .protection-feature-card.expiry::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--warning-color), #ffc107);
+      }
+
+      .protection-feature-card.encryption {
+        border-color: rgba(0, 212, 170, 0.3);
+      }
+
+      .protection-feature-card.encryption::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--encryption-color), #26a69a);
+      }
+
+      .protection-feature-card:hover {
+        transform: translateY(-12px);
+        box-shadow: 0 20px 60px var(--accent-glow);
+      }
+
+      .protection-feature-card.access:hover {
+        box-shadow: 0 20px 60px rgba(255, 107, 107, 0.4);
+      }
+
+      .protection-feature-card.drm:hover {
+        box-shadow: 0 20px 60px rgba(255, 167, 38, 0.4);
+      }
+
+      .protection-feature-card.expiry:hover {
+        box-shadow: 0 20px 60px rgba(245, 158, 11, 0.4);
+      }
+
+      .protection-feature-card.encryption:hover {
+        box-shadow: 0 20px 60px rgba(0, 212, 170, 0.4);
+      }
+
+      .protection-icon {
+        font-size: 4rem;
+        margin-bottom: 1.5rem;
+        filter: drop-shadow(0 4px 12px var(--accent-glow));
+        display: block;
+      }
+
+      .protection-icon.access {
+        filter: drop-shadow(0 4px 12px rgba(255, 107, 107, 0.4));
+      }
+
+      .protection-icon.drm {
+        filter: drop-shadow(0 4px 12px rgba(255, 167, 38, 0.4));
+      }
+
+      .protection-icon.expiry {
+        filter: drop-shadow(0 4px 12px rgba(245, 158, 11, 0.4));
+      }
+
+      .protection-icon.encryption {
+        filter: drop-shadow(0 4px 12px rgba(0, 212, 170, 0.4));
+      }
+
+      /* Scope Visualization */
+      .scope-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.5rem;
+        margin: 2rem 0;
+      }
+
+      .scope-item {
+        background: linear-gradient(135deg, var(--bg-elevated), var(--bg-card));
+        border-radius: 16px;
+        padding: 2rem;
+        border: 2px solid rgba(123, 104, 238, 0.15);
+        transition: all 0.3s ease;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .scope-item::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--purview-color), #9575cd);
+      }
+
+      .scope-item:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 16px 48px rgba(123, 104, 238, 0.3);
+        border-color: var(--purview-color);
+      }
+
+      .scope-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        filter: drop-shadow(0 4px 12px rgba(123, 104, 238, 0.4));
+        display: block;
+      }
+
+      /* License Warning */
+      .license-warning {
+        background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(255, 107, 107, 0.05));
+        border: 3px solid rgba(239, 68, 68, 0.4);
+        border-radius: 20px;
+        padding: 2.5rem;
+        margin: 2rem 0;
+        position: relative;
+        overflow: hidden;
+        animation: pulse 2s infinite;
+      }
+
+      .license-warning::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--danger-color), var(--warning-color));
+      }
+
+      .license-warning::after {
+        content: '';
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        width: 100px;
+        height: 100px;
+        background: radial-gradient(circle, rgba(239, 68, 68, 0.2), transparent);
+        border-radius: 50%;
+        animation: pulse 1.5s infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: scale(1);
+          opacity: 1;
+        }
+        50% {
+          transform: scale(1.02);
+          opacity: 0.9;
+        }
+      }
+
+      /* Administration Flow */
+      .admin-flow {
+        background: linear-gradient(135deg, var(--bg-elevated), var(--bg-card));
+        border-radius: 20px;
+        padding: 2rem;
+        margin: 2rem 0;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .admin-flow::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--purview-color), #9575cd);
+      }
+
+      .flow-step {
+        display: flex;
+        align-items: center;
+        margin: 1.5rem 0;
+        padding: 1.5rem;
+        background: rgba(123, 104, 238, 0.1);
+        border-radius: 12px;
+        border-left: 4px solid var(--purview-color);
+        transition: all 0.3s ease;
+      }
+
+      .flow-step:hover {
+        transform: translateX(10px);
+        background: rgba(123, 104, 238, 0.2);
+      }
+
+      .flow-icon {
+        font-size: 2.5rem;
+        margin-right: 1.5rem;
+        width: 80px;
+        text-align: center;
+      }
+
+      .flow-content h4 {
+        color: var(--text-primary);
+        font-size: 1.2rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+      }
+
+      .flow-content p {
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+        margin: 0;
+        line-height: 1.6;
+      }
+
+      /* Use Cases Examples */
+      .use-cases-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+        margin: 2rem 0;
+      }
+
+      .use-case-card {
+        background: linear-gradient(135deg, var(--bg-elevated), var(--bg-card));
+        border-radius: 16px;
+        padding: 2rem;
+        border: 2px solid rgba(123, 104, 238, 0.15);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .use-case-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--purview-color), #9575cd);
+      }
+
+      .use-case-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 16px 48px rgba(123, 104, 238, 0.3);
+        border-color: var(--purview-color);
+      }
+
+      .use-case-icon {
+        font-size: 3rem;
+        text-align: center;
+        margin-bottom: 1rem;
+        filter: drop-shadow(0 4px 12px rgba(123, 104, 238, 0.4));
+        display: block;
+      }
+
+      /* Protection Levels */
+      .protection-level {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+
+      .protection-level.high {
+        background: rgba(255, 107, 107, 0.2);
+        color: var(--protection-color);
+        border: 1px solid rgba(255, 107, 107, 0.3);
+      }
+
+      .protection-level.medium {
+        background: rgba(255, 167, 38, 0.2);
+        color: var(--drm-color);
+        border: 1px solid rgba(255, 167, 38, 0.3);
+      }
+
+      .protection-level.basic {
+        background: rgba(0, 212, 170, 0.2);
+        color: var(--encryption-color);
+        border: 1px solid rgba(0, 212, 170, 0.3);
+      }
+
+      /* Stats boxes */
+      .confidentiality-stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.5rem;
+        margin: 2rem 0;
+      }
+
+      .confidentiality-stat-box {
+        background: linear-gradient(135deg, var(--purview-color), var(--primary-dark));
+        border-radius: 12px;
+        padding: 1.5rem;
+        text-align: center;
+        box-shadow: 0 8px 24px var(--accent-glow);
+        transition: all 0.3s ease;
+      }
+
+      .confidentiality-stat-box:hover {
+        transform: scale(1.05);
+        box-shadow: 0 12px 36px var(--accent-glow);
+      }
+
+      .confidentiality-stat-box.danger {
+        background: linear-gradient(135deg, var(--danger-color), #dc2626);
+        box-shadow: 0 8px 24px rgba(239, 68, 68, 0.3);
+      }
+
+      .confidentiality-stat-box.protection {
+        background: linear-gradient(135deg, var(--protection-color), #ff5252);
+        box-shadow: 0 8px 24px rgba(255, 107, 107, 0.3);
+      }
+
+      .confidentiality-stat-box.encryption {
+        background: linear-gradient(135deg, var(--encryption-color), #00bfa5);
+        box-shadow: 0 8px 24px rgba(0, 212, 170, 0.3);
+      }
+
+      .stat-number {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: white;
+        display: block;
+        margin-bottom: 0.5rem;
+      }
+
+      .stat-label {
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.8);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      /* Enhanced info boxes */
+      .info-box-premium {
+        background: linear-gradient(135deg, var(--bg-elevated), var(--bg-card));
+        border-radius: 16px;
+        padding: 2rem;
+        margin: 1.5rem 0;
+        border-left: 4px solid var(--purview-color);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .info-box-premium::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle at top right, rgba(123, 104, 238, 0.2), transparent);
+        opacity: 0.3;
+        pointer-events: none;
+      }
+
+      /* Content sections */
+      .content-section {
+        animation: fadeInUp 0.6s ease-out;
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Responsive design */
+      @media (max-width: 768px) {
+        .protection-feature-card,
+        .use-case-card {
+          padding: 1.5rem;
+        }
+
+        .flow-step {
+          flex-direction: column;
+          text-align: center;
+        }
+
+        .flow-icon {
+          margin-right: 0;
+          margin-bottom: 1rem;
+        }
+      }
+    </style>
+  </head>
+  <body class="bg-gray-900 text-gray-100">
+    <div class="document-container">
+      <div class="content-card">
+        <header class="page-header">
+          <div class="header-content">
+            <div class="icon-badge">
+              <span class="icon-large">🔒</span>
+            </div>
+            <div>
+              <h1 class="page-title">Directivas de Confidencialidad en Office 365</h1>
+              <p class="page-subtitle">Information Protection & Digital Rights Management</p>
+            </div>
+          </div>
+        </header>
+
+        <!-- Introducción -->
+        <section class="content-section">
+          <p class="section-intro">
+            Las <strong>directivas de confidencialidad</strong> proporcionan un mecanismo granular de protección de
+            datos sensibles que trasciende los permisos básicos de acceso, implementando
+            <strong>Information Protection</strong> y <strong>Digital Rights Management</strong>
+            a nivel enterprise.
+          </p>
+        </section>
+
+        <!-- Estadísticas clave -->
+        <section class="content-section">
+          <div class="confidentiality-stats">
+            <div class="confidentiality-stat-box protection">
+              <span class="stat-number">4</span>
+              <span class="stat-label">Controles Clave</span>
+            </div>
+            <div class="confidentiality-stat-box encryption">
+              <span class="stat-number">4+</span>
+              <span class="stat-label">Workloads Protegidos</span>
+            </div>
+            <div class="confidentiality-stat-box">
+              <span class="stat-number">E3</span>
+              <span class="stat-label">Licencia Requerida</span>
+            </div>
+            <div class="confidentiality-stat-box danger">
+              <span class="stat-number">0</span>
+              <span class="stat-label">Funciona sin E3+</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Propósito y funcionalidad -->
+        <section class="content-section">
+          <h2 class="section-title">
+            <span class="icon">🎯</span>
+            Propósito y Funcionalidad Avanzada
+          </h2>
+
+          <div class="info-box-premium">
+            <h4 style="color: var(--text-primary); font-size: 1.1rem; margin-bottom: 1rem">
+              🔐 Protección Granular Más Allá de Permisos Básicos
+            </h4>
+            <p style="color: var(--text-secondary); line-height: 1.7">
+              Las etiquetas de confidencialidad ofrecen un <strong>mecanismo granular</strong> para proteger datos
+              sensibles que va <strong>más allá de los permisos básicos</strong> de acceso configurados en sitios o
+              grupos.
+            </p>
+          </div>
+
+          <div class="protection-features-grid">
+            <div class="protection-feature-card access">
+              <span class="protection-icon access">🚪</span>
+              <h3 style="color: var(--protection-color); font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem">
+                Control de Acceso Riguroso
+              </h3>
+              <h4 style="color: var(--text-primary); font-size: 1.1rem; font-weight: 600; margin-bottom: 1rem">
+                Permisos Granulares por Grupo
+              </h4>
+
+              <div class="protection-level high">
+                <span>🔒</span>
+                <span>Protección Alta</span>
+              </div>
+
+              <ul
+                style="
+                  color: var(--text-secondary);
+                  font-size: 0.9rem;
+                  line-height: 1.6;
+                  text-align: left;
+                  padding-left: 1rem;
+                  margin: 1rem 0;
+                "
+              >
+                <li>🎯 Usuario debe pertenecer a grupo específico</li>
+                <li>🚫 Permisos tradicionales irrelevantes</li>
+                <li>🔐 Archivo inaccesible sin membresía</li>
+                <li>👥 Control granular por departamento</li>
+              </ul>
+
+              <div style="background: rgba(255, 107, 107, 0.1); padding: 1rem; border-radius: 8px; margin-top: 1rem">
+                <p style="color: var(--protection-color); font-weight: 700; font-size: 0.85rem; margin: 0">
+                  💪 Sobrescribe permisos básicos
+                </p>
+              </div>
+            </div>
+
+            <div class="protection-feature-card drm">
+              <span class="protection-icon drm">🛡️</span>
+              <h3 style="color: var(--drm-color); font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem">
+                Digital Rights Management
+              </h3>
+              <h4 style="color: var(--text-primary); font-size: 1.1rem; font-weight: 600; margin-bottom: 1rem">
+                Control de Acciones Post-Acceso
+              </h4>
+
+              <div class="protection-level medium">
+                <span>⚙️</span>
+                <span>DRM Avanzado</span>
+              </div>
+
+              <ul
+                style="
+                  color: var(--text-secondary);
+                  font-size: 0.9rem;
+                  line-height: 1.6;
+                  text-align: left;
+                  padding-left: 1rem;
+                  margin: 1rem 0;
+                "
+              >
+                <li>🖨️ Impedir impresión de documentos</li>
+                <li>📋 Bloquear copiar/pegar contenido</li>
+                <li>💾 Restringir descarga local</li>
+                <li>📸 Prevenir capturas de pantalla</li>
+              </ul>
+
+              <div style="background: rgba(255, 167, 38, 0.1); padding: 1rem; border-radius: 8px; margin-top: 1rem">
+                <p style="color: var(--drm-color); font-weight: 700; font-size: 0.85rem; margin: 0">
+                  🎛️ Control granular de uso
+                </p>
+              </div>
+            </div>
+
+            <div class="protection-feature-card expiry">
+              <span class="protection-icon expiry">⏰</span>
+              <h3 style="color: var(--warning-color); font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem">
+                Caducidad del Contenido
+              </h3>
+              <h4 style="color: var(--text-primary); font-size: 1.1rem; font-weight: 600; margin-bottom: 1rem">
+                Acceso Temporal Controlado
+              </h4>
+
+              <div class="protection-level medium">
+                <span>⏳</span>
+                <span>Time-based</span>
+              </div>
+
+              <ul
+                style="
+                  color: var(--text-secondary);
+                  font-size: 0.9rem;
+                  line-height: 1.6;
+                  text-align: left;
+                  padding-left: 1rem;
+                  margin: 1rem 0;
+                "
+              >
+                <li>📅 Caducidad automática (ej: 3 días)</li>
+                <li>🥛 "Como los yogures" - fecha vencimiento</li>
+                <li>🔄 Renovación automática o manual</li>
+                <li>⚠️ Notificaciones pre-expiración</li>
+              </ul>
+
+              <div style="background: rgba(245, 158, 11, 0.1); padding: 1rem; border-radius: 8px; margin-top: 1rem">
+                <p style="color: var(--warning-color); font-weight: 700; font-size: 0.85rem; margin: 0">
+                  ⏰ Protección temporal inteligente
+                </p>
+              </div>
+            </div>
+
+            <div class="protection-feature-card encryption">
+              <span class="protection-icon encryption">🔐</span>
+              <h3 style="color: var(--encryption-color); font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem">
+                Cifrado y Marcado
+              </h3>
+              <h4 style="color: var(--text-primary); font-size: 1.1rem; font-weight: 600; margin-bottom: 1rem">
+                Protección Persistente
+              </h4>
+
+              <div class="protection-level basic">
+                <span>🛡️</span>
+                <span>Cifrado E2E</span>
+              </div>
+
+              <ul
+                style="
+                  color: var(--text-secondary);
+                  font-size: 0.9rem;
+                  line-height: 1.6;
+                  text-align: left;
+                  padding-left: 1rem;
+                  margin: 1rem 0;
+                "
+              >
+                <li>🔒 Cifrado end-to-end persistente</li>
+                <li>🏷️ Marcado visual de confidencialidad</li>
+                <li>🌐 Protección fuera del entorno</li>
+                <li>📄 Políticas viajan con el documento</li>
+              </ul>
+
+              <div style="background: rgba(0, 212, 170, 0.1); padding: 1rem; border-radius: 8px; margin-top: 1rem">
+                <p style="color: var(--encryption-color); font-weight: 700; font-size: 0.85rem; margin: 0">
+                  🌍 Protección global persistente
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Alcance de las etiquetas -->
+        <section class="content-section">
+          <h2 class="section-title">
+            <span class="icon">🌐</span>
+            Alcance Global de las Etiquetas
+          </h2>
+
+          <div class="info-box-premium">
+            <h4 style="color: var(--text-primary); font-size: 1.1rem; margin-bottom: 1rem">
+              🔄 Más Allá del Correo: Protección Multi-Workload
+            </h4>
+            <p style="color: var(--text-secondary); line-height: 1.7">
+              Las etiquetas no se limitan al correo electrónico, sino que tienen un <strong>alcance global</strong>
+              dentro de Microsoft 365, superando ampliamente la gestión MRM de Exchange.
+            </p>
+          </div>
+
+          <div class="scope-grid">
+            <div class="scope-item">
+              <span class="scope-icon">📧</span>
+              <h4 style="color: var(--text-primary); font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem">
+                Correo Electrónico
+              </h4>
+              <p style="color: var(--text-secondary); font-size: 0.9rem; margin: 0">
+                Protección avanzada en Outlook y Exchange Online
+              </p>
+            </div>
+
+            <div class="scope-item">
+              <span class="scope-icon">📚</span>
+              <h4 style="color: var(--text-primary); font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem">
+                Sitios SharePoint
+              </h4>
+              <p style="color: var(--text-secondary); font-size: 0.9rem; margin: 0">
+                Documentos y bibliotecas con protección granular
+              </p>
+            </div>
+
+            <div class="scope-item">
+              <span class="scope-icon">☁️</span>
+              <h4 style="color: var(--text-primary); font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem">
+                OneDrive
+              </h4>
+              <p style="color: var(--text-secondary); font-size: 0.9rem; margin: 0">
+                Archivos personales con etiquetas persistentes
+              </p>
+            </div>
+
+            <div class="scope-item">
+              <span class="scope-icon">👥</span>
+              <h4 style="color: var(--text-primary); font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem">
+                Chats de Teams
+              </h4>
+              <p style="color: var(--text-secondary); font-size: 0.9rem; margin: 0">
+                Conversaciones y archivos compartidos protegidos
+              </p>
+            </div>
+          </div>
+
+          <div
+            style="
+              background: linear-gradient(135deg, var(--bg-elevated), var(--bg-card));
+              border-radius: 16px;
+              padding: 2rem;
+              margin: 2rem 0;
+              border: 2px solid rgba(123, 104, 238, 0.15);
+            "
+          >
+            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem">
+              <div style="font-size: 3rem">🧳</div>
+              <div>
+                <h4 style="color: var(--purview-color); font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem">
+                  Etiquetas Viajeras
+                </h4>
+                <p style="color: var(--text-secondary); font-size: 1rem; margin: 0">
+                  La protección viaja con el contenido
+                </p>
+              </div>
+            </div>
+
+            <p style="color: var(--text-secondary); font-size: 1rem; line-height: 1.8; text-align: center">
+              Al aplicar una etiqueta, esta <strong>viaja con el contenido</strong>, asegurando que la política de
+              confidencialidad se respete <strong>sin importar dónde se almacene o se comparta</strong>.
+            </p>
+          </div>
+        </section>
+
+        <!-- Administración y licenciamiento -->
+        <section class="content-section">
+          <h2 class="section-title">
+            <span class="icon">⚙️</span>
+            Administración y Licenciamiento
+          </h2>
+
+          <div class="admin-flow">
+            <h3
+              style="
+                color: var(--text-primary);
+                font-size: 1.3rem;
+                font-weight: 700;
+                margin-bottom: 1.5rem;
+                text-align: center;
+              "
+            >
+              🏛️ Centro de Administración: Microsoft Purview
+            </h3>
+
+            <div class="flow-step">
+              <div class="flow-icon">🏢</div>
+              <div class="flow-content">
+                <h4>Compliance Center (Purview)</h4>
+                <p>
+                  La gestión centralizada de Directivas de Confidencialidad y Retención se realiza en Microsoft Purview
+                </p>
+              </div>
+            </div>
+
+            <div class="flow-step">
+              <div class="flow-icon">📊</div>
+              <div class="flow-content">
+                <h4>Data Classification</h4>
+                <p>Las etiquetas se crean en la sección de <strong>Clasificación de datos</strong> dentro de Purview</p>
+              </div>
+            </div>
+
+            <div class="flow-step">
+              <div class="flow-icon">🛡️</div>
+              <div class="flow-content">
+                <h4>Information Protection</h4>
+                <p>
+                  Funcionalidad estrechamente ligada a <strong>Information Protection</strong> y Azure Information
+                  Protection
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Advertencia crítica de licenciamiento -->
+          <div class="license-warning">
+            <div
+              style="
+                display: flex;
+                align-items: center;
+                gap: 1.5rem;
+                margin-bottom: 2rem;
+                position: relative;
+                z-index: 1;
+              "
+            >
+              <div style="font-size: 4rem">🚨</div>
+              <div>
+                <h2 style="color: var(--danger-color); font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem">
+                  CRÍTICO: REQUISITO DE LICENCIAMIENTO
+                </h2>
+                <h3 style="color: var(--text-primary); font-size: 1.5rem; font-weight: 600; margin: 0">
+                  E3 o Superior Obligatorio
+                </h3>
+              </div>
+            </div>
+
+            <div
+              style="
+                background: rgba(239, 68, 68, 0.1);
+                padding: 2rem;
+                border-radius: 16px;
+                margin-bottom: 1.5rem;
+                position: relative;
+                z-index: 1;
+              "
+            >
+              <p
+                style="
+                  color: var(--text-primary);
+                  font-size: 1.2rem;
+                  font-weight: 600;
+                  margin-bottom: 1rem;
+                  text-align: center;
+                "
+              >
+                🎫 Licencia E3 o equivalente REQUERIDA para funcionalidad
+              </p>
+              <p style="color: var(--text-secondary); font-size: 1rem; line-height: 1.8; text-align: center">
+                Es una <strong>funcionalidad avanzada</strong> que NO se incluye en planes base.
+              </p>
+            </div>
+
+            <div
+              style="
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 1rem;
+                position: relative;
+                z-index: 1;
+              "
+            >
+              <div style="background: rgba(16, 185, 129, 0.1); padding: 1rem; border-radius: 8px; text-align: center">
+                <div style="font-size: 1.5rem; margin-bottom: 0.5rem">👁️</div>
+                <p style="color: var(--success-color); font-weight: 700; font-size: 0.9rem">Visibilidad</p>
+                <p style="color: var(--text-secondary); font-size: 0.8rem">Panel visible sin licencia</p>
+              </div>
+              <div style="background: rgba(239, 68, 68, 0.1); padding: 1rem; border-radius: 8px; text-align: center">
+                <div style="font-size: 1.5rem; margin-bottom: 0.5rem">🚫</div>
+                <p style="color: var(--danger-color); font-weight: 700; font-size: 0.9rem">Funcionalidad</p>
+                <p style="color: var(--text-secondary); font-size: 0.8rem">"No sirve, no protege nada"</p>
+              </div>
+              <div style="background: rgba(245, 158, 11, 0.1); padding: 1rem; border-radius: 8px; text-align: center">
+                <div style="font-size: 1.5rem; margin-bottom: 0.5rem">⚠️</div>
+                <p style="color: var(--warning-color); font-weight: 700; font-size: 0.9rem">Trampa Común</p>
+                <p style="color: var(--text-secondary); font-size: 0.8rem">Se puede configurar pero no funciona</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Casos de uso prácticos -->
+        <section class="content-section">
+          <h2 class="section-title">
+            <span class="icon">📋</span>
+            Casos de Uso Empresariales
+          </h2>
+
+          <div class="use-cases-grid">
+            <div class="use-case-card">
+              <span class="use-case-icon">🏦</span>
+              <h4
+                style="
+                  color: var(--text-primary);
+                  font-size: 1.2rem;
+                  font-weight: 700;
+                  margin-bottom: 1rem;
+                  text-align: center;
+                "
+              >
+                Sector Financiero
+              </h4>
+              <ul
+                style="
+                  color: var(--text-secondary);
+                  font-size: 0.9rem;
+                  line-height: 1.6;
+                  text-align: left;
+                  padding-left: 1rem;
+                "
+              >
+                <li>🔐 Documentos de compliance con DRM</li>
+                <li>⏰ Informes que caducan en 30 días</li>
+                <li>🚫 Prohibir impresión de estados</li>
+                <li>👥 Acceso solo a equipos autorizados</li>
+              </ul>
+            </div>
+
+            <div class="use-case-card">
+              <span class="use-case-icon">⚖️</span>
+              <h4
+                style="
+                  color: var(--text-primary);
+                  font-size: 1.2rem;
+                  font-weight: 700;
+                  margin-bottom: 1rem;
+                  text-align: center;
+                "
+              >
+                Bufete Legal
+              </h4>
+              <ul
+                style="
+                  color: var(--text-secondary);
+                  font-size: 0.9rem;
+                  line-height: 1.6;
+                  text-align: left;
+                  padding-left: 1rem;
+                "
+              >
+                <li>📄 Contratos con protección DRM</li>
+                <li>🔒 Solo socios pueden acceder</li>
+                <li>⏳ Documentos temporales para revisión</li>
+                <li>🛡️ Protección fuera del bufete</li>
+              </ul>
+            </div>
+
+            <div class="use-case-card">
+              <span class="use-case-icon">🏥</span>
+              <h4
+                style="
+                  color: var(--text-primary);
+                  font-size: 1.2rem;
+                  font-weight: 700;
+                  margin-bottom: 1rem;
+                  text-align: center;
+                "
+              >
+                Sector Salud
+              </h4>
+              <ul
+                style="
+                  color: var(--text-secondary);
+                  font-size: 0.9rem;
+                  line-height: 1.6;
+                  text-align: left;
+                  padding-left: 1rem;
+                "
+              >
+                <li>🩺 Expedientes médicos cifrados</li>
+                <li>👨‍⚕️ Solo personal médico autorizado</li>
+                <li>🚫 Sin impresión de diagnósticos</li>
+                <li>📅 Resultados con caducidad</li>
+              </ul>
+            </div>
+
+            <div class="use-case-card">
+              <span class="use-case-icon">🏭</span>
+              <h4
+                style="
+                  color: var(--text-primary);
+                  font-size: 1.2rem;
+                  font-weight: 700;
+                  margin-bottom: 1rem;
+                  text-align: center;
+                "
+              >
+                I+D Industrial
+              </h4>
+              <ul
+                style="
+                  color: var(--text-secondary);
+                  font-size: 0.9rem;
+                  line-height: 1.6;
+                  text-align: left;
+                  padding-left: 1rem;
+                "
+              >
+                <li>🔬 Protección de patentes</li>
+                <li>👥 Solo equipo de investigación</li>
+                <li>📸 Sin capturas de pantalla</li>
+                <li>🌐 Protección en colaboraciones externas</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- Mejores prácticas -->
+        <section class="content-section">
+          <h2 class="section-title">
+            <span class="icon">🏆</span>
+            Estrategia de Implementación de Confidencialidad
+          </h2>
+
+          <div class="info-box-premium">
+            <h4 style="color: var(--text-primary); font-size: 1.2rem; margin-bottom: 1.5rem">
+              🎯 Marco de Trabajo Recomendado
+            </h4>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem">
+              <div
+                style="
+                  background: rgba(239, 68, 68, 0.1);
+                  padding: 1.5rem;
+                  border-radius: 12px;
+                  border-left: 4px solid var(--danger-color);
+                "
+              >
+                <h5 style="color: var(--danger-color); font-weight: 700; margin-bottom: 0.75rem">
+                  🎫 Licenciamiento Crítico
+                </h5>
+                <ul
+                  style="
+                    color: var(--text-secondary);
+                    font-size: 0.9rem;
+                    line-height: 1.6;
+                    margin: 0;
+                    padding-left: 1rem;
+                  "
+                >
+                  <li>Verificar licencia E3+ antes de configurar</li>
+                  <li>Validar funcionalidad con usuarios piloto</li>
+                  <li>No confiar en visibilidad del panel</li>
+                  <li>Documentar limitaciones sin licencia</li>
+                </ul>
+              </div>
+
+              <div
+                style="
+                  background: rgba(123, 104, 238, 0.1);
+                  padding: 1.5rem;
+                  border-radius: 12px;
+                  border-left: 4px solid var(--purview-color);
+                "
+              >
+                <h5 style="color: var(--purview-color); font-weight: 700; margin-bottom: 0.75rem">
+                  🔐 Implementación Gradual
+                </h5>
+                <ul
+                  style="
+                    color: var(--text-secondary);
+                    font-size: 0.9rem;
+                    line-height: 1.6;
+                    margin: 0;
+                    padding-left: 1rem;
+                  "
+                >
+                  <li>Comenzar con etiquetas básicas</li>
+                  <li>Piloto con departamentos clave</li>
+                  <li>Escalar según adopción</li>
+                  <li>Monitorear uso y efectividad</li>
+                </ul>
+              </div>
+
+              <div
+                style="
+                  background: rgba(255, 107, 107, 0.1);
+                  padding: 1.5rem;
+                  border-radius: 12px;
+                  border-left: 4px solid var(--protection-color);
+                "
+              >
+                <h5 style="color: var(--protection-color); font-weight: 700; margin-bottom: 0.75rem">
+                  🛡️ Protección Granular
+                </h5>
+                <ul
+                  style="
+                    color: var(--text-secondary);
+                    font-size: 0.9rem;
+                    line-height: 1.6;
+                    margin: 0;
+                    padding-left: 1rem;
+                  "
+                >
+                  <li>Definir niveles de confidencialidad</li>
+                  <li>Configurar DRM según necesidad</li>
+                  <li>Establecer caducidades apropiadas</li>
+                  <li>Entrenar usuarios en etiquetado</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Conclusión -->
+        <section class="content-section">
+          <div
+            style="
+              background: linear-gradient(135deg, var(--purview-color), var(--primary-dark));
+              border-radius: 20px;
+              padding: 2.5rem;
+              text-align: center;
+              margin-top: 3rem;
+              position: relative;
+              overflow: hidden;
+              box-shadow: 0 16px 48px var(--accent-glow);
+            "
+          >
+            <div
+              style="
+                position: absolute;
+                top: -50px;
+                right: -50px;
+                width: 200px;
+                height: 200px;
+                background: radial-gradient(circle, rgba(255, 255, 255, 0.1), transparent);
+                opacity: 0.5;
+              "
+            ></div>
+            <div style="position: relative; z-index: 1">
+              <div style="font-size: 3.5rem; margin-bottom: 1rem">🔒</div>
+              <h3 style="color: white; font-size: 1.8rem; font-weight: 700; margin-bottom: 1rem">
+                Confidencialidad = Protección Granular + DRM Inteligente
+              </h3>
+              <p
+                style="
+                  color: rgba(255, 255, 255, 0.9);
+                  font-size: 1.1rem;
+                  max-width: 700px;
+                  margin: 0 auto;
+                  line-height: 1.8;
+                "
+              >
+                Las etiquetas de confidencialidad trascienden los permisos tradicionales, proporcionando protección
+                persistente y control granular de datos sensibles.
+              </p>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <!-- Script de navegación automática -->
+    <script src="../js/back-button.js"></script>
+  </body>
+</html>
