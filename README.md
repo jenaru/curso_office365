@@ -2,7 +2,26 @@
 
 > **Plataforma web profesional para aprendizaje de administración Microsoft 365**
 
+## 🌐 **Sitio Web en Vivo**
+
+### 🚀 **Acceso Directo**
+**🌍 [Ver Curso Online](https://jenaru.github.io/curso_office365/)** - Acceso inmediato al curso completo
+
+### 📖 **Manual Completo Disponible**
+- **📱 [Manual HTML](https://jenaru.github.io/curso_office365/HTML/manual.html)** - Versión web interactiva
+- **📄 [Descargar PDF](https://jenaru.github.io/curso_office365/HTML/manualOfficce365.pdf)** - Manual completo (655 KB)
+
+### ✨ **Características del Sitio**
+- ✅ **Acceso instantáneo** - Sin instalación requerida
+- ✅ **Totalmente responsive** - Funciona en móviles y escritorio  
+- ✅ **Manual integrado** - PDF y HTML disponibles
+- ✅ **Navegación inteligente** - Filtros por categorías
+- ✅ **Despliegue automático** - Actualizado con cada commit
+
+---
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-🌐%20Live-brightgreen)](https://jenaru.github.io/curso_office365/)
 [![HTML5](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML)
 [![CSS3](https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
 [![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
@@ -179,14 +198,29 @@ npm run build
 
 ## 🌐 Deploy y Hosting
 
-### GitHub Pages
+### 🚀 GitHub Pages (Activo)
+
+**📍 Sitio Web**: https://jenaru.github.io/curso_office365/
 
 ```bash
-# El proyecto está listo para GitHub Pages
-# Solo activa Pages apuntando a la rama main
+# Despliegue automático configurado
+# Cada push a 'master' actualiza el sitio automáticamente
+git push origin master
 ```
 
-### Netlify
+**🔧 Configuración GitHub Pages:**
+- ✅ **Fuente**: GitHub Actions (automático)
+- ✅ **Directorio**: Toda la estructura del proyecto
+- ✅ **Redirección**: Index automático a `/HTML/`
+- ✅ **SSL**: Habilitado por defecto
+- ✅ **CDN**: GitHub Global CDN
+
+**📋 Workflow Automático:**
+- 📤 Push a master → 🔄 GitHub Actions → 🌐 Deploy automático
+- ⏱️ Tiempo de despliegue: ~2-3 minutos
+- 🔄 Actualización en tiempo real del sitio
+
+### 🛠️ Otras Opciones de Deploy Netlify
 
 ```bash
 npm run build
